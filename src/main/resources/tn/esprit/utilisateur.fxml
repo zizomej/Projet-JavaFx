@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="700.0" prefWidth="1200.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.MainController">
+    
+    <!-- LEFT SIDEBAR -->
+    <left>
+        <VBox prefWidth="250.0" styleClass="sidebar" BorderPane.alignment="CENTER">
+            <!-- Logo area -->
+            <VBox alignment="CENTER" prefHeight="100.0">
+                <Label text="LearnHub" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="24.0" />
+                    </font>
+                </Label>
+            </VBox>
+            
+            <!-- Navigation Menu -->
+            <VBox spacing="5.0" VBox.vgrow="ALWAYS">
+                <Button maxWidth="Infinity" styleClass="sidebar-btn" text="Dashboard" onAction="#goToDashboard" />
+                <Button maxWidth="Infinity" styleClass="sidebar-btn, sidebar-btn-active" text="Utilisateurs" />
+                <Button maxWidth="Infinity" styleClass="sidebar-btn" text="Universités" onAction="#goToUniversites" />
+                <Button maxWidth="Infinity" styleClass="sidebar-btn" text="Filières" />
+                <Button maxWidth="Infinity" styleClass="sidebar-btn" text="Modules" />
+                <Button maxWidth="Infinity" styleClass="sidebar-btn" text="Séances" />
+                <Button maxWidth="Infinity" styleClass="sidebar-btn" text="Notes" />
+                <Button maxWidth="Infinity" styleClass="sidebar-btn" text="Offres de Stage" />
+                <Button maxWidth="Infinity" styleClass="sidebar-btn" text="Demandes de Stage" />
+                <Button maxWidth="Infinity" styleClass="sidebar-btn" text="Partenaires" />
+                <Button maxWidth="Infinity" styleClass="sidebar-btn" text="RDV Médicaux" />
+            </VBox>
+            
+            <!-- User Profile Area at bottom -->
+            <VBox alignment="CENTER" prefHeight="120.0" spacing="10.0" style="-fx-background-color: #151a2b; -fx-padding: 10.0;">
+                <HBox alignment="CENTER_LEFT" spacing="10.0" style="-fx-padding: 0 0 0 10;">
+                    <StackPane>
+                        <Circle fill="#ff9800" radius="18.0" />
+                        <Label text="AD" textFill="WHITE" style="-fx-font-weight: bold;"/>
+                    </StackPane>
+                    <VBox alignment="CENTER_LEFT">
+                        <Label text="Admin Principal" textFill="WHITE" style="-fx-font-weight: bold; -fx-font-size: 13px;"/>
+                        <Label text="admin@learnhub.tn" textFill="#a0aabf" style="-fx-font-size: 11px;"/>
+                    </VBox>
+                </HBox>
+                <Button text="Déconnexion" maxWidth="Infinity" style="-fx-background-color: #293047; -fx-text-fill: white; -fx-background-radius: 5; margin: 10;" />
+            </VBox>
+        </VBox>
+    </left>
+    
+    <!-- MAIN CONTENT AREA -->
+    <center>
+        <ScrollPane fitToWidth="true" style="-fx-background-color: #f4f5f7; -fx-border-color: transparent;">
+            <VBox spacing="20.0" style="-fx-background-color: #f4f5f7; -fx-padding: 20 30 20 30;">
+                
+                <!-- Top Header -->
+                <HBox alignment="CENTER_LEFT" spacing="20.0">
+                    <VBox>
+                        <Label text="Gestion des Utilisateurs" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #1a2238;" />
+                        <Label text="Gestion centrale du système" textFill="#7a7a7a" />
+                    </VBox>
+                    <Pane HBox.hgrow="ALWAYS" />
+                    <TextField promptText="Rechercher..." prefWidth="250.0" styleClass="search-field" />
+                    <!-- Notification Bell (Simulated) -->
+                    <StackPane>
+                        <Circle fill="WHITE" radius="18.0" style="-fx-stroke: #e0e0e0;" />
+                        <Label text="🔔" />
+                        <Circle fill="RED" radius="5.0" StackPane.alignment="TOP_RIGHT" />
+                    </StackPane>
+                    <!-- Settings -->
+                    <StackPane>
+                        <Circle fill="WHITE" radius="18.0" style="-fx-stroke: #e0e0e0;" />
+                        <Label text="⚙" />
+                    </StackPane>
+                </HBox>
+                
+                <!-- Purple Banner -->
+                <HBox alignment="CENTER_LEFT" styleClass="purple-banner" style="-fx-padding: 30 30 30 30;">
+                    <VBox spacing="5.0">
+                        <Label text="Gestion des Utilisateurs" textFill="WHITE" style="-fx-font-size: 24px; -fx-font-weight: bold;" />
+                        <Label text="Gestion centrale du système" textFill="#e0e0e0" />
+                    </VBox>
+                    <Pane HBox.hgrow="ALWAYS" />
+                    <Button text="+ Ajouter un utilisateur" onAction="#openAddUserDialog" styleClass="btn-yellow" />
+                </HBox>
+                
+                <!-- Statistic Cards -->
+                <HBox spacing="20.0">
+                    <VBox alignment="CENTER" HBox.hgrow="ALWAYS" styleClass="card-blue" spacing="5.0" prefHeight="100.0">
+                        <Label text="🎓" textFill="WHITE" style="-fx-font-size: 24px;"/>
+                        <Label fx:id="lblCountEtudiants" text="0" styleClass="stat-num" />
+                        <Label text="Étudiants" styleClass="stat-text" />
+                    </VBox>
+                    <VBox alignment="CENTER" HBox.hgrow="ALWAYS" styleClass="card-green" spacing="5.0" prefHeight="100.0">
+                         <Label text="👨‍🏫" textFill="WHITE" style="-fx-font-size: 24px;"/>
+                        <Label fx:id="lblCountProfs" text="0" styleClass="stat-num" />
+                        <Label text="Professeurs" styleClass="stat-text" />
+                    </VBox>
+                    <VBox alignment="CENTER" HBox.hgrow="ALWAYS" styleClass="card-red" spacing="5.0" prefHeight="100.0">
+                        <Label text="⚕" textFill="WHITE" style="-fx-font-size: 24px;"/>
+                        <Label fx:id="lblCountMedecins" text="0" styleClass="stat-num" />
+                        <Label text="Médecins" styleClass="stat-text" />
+                    </VBox>
+                    <VBox alignment="CENTER" HBox.hgrow="ALWAYS" styleClass="card-orange" spacing="5.0" prefHeight="100.0">
+                        <Label text="👤" textFill="WHITE" style="-fx-font-size: 24px;"/>
+                        <Label fx:id="lblCountAdmins" text="0" styleClass="stat-num" />
+                        <Label text="Administrateurs" styleClass="stat-text" />
+                    </VBox>
+                    <VBox alignment="CENTER" HBox.hgrow="ALWAYS" styleClass="card-teal" spacing="5.0" prefHeight="100.0">
+                        <Label text="👪" textFill="WHITE" style="-fx-font-size: 24px;"/>
+                        <Label fx:id="lblCountParents" text="0" styleClass="stat-num" />
+                        <Label text="Parents" styleClass="stat-text" />
+                    </VBox>
+                </HBox>
+                
+                <!-- Filters Section -->
+                <HBox spacing="10.0" alignment="CENTER_LEFT" style="-fx-background-color: #f0f0fa; -fx-padding: 15; -fx-background-radius: 8;">
+                    <TextField fx:id="tfSearchFilter" promptText="🔍 Rechercher par nom, email, CIN..." prefWidth="250.0" style="-fx-background-color: white; -fx-padding: 8;" />
+                    <ComboBox fx:id="cbRoleFilter" promptText="Tous les rôles" prefWidth="180.0" styleClass="combo-box-custom" />
+                    <ComboBox fx:id="cbStatusFilter" promptText="Tous les statuts" prefWidth="180.0" styleClass="combo-box-custom" />
+                    <Button text="Filtrer" onAction="#applyFilters" styleClass="btn-primary" />
+                    <Button text="Réinitialiser" onAction="#resetFilters" styleClass="btn-white" />
+                </HBox>
+                
+                <!-- Table Section -->
+                <VBox spacing="10.0" style="-fx-background-color: white; -fx-padding: 20; -fx-background-radius: 10; -fx-border-color: #e0e0e0; -fx-border-radius: 10;">
+                    <HBox alignment="CENTER_LEFT">
+                        <VBox>
+                            <Label text="Liste des utilisateurs" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #8338ec;" />
+                            <Label fx:id="lblTotalUsers" text="0 utilisateurs" textFill="#888888" style="-fx-font-size: 12px;"/>
+                        </VBox>
+                    </HBox>
+                    
+                    <TableView fx:id="tableView" VBox.vgrow="ALWAYS" styleClass="table-view" prefHeight="400.0">
+                        <columns>
+                            <TableColumn fx:id="colPhoto" text="Photo" prefWidth="70.0" style="-fx-alignment: CENTER;"/>
+                            <TableColumn fx:id="colNomComplet" text="Nom complet" prefWidth="150.0" />
+                            <TableColumn fx:id="colEmail" text="Email" prefWidth="180.0" />
+                            <TableColumn fx:id="colCin" text="CIN" prefWidth="90.0" style="-fx-alignment: CENTER;" />
+                            <TableColumn fx:id="colRole" text="Rôle" prefWidth="100.0" style="-fx-alignment: CENTER;" />
+                            <TableColumn fx:id="colTelephone" text="Téléphone" prefWidth="120.0" style="-fx-alignment: CENTER;" />
+                            <TableColumn fx:id="colDate" text="Inscription" prefWidth="100.0" style="-fx-alignment: CENTER;" />
+                            <TableColumn fx:id="colStatut" text="Statut" prefWidth="90.0" style="-fx-alignment: CENTER;" />
+                            <TableColumn fx:id="colActions" text="Actions" prefWidth="120.0" style="-fx-alignment: CENTER;" />
+                        </columns>
+                    </TableView>
+                </VBox>
+                
+            </VBox>
+        </ScrollPane>
+    </center>
+    
+</BorderPane>

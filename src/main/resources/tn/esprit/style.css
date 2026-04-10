@@ -1,0 +1,398 @@
+.sidebar {
+    -fx-background-color: #1a2238;
+}
+
+.sidebar-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #a0aabf;
+    -fx-alignment: center-left;
+    -fx-padding: 12 20 12 30;
+    -fx-font-size: 14px;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+    -fx-cursor: hand;
+}
+
+.sidebar-btn:hover {
+    -fx-background-color: #293047;
+    -fx-text-fill: white;
+}
+
+.sidebar-btn-active {
+    -fx-background-color: #ff7c30;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.purple-banner {
+    -fx-background-color: #8338ec;
+    -fx-background-radius: 10;
+}
+
+.card-blue {
+    -fx-background-color: #2b5c9c;
+    -fx-background-radius: 10;
+    -fx-padding: 20;
+}
+
+.card-green {
+    -fx-background-color: #0bb177;
+    -fx-background-radius: 10;
+    -fx-padding: 20;
+}
+
+.card-red {
+    -fx-background-color: #ef3c42;
+    -fx-background-radius: 10;
+    -fx-padding: 20;
+}
+
+.card-orange {
+    -fx-background-color: #f7941d;
+    -fx-background-radius: 10;
+    -fx-padding: 20;
+}
+
+.card-teal {
+    -fx-background-color: #00bcd4;
+    -fx-background-radius: 10;
+    -fx-padding: 20;
+}
+
+.stat-num {
+    -fx-text-fill: white;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+}
+.stat-text {
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+}
+
+.table-view {
+    -fx-background-color: white;
+    -fx-border-color: #e6e6e6;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #8338ec;
+    -fx-background-radius: 8 8 0 0;
+}
+
+.table-view .column-header, .table-view .filler {
+    -fx-background-color: transparent;
+    -fx-size: 45;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+    -fx-padding: 0 0 0 10;
+}
+
+.table-row-cell {
+    -fx-cell-size: 55;
+    -fx-border-color: #f1f1f1;
+    -fx-border-width: 0 0 1 0;
+}
+
+.table-row-cell:hover {
+    -fx-background-color: #f9f9fa;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #ececff;
+}
+
+.btn-primary {
+    -fx-background-color: #1a2238;
+    -fx-text-fill: white;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+    -fx-font-weight: bold;
+    -fx-padding: 8 20;
+}
+
+.btn-primary:hover {
+    -fx-background-color: #293047;
+}
+
+.btn-yellow {
+    -fx-background-color: #ffc107;
+    -fx-text-fill: #333;
+    -fx-background-radius: 5;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-padding: 10 20;
+}
+
+.btn-yellow:hover {
+    -fx-background-color: #e0a800;
+}
+
+.btn-white {
+    -fx-background-color: white;
+    -fx-text-fill: #333;
+    -fx-border-color: #ccc;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+    -fx-padding: 8 20;
+}
+
+.btn-white:hover {
+    -fx-background-color: #f2f2f2;
+}
+
+/* Badges for roles */
+.badge-etudiant {
+    -fx-background-color: #e3f2fd;
+    -fx-text-fill: #1976d2;
+    -fx-background-radius: 12;
+    -fx-padding: 4 10;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+}
+.badge-admin {
+    -fx-background-color: #fff3e0;
+    -fx-text-fill: #f57c00;
+    -fx-background-radius: 12;
+    -fx-padding: 4 10;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+}
+.badge-prof {
+    -fx-background-color: #e8f5e9;
+    -fx-text-fill: #388e3c;
+    -fx-background-radius: 12;
+    -fx-padding: 4 10;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+}
+
+/* User avatar */
+.avatar-circle {
+    -fx-background-color: #2196f3;
+    -fx-text-fill: white;
+    -fx-background-radius: 50;
+    -fx-font-weight: bold;
+}
+
+.search-field {
+    -fx-background-color: white;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+    -fx-padding: 5 15;
+}
+
+.combo-box-custom {
+    -fx-background-color: white;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 5;
+    -fx-padding: 2;
+}
+
+.green-banner {
+    -fx-background-color: #0bb177;
+    -fx-background-radius: 10;
+}
+
+.badge-publique {
+    -fx-background-color: #e3f2fd;
+    -fx-text-fill: #1a56db;
+    -fx-background-radius: 12;
+    -fx-padding: 4 10;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+}
+
+.badge-privee {
+    -fx-background-color: #fff3e0;
+    -fx-text-fill: #f7941d;
+    -fx-background-radius: 12;
+    -fx-padding: 4 10;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+}
+
+.table-view-green {
+    -fx-background-color: white;
+    -fx-border-color: #e6e6e6;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+}
+
+.table-view-green .column-header-background {
+    -fx-background-color: #0bb177;
+    -fx-background-radius: 8 8 0 0;
+}
+
+.table-view-green .column-header, .table-view-green .filler {
+    -fx-background-color: transparent;
+    -fx-size: 45;
+}
+
+.table-view-green .column-header .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+    -fx-padding: 0 0 0 10;
+}
+
+/* Dashboard Specific Styles */
+.dashboard-card {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-padding: 20;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 10, 0, 0, 5);
+}
+
+.subcard-green {
+    -fx-background-color: #e8f5e9;
+    -fx-background-radius: 8;
+    -fx-padding: 10;
+}
+.subcard-red {
+    -fx-background-color: #ffebee;
+    -fx-background-radius: 8;
+    -fx-padding: 10;
+}
+.subcard-yellow {
+    -fx-background-color: #fff3e0;
+    -fx-background-radius: 8;
+    -fx-padding: 10;
+}
+.subcard-blue {
+    -fx-background-color: #e3f2fd;
+    -fx-background-radius: 8;
+    -fx-padding: 10;
+}
+
+.donut-circle {
+    -fx-stroke: #0bb177;
+    -fx-stroke-width: 15;
+    -fx-stroke-linecap: round;
+    -fx-fill: transparent;
+}
+
+.progress-bar-green .bar { -fx-background-color: #0bb177; -fx-background-radius: 5; }
+.progress-bar-green .track { -fx-background-color: #f0f0f0; -fx-background-radius: 5; }
+
+.progress-bar-blue .bar { -fx-background-color: #1a56db; -fx-background-radius: 5; }
+.progress-bar-blue .track { -fx-background-color: #f0f0f0; -fx-background-radius: 5; }
+
+.progress-bar-red .bar { -fx-background-color: #ef3c42; -fx-background-radius: 5; }
+.progress-bar-red .track { -fx-background-color: #f0f0f0; -fx-background-radius: 5; }
+
+.quick-access-btn {
+    -fx-background-color: white;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-cursor: hand;
+    -fx-padding: 20 10;
+    -fx-alignment: center;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.02), 5, 0, 0, 2);
+}
+
+.quick-access-btn:hover {
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 4);
+    -fx-translate-y: -2;
+}
+
+/* Authentication - Glassmorphism */
+.glass-pane {
+    -fx-background-color: rgba(255, 255, 255, 0.15);
+    -fx-background-radius: 15;
+    -fx-border-color: rgba(255, 255, 255, 0.2);
+    -fx-border-width: 1;
+    -fx-border-radius: 15;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 15, 0, 0, 10);
+    -fx-padding: 40;
+}
+
+.auth-title {
+    -fx-text-fill: #ffc107;
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+}
+.auth-subtitle {
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
+}
+.auth-label {
+    -fx-text-fill: white;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+}
+
+.auth-field {
+    -fx-background-color: rgba(255, 255, 255, 0.3);
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: #e0e0e0;
+    -fx-background-radius: 5;
+    -fx-padding: 8 10;
+    -fx-border-color: transparent;
+}
+.auth-field:focused {
+    -fx-background-color: rgba(255, 255, 255, 0.4);
+    -fx-border-color: rgba(255, 255, 255, 0.8);
+    -fx-border-radius: 5;
+}
+
+.btn-auth-purple {
+    -fx-background-color: #6C3CE9;
+    -fx-text-fill: white;
+    -fx-background-radius: 5;
+    -fx-font-weight: bold;
+    -fx-padding: 10;
+    -fx-cursor: hand;
+}
+.btn-auth-purple:hover {
+    -fx-background-color: #552bb8;
+}
+
+.btn-auth-blue {
+    -fx-background-color: #3b82f6;
+    -fx-text-fill: white;
+    -fx-background-radius: 5;
+    -fx-font-weight: bold;
+    -fx-padding: 10;
+    -fx-cursor: hand;
+}
+.btn-auth-blue:hover {
+    -fx-background-color: #2563eb;
+}
+
+.btn-auth-link {
+    -fx-background-color: transparent;
+    -fx-text-fill: #ffc107;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-padding: 0;
+}
+.btn-auth-link:hover {
+    -fx-underline: true;
+}
+
+/* Role buttons grid */
+.role-box {
+    -fx-background-color: rgba(255, 255, 255, 0.2);
+    -fx-background-radius: 8;
+    -fx-border-color: transparent;
+    -fx-border-radius: 8;
+    -fx-border-width: 2;
+    -fx-padding: 15;
+    -fx-cursor: hand;
+}
+.role-box:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.3);
+}
+.role-box-selected {
+    -fx-border-color: #ffc107;
+    -fx-background-color: rgba(255, 193, 7, 0.2);
+}

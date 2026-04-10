@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="700.0" prefWidth="1200.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.UniversiteController">
+    
+    <!-- LEFT SIDEBAR -->
+    <left>
+        <VBox prefWidth="250.0" styleClass="sidebar" BorderPane.alignment="CENTER">
+            <!-- Logo area -->
+            <VBox alignment="CENTER" prefHeight="100.0">
+                <Label text="LearnHub" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="24.0" />
+                    </font>
+                </Label>
+            </VBox>
+            
+            <!-- Navigation Menu -->
+            <VBox spacing="5.0" VBox.vgrow="ALWAYS">
+                <Button maxWidth="Infinity" styleClass="sidebar-btn" text="Dashboard" onAction="#goToDashboard" />
+                <Button maxWidth="Infinity" styleClass="sidebar-btn" text="Utilisateurs" onAction="#goToUtilisateurs" />
+                <Button maxWidth="Infinity" styleClass="sidebar-btn, sidebar-btn-active" text="Universités" />
+                <Button maxWidth="Infinity" styleClass="sidebar-btn" text="Filières" />
+                <Button maxWidth="Infinity" styleClass="sidebar-btn" text="Modules" />
+                <Button maxWidth="Infinity" styleClass="sidebar-btn" text="Séances" />
+                <Button maxWidth="Infinity" styleClass="sidebar-btn" text="Notes" />
+                <Button maxWidth="Infinity" styleClass="sidebar-btn" text="Offres de Stage" />
+                <Button maxWidth="Infinity" styleClass="sidebar-btn" text="Demandes de Stage" />
+                <Button maxWidth="Infinity" styleClass="sidebar-btn" text="Partenaires" />
+                <Button maxWidth="Infinity" styleClass="sidebar-btn" text="RDV Médicaux" />
+            </VBox>
+            
+            <!-- User Profile Area at bottom -->
+            <VBox alignment="CENTER" prefHeight="120.0" spacing="10.0" style="-fx-background-color: #151a2b; -fx-padding: 10;">
+                <HBox alignment="CENTER_LEFT" spacing="10.0" style="-fx-padding: 0 0 0 10;">
+                    <StackPane>
+                        <Circle fill="#ff9800" radius="18.0" />
+                        <Label text="AD" textFill="WHITE" style="-fx-font-weight: bold;"/>
+                    </StackPane>
+                    <VBox alignment="CENTER_LEFT">
+                        <Label text="Admin Principal" textFill="WHITE" style="-fx-font-weight: bold; -fx-font-size: 13px;"/>
+                        <Label text="admin@learnhub.tn" textFill="#a0aabf" style="-fx-font-size: 11px;"/>
+                    </VBox>
+                </HBox>
+                <Button text="Déconnexion" maxWidth="Infinity" style="-fx-background-color: #293047; -fx-text-fill: white; -fx-background-radius: 5; margin: 10;" />
+            </VBox>
+        </VBox>
+    </left>
+    
+    <!-- MAIN CONTENT AREA -->
+    <center>
+        <ScrollPane fitToWidth="true" style="-fx-background-color: #f4f5f7; -fx-border-color: transparent;">
+            <VBox spacing="20.0" style="-fx-background-color: #f4f5f7; -fx-padding: 20 30 20 30;">
+                
+                <!-- Top Header -->
+                <HBox alignment="CENTER_LEFT" spacing="20.0">
+                    <VBox>
+                        <Label text="🏫 Gestion des Universités" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #1a2238;" />
+                        <Label text="Gérer les établissements universitaires" textFill="#7a7a7a" />
+                    </VBox>
+                    <Pane HBox.hgrow="ALWAYS" />
+                    <TextField promptText="Rechercher..." prefWidth="250.0" styleClass="search-field" />
+                    <!-- Notification Bell (Simulated) -->
+                    <StackPane>
+                        <Circle fill="WHITE" radius="18.0" style="-fx-stroke: #e0e0e0;" />
+                        <Label text="🔔" />
+                        <Circle fill="RED" radius="5.0" StackPane.alignment="TOP_RIGHT" />
+                    </StackPane>
+                    <!-- Settings -->
+                    <StackPane>
+                        <Circle fill="WHITE" radius="18.0" style="-fx-stroke: #e0e0e0;" />
+                        <Label text="⚙" />
+                    </StackPane>
+                </HBox>
+                
+                <!-- Green Banner -->
+                <HBox alignment="CENTER_LEFT" styleClass="green-banner" style="-fx-padding: 30 30 30 30;">
+                    <VBox spacing="5.0">
+                        <Label text="🏫 Gestion des Universités" textFill="WHITE" style="-fx-font-size: 24px; -fx-font-weight: bold;" />
+                        <Label text="Gérer les établissements universitaires" textFill="#e0e0e0" />
+                    </VBox>
+                    <Pane HBox.hgrow="ALWAYS" />
+                    <Button text="+ Ajouter une université" onAction="#openAddDialog" styleClass="btn-yellow" />
+                </HBox>
+                
+                <!-- Statistic Cards -->
+                <HBox spacing="20.0">
+                    <VBox alignment="CENTER" HBox.hgrow="ALWAYS" styleClass="card-blue" spacing="5.0" prefHeight="100.0">
+                        <Label text="🏛" textFill="WHITE" style="-fx-font-size: 24px;"/>
+                        <Label fx:id="lblCountPubliques" text="0" styleClass="stat-num" />
+                        <Label text="Universités Publiques" styleClass="stat-text" />
+                    </VBox>
+                    <VBox alignment="CENTER" HBox.hgrow="ALWAYS" styleClass="card-orange" spacing="5.0" prefHeight="100.0">
+                         <Label text="🏨" textFill="WHITE" style="-fx-font-size: 24px;"/>
+                        <Label fx:id="lblCountPrivees" text="0" styleClass="stat-num" />
+                        <Label text="Universités Privées" styleClass="stat-text" />
+                    </VBox>
+                    <VBox alignment="CENTER" HBox.hgrow="ALWAYS" styleClass="card-green" spacing="5.0" prefHeight="100.0">
+                        <Label text="🏫" textFill="WHITE" style="-fx-font-size: 24px;"/>
+                        <Label fx:id="lblCountTotal" text="0" styleClass="stat-num" />
+                        <Label text="Total" styleClass="stat-text" />
+                    </VBox>
+                </HBox>
+                
+                <!-- Filters Section -->
+                <HBox spacing="10.0" alignment="CENTER_LEFT" style="-fx-background-color: #f0f0fa; -fx-padding: 15; -fx-background-radius: 8;">
+                    <TextField fx:id="tfSearchFilter" promptText="Rechercher une université (nom, ville, email)..." prefWidth="350.0" style="-fx-background-color: white; -fx-padding: 8;" />
+                    <ComboBox fx:id="cbTypeFilter" promptText="Tous les types" prefWidth="200.0" styleClass="combo-box-custom" />
+                    <Button text="🔍 Rechercher" onAction="#applyFilters" styleClass="btn-primary" />
+                </HBox>
+                
+                <!-- Table Section -->
+                <VBox spacing="10.0" style="-fx-background-color: white; -fx-padding: 20; -fx-background-radius: 10; -fx-border-color: #e0e0e0; -fx-border-radius: 10;">
+                    <HBox alignment="CENTER_LEFT">
+                        <VBox>
+                            <Label text="📋 Liste des universités" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #0bb177;" />
+                            <Label fx:id="lblTotalUniversites" text="0 établissements" textFill="#888888" style="-fx-font-size: 12px;"/>
+                        </VBox>
+                    </HBox>
+                    
+                    <TableView fx:id="tableView" VBox.vgrow="ALWAYS" styleClass="table-view-green" prefHeight="350.0">
+                        <columns>
+                            <TableColumn fx:id="colNom" text="Nom de l'université" prefWidth="250.0" />
+                            <TableColumn fx:id="colType" text="Type" prefWidth="120.0" style="-fx-alignment: CENTER;" />
+                            <TableColumn fx:id="colVille" text="Ville" prefWidth="150.0" style="-fx-alignment: CENTER;" />
+                            <TableColumn fx:id="colTelephone" text="Téléphone" prefWidth="120.0" style="-fx-alignment: CENTER;" />
+                            <TableColumn fx:id="colEmail" text="Email" prefWidth="180.0" style="-fx-alignment: CENTER;"/>
+                            <TableColumn fx:id="colFilieres" text="Filières" prefWidth="80.0" style="-fx-alignment: CENTER;" />
+                            <TableColumn fx:id="colActions" text="Actions" prefWidth="120.0" style="-fx-alignment: CENTER;" />
+                        </columns>
+                    </TableView>
+                </VBox>
+                
+            </VBox>
+        </ScrollPane>
+    </center>
+    
+</BorderPane>
