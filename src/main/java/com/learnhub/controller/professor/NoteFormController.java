@@ -37,6 +37,26 @@ public class NoteFormController {
     public void initialize() {
         cbTypeNote.getItems().addAll("DS1", "DS2", "DS3", "TP1", "TP2", "TP3", "PROJET", "EXAMEN", "CC");
 
+        // Contrôle de saisie en temps réel pour empêcher les caractères non numériques
+        tfValeur.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null && !newValue.matches("\\d*([\\.,]\\d*)?")) {
+                tfValeur.setText(oldValue);
+            }
+        });
+
+        tfCoefficient.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null && !newValue.matches("\\d*([\\.,]\\d*)?")) {
+                tfCoefficient.setText(oldValue);
+            }
+        });
+
+        // Enlever l'erreur si l'utilisateur saisit quelque chose
+        tfValeur.textProperty().addListener((obs, old, newVal) -> clearError(tfValeur));
+        tfCoefficient.textProperty().addListener((obs, old, newVal) -> clearError(tfCoefficient));
+        cbModule.valueProperty().addListener((obs, old, newVal) -> clearError(cbModule));
+        cbEtudiant.valueProperty().addListener((obs, old, newVal) -> clearError(cbEtudiant));
+        cbTypeNote.valueProperty().addListener((obs, old, newVal) -> clearError(cbTypeNote));
+
         try {
             Utilisateur currentUser = SessionManager.getInstance().getCurrentUser();
             int profId = currentUser != null ? currentUser.getId() : 0;
@@ -83,6 +103,52 @@ public class NoteFormController {
         this.onSuccess = onSuccess;
     }
 
+    private void showError(javafx.scene.Node node, String message) {
+        javafx.scene.layout.Pane parent = (javafx.scene.layout.Pane) node.getParent();
+        javafx.scene.layout.Pane targetParent = parent;
+        
+        if (parent instanceof javafx.scene.layout.HBox && parent.getParent() instanceof javafx.scene.layout.VBox) {
+            targetParent = (javafx.scene.layout.Pane) parent.getParent();
+            if (!parent.getStyle().contains("#ef4444")) {
+                parent.setStyle(parent.getStyle() + "; -fx-border-color: #ef4444; -fx-border-width: 1px;");
+            }
+        } else {
+            if (!node.getStyle().contains("#ef4444")) {
+                node.setStyle(node.getStyle() + "; -fx-border-color: #ef4444; -fx-border-width: 1px;");
+            }
+        }
+        
+        Label errorLabel = new Label("• " + message);
+        errorLabel.setStyle("-fx-text-fill: #ef4444; -fx-font-size: 11px;");
+        errorLabel.getStyleClass().add("error-label");
+        targetParent.getChildren().add(errorLabel);
+    }
+
+    private void clearError(javafx.scene.Node node) {
+        javafx.scene.layout.Pane parent = (javafx.scene.layout.Pane) node.getParent();
+        javafx.scene.layout.Pane targetParent = parent;
+        
+        if (parent instanceof javafx.scene.layout.HBox && parent.getParent() instanceof javafx.scene.layout.VBox) {
+            targetParent = (javafx.scene.layout.Pane) parent.getParent();
+            if (parent.getStyle().contains("#ef4444")) {
+                parent.setStyle(parent.getStyle().replace("; -fx-border-color: #ef4444; -fx-border-width: 1px;", ""));
+            }
+        } else {
+            if (node.getStyle().contains("#ef4444")) {
+                node.setStyle(node.getStyle().replace("; -fx-border-color: #ef4444; -fx-border-width: 1px;", ""));
+            }
+        }
+        
+        targetParent.getChildren().removeIf(n -> n instanceof Label && n.getStyleClass().contains("error-label"));
+    }
+
+    private void clearAllErrors() {
+        Control[] controls = {cbModule, cbEtudiant, cbTypeNote, tfValeur, tfCoefficient};
+        for (Control c : controls) {
+            clearError(c);
+        }
+    }
+
     @FXML
     private void handleClose() {
         Stage stage = (Stage) tfValeur.getScene().getWindow();
@@ -91,25 +157,29 @@ public class NoteFormController {
 
     @FXML
     private void handleSave() {
-        if (cbModule.getValue() == null || cbEtudiant.getValue() == null ||
-            cbTypeNote.getValue() == null || tfValeur.getText().isEmpty() ||
-            tfCoefficient.getText().isEmpty()) {
-            
-            Alert alert = new Alert(Alert.AlertType.WARNING, "Veuillez remplir tous les champs obligatoires.");
-            alert.show();
+        clearAllErrors();
+        boolean hasError = false;
+
+        if (cbModule.getValue() == null) { showError(cbModule, "Veuillez sélectionner un module."); hasError = true; }
+        if (cbEtudiant.getValue() == null) { showError(cbEtudiant, "Veuillez sélectionner un étudiant."); hasError = true; }
+        if (cbTypeNote.getValue() == null) { showError(cbTypeNote, "Le type de note est obligatoire."); hasError = true; }
+        if (tfValeur.getText() == null || tfValeur.getText().trim().isEmpty()) { showError(tfValeur, "La note est obligatoire."); hasError = true; }
+        if (tfCoefficient.getText() == null || tfCoefficient.getText().trim().isEmpty()) { showError(tfCoefficient, "Le coefficient est obligatoire."); hasError = true; }
+        
+        if (hasError) {
             return;
         }
 
         try {
             double valeur = Double.parseDouble(tfValeur.getText().replace(",", "."));
             if (valeur < 0 || valeur > 20) {
-                new Alert(Alert.AlertType.WARNING, "La note doit être comprise entre 0 et 20.").show();
+                showError(tfValeur, "La note doit être comprise entre 0 et 20.");
                 return;
             }
 
             double coefficient = Double.parseDouble(tfCoefficient.getText().replace(",", "."));
             if (coefficient < 0.5 || coefficient > 10) {
-                new Alert(Alert.AlertType.WARNING, "Le coefficient doit être compris entre 0.5 et 10.").show();
+                showError(tfCoefficient, "Le coefficient doit être compris entre 0.5 et 10.");
                 return;
             }
 

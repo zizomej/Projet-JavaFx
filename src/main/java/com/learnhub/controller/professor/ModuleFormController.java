@@ -28,6 +28,19 @@ public class ModuleFormController {
 
     @FXML
     public void initialize() {
+        // Contrôle de saisie en temps réel : n'autoriser que des chiffres pour Semestre et Crédits
+        tfSemestre.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null && !newValue.matches("\\d*")) {
+                tfSemestre.setText(oldValue);
+            }
+        });
+
+        tfCredits.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null && !newValue.matches("\\d*")) {
+                tfCredits.setText(oldValue);
+            }
+        });
+
         try {
             filiereList = filiereDAO.findAll();
             for (com.learnhub.models.Filiere f : filiereList) {
@@ -46,6 +59,15 @@ public class ModuleFormController {
             for (com.learnhub.models.Utilisateur p : professeurList) {
                 cbResponsable.getItems().add("Prof. " + p.getNom() + " " + p.getPrenom());
             }
+
+            // Enlever l'erreur si l'utilisateur saisit quelque chose
+            tfCode.textProperty().addListener((obs, old, newVal) -> clearError(tfCode));
+            tfIntitule.textProperty().addListener((obs, old, newVal) -> clearError(tfIntitule));
+            tfSemestre.textProperty().addListener((obs, old, newVal) -> clearError(tfSemestre));
+            tfCredits.textProperty().addListener((obs, old, newVal) -> clearError(tfCredits));
+            cbFiliere.valueProperty().addListener((obs, old, newVal) -> clearError(cbFiliere));
+            cbResponsable.valueProperty().addListener((obs, old, newVal) -> clearError(cbResponsable));
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -79,6 +101,32 @@ public class ModuleFormController {
         this.onSuccess = onSuccess;
     }
 
+    private void showError(Control control, String message) {
+        javafx.scene.layout.Pane parent = (javafx.scene.layout.Pane) control.getParent();
+        if (!control.getStyle().contains("#ef4444")) {
+            control.setStyle(control.getStyle() + "; -fx-border-color: #ef4444; -fx-border-width: 1px;");
+        }
+        Label errorLabel = new Label("• " + message);
+        errorLabel.setStyle("-fx-text-fill: #ef4444; -fx-font-size: 11px;");
+        errorLabel.getStyleClass().add("error-label");
+        parent.getChildren().add(errorLabel);
+    }
+
+    private void clearError(Control c) {
+        javafx.scene.layout.Pane parent = (javafx.scene.layout.Pane) c.getParent();
+        parent.getChildren().removeIf(node -> node instanceof Label && node.getStyleClass().contains("error-label"));
+        if (c.getStyle().contains("#ef4444")) {
+            c.setStyle(c.getStyle().replace("; -fx-border-color: #ef4444; -fx-border-width: 1px;", ""));
+        }
+    }
+
+    private void clearAllErrors() {
+        Control[] controls = {tfCode, tfIntitule, tfSemestre, tfCredits, cbFiliere, cbResponsable};
+        for (Control c : controls) {
+            clearError(c);
+        }
+    }
+
     @FXML
     private void handleClose() {
         Stage stage = (Stage) tfCode.getScene().getWindow();
@@ -88,40 +136,58 @@ public class ModuleFormController {
 
     @FXML
     private void handleSave() {
+        clearAllErrors();
+        boolean hasError = false;
 
-        if (tfCode.getText().isEmpty() ||
-                tfIntitule.getText().isEmpty() ||
-                tfSemestre.getText().isEmpty() ||
-                tfCredits.getText().isEmpty() ||
-                cbResponsable.getValue() == null ||
-                cbFiliere.getValue() == null) {
+        if (tfCode.getText() == null || tfCode.getText().trim().isEmpty()) { showError(tfCode, "Le code du module est obligatoire."); hasError = true; }
+        if (tfIntitule.getText() == null || tfIntitule.getText().trim().isEmpty()) { showError(tfIntitule, "L'intitulé est obligatoire."); hasError = true; }
+        if (tfSemestre.getText() == null || tfSemestre.getText().trim().isEmpty()) { showError(tfSemestre, "Le semestre est obligatoire."); hasError = true; }
+        if (tfCredits.getText() == null || tfCredits.getText().trim().isEmpty()) { showError(tfCredits, "Les crédits sont obligatoires."); hasError = true; }
+        if (cbResponsable.getValue() == null) { showError(cbResponsable, "Veuillez sélectionner un responsable."); hasError = true; }
+        if (cbFiliere.getValue() == null) { showError(cbFiliere, "Veuillez sélectionner une filière."); hasError = true; }
 
-            new Alert(Alert.AlertType.WARNING,
-                    "Veuillez remplir tous les champs.").show();
+        if (hasError) {
             return;
         }
 
-        Module m = currentModule == null ? new Module() : currentModule;
+        try {
+            int semestre = Integer.parseInt(tfSemestre.getText().trim());
+            int credits = Integer.parseInt(tfCredits.getText().trim());
 
-        m.setCode(tfCode.getText());
-        m.setIntitule(tfIntitule.getText());
+            if (semestre <= 0 || semestre > 10) {
+                showError(tfSemestre, "Le semestre doit être compris entre 1 et 10.");
+                return;
+            }
+            if (credits <= 0 || credits > 30) {
+                showError(tfCredits, "Les crédits doivent être compris entre 1 et 30.");
+                return;
+            }
 
-        m.setSemestre(Integer.parseInt(tfSemestre.getText()));
-        m.setCredits(Integer.parseInt(tfCredits.getText()));
+            Module m = currentModule == null ? new Module() : currentModule;
 
-        int filiereIndex = cbFiliere.getSelectionModel().getSelectedIndex();
-        m.setFiliere_id(filiereList.get(filiereIndex).getId());
+            m.setCode(tfCode.getText().trim());
+            m.setIntitule(tfIntitule.getText().trim());
 
-        int resIndex = cbResponsable.getSelectionModel().getSelectedIndex();
-        m.setResponsable_id(professeurList.get(resIndex).getId());
+            m.setSemestre(semestre);
+            m.setCredits(credits);
 
-        if (m.getId() == 0) {
-            moduleDAO.add(m);
-        } else {
-            moduleDAO.update(m);
+            int filiereIndex = cbFiliere.getSelectionModel().getSelectedIndex();
+            m.setFiliere_id(filiereList.get(filiereIndex).getId());
+
+            int resIndex = cbResponsable.getSelectionModel().getSelectedIndex();
+            m.setResponsable_id(professeurList.get(resIndex).getId());
+
+            if (m.getId() == 0) {
+                moduleDAO.add(m);
+            } else {
+                moduleDAO.update(m);
+            }
+
+            if (onSuccess != null) onSuccess.run();
+            handleClose();
+
+        } catch (NumberFormatException e) {
+            new Alert(Alert.AlertType.WARNING, "Les champs Semestre et Crédits doivent être des nombres valides.").show();
         }
-
-        if (onSuccess != null) onSuccess.run();
-        handleClose();
     }
 }

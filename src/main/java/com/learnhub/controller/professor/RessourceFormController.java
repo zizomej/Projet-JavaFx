@@ -30,6 +30,16 @@ public class RessourceFormController {
     public void initialize() {
         cbType.setItems(FXCollections.observableArrayList("PDF", "DOC", "VIDEO", "IMAGE", "ZIP"));
         if (cbType.getItems().size() > 0) cbType.getSelectionModel().selectFirst();
+
+        // Contrôle de saisie : limiter la saisie à 100 caractères maximum
+        tfTitre.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null && newValue.length() > 100) {
+                tfTitre.setText(oldValue);
+            }
+        });
+
+        tfTitre.textProperty().addListener((obs, old, newVal) -> clearError(tfTitre));
+        cbType.valueProperty().addListener((obs, old, newVal) -> clearError(cbType));
     }
 
     public void setModule(Module module) {
@@ -65,6 +75,7 @@ public class RessourceFormController {
         if (file != null) {
             selectedFileUrl = file.getName();
             fileNameLabel.setText(selectedFileUrl);
+            clearError(fileNameLabel);
         }
     }
 
@@ -74,16 +85,75 @@ public class RessourceFormController {
         stage.close();
     }
 
+    private void showError(javafx.scene.Node node, String message) {
+        javafx.scene.layout.Pane parent = (javafx.scene.layout.Pane) node.getParent();
+        javafx.scene.layout.Pane targetParent = parent;
+        
+        if (parent instanceof javafx.scene.layout.HBox && parent.getParent() instanceof javafx.scene.layout.VBox) {
+            targetParent = (javafx.scene.layout.Pane) parent.getParent();
+            if (!parent.getStyle().contains("#ef4444")) {
+                parent.setStyle(parent.getStyle() + "; -fx-border-color: #ef4444; -fx-border-width: 1px;");
+            }
+        } else {
+            if (!node.getStyle().contains("#ef4444")) {
+                node.setStyle(node.getStyle() + "; -fx-border-color: #ef4444; -fx-border-width: 1px;");
+            }
+        }
+        
+        Label errorLabel = new Label("• " + message);
+        errorLabel.setStyle("-fx-text-fill: #ef4444; -fx-font-size: 11px;");
+        errorLabel.getStyleClass().add("error-label");
+        targetParent.getChildren().add(errorLabel);
+    }
+
+    private void clearError(javafx.scene.Node node) {
+        javafx.scene.layout.Pane parent = (javafx.scene.layout.Pane) node.getParent();
+        javafx.scene.layout.Pane targetParent = parent;
+        
+        if (parent instanceof javafx.scene.layout.HBox && parent.getParent() instanceof javafx.scene.layout.VBox) {
+            targetParent = (javafx.scene.layout.Pane) parent.getParent();
+            if (parent.getStyle().contains("#ef4444")) {
+                parent.setStyle(parent.getStyle().replace("; -fx-border-color: #ef4444; -fx-border-width: 1px;", ""));
+            }
+        } else {
+            if (node.getStyle().contains("#ef4444")) {
+                node.setStyle(node.getStyle().replace("; -fx-border-color: #ef4444; -fx-border-width: 1px;", ""));
+            }
+        }
+        
+        targetParent.getChildren().removeIf(n -> n instanceof Label && n.getStyleClass().contains("error-label"));
+    }
+
+    private void clearAllErrors() {
+        clearError(tfTitre);
+        clearError(cbType);
+        clearError(fileNameLabel);
+    }
+
     @FXML
     private void handleSave() {
-        if (tfTitre.getText().isEmpty() || selectedFileUrl.isEmpty() || currentModule == null) {
-            Alert a = new Alert(Alert.AlertType.WARNING, "Veuillez remplir tous les champs obligatoires.");
-            a.show();
+        clearAllErrors();
+        boolean hasError = false;
+
+        if (tfTitre.getText() == null || tfTitre.getText().trim().isEmpty()) { 
+            showError(tfTitre, "Le titre de la ressource est obligatoire."); 
+            hasError = true; 
+        }
+        if (cbType.getValue() == null) {
+            showError(cbType, "Le type de ressource est obligatoire.");
+            hasError = true;
+        }
+        if (selectedFileUrl.isEmpty()) { 
+            showError(fileNameLabel, "Veuillez sélectionner un fichier à uploader."); 
+            hasError = true; 
+        }
+
+        if (hasError) {
             return;
         }
 
         Ressource r = currentRessource == null ? new Ressource() : currentRessource;
-        r.setTitre(tfTitre.getText());
+        r.setTitre(tfTitre.getText().trim());
         r.setType(cbType.getValue());
         r.setUrl(selectedFileUrl);
         r.setEstPublic(chkPublic.isSelected());
