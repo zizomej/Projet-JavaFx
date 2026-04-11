@@ -58,4 +58,9 @@ public class Module {
     public void setResponsable_id(int responsable_id) {
         this.responsable_id = responsable_id;
     }
+
+    @Override
+    public String toString() {
+        return intitule != null ? intitule : "Module " + code;
+    }
 }

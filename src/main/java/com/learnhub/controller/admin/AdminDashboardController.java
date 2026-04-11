@@ -19,6 +19,7 @@ public class AdminDashboardController {
     @FXML private Label totalPartenairesLabel;
     @FXML private Label totalOffresLabel;
     @FXML private Label totalDemandesLabel;
+    @FXML private Label totalSeancesLabel;
 
     private final UtilisateurDAO utilisateurDAO = new UtilisateurDAO();
     private final ModuleDAO moduleDAO = new ModuleDAO();
@@ -27,6 +28,7 @@ public class AdminDashboardController {
     private final PartenaireDAO partenaireDAO = new PartenaireDAO();
     private final OffreStageDAO offreStageDAO = new OffreStageDAO();
     private final DemandeStageDAO demandeStageDAO = new DemandeStageDAO();
+    private final SeanceDAO seanceDAO = new SeanceDAO();
 
     @FXML
     public void initialize() {
@@ -45,6 +47,7 @@ public class AdminDashboardController {
             totalPartenairesLabel.setText(String.valueOf(partenaireDAO.count()));
             totalOffresLabel.setText(String.valueOf(offreStageDAO.count()));
             totalDemandesLabel.setText(String.valueOf(demandeStageDAO.count()));
+            totalSeancesLabel.setText(String.valueOf(seanceDAO.count()));
         } catch (SQLException e) {
             e.printStackTrace();
             totalUsersLabel.setText("0");
@@ -54,6 +57,7 @@ public class AdminDashboardController {
             totalPartenairesLabel.setText("0");
             totalOffresLabel.setText("0");
             totalDemandesLabel.setText("0");
+            totalSeancesLabel.setText("0");
         }
     }
 

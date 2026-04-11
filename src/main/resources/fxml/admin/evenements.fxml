@@ -4,7 +4,7 @@
 <?import javafx.geometry.*?>
 
 <BorderPane xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.learnhub.controller.admin.AdminDashboardController"
+            fx:controller="com.learnhub.controller.admin.EvenementsController"
             stylesheets="@/css/styles.css" prefWidth="1280" prefHeight="800">
     <left>
         <VBox styleClass="sidebar" spacing="0">
@@ -12,53 +12,80 @@
                 <Label text="🎓 LearnHub" styleClass="sidebar-brand-text"/>
                 <Label text="Espace Administrateur" styleClass="sidebar-brand-sub"/>
             </VBox>
-            <VBox spacing="2" style="-fx-padding:10 0;">
+            <VBox spacing="2" style="-fx-padding: 10 0;">
                 <Label text="NAVIGATION" styleClass="nav-section-title"/>
                 <Button text="🏠  Tableau de bord" styleClass="nav-btn" onAction="#goBack" maxWidth="Infinity"/>
+                <Label text="VIE SCOLAIRE" styleClass="nav-section-title"/>
                 <Button text="🎉  Événements" styleClass="nav-btn, nav-btn-active" maxWidth="Infinity"/>
             </VBox>
             <Region VBox.vgrow="ALWAYS"/>
             <VBox styleClass="admin-section" spacing="10">
-                <Button text="🚪  Déconnexion" styleClass="nav-logout" onAction="#handleLogout" maxWidth="Infinity"/>
+                <Button text="🚪  Déconnexion" styleClass="nav-logout" maxWidth="Infinity"/>
             </VBox>
         </VBox>
     </left>
     <center>
-        <VBox styleClass="content-area" spacing="20">
-            <HBox alignment="CENTER_LEFT" spacing="16">
-                <VBox HBox.hgrow="ALWAYS">
-                    <Label text="🎉 Gestion des Événements" styleClass="page-title"/>
-                    <Label text="Créez et gérez les événements de l'établissement" styleClass="page-subtitle"/>
-                </VBox>
-                <Button text="← Tableau de bord" styleClass="btn, btn-secondary, btn-sm" onAction="#goBack"/>
-            </HBox>
-            <VBox styleClass="card" VBox.vgrow="ALWAYS">
-                <HBox styleClass="card-header" spacing="12" alignment="CENTER_LEFT">
-                    <Label text="🎉 Gestion des Événements" styleClass="card-header-title"/>
+        <ScrollPane fitToWidth="true" style="-fx-background-color:#f5f7fa;-fx-border-color:transparent;">
+            <VBox styleClass="content-area" spacing="24">
+                
+                <!-- TOP HEADER -->
+                <HBox alignment="CENTER_LEFT" spacing="16">
+                    <VBox HBox.hgrow="ALWAYS">
+                        <HBox alignment="CENTER_LEFT" spacing="10">
+                            <Label text="🎉" style="-fx-font-size:24px;"/>
+                            <Label text="Gestion des Événements" styleClass="page-title"/>
+                        </HBox>
+                        <Label text="Planification et suivi des événements de l'établissement" styleClass="page-subtitle"/>
+                    </VBox>
                     <Region HBox.hgrow="ALWAYS"/>
-                    <TextField fx:id="searchField" promptText="🔍 Rechercher..." prefWidth="220" styleClass="search-field"/>
-                    <Button text="➕ Ajouter" styleClass="btn, btn-primary, btn-sm" onAction="#handleAdd"/>
-                    <Button text="↻" styleClass="btn, btn-secondary, btn-sm" onAction="#handleRefresh"/>
+                    <TextField promptText="Rechercher..." style="-fx-background-radius:20;-fx-pref-width:200;" />
                 </HBox>
-                <VBox styleClass="card-body" VBox.vgrow="ALWAYS">
-                    <TableView fx:id="table" VBox.vgrow="ALWAYS" style="-fx-border-color:transparent;">
-                        <columns><TableColumn fx:id="colTitre" text="Titre" prefWidth="220"/>
-        <TableColumn fx:id="colType" text="Type" prefWidth="120"/>
-        <TableColumn fx:id="colDateDebut" text="Date début" prefWidth="130"/>
-        <TableColumn fx:id="colDateFin" text="Date fin" prefWidth="130"/>
-        <TableColumn fx:id="colLieu" text="Lieu" prefWidth="150"/>
-        <TableColumn fx:id="colStatut" text="Statut" prefWidth="100"/></columns>
-                        <placeholder><Label text="Aucune donnée" style="-fx-text-fill:#9ca3af;"/></placeholder>
-                    </TableView>
+
+                <!-- STATS CARDS -->
+                <HBox spacing="20">
+                    <VBox styleClass="card" HBox.hgrow="ALWAYS" spacing="10" style="-fx-padding:20; -fx-background-color: linear-gradient(to bottom right, #ffffff, #faf5ff);">
+                        <Label text="🎊 Total Événements" style="-fx-text-fill:#6b7280; -fx-font-weight:bold;"/>
+                        <Label fx:id="totalEventsLabel" text="0 événements" style="-fx-font-size:24px; -fx-font-weight:bold; -fx-text-fill:#7c3aed;"/>
+                    </VBox>
+                    <VBox styleClass="card" HBox.hgrow="ALWAYS" spacing="10" style="-fx-padding:20; -fx-background-color: linear-gradient(to bottom right, #ffffff, #fff7ed);">
+                        <Label text="⏳ À venir" style="-fx-text-fill:#ea580c; -fx-font-weight:bold;"/>
+                        <Label fx:id="upcomingEventsLabel" text="0" style="-fx-font-size:24px; -fx-font-weight:bold; -fx-text-fill:#ea580c;"/>
+                    </VBox>
+                </HBox>
+
+                <!-- SEARCH & FILTER -->
+                <HBox spacing="15" alignment="CENTER_LEFT" styleClass="card" style="-fx-padding:15;">
+                    <TextField fx:id="searchField" promptText="Rechercher par titre, type ou lieu..." HBox.hgrow="ALWAYS" styleClass="search-field" prefHeight="40"/>
+                    <Button text="🔍 Filtrer" styleClass="btn, btn-primary" style="-fx-background-color:#7c3aed;" prefHeight="40" prefWidth="120"/>
+                </HBox>
+
+                <!-- TABLE CARD -->
+                <VBox styleClass="card" VBox.vgrow="ALWAYS">
+                    <HBox styleClass="card-header" spacing="12" alignment="CENTER_LEFT">
+                        <Label text="📋 Liste des événements" styleClass="card-header-title"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Button text="➕ Nouveau Événement" styleClass="btn, btn-primary, btn-sm" onAction="#handleAdd"/>
+                        <Button text="↻" styleClass="btn, btn-secondary, btn-sm" onAction="#handleRefresh"/>
+                    </HBox>
+                    
+                    <VBox styleClass="card-body" VBox.vgrow="ALWAYS" style="-fx-padding:0;">
+                        <TableView fx:id="table" VBox.vgrow="ALWAYS" style="-fx-border-color:transparent;">
+                            <columns>
+                                <TableColumn fx:id="colTitre" text="Titre" prefWidth="250"/>
+                                <TableColumn fx:id="colType" text="Type" prefWidth="120"/>
+                                <TableColumn fx:id="colDate" text="Date" prefWidth="150"/>
+                                <TableColumn fx:id="colLieu" text="Lieu" prefWidth="180"/>
+                                <TableColumn fx:id="colStatut" text="Statut" prefWidth="120"/>
+                                <TableColumn fx:id="colActions" text="Actions" prefWidth="120"/>
+                            </columns>
+                            <placeholder>
+                                <Label text="📭 Aucun événement trouvé" style="-fx-text-fill:#9ca3af;"/>
+                            </placeholder>
+                        </TableView>
+                    </VBox>
                 </VBox>
-                <HBox style="-fx-padding:12 20;-fx-border-color:#e5e7eb;-fx-border-width:1 0 0 0;"
-                      spacing="10" alignment="CENTER_LEFT">
-                    <Label fx:id="statusLabel" text="" style="-fx-text-fill:#6b7280;-fx-font-size:12px;"/>
-                    <Region HBox.hgrow="ALWAYS"/>
-                    <Button text="✏️ Modifier" styleClass="btn, btn-warning, btn-sm" onAction="#handleEdit"/>
-        <Button text="🗑 Supprimer" styleClass="btn, btn-danger, btn-sm" onAction="#handleDelete"/>
-                </HBox>
+                
             </VBox>
-        </VBox>
+        </ScrollPane>
     </center>
 </BorderPane>

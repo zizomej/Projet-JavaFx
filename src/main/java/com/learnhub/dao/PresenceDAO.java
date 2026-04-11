@@ -1,6 +1,7 @@
 package com.learnhub.dao;
 
 import com.learnhub.models.Presence;
+import com.learnhub.models.Utilisateur;
 import com.learnhub.util.DatabaseConnection;
 
 import java.sql.*;
@@ -8,6 +9,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PresenceDAO {
+
+    public List<Presence> findBySeance(int seanceId) throws SQLException {
+        List<Presence> list = new ArrayList<>();
+        String sql = "SELECT p.*, u.nom, u.prenom FROM presence p " +
+                     "JOIN utilisateur u ON p.etudiant_id = u.id " +
+                     "WHERE p.seance_id = ?";
+        try (PreparedStatement ps = DatabaseConnection.getInstance().prepareStatement(sql)) {
+            ps.setInt(1, seanceId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Presence p = new Presence();
+                p.setId(rs.getInt("id"));
+                p.setStatut(rs.getString("statut"));
+                p.setSeanceId(rs.getInt("seance_id"));
+                p.setEtudiantId(rs.getInt("etudiant_id"));
+                p.setEtudiantNom(rs.getString("nom") + " " + rs.getString("prenom"));
+                list.add(p);
+            }
+        }
+        return list;
+    }
 
     public List<Presence> findByEtudiant(int etudiantId) throws SQLException {
         List<Presence> list = new ArrayList<>();
@@ -48,5 +70,45 @@ public class PresenceDAO {
             }
         }
         return 100;
+    }
+
+    public void save(Presence p) throws SQLException {
+        String sql;
+        if (p.getId() > 0) {
+            sql = "UPDATE presence SET statut = ? WHERE id = ?";
+        } else {
+            sql = "INSERT INTO presence (statut, seance_id, etudiant_id) VALUES (?, ?, ?)";
+        }
+        try (PreparedStatement ps = DatabaseConnection.getInstance().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            ps.setString(1, p.getStatut());
+            if (p.getId() > 0) {
+                ps.setInt(2, p.getId());
+            } else {
+                ps.setInt(2, p.getSeanceId());
+                ps.setInt(3, p.getEtudiantId());
+            }
+            ps.executeUpdate();
+            if (p.getId() <= 0) {
+                ResultSet keys = ps.getGeneratedKeys();
+                if (keys.next()) p.setId(keys.getInt(1));
+            }
+        }
+    }
+
+    public List<Utilisateur> findStudentsByModule(int moduleId) throws SQLException {
+        List<Utilisateur> list = new ArrayList<>();
+        // Note: Currently getting all students as a fallback if filiere link is not obvious
+        String sql = "SELECT * FROM utilisateur WHERE role IN ('ROLE_ETUDIANT', 'student')";
+        try (Statement st = DatabaseConnection.getInstance().createStatement();
+             ResultSet rs = st.executeQuery(sql)) {
+            while (rs.next()) {
+                Utilisateur u = new Utilisateur();
+                u.setId(rs.getInt("id"));
+                u.setNom(rs.getString("nom"));
+                u.setPrenom(rs.getString("prenom"));
+                list.add(u);
+            }
+        }
+        return list;
     }
 }

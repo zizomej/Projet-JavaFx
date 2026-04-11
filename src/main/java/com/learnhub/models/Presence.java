@@ -7,6 +7,7 @@ public class Presence {
     private int etudiantId;
     private String dateSeance;
     private String moduleNom;
+    private String etudiantNom;
 
     public Presence() {}
 
@@ -27,4 +28,7 @@ public class Presence {
 
     public String getModuleNom() { return moduleNom; }
     public void setModuleNom(String moduleNom) { this.moduleNom = moduleNom; }
+
+    public String getEtudiantNom() { return etudiantNom; }
+    public void setEtudiantNom(String etudiantNom) { this.etudiantNom = etudiantNom; }
 }

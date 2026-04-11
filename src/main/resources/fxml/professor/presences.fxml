@@ -4,7 +4,7 @@
 <?import javafx.geometry.*?>
 
 <BorderPane xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.learnhub.controller.professor.ProfessorDashboardController"
+            fx:controller="com.learnhub.controller.professor.ProfessorPresencesController"
             stylesheets="@/css/styles.css" prefWidth="1280" prefHeight="800">
     <top>
         <HBox styleClass="prof-topnav" alignment="CENTER_LEFT" spacing="10">
@@ -17,10 +17,10 @@
             </HBox>
             <Region HBox.hgrow="ALWAYS"/>
             <HBox spacing="4" alignment="CENTER">
-                <Button text="🏠 Tableau de bord" styleClass="prof-nav-btn"              onAction="#goDashboard"/>
-                <Button text="📚 Mes Modules"     styleClass="prof-nav-btn"              onAction="#goModules"/>
-                <Button text="🗓 Mes Séances"     styleClass="prof-nav-btn"              onAction="#goSeances"/>
-                <Button text="📊 Gérer Notes"     styleClass="prof-nav-btn"              onAction="#goNotes"/>
+                <Button text="🏠 Tableau de bord" styleClass="prof-nav-btn" onAction="#goDashboard"/>
+                <Button text="📚 Mes Modules"     styleClass="prof-nav-btn" onAction="#goModules"/>
+                <Button text="🗓 Mes Séances"     styleClass="prof-nav-btn" onAction="#goSeances"/>
+                <Button text="📊 Gérer Notes"     styleClass="prof-nav-btn" onAction="#goNotes"/>
                 <Button text="✅ Présences"        styleClass="prof-nav-btn, prof-nav-btn-active" onAction="#goPresences"/>
             </HBox>
             <Region HBox.hgrow="ALWAYS"/>
@@ -34,87 +34,30 @@
     <center>
         <ScrollPane fitToWidth="true" style="-fx-background-color:#f5f7fa;-fx-border-color:transparent;">
             <VBox styleClass="content-area" spacing="24">
-                <!-- Banner -->
                 <VBox styleClass="welcome-banner" spacing="10">
-                    <HBox alignment="CENTER_LEFT">
-                        <VBox HBox.hgrow="ALWAYS" spacing="6">
-                            <Label text="✅ Gestion des Présences" styleClass="welcome-name"/>
-                            <Label text="Effectuez l'appel et suivez les présences de vos étudiants" styleClass="welcome-sub"/>
-                        </VBox>
-                    </HBox>
+                    <Label text="✅ Gestion des Présences" styleClass="welcome-name"/>
+                    <Label text="Sélectionnez une séance pour effectuer l'appel de vos étudiants" styleClass="welcome-sub"/>
                 </VBox>
 
-                <!-- Sélecteur de séance (comme Symfony seance-selector) -->
-                <VBox styleClass="card" spacing="0">
-                    <HBox styleClass="card-header" alignment="CENTER_LEFT">
-                        <Label text="📋 Sélectionner une Séance" styleClass="card-header-title"/>
-                    </HBox>
-                    <HBox styleClass="card-body" spacing="16" alignment="CENTER_LEFT">
-                        <VBox spacing="6" HBox.hgrow="ALWAYS">
-                            <Label text="Module" styleClass="form-label"/>
-                            <ComboBox fx:id="moduleSelector" prefWidth="250" styleClass="filter-combo"/>
+                <VBox styleClass="card" alignment="CENTER" spacing="30" style="-fx-padding: 60 40;">
+                    <VBox spacing="20" maxWidth="600" alignment="CENTER_LEFT">
+                        <Label text="📋 Paramètres de l'appel" styleClass="card-header-title" style="-fx-font-size: 18px;"/>
+                        
+                        <VBox spacing="8">
+                            <Label text="L'unité d'enseignement (Module)" styleClass="form-label"/>
+                            <ComboBox fx:id="moduleSelector" prefWidth="600" styleClass="filter-combo" promptText="Sélectionner le module..."/>
                         </VBox>
-                        <VBox spacing="6" HBox.hgrow="ALWAYS">
-                            <Label text="Séance" styleClass="form-label"/>
-                            <ComboBox fx:id="seanceSelector" prefWidth="300" styleClass="filter-combo"/>
-                        </VBox>
-                        <VBox spacing="6">
-                            <Label text=" " styleClass="form-label"/>
-                            <Button text="📋 Charger les étudiants" styleClass="btn, btn-primary"
-                                    onAction="#handleLoadPresences"/>
-                        </VBox>
-                    </HBox>
-                </VBox>
 
-                <!-- Statistiques présences -->
-                <HBox spacing="20">
-                    <VBox styleClass="stat-card, stat-card-success" HBox.hgrow="ALWAYS" spacing="8">
-                        <HBox alignment="CENTER_LEFT">
-                            <VBox HBox.hgrow="ALWAYS">
-                                <Label text="PRÉSENTS" styleClass="stat-label, stat-label-success"/>
-                                <Label fx:id="presentsLabel" text="—" styleClass="stat-value"/>
-                            </VBox>
-                            <Label text="✅" styleClass="stat-icon"/>
-                        </HBox>
-                    </VBox>
-                    <VBox styleClass="stat-card, stat-card-danger" HBox.hgrow="ALWAYS" spacing="8">
-                        <HBox alignment="CENTER_LEFT">
-                            <VBox HBox.hgrow="ALWAYS">
-                                <Label text="ABSENTS" styleClass="stat-label, stat-label-danger"/>
-                                <Label fx:id="absentsLabel" text="—" styleClass="stat-value"/>
-                            </VBox>
-                            <Label text="❌" styleClass="stat-icon"/>
-                        </HBox>
-                    </VBox>
-                    <VBox styleClass="stat-card, stat-card-warning" HBox.hgrow="ALWAYS" spacing="8">
-                        <HBox alignment="CENTER_LEFT">
-                            <VBox HBox.hgrow="ALWAYS">
-                                <Label text="RETARDS" styleClass="stat-label, stat-label-warning"/>
-                                <Label fx:id="retardsLabel" text="—" styleClass="stat-value"/>
-                            </VBox>
-                            <Label text="⚠️" styleClass="stat-icon"/>
-                        </HBox>
-                    </VBox>
-                </HBox>
-
-                <!-- Table présences -->
-                <VBox styleClass="card" VBox.vgrow="ALWAYS">
-                    <HBox styleClass="card-header" spacing="12" alignment="CENTER_LEFT">
-                        <Label text="👥 Liste des Étudiants" styleClass="card-header-title"/>
-                        <Region HBox.hgrow="ALWAYS"/>
-                        <Button text="💾 Enregistrer" styleClass="btn, btn-success" onAction="#handleSave"/>
-                    </HBox>
-                    <VBox styleClass="card-body" VBox.vgrow="ALWAYS">
-                        <TableView fx:id="presencesTable" VBox.vgrow="ALWAYS" style="-fx-border-color:transparent;">
-                            <columns>
-                                <TableColumn fx:id="colNom"     text="Nom"     prefWidth="180"/>
-                                <TableColumn fx:id="colPrenom"  text="Prénom"  prefWidth="180"/>
-                                <TableColumn fx:id="colStatut"  text="Statut"  prefWidth="160"/>
-                            </columns>
-                            <placeholder>
-                                <Label text="Sélectionnez un module et une séance" style="-fx-text-fill:#9ca3af;"/>
-                            </placeholder>
-                        </TableView>
+                        <VBox spacing="8">
+                            <Label text="La séance programmée" styleClass="form-label"/>
+                            <ComboBox fx:id="seanceSelector" prefWidth="600" styleClass="filter-combo" promptText="Sélectionner la séance..."/>
+                        </VBox>
+                        
+                        <Region prefHeight="10"/>
+                        
+                        <Button text="📝 Commencer l'appel des étudiants" styleClass="btn, btn-primary" 
+                                prefWidth="600" style="-fx-padding: 15; -fx-font-size: 15px; -fx-font-weight: bold;"
+                                onAction="#handleLoadPresences"/>
                     </VBox>
                 </VBox>
             </VBox>

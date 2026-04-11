@@ -103,4 +103,13 @@ public class SeanceDAO {
             ps.executeUpdate();
         }
     }
+
+    public int count() throws SQLException {
+        String sql = "SELECT COUNT(*) FROM seance";
+        try (Statement st = DatabaseConnection.getInstance().createStatement();
+             ResultSet rs = st.executeQuery(sql)) {
+            if (rs.next()) return rs.getInt(1);
+        }
+        return 0;
+    }
 }

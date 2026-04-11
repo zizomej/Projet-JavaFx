@@ -164,8 +164,20 @@
                         </VBox>
                     </HBox>
 
-                    <!-- LIGNE 2 : 3 stat cards (partenaires, offres, demandes) -->
+                    <!-- LIGNE 2 : Séances, Universités, Offres, Demandes -->
                     <HBox spacing="20">
+                        <VBox styleClass="stat-card, stat-card-info" HBox.hgrow="ALWAYS" spacing="8">
+                            <HBox alignment="CENTER_LEFT" spacing="12">
+                                <VBox HBox.hgrow="ALWAYS">
+                                    <Label text="SÉANCES" styleClass="stat-label, stat-label-info"/>
+                                    <Label fx:id="totalSeancesLabel" text="—" styleClass="stat-value"/>
+                                </VBox>
+                                <Label text="📅" styleClass="stat-icon"/>
+                            </HBox>
+                            <Label text="Séances planifiées"
+                                   style="-fx-font-size: 12px; -fx-text-fill: #6b7280;"/>
+                        </VBox>
+
                         <VBox styleClass="stat-card, stat-card-primary" HBox.hgrow="ALWAYS" spacing="8">
                             <HBox alignment="CENTER_LEFT" spacing="12">
                                 <VBox HBox.hgrow="ALWAYS">

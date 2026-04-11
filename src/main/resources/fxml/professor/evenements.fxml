@@ -4,7 +4,7 @@
 <?import javafx.geometry.*?>
 
 <BorderPane xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.learnhub.controller.professor.ProfessorDashboardController"
+            fx:controller="com.learnhub.controller.professor.ProfessorEvenementsController"
             stylesheets="@/css/styles.css" prefWidth="1280" prefHeight="800">
     <top>
         <HBox styleClass="prof-topnav" alignment="CENTER_LEFT" spacing="10">
@@ -34,7 +34,7 @@
             <VBox styleClass="content-area" spacing="24">
                 <VBox styleClass="welcome-banner" spacing="10">
                     <Label text="🎉 Événements" styleClass="welcome-name"/>
-                    <Label text="Consultez les événements de l'établissement" styleClass="welcome-sub"/>
+                    <Label text="Consultez et modifiez les événements de l'établissement" styleClass="welcome-sub"/>
                 </VBox>
                 <VBox styleClass="card" VBox.vgrow="ALWAYS">
                     <HBox styleClass="card-header" alignment="CENTER_LEFT">
@@ -45,16 +45,21 @@
                     <VBox styleClass="card-body" VBox.vgrow="ALWAYS">
                         <TableView fx:id="evenementsTable" VBox.vgrow="ALWAYS" style="-fx-border-color:transparent;">
                             <columns>
-                                <TableColumn fx:id="colTitre"  text="Titre"  prefWidth="260"/>
-                                <TableColumn fx:id="colType"   text="Type"   prefWidth="130"/>
-                                <TableColumn fx:id="colDate"   text="Date"   prefWidth="130"/>
-                                <TableColumn fx:id="colStatut" text="Statut" prefWidth="120"/>
+                                <TableColumn fx:id="colTitre"  text="Titre"  prefWidth="350"/>
+                                <TableColumn fx:id="colType"   text="Type"   prefWidth="150"/>
+                                <TableColumn fx:id="colDate"   text="Date"   prefWidth="150"/>
+                                <TableColumn fx:id="colStatut" text="Statut" prefWidth="140"/>
                             </columns>
                             <placeholder><Label text="Aucun événement" style="-fx-text-fill:#9ca3af;"/></placeholder>
                         </TableView>
                     </VBox>
+                    <HBox style="-fx-padding:12 20;-fx-border-color:#e5e7eb;-fx-border-width:1 0 0 0;" spacing="10" alignment="CENTER_LEFT">
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Button text="✏️ Modifier l'événement sélectionné" styleClass="btn, btn-warning, btn-sm" style="-fx-padding: 8 20;" onAction="#handleEdit"/>
+                    </HBox>
                 </VBox>
             </VBox>
         </ScrollPane>
     </center>
 </BorderPane>
+

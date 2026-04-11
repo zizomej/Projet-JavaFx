@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.learnhub.controller.professor.PresenceFormController"
+            stylesheets="@/css/styles.css" prefWidth="1280" prefHeight="800">
+    
+    <top>
+        <HBox styleClass="prof-topnav" alignment="CENTER_LEFT" spacing="20">
+            <HBox spacing="10" alignment="CENTER_LEFT" style="-fx-padding: 0 40 0 0;">
+                <Label text="🎓" style="-fx-font-size: 24px;"/>
+                <Label text="LEARNHUB" style="-fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: 900;"/>
+            </HBox>
+            <Label fx:id="titleLabel" text="Appel de la séance" style="-fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold;"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button text="← Retour aux séances" styleClass="btn, btn-secondary, btn-sm" onAction="#goBack"/>
+        </HBox>
+    </top>
+
+    <center>
+        <VBox styleClass="content-area" spacing="20" style="-fx-padding: 30;">
+            <VBox styleClass="card" VBox.vgrow="ALWAYS">
+                <HBox styleClass="card-header" spacing="12" alignment="CENTER_LEFT">
+                    <Label text="📋 Liste d'appel des étudiants" styleClass="card-header-title"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button text="💾 Enregistrer les présences" styleClass="btn, btn-success" onAction="#handleSave"/>
+                </HBox>
+                
+                <VBox styleClass="card-body" VBox.vgrow="ALWAYS">
+                    <TableView fx:id="presencesTable" VBox.vgrow="ALWAYS" style="-fx-border-color: transparent;">
+                        <columns>
+                            <TableColumn fx:id="colNom" text="Nom et Prénom de l'étudiant" prefWidth="500"/>
+                            <TableColumn fx:id="colStatut" text="Statut de présence" prefWidth="300"/>
+                        </columns>
+                        <placeholder>
+                            <Label text="Chargement des étudiants..." style="-fx-text-fill: #9ca3af;"/>
+                        </placeholder>
+                    </TableView>
+                </VBox>
+                
+                <HBox style="-fx-padding: 15; -fx-background-color: #f8fafc; -fx-border-color: #e2e8f0; -fx-border-width: 1 0 0 0;" spacing="20" alignment="CENTER">
+                    <HBox spacing="5" alignment="CENTER">
+                        <Circle radius="5" fill="#10b981"/>
+                        <Label text="Présent" style="-fx-font-size: 12px;"/>
+                    </HBox>
+                    <HBox spacing="5" alignment="CENTER">
+                        <Circle radius="5" fill="#ef4444"/>
+                        <Label text="Absent" style="-fx-font-size: 12px;"/>
+                    </HBox>
+                    <HBox spacing="5" alignment="CENTER">
+                        <Circle radius="5" fill="#f59e0b"/>
+                        <Label text="En retard" style="-fx-font-size: 12px;"/>
+                    </HBox>
+                </HBox>
+            </VBox>
+        </VBox>
+    </center>
+</BorderPane>
