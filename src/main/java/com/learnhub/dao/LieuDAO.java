@@ -23,10 +23,11 @@ public class LieuDAO {
         }
         
         // 2. Si non, le créer
-        String insertSql = "INSERT INTO lieu (nom, adresse) VALUES (?, ?)";
+        String insertSql = "INSERT INTO lieu (nom, adresse, capacite) VALUES (?, ?, ?)";
         try (PreparedStatement ps = DatabaseConnection.getInstance().prepareStatement(insertSql, Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, nom);
             ps.setString(2, ""); // Adresse par défaut
+            ps.setInt(3, 100);   // Capacité par défaut
             ps.executeUpdate();
             ResultSet keys = ps.getGeneratedKeys();
             if (keys.next()) {
