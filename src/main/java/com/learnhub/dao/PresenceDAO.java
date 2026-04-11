@@ -97,8 +97,9 @@ public class PresenceDAO {
 
     public List<Utilisateur> findStudentsByModule(int moduleId) throws SQLException {
         List<Utilisateur> list = new ArrayList<>();
-        // Note: Currently getting all students as a fallback if filiere link is not obvious
-        String sql = "SELECT * FROM utilisateur WHERE role IN ('ROLE_ETUDIANT', 'student')";
+        // Note: On récupère les étudiants actifs. 
+        // L'idéal serait de filtrer par ceux inscrits au module, mais ici on prend tous les étudiants par défaut.
+        String sql = "SELECT id, nom, prenom FROM utilisateur WHERE role IN ('ROLE_ETUDIANT', 'student', 'Etudiant') AND statut = 'actif'";
         try (Statement st = DatabaseConnection.getInstance().createStatement();
              ResultSet rs = st.executeQuery(sql)) {
             while (rs.next()) {

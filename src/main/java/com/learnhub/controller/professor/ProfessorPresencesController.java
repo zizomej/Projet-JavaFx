@@ -80,6 +80,7 @@ public class ProfessorPresencesController {
             stage.getScene().setRoot(root);
         } catch (IOException e) {
             e.printStackTrace();
+            showAlert("Erreur de chargement", "Impossible d'ouvrir le formulaire : " + e.getMessage());
         }
     }
 

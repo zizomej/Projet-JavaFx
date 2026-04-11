@@ -90,6 +90,7 @@ public class PresenceFormController {
             presencesTable.setItems(attendanceList);
         } catch (SQLException e) {
             e.printStackTrace();
+            showAlert("Erreur de données", "Impossible de charger les étudiants : " + e.getMessage());
         }
     }
 
