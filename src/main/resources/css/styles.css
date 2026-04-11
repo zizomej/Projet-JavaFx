@@ -1,0 +1,1004 @@
+/* =====================================================================
+   LearnHub JavaFX — styles.css
+   Design EXACT du template Symfony (admin/layout.html.twig + professor/layout.html.twig)
+   Couleurs : #1E3A8A (bleu marine), #0A1F44 (bleu foncé), #FFC107 (jaune), #FF6F61 (coral)
+   ===================================================================== */
+
+/* ─── ROOT ─────────────────────────────────────────────────────────── */
+.root {
+    -fx-font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+    -fx-font-size: 14px;
+    -fx-background-color: #f5f7fa;
+}
+
+/* ─── SIDEBAR (gradient comme Symfony: #0A1F44 → #1E3A8A) ──────────── */
+.sidebar {
+    -fx-background-color: linear-gradient(to bottom, #0A1F44, #1E3A8A);
+    -fx-pref-width: 260px;
+    -fx-min-width: 260px;
+    -fx-max-width: 260px;
+}
+
+.sidebar-brand {
+    -fx-padding: 28 20 22 20;
+    -fx-border-color: transparent transparent rgba(255,255,255,0.12) transparent;
+    -fx-border-width: 0 0 1 0;
+}
+
+.sidebar-brand-text {
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
+.sidebar-brand-sub {
+    -fx-text-fill: rgba(255,255,255,0.65);
+    -fx-font-size: 11.5px;
+}
+
+/* Section title (UTILISATEURS, PÉDAGOGIE…) */
+.nav-section-title {
+    -fx-text-fill: rgba(255,255,255,0.42);
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-padding: 14 20 4 20;
+    -fx-letter-spacing: 1.2px;
+}
+
+/* Nav button */
+.nav-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: rgba(255,255,255,0.85);
+    -fx-font-size: 13.5px;
+    -fx-padding: 13 22 13 22;
+    -fx-cursor: hand;
+    -fx-alignment: CENTER_LEFT;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0;
+    -fx-border-radius: 0;
+}
+
+.nav-btn:hover {
+    -fx-background-color: rgba(255,255,255,0.12);
+    -fx-text-fill: white;
+}
+
+/* Active nav button (avec bordure jaune à gauche comme Symfony) */
+.nav-btn-active {
+    -fx-background-color: rgba(255,255,255,0.18);
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-border-color: transparent transparent transparent #FFC107;
+    -fx-border-width: 0 0 0 4;
+}
+
+/* Admin section (bas de sidebar) */
+.admin-section {
+    -fx-padding: 16 16 16 16;
+    -fx-border-color: rgba(255,255,255,0.12) transparent transparent transparent;
+    -fx-border-width: 1 0 0 0;
+}
+
+.admin-name-label {
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
+.admin-role-label {
+    -fx-text-fill: rgba(255,255,255,0.6);
+    -fx-font-size: 11px;
+}
+
+/* Logout button */
+.nav-logout {
+    -fx-background-color: rgba(239,68,68,0.2);
+    -fx-text-fill: white;
+    -fx-border-color: rgba(239,68,68,0.45);
+    -fx-border-width: 1;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 10 16;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.nav-logout:hover {
+    -fx-background-color: rgba(239,68,68,0.38);
+}
+
+/* ─── TOPBAR (barre blanche du haut) ────────────────────────────────── */
+.topbar {
+    -fx-background-color: white;
+    -fx-padding: 14 24 14 24;
+    -fx-border-color: transparent transparent #e5e7eb transparent;
+    -fx-border-width: 0 0 1 0;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 4, 0, 0, 2);
+}
+
+.topbar-title {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1E3A8A;
+}
+
+.topbar-user {
+    -fx-font-size: 12.5px;
+    -fx-text-fill: #6b7280;
+}
+
+/* ─── CONTENT AREA ──────────────────────────────────────────────────── */
+.content-area {
+    -fx-background-color: #f5f7fa;
+    -fx-padding: 28 28 28 28;
+}
+
+/* ─── STAT CARDS (4 variantes comme Symfony) ─────────────────────────── */
+.stat-card {
+    -fx-background-color: white;
+    -fx-background-radius: 14;
+    -fx-border-color: #e5e7eb;
+    -fx-border-radius: 14;
+    -fx-border-width: 1;
+    -fx-padding: 22 20 22 20;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 8, 0, 0, 3);
+}
+
+.stat-card:hover {
+    -fx-effect: dropshadow(gaussian, rgba(30,58,138,0.18), 14, 0, 0, 5);
+    -fx-translate-y: -3;
+}
+
+.stat-card-primary {
+    -fx-border-color: transparent transparent transparent #1E3A8A;
+    -fx-border-width: 0 0 0 5;
+}
+
+.stat-card-success {
+    -fx-border-color: transparent transparent transparent #10b981;
+    -fx-border-width: 0 0 0 5;
+}
+
+.stat-card-warning {
+    -fx-border-color: transparent transparent transparent #FFC107;
+    -fx-border-width: 0 0 0 5;
+}
+
+.stat-card-info {
+    -fx-border-color: transparent transparent transparent #3b82f6;
+    -fx-border-width: 0 0 0 5;
+}
+
+.stat-card-danger {
+    -fx-border-color: transparent transparent transparent #ef4444;
+    -fx-border-width: 0 0 0 5;
+}
+
+.stat-label {
+    -fx-text-fill: #6b7280;
+    -fx-font-size: 10.5px;
+    -fx-font-weight: bold;
+}
+
+.stat-label-success { -fx-text-fill: #10b981; -fx-font-size: 10.5px; -fx-font-weight: bold; }
+.stat-label-warning { -fx-text-fill: #d97706; -fx-font-size: 10.5px; -fx-font-weight: bold; }
+.stat-label-info    { -fx-text-fill: #3b82f6; -fx-font-size: 10.5px; -fx-font-weight: bold; }
+.stat-label-danger  { -fx-text-fill: #ef4444; -fx-font-size: 10.5px; -fx-font-weight: bold; }
+
+.stat-value {
+    -fx-font-size: 36px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #0A1F44;
+}
+
+.stat-icon {
+    -fx-font-size: 30px;
+}
+
+/* Petites stat cards (partenaires, offres…) */
+.stat-card-small {
+    -fx-background-color: white;
+    -fx-background-radius: 12;
+    -fx-border-color: #e5e7eb;
+    -fx-border-radius: 12;
+    -fx-border-width: 1;
+    -fx-padding: 18 16 18 16;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 6, 0, 0, 2);
+    -fx-spacing: 6;
+}
+
+/* ─── CARD (contenu) ─────────────────────────────────────────────────── */
+.card {
+    -fx-background-color: white;
+    -fx-background-radius: 14;
+    -fx-border-color: #e5e7eb;
+    -fx-border-radius: 14;
+    -fx-border-width: 1;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 8, 0, 0, 3);
+}
+
+.card-header {
+    -fx-background-color: #f9fafb;
+    -fx-border-color: transparent transparent #e5e7eb transparent;
+    -fx-border-width: 0 0 1 0;
+    -fx-background-radius: 14 14 0 0;
+    -fx-padding: 16 20 16 20;
+}
+
+.card-header-title {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1E3A8A;
+}
+
+.card-body {
+    -fx-padding: 16 16 16 16;
+}
+
+/* ─── BOUTONS ─────────────────────────────────────────────────────────── */
+.btn {
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-padding: 10 20;
+    -fx-font-size: 13.5px;
+    -fx-cursor: hand;
+    -fx-font-weight: 600;
+    -fx-border-width: 0;
+}
+
+.btn-primary {
+    -fx-background-color: #1E3A8A;
+    -fx-text-fill: white;
+}
+
+.btn-primary:hover {
+    -fx-background-color: #1e40af;
+    -fx-effect: dropshadow(gaussian, rgba(30,58,138,0.35), 10, 0, 0, 3);
+}
+
+.btn-secondary {
+    -fx-background-color: #f3f4f6;
+    -fx-text-fill: #374151;
+    -fx-border-color: #d1d5db;
+    -fx-border-width: 1;
+}
+
+.btn-secondary:hover {
+    -fx-background-color: #e5e7eb;
+}
+
+.btn-warning {
+    -fx-background-color: #FFC107;
+    -fx-text-fill: #0A1F44;
+}
+
+.btn-warning:hover {
+    -fx-background-color: #f59e0b;
+}
+
+.btn-danger {
+    -fx-background-color: #ef4444;
+    -fx-text-fill: white;
+}
+
+.btn-danger:hover {
+    -fx-background-color: #dc2626;
+}
+
+.btn-success {
+    -fx-background-color: #10b981;
+    -fx-text-fill: white;
+}
+
+.btn-success:hover {
+    -fx-background-color: #059669;
+}
+
+.btn-info {
+    -fx-background-color: #3b82f6;
+    -fx-text-fill: white;
+}
+
+.btn-info:hover {
+    -fx-background-color: #2563eb;
+}
+
+.btn-sm {
+    -fx-padding: 6 14;
+    -fx-font-size: 12px;
+}
+
+.btn-lg {
+    -fx-padding: 14 32;
+    -fx-font-size: 15.5px;
+}
+
+.btn-back {
+    -fx-background-color: #e5e7eb;
+    -fx-text-fill: #374151;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-padding: 8 16;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-border-width: 0;
+}
+
+.btn-back:hover {
+    -fx-background-color: #d1d5db;
+}
+
+/* ─── HERO (Symfony: gradient #0A1F44 → #1E3A8A) ────────────────────── */
+.hero-banner {
+    -fx-background-color: linear-gradient(to bottom right, #0A1F44, #1E3A8A);
+    -fx-padding: 40 50 40 50;
+}
+
+.hero-title {
+    -fx-font-size: 38px;
+    -fx-font-weight: 900;
+    -fx-text-fill: white;
+}
+
+.hero-subtitle {
+    -fx-font-size: 16px;
+    -fx-text-fill: rgba(255,255,255,0.90);
+    -fx-wrap-text: true;
+}
+
+/* Welcome banner (dashboard professeur/étudiant) */
+.welcome-banner {
+    -fx-background-color: linear-gradient(to bottom right, #1E3A8A, #0A1F44);
+    -fx-background-radius: 16;
+    -fx-padding: 32 36 32 36;
+    -fx-effect: dropshadow(gaussian, rgba(30,58,138,0.3), 16, 0, 0, 6);
+}
+
+.welcome-name {
+    -fx-font-size: 30px;
+    -fx-font-weight: 900;
+    -fx-text-fill: white;
+}
+
+.welcome-sub {
+    -fx-font-size: 15px;
+    -fx-text-fill: rgba(255,255,255,0.88);
+}
+
+.welcome-avatar {
+    -fx-background-color: linear-gradient(to bottom right, #FFC107, #FF6F61);
+    -fx-background-radius: 50;
+    -fx-min-width: 80px;
+    -fx-min-height: 80px;
+    -fx-max-width: 80px;
+    -fx-max-height: 80px;
+    -fx-font-size: 26px;
+    -fx-font-weight: 900;
+    -fx-text-fill: white;
+    -fx-alignment: CENTER;
+}
+
+/* ─── VISITEUR NAV (navbar blanche) ─────────────────────────────────── */
+.visiteur-nav {
+    -fx-background-color: white;
+    -fx-padding: 14 32 14 32;
+    -fx-border-color: transparent transparent #e5e7eb transparent;
+    -fx-border-width: 0 0 1 0;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.07), 5, 0, 0, 2);
+}
+
+.visiteur-nav-title {
+    -fx-font-size: 19px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #1f2937;
+}
+
+.visiteur-nav-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #6b7280;
+    -fx-font-size: 13.5px;
+    -fx-font-weight: 500;
+    -fx-padding: 9 18;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+    -fx-border-width: 0;
+}
+
+.visiteur-nav-btn:hover {
+    -fx-background-color: #f3f4f6;
+    -fx-text-fill: #1E3A8A;
+}
+
+.visiteur-nav-login {
+    -fx-background-color: #1E3A8A;
+    -fx-text-fill: white;
+    -fx-font-size: 13.5px;
+    -fx-font-weight: 600;
+    -fx-padding: 9 20;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+    -fx-border-width: 0;
+}
+
+.visiteur-nav-login:hover {
+    -fx-background-color: #0A1F44;
+    -fx-effect: dropshadow(gaussian, rgba(30,58,138,0.3), 8, 0, 0, 3);
+}
+
+/* Hero visiteur */
+.visiteur-hero {
+    -fx-background-color: linear-gradient(to bottom right, #0A1F44, #1E3A8A);
+    -fx-padding: 80 90 80 90;
+    -fx-alignment: CENTER;
+}
+
+.visiteur-hero-title {
+    -fx-font-size: 44px;
+    -fx-font-weight: 900;
+    -fx-text-fill: white;
+    -fx-text-alignment: CENTER;
+}
+
+.visiteur-hero-sub {
+    -fx-font-size: 18px;
+    -fx-text-fill: rgba(255,255,255,0.92);
+    -fx-text-alignment: CENTER;
+    -fx-wrap-text: true;
+}
+
+/* Bouton hero primaire */
+.hero-btn-primary {
+    -fx-background-color: #FFC107;
+    -fx-text-fill: #0A1F44;
+    -fx-font-weight: 800;
+    -fx-padding: 14 32;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-font-size: 15px;
+    -fx-cursor: hand;
+    -fx-border-width: 0;
+}
+
+.hero-btn-primary:hover {
+    -fx-background-color: #f59e0b;
+    -fx-effect: dropshadow(gaussian, rgba(255,193,7,0.45), 12, 0, 0, 4);
+    -fx-translate-y: -2;
+}
+
+.hero-btn-outline {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-border-color: rgba(255,255,255,0.7);
+    -fx-border-width: 2;
+    -fx-padding: 13 30;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-font-size: 15px;
+    -fx-cursor: hand;
+    -fx-font-weight: 600;
+}
+
+.hero-btn-outline:hover {
+    -fx-background-color: rgba(255,255,255,0.15);
+    -fx-border-color: white;
+}
+
+/* Page hero (sous-pages visiteur) */
+.page-hero {
+    -fx-background-color: linear-gradient(to bottom right, #0A1F44, #1E3A8A);
+    -fx-padding: 55 80 55 80;
+}
+
+.page-hero-title {
+    -fx-font-size: 34px;
+    -fx-font-weight: 900;
+    -fx-text-fill: white;
+}
+
+.page-hero-sub {
+    -fx-font-size: 15.5px;
+    -fx-text-fill: rgba(255,255,255,0.88);
+    -fx-wrap-text: true;
+}
+
+/* Section titles */
+.section-title {
+    -fx-font-size: 26px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #0A1F44;
+}
+
+.page-title {
+    -fx-font-size: 24px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #1E3A8A;
+}
+
+.page-subtitle {
+    -fx-font-size: 13.5px;
+    -fx-text-fill: #6b7280;
+}
+
+/* ─── TABLEVIEW (comme Symfony) ──────────────────────────────────────── */
+.table-view {
+    -fx-background-color: white;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #f9fafb;
+}
+
+.table-view .column-header .label {
+    -fx-font-weight: bold;
+    -fx-text-fill: #1E3A8A;
+    -fx-font-size: 12.5px;
+    -fx-padding: 14 10;
+}
+
+.table-row-cell {
+    -fx-border-color: transparent transparent #f3f4f6 transparent;
+    -fx-border-width: 0 0 1 0;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: white;
+}
+
+.table-row-cell:even {
+    -fx-background-color: #fafbfc;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #dbeafe;
+    -fx-text-fill: #1e3a8a;
+}
+
+.table-row-cell:hover {
+    -fx-background-color: #f0f4ff;
+}
+
+/* ─── FORMULAIRES ─────────────────────────────────────────────────────── */
+.form-label {
+    -fx-font-weight: bold;
+    -fx-text-fill: #374151;
+    -fx-font-size: 13.5px;
+}
+
+.form-control {
+    -fx-background-color: white;
+    -fx-border-color: #d1d5db;
+    -fx-border-width: 1;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 10 14;
+    -fx-font-size: 14px;
+}
+
+.form-control:focused {
+    -fx-border-color: #1E3A8A;
+    -fx-effect: dropshadow(gaussian, rgba(30,58,138,0.18), 6, 0, 0, 0);
+}
+
+/* ─── AUTH (login glassmorphism) ─────────────────────────────────────── */
+.auth-root {
+    -fx-background-color: linear-gradient(to bottom right, #0f172a 0%, #1e3a8a 100%);
+}
+
+.auth-card {
+    -fx-background-color: rgba(255,255,255,0.14);
+    -fx-background-radius: 20;
+    -fx-border-color: rgba(255,255,255,0.28);
+    -fx-border-width: 1;
+    -fx-border-radius: 20;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.32), 30, 0, 0, 10);
+    -fx-padding: 40 36 40 36;
+}
+
+.auth-title {
+    -fx-font-size: 28px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #facc15;
+    -fx-text-alignment: CENTER;
+}
+
+.auth-subtitle {
+    -fx-font-size: 13.5px;
+    -fx-text-fill: rgba(255,255,255,0.78);
+    -fx-text-alignment: CENTER;
+}
+
+.auth-label {
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+    -fx-text-fill: rgba(255,255,255,0.88);
+}
+
+.auth-field {
+    -fx-background-color: rgba(255,255,255,0.12);
+    -fx-border-color: rgba(255,255,255,0.30);
+    -fx-border-width: 1;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-padding: 12 16;
+    -fx-font-size: 14px;
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: rgba(255,255,255,0.5);
+}
+
+.auth-field:focused {
+    -fx-border-color: #FFC107;
+    -fx-background-color: rgba(255,255,255,0.18);
+}
+
+.auth-btn {
+    -fx-background-color: #FFC107;
+    -fx-text-fill: #0A1F44;
+    -fx-font-weight: 800;
+    -fx-font-size: 15px;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-padding: 13 0;
+    -fx-cursor: hand;
+    -fx-border-width: 0;
+}
+
+.auth-btn:hover {
+    -fx-background-color: #f59e0b;
+    -fx-effect: dropshadow(gaussian, rgba(255,193,7,0.5), 12, 0, 0, 4);
+}
+
+.auth-link {
+    -fx-background-color: transparent;
+    -fx-text-fill: #60a5fa;
+    -fx-font-size: 13px;
+    -fx-cursor: hand;
+    -fx-border-width: 0;
+    -fx-underline: true;
+}
+
+.auth-link:hover {
+    -fx-text-fill: #93c5fd;
+}
+
+.alert-danger {
+    -fx-background-color: rgba(239,68,68,0.12);
+    -fx-border-color: rgba(239,68,68,0.45);
+    -fx-border-width: 1;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 10 14;
+    -fx-text-fill: #dc2626;
+    -fx-font-size: 13px;
+}
+
+.btn-google {
+    -fx-background-color: rgba(255,255,255,0.1);
+    -fx-text-fill: rgba(255,255,255,0.9);
+    -fx-border-color: rgba(255,255,255,0.28);
+    -fx-border-width: 1;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-padding: 10 0;
+    -fx-cursor: hand;
+    -fx-font-size: 13.5px;
+}
+
+.custom-separator {
+    -fx-background-color: rgba(255,255,255,0.18);
+}
+
+/* ─── PROFESSOR NAV (sticky topnav comme Symfony) ────────────────────── */
+.prof-topnav {
+    -fx-background-color: linear-gradient(to right, #1E3A8A, #0A1F44);
+    -fx-padding: 14 48 14 48;
+    -fx-effect: dropshadow(gaussian, rgba(30,58,138,0.32), 12, 0, 0, 4);
+}
+
+.prof-nav-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: rgba(255,255,255,0.88);
+    -fx-font-weight: 600;
+    -fx-font-size: 13.5px;
+    -fx-padding: 10 18;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-cursor: hand;
+    -fx-border-width: 0;
+}
+
+.prof-nav-btn:hover {
+    -fx-background-color: rgba(255,255,255,0.14);
+    -fx-text-fill: white;
+}
+
+.prof-nav-btn-active {
+    -fx-background-color: linear-gradient(to right, #FFC107, #FF6F61);
+    -fx-text-fill: #0A1F44;
+    -fx-font-weight: 800;
+}
+
+.prof-brand {
+    -fx-text-fill: white;
+    -fx-font-size: 10.5px;
+    -fx-font-weight: 800;
+    -fx-letter-spacing: 1.2px;
+}
+
+.prof-user-avatar {
+    -fx-background-color: linear-gradient(to bottom right, #FFC107, #FF6F61);
+    -fx-background-radius: 50;
+    -fx-min-width: 42px;
+    -fx-max-width: 42px;
+    -fx-min-height: 42px;
+    -fx-max-height: 42px;
+    -fx-font-weight: 800;
+    -fx-font-size: 14px;
+    -fx-text-fill: white;
+    -fx-alignment: CENTER;
+}
+
+.prof-logout {
+    -fx-background-color: rgba(239,68,68,0.2);
+    -fx-text-fill: white;
+    -fx-border-color: rgba(239,68,68,0.45);
+    -fx-border-width: 1;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 8 14;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-font-size: 12.5px;
+}
+
+/* ─── MODULE CARDS (professeur) ──────────────────────────────────────── */
+.module-card {
+    -fx-background-color: white;
+    -fx-background-radius: 14;
+    -fx-border-color: #e5e7eb;
+    -fx-border-radius: 14;
+    -fx-border-width: 2;
+    -fx-padding: 16 16 14 16;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 6, 0, 0, 2);
+}
+
+.module-card:hover {
+    -fx-border-color: #1E3A8A;
+    -fx-effect: dropshadow(gaussian, rgba(30,58,138,0.18), 12, 0, 0, 4);
+}
+
+.module-card-active {
+    -fx-border-color: #FFC107;
+    -fx-background-color: linear-gradient(to right, rgba(255,193,7,0.06), white);
+    -fx-effect: dropshadow(gaussian, rgba(255,193,7,0.22), 12, 0, 0, 4);
+}
+
+.module-code-badge {
+    -fx-background-color: #1E3A8A;
+    -fx-text-fill: white;
+    -fx-background-radius: 50;
+    -fx-font-weight: 800;
+    -fx-font-size: 11px;
+    -fx-padding: 3 10;
+}
+
+.module-name {
+    -fx-font-weight: 800;
+    -fx-font-size: 15px;
+    -fx-text-fill: #0A1F44;
+}
+
+.resource-type-badge {
+    -fx-background-color: #FFC107;
+    -fx-text-fill: #0A1F44;
+    -fx-background-radius: 50;
+    -fx-font-weight: 800;
+    -fx-font-size: 10px;
+    -fx-padding: 3 9;
+}
+
+.resource-icon-box {
+    -fx-background-color: linear-gradient(to bottom right, #FFC107, #FF6F61);
+    -fx-background-radius: 10;
+    -fx-min-width: 46px;
+    -fx-min-height: 46px;
+    -fx-max-width: 46px;
+    -fx-max-height: 46px;
+    -fx-alignment: CENTER;
+    -fx-font-size: 22px;
+}
+
+/* ─── SCROLLPANE ─────────────────────────────────────────────────────── */
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+/* ─── LISTVIEW ───────────────────────────────────────────────────────── */
+.list-view {
+    -fx-background-color: white;
+    -fx-border-color: #e5e7eb;
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+}
+
+.list-view .list-cell {
+    -fx-padding: 12 16;
+    -fx-font-size: 13.5px;
+    -fx-border-color: transparent transparent #f3f4f6 transparent;
+    -fx-border-width: 0 0 1 0;
+}
+
+.list-view .list-cell:hover {
+    -fx-background-color: #f0f4ff;
+}
+
+.list-view .list-cell:selected {
+    -fx-background-color: #1E3A8A;
+    -fx-text-fill: white;
+}
+
+/* ─── SEARCH / FILTER ────────────────────────────────────────────────── */
+.search-field {
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    -fx-border-color: #d1d5db;
+    -fx-border-width: 1;
+    -fx-padding: 10 16;
+    -fx-font-size: 13.5px;
+}
+
+.search-field:focused {
+    -fx-border-color: #1E3A8A;
+}
+
+.filter-combo {
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: #d1d5db;
+    -fx-border-width: 1;
+    -fx-padding: 6 10;
+}
+
+/* ─── DIVERS ─────────────────────────────────────────────────────────── */
+.separator .line {
+    -fx-border-color: #e5e7eb;
+}
+
+Label {
+    -fx-text-fill: #374151;
+}
+
+/* Status badge */
+.badge-success {
+    -fx-background-color: #d1fae5;
+    -fx-text-fill: #065f46;
+    -fx-background-radius: 20;
+    -fx-padding: 3 10;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.badge-warning {
+    -fx-background-color: #fef3c7;
+    -fx-text-fill: #92400e;
+    -fx-background-radius: 20;
+    -fx-padding: 3 10;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.badge-danger {
+    -fx-background-color: #fee2e2;
+    -fx-text-fill: #991b1b;
+    -fx-background-radius: 20;
+    -fx-padding: 3 10;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.badge-info {
+    -fx-background-color: #dbeafe;
+    -fx-text-fill: #1e40af;
+    -fx-background-radius: 20;
+    -fx-padding: 3 10;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+/* ─── NOTES PIVOT TABLE ─────────────────────────────────────────────────── */
+.notes-table {
+    -fx-background-color: white;
+    -fx-border-color: transparent;
+}
+.notes-table .column-header-background {
+    -fx-background-color: white;
+    -fx-border-color: transparent transparent #e5e7eb transparent;
+}
+.notes-table .column-header {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+.notes-table .column-header .label {
+    -fx-font-weight: bold;
+    -fx-text-fill: #111827;
+    -fx-font-size: 11px;
+}
+.notes-table .table-row-cell {
+    -fx-background-color: white;
+    -fx-border-color: transparent transparent #f9fafb transparent;
+    -fx-border-width: 0 0 1 0;
+}
+.notes-table .table-row-cell:hover {
+    -fx-background-color: #f8fafc;
+}
+
+/* ─── NOTES ACCORDION ─────────────────────────────────────────────────── */
+.notes-accordion > .titled-pane > .title {
+    -fx-background-color: #0A1F44;
+    -fx-padding: 12 20;
+    -fx-background-radius: 8 8 0 0;
+    -fx-border-width: 0;
+}
+.notes-accordion > .titled-pane > .title > .text {
+    -fx-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 15px;
+}
+.notes-accordion > .titled-pane > .title > .arrow-button > .arrow {
+    -fx-background-color: white;
+}
+.notes-accordion > .titled-pane > .content {
+    -fx-background-color: white;
+    -fx-border-color: #e5e7eb;
+    -fx-border-width: 0 1 1 1;
+    -fx-padding: 0;
+}
+
+/* ─── STUDENT TOPBAR ────────────────────────────────────────────────────── */
+.student-topbar {
+    -fx-background-color: white;
+    -fx-padding: 10 30;
+    -fx-border-color: #e5e7eb;
+    -fx-border-width: 0 0 1 0;
+}
+.student-nav-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #6b7280;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+    -fx-padding: 15 10;
+    -fx-cursor: hand;
+    -fx-border-color: transparent transparent transparent transparent;
+    -fx-border-width: 0 0 3 0;
+}
+.student-nav-btn:hover {
+    -fx-text-fill: #111827;
+}
+.student-nav-active {
+    -fx-text-fill: #f59e0b;
+    -fx-border-color: transparent transparent #f59e0b transparent; /* yellow bottom border */
+}
+
+/* ─── STUDENT DASHBOARD CARDS ────────────────────────────────────────────── */
+.student-dash-card {
+    -fx-background-color: white;
+    -fx-background-radius: 12;
+    -fx-border-color: #e5e7eb;
+    -fx-border-radius: 12;
+    -fx-padding: 20 25;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.04), 10, 0, 0, 2);
+}
+.student-dash-stat {
+    -fx-font-size: 28px;
+    -fx-font-weight: 900;
+    -fx-text-fill: #111827;
+}

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.learnhub.controller.medecin.MedecinDashboardController"
+            stylesheets="@/css/styles.css" prefWidth="1280" prefHeight="800">
+    <left>
+        <VBox styleClass="sidebar" spacing="0">
+            <VBox styleClass="sidebar-brand" spacing="5">
+                <Label text="🎓 LearnHub" styleClass="sidebar-brand-text"/>
+                <Label text="Espace Médecin" styleClass="sidebar-brand-sub"/>
+            </VBox>
+            <VBox spacing="2" style="-fx-padding: 10 0;">
+                <Button text="🏠  Tableau de bord" styleClass="nav-btn, nav-btn-active" maxWidth="Infinity"/>
+                <Button text="📅  Mes RDV"         styleClass="nav-btn" onAction="#goRdv"      maxWidth="Infinity"/>
+                <Button text="🕐  Mes Créneaux"    styleClass="nav-btn" onAction="#goCreneaux" maxWidth="Infinity"/>
+            </VBox>
+            <Region VBox.vgrow="ALWAYS"/>
+            <VBox style="-fx-border-color: rgba(255,255,255,0.12); -fx-border-width: 1 0 0 0;">
+                <Label fx:id="welcomeLabel" text="Médecin"
+                       style="-fx-text-fill: rgba(255,255,255,0.7); -fx-font-size: 12px; -fx-padding: 8 15 4 15;"/>
+                <Button text="🚪  Déconnexion" styleClass="nav-logout" onAction="#handleLogout" maxWidth="Infinity"/>
+            </VBox>
+        </VBox>
+    </left>
+    <center>
+        <ScrollPane fitToWidth="true" style="-fx-background-color: #f5f7fa; -fx-border-color: transparent;">
+            <VBox styleClass="content-area" spacing="24">
+
+                <VBox spacing="4">
+                    <Label text="🏥 Espace Médecin" styleClass="page-title"/>
+                    <Label text="Gérez vos créneaux et rendez-vous médicaux" styleClass="page-subtitle"/>
+                </VBox>
+
+                <!-- 3 stat cards -->
+                <HBox spacing="20">
+                    <VBox styleClass="stat-card, stat-card-info" HBox.hgrow="ALWAYS" spacing="8">
+                        <HBox alignment="CENTER_LEFT">
+                            <VBox HBox.hgrow="ALWAYS">
+                                <Label text="RDV TOTAL" styleClass="stat-label, stat-label-info"/>
+                                <Label fx:id="rdvTotalLabel" text="—" styleClass="stat-value"/>
+                            </VBox>
+                            <Label text="📅" styleClass="stat-icon"/>
+                        </HBox>
+                        <Label text="Tous mes rendez-vous" style="-fx-font-size: 12px; -fx-text-fill: #6b7280;"/>
+                    </VBox>
+                    <VBox styleClass="stat-card, stat-card-warning" HBox.hgrow="ALWAYS" spacing="8">
+                        <HBox alignment="CENTER_LEFT">
+                            <VBox HBox.hgrow="ALWAYS">
+                                <Label text="EN ATTENTE" styleClass="stat-label, stat-label-warning"/>
+                                <Label fx:id="rdvAttenteLabel" text="—" styleClass="stat-value"/>
+                            </VBox>
+                            <Label text="⏳" styleClass="stat-icon"/>
+                        </HBox>
+                        <Label text="À traiter" style="-fx-font-size: 12px; -fx-text-fill: #6b7280;"/>
+                    </VBox>
+                    <VBox styleClass="stat-card, stat-card-success" HBox.hgrow="ALWAYS" spacing="8">
+                        <HBox alignment="CENTER_LEFT">
+                            <VBox HBox.hgrow="ALWAYS">
+                                <Label text="CRÉNEAUX DISPO" styleClass="stat-label, stat-label-success"/>
+                                <Label fx:id="creneauxLabel" text="—" styleClass="stat-value"/>
+                            </VBox>
+                            <Label text="🕐" styleClass="stat-icon"/>
+                        </HBox>
+                        <Label text="Créneaux disponibles" style="-fx-font-size: 12px; -fx-text-fill: #6b7280;"/>
+                    </VBox>
+                </HBox>
+
+                <!-- Table RDV en attente -->
+                <VBox styleClass="card" VBox.vgrow="ALWAYS">
+                    <HBox styleClass="card-header" spacing="12" alignment="CENTER_LEFT">
+                        <Label text="⏳ RDV en Attente de Confirmation" styleClass="card-header-title"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Button text="Voir tous mes RDV" styleClass="btn, btn-primary, btn-sm" onAction="#goRdv"/>
+                    </HBox>
+                    <VBox styleClass="card-body" VBox.vgrow="ALWAYS">
+                        <TableView fx:id="rdvTable" VBox.vgrow="ALWAYS" style="-fx-border-color: transparent;">
+                            <columns>
+                                <TableColumn fx:id="colId"      text="ID"      prefWidth="55"/>
+                                <TableColumn fx:id="colPatient" text="Patient" prefWidth="200"/>
+                                <TableColumn fx:id="colDate"    text="Date"    prefWidth="150"/>
+                                <TableColumn fx:id="colMotif"   text="Motif"   prefWidth="280"/>
+                                <TableColumn fx:id="colStatut"  text="Statut"  prefWidth="120"/>
+                            </columns>
+                            <placeholder>
+                                <Label text="Aucun RDV en attente 🎉" style="-fx-text-fill: #9ca3af;"/>
+                            </placeholder>
+                        </TableView>
+                    </VBox>
+                    <HBox style="-fx-padding: 12 20; -fx-border-color: #e5e7eb; -fx-border-width: 1 0 0 0;"
+                          spacing="10" alignment="CENTER_LEFT">
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Button text="✅ Confirmer" styleClass="btn, btn-success, btn-sm" onAction="#handleConfirmer"/>
+                        <Button text="❌ Refuser"   styleClass="btn, btn-danger, btn-sm"  onAction="#handleRefuser"/>
+                    </HBox>
+                </VBox>
+            </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>

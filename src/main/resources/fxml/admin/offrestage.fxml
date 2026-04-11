@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.learnhub.controller.admin.OffresStageController"
+            stylesheets="@/css/styles.css" prefWidth="1280" prefHeight="800">
+    <left>
+        <VBox styleClass="sidebar" spacing="0">
+            <VBox styleClass="sidebar-brand" spacing="5">
+                <Label text="🎓 LearnHub" styleClass="sidebar-brand-text"/>
+                <Label text="Espace Administrateur" styleClass="sidebar-brand-sub"/>
+            </VBox>
+            <VBox spacing="2" style="-fx-padding: 10 0;">
+                <Label text="NAVIGATION" styleClass="nav-section-title"/>
+                <Button text="🏠  Tableau de bord" styleClass="nav-btn" onAction="#goBack" maxWidth="Infinity"/>
+                <Label text="STAGE" styleClass="nav-section-title"/>
+                <Button text="🤝  Partenaires" styleClass="nav-btn" maxWidth="Infinity"/>
+                <Button text="💼  Offres de Stage" styleClass="nav-btn, nav-btn-active" maxWidth="Infinity"/>
+                <Button text="📝  Demandes Stage" styleClass="nav-btn" maxWidth="Infinity"/>
+            </VBox>
+            <Region VBox.vgrow="ALWAYS"/>
+            <VBox styleClass="admin-section" spacing="10">
+                <Button text="🚪  Déconnexion" styleClass="nav-logout" onAction="#handleLogout" maxWidth="Infinity"/>
+            </VBox>
+        </VBox>
+    </left>
+    <center>
+        <VBox styleClass="content-area" spacing="20">
+            <HBox alignment="CENTER_LEFT" spacing="16">
+                <VBox HBox.hgrow="ALWAYS">
+                    <Label text="💼 Offres de Stage" styleClass="page-title"/>
+                    <Label text="Gérez les offres de stage publiées par les partenaires" styleClass="page-subtitle"/>
+                </VBox>
+                <Button text="← Tableau de bord" styleClass="btn, btn-secondary, btn-sm" onAction="#goBack"/>
+            </HBox>
+
+            <!-- Stat cards offres stage -->
+            <HBox spacing="20">
+                <VBox styleClass="stat-card, stat-card-success" HBox.hgrow="ALWAYS" spacing="8">
+                    <HBox alignment="CENTER_LEFT"><VBox HBox.hgrow="ALWAYS">
+                        <Label text="OFFRES ACTIVES" styleClass="stat-label, stat-label-success"/>
+                        <Label fx:id="offresActivesLabel" text="0" styleClass="stat-value"/>
+                    </VBox><Label text="📋" styleClass="stat-icon"/></HBox>
+                </VBox>
+                <VBox styleClass="stat-card, stat-card-info" HBox.hgrow="ALWAYS" spacing="8">
+                    <HBox alignment="CENTER_LEFT"><VBox HBox.hgrow="ALWAYS">
+                        <Label text="CANDIDATURES" styleClass="stat-label, stat-label-info"/>
+                        <Label fx:id="totalCandidaturesLabel" text="0" styleClass="stat-value"/>
+                    </VBox><Label text="👥" styleClass="stat-icon"/></HBox>
+                </VBox>
+                <VBox styleClass="stat-card, stat-card-primary" HBox.hgrow="ALWAYS" spacing="8">
+                    <HBox alignment="CENTER_LEFT"><VBox HBox.hgrow="ALWAYS">
+                        <Label text="ACCEPTÉES" styleClass="stat-label"/>
+                        <Label fx:id="accepteesLabel" text="0" styleClass="stat-value"/>
+                    </VBox><Label text="✅" styleClass="stat-icon"/></HBox>
+                </VBox>
+            </HBox>
+
+            <VBox styleClass="card" VBox.vgrow="ALWAYS">
+                <HBox styleClass="card-header" spacing="12" alignment="CENTER_LEFT">
+                    <Label text="💼 Liste des Offres de Stage" styleClass="card-header-title"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <ComboBox fx:id="filtreType"   promptText="📂 Type"   prefWidth="140" styleClass="filter-combo"/>
+                    <ComboBox fx:id="filtreStatut" promptText="📊 Statut" prefWidth="140" styleClass="filter-combo"/>
+                    <TextField fx:id="searchField" promptText="🔍 Rechercher..." prefWidth="200" styleClass="search-field"/>
+                    <Button text="🔍" styleClass="btn, btn-secondary, btn-sm" onAction="#handleSearch"/>
+                    <Button text="➕ Nouvelle Offre" styleClass="btn, btn-primary, btn-sm" onAction="#handleAdd"/>
+                    <Button text="↻" styleClass="btn, btn-secondary, btn-sm" onAction="#handleRefresh"/>
+                </HBox>
+                <VBox styleClass="card-body" VBox.vgrow="ALWAYS">
+                    <TableView fx:id="offreTable" VBox.vgrow="ALWAYS" style="-fx-border-color: transparent;">
+                        <placeholder>
+                            <Label text="📭 Aucune offre trouvée" style="-fx-text-fill: #9ca3af;"/>
+                        </placeholder>
+                    </TableView>
+                </VBox>
+                <HBox style="-fx-padding: 12 20; -fx-border-color: #e5e7eb; -fx-border-width: 1 0 0 0;"
+                      spacing="10" alignment="CENTER_LEFT">
+                    <Label fx:id="statusLabel" text="" style="-fx-text-fill: #6b7280; -fx-font-size: 12px;"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button text="✏️ Modifier"  styleClass="btn, btn-warning, btn-sm" onAction="#handleEdit"/>
+                    <Button text="🗑 Supprimer" styleClass="btn, btn-danger, btn-sm"  onAction="#handleDelete"/>
+                </HBox>
+            </VBox>
+        </VBox>
+    </center>
+</BorderPane>

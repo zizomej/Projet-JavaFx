@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.learnhub.controller.parent.ParentDashboardController"
+            stylesheets="@/css/styles.css" prefWidth="1280" prefHeight="800">
+    <left>
+        <VBox styleClass="sidebar" spacing="0">
+            <VBox styleClass="sidebar-brand" spacing="5">
+                <Label text="🎓 LearnHub" styleClass="sidebar-brand-text"/>
+                <Label text="Espace Parent" styleClass="sidebar-brand-sub"/>
+            </VBox>
+            <VBox spacing="2" style="-fx-padding: 10 0;">
+                <Button text="🏠  Tableau de bord"      styleClass="nav-btn, nav-btn-active" maxWidth="Infinity"/>
+                <Button text="📊  Notes de mon enfant"  styleClass="nav-btn" maxWidth="Infinity"/>
+                <Button text="✅  Présences"             styleClass="nav-btn" maxWidth="Infinity"/>
+                <Button text="🗓  Emploi du temps"      styleClass="nav-btn" maxWidth="Infinity"/>
+                <Button text="🏥  RDV Médicaux"         styleClass="nav-btn" maxWidth="Infinity"/>
+            </VBox>
+            <Region VBox.vgrow="ALWAYS"/>
+            <VBox style="-fx-border-color: rgba(255,255,255,0.12); -fx-border-width: 1 0 0 0;">
+                <Label fx:id="welcomeLabel" text="Parent"
+                       style="-fx-text-fill: rgba(255,255,255,0.7); -fx-font-size: 12px; -fx-padding: 8 15 4 15;"/>
+                <Button text="🚪  Déconnexion" styleClass="nav-logout" onAction="#handleLogout" maxWidth="Infinity"/>
+            </VBox>
+        </VBox>
+    </left>
+    <center>
+        <ScrollPane fitToWidth="true" style="-fx-background-color: #f5f7fa; -fx-border-color: transparent;">
+            <VBox styleClass="content-area" spacing="24">
+
+                <VBox spacing="4">
+                    <Label text="👨‍👩‍👧 Espace Parent" styleClass="page-title"/>
+                    <Label text="Suivez les résultats et présences de votre enfant" styleClass="page-subtitle"/>
+                </VBox>
+
+                <!-- Bannière enfant (violet comme Symfony parent) -->
+                <VBox spacing="10"
+                      style="-fx-background-color: linear-gradient(to bottom right, #9333ea, #7e22ce);
+                             -fx-background-radius: 14; -fx-padding: 28 32; 
+                             -fx-effect: dropshadow(gaussian, rgba(147,51,234,0.25), 14, 0, 0, 5);">
+                    <HBox alignment="CENTER_LEFT" spacing="20">
+                        <Label text="🧑‍🎓"
+                               style="-fx-background-color: rgba(255,255,255,0.2); -fx-background-radius: 50;
+                                      -fx-min-width: 70px; -fx-min-height: 70px; -fx-max-width: 70px; -fx-max-height: 70px;
+                                      -fx-font-size: 32px; -fx-alignment: CENTER;"/>
+                        <VBox HBox.hgrow="ALWAYS" spacing="6">
+                            <Label fx:id="enfantNomLabel" text="Nom Prénom Enfant"
+                                   style="-fx-font-size: 22px; -fx-font-weight: 900; -fx-text-fill: white;"/>
+                            <Label fx:id="enfantFiliereLabel" text="Filière — Niveau"
+                                   style="-fx-font-size: 14px; -fx-text-fill: rgba(255,255,255,0.85);"/>
+                        </VBox>
+                        <HBox spacing="16">
+                            <VBox alignment="CENTER" spacing="4"
+                                  style="-fx-background-color: rgba(255,255,255,0.18); -fx-background-radius: 10; -fx-padding: 14 20;">
+                                <Label fx:id="moyenneLabel" text="—"
+                                       style="-fx-font-size: 28px; -fx-font-weight: 900; -fx-text-fill: white;"/>
+                                <Label text="Moyenne" style="-fx-font-size: 12px; -fx-text-fill: rgba(255,255,255,0.78);"/>
+                            </VBox>
+                            <VBox alignment="CENTER" spacing="4"
+                                  style="-fx-background-color: rgba(255,255,255,0.18); -fx-background-radius: 10; -fx-padding: 14 20;">
+                                <Label fx:id="absencesLabel" text="—"
+                                       style="-fx-font-size: 28px; -fx-font-weight: 900; -fx-text-fill: white;"/>
+                                <Label text="Absences" style="-fx-font-size: 12px; -fx-text-fill: rgba(255,255,255,0.78);"/>
+                            </VBox>
+                        </HBox>
+                    </HBox>
+                </VBox>
+
+                <!-- Notes et présences -->
+                <HBox spacing="20" VBox.vgrow="ALWAYS">
+                    <VBox styleClass="card" HBox.hgrow="ALWAYS">
+                        <HBox styleClass="card-header" alignment="CENTER_LEFT">
+                            <Label text="📊 Notes de mon enfant" styleClass="card-header-title"/>
+                        </HBox>
+                        <VBox styleClass="card-body" VBox.vgrow="ALWAYS">
+                            <TableView fx:id="notesTable" VBox.vgrow="ALWAYS" style="-fx-border-color: transparent;">
+                                <columns>
+                                    <TableColumn fx:id="colModule"  text="Module"   prefWidth="180"/>
+                                    <TableColumn fx:id="colNote"    text="Note /20" prefWidth="90"/>
+                                    <TableColumn fx:id="colType"    text="Type"     prefWidth="100"/>
+                                    <TableColumn fx:id="colMention" text="Mention"  prefWidth="110"/>
+                                </columns>
+                                <placeholder>
+                                    <Label text="Aucune note disponible" style="-fx-text-fill: #9ca3af;"/>
+                                </placeholder>
+                            </TableView>
+                        </VBox>
+                    </VBox>
+                    <VBox styleClass="card" HBox.hgrow="ALWAYS">
+                        <HBox styleClass="card-header" alignment="CENTER_LEFT">
+                            <Label text="✅ Présences" styleClass="card-header-title"/>
+                        </HBox>
+                        <VBox styleClass="card-body" VBox.vgrow="ALWAYS">
+                            <TableView fx:id="presencesTable" VBox.vgrow="ALWAYS" style="-fx-border-color: transparent;">
+                                <columns>
+                                    <TableColumn fx:id="colSeance"  text="Séance"  prefWidth="180"/>
+                                    <TableColumn fx:id="colDate2"   text="Date"    prefWidth="110"/>
+                                    <TableColumn fx:id="colStatut"  text="Statut"  prefWidth="110"/>
+                                </columns>
+                                <placeholder>
+                                    <Label text="Aucune présence enregistrée" style="-fx-text-fill: #9ca3af;"/>
+                                </placeholder>
+                            </TableView>
+                        </VBox>
+                    </VBox>
+                </HBox>
+            </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>

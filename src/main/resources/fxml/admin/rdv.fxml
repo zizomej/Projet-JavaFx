@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.learnhub.controller.admin.RdvAdminController"
+            stylesheets="@/css/styles.css" prefWidth="1280" prefHeight="800">
+    <left>
+        <VBox styleClass="sidebar" spacing="0">
+            <VBox styleClass="sidebar-brand" spacing="5">
+                <Label text="🎓 LearnHub" styleClass="sidebar-brand-text"/>
+                <Label text="Espace Administrateur" styleClass="sidebar-brand-sub"/>
+            </VBox>
+            <VBox spacing="2" style="-fx-padding: 10 0;">
+                <Label text="NAVIGATION" styleClass="nav-section-title"/>
+                <Button text="🏠  Tableau de bord" styleClass="nav-btn" onAction="#goBack" maxWidth="Infinity"/>
+                <Label text="MÉDICAL" styleClass="nav-section-title"/>
+                <Button text="🏥  RDV Médicaux" styleClass="nav-btn, nav-btn-active" maxWidth="Infinity"/>
+            </VBox>
+            <Region VBox.vgrow="ALWAYS"/>
+            <VBox styleClass="admin-section" spacing="10">
+                <Button text="🚪  Déconnexion" styleClass="nav-logout" onAction="#handleLogout" maxWidth="Infinity"/>
+            </VBox>
+        </VBox>
+    </left>
+    <center>
+        <VBox styleClass="content-area" spacing="20">
+            <HBox alignment="CENTER_LEFT" spacing="16">
+                <VBox HBox.hgrow="ALWAYS">
+                    <Label text="🏥 Gestion des RDV Médicaux" styleClass="page-title"/>
+                    <Label text="Consultez et gérez tous les rendez-vous médicaux" styleClass="page-subtitle"/>
+                </VBox>
+                <Button text="← Tableau de bord" styleClass="btn, btn-secondary, btn-sm" onAction="#goBack"/>
+            </HBox>
+            <HBox spacing="12" alignment="CENTER_LEFT">
+                <Label text="Filtrer par statut :" style="-fx-font-weight: bold; -fx-text-fill: #374151;"/>
+                <ComboBox fx:id="statutFilter" prefWidth="200" styleClass="filter-combo"/>
+                <Button text="↻ Actualiser" styleClass="btn, btn-secondary, btn-sm" onAction="#handleRefresh"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Label text="🟡 En attente" styleClass="badge-warning"/>
+                <Label text="🟢 Confirmé"  styleClass="badge-success"/>
+                <Label text="🔴 Annulé"    styleClass="badge-danger"/>
+            </HBox>
+            <VBox styleClass="card" VBox.vgrow="ALWAYS">
+                <HBox styleClass="card-header" spacing="12" alignment="CENTER_LEFT">
+                    <Label text="🏥 Liste des RDV" styleClass="card-header-title"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <TextField fx:id="searchField" promptText="🔍 Rechercher..." prefWidth="220" styleClass="search-field"/>
+                </HBox>
+                <VBox styleClass="card-body" VBox.vgrow="ALWAYS">
+                    <TableView fx:id="table" VBox.vgrow="ALWAYS" style="-fx-border-color: transparent;">
+                        <columns>
+                            <TableColumn fx:id="colId"        text="ID"         prefWidth="55"/>
+                            <TableColumn fx:id="colPatient"   text="Patient"    prefWidth="175"/>
+                            <TableColumn fx:id="colMedecin"   text="Médecin"    prefWidth="175"/>
+                            <TableColumn fx:id="colDateHeure" text="Date/Heure" prefWidth="160"/>
+                            <TableColumn fx:id="colMotif"     text="Motif"      prefWidth="200"/>
+                            <TableColumn fx:id="colStatut"    text="Statut"     prefWidth="120"/>
+                        </columns>
+                        <placeholder><Label text="Aucun RDV enregistré" style="-fx-text-fill: #9ca3af;"/></placeholder>
+                    </TableView>
+                </VBox>
+                <HBox style="-fx-padding: 12 20; -fx-border-color: #e5e7eb; -fx-border-width: 1 0 0 0;"
+                      spacing="10" alignment="CENTER_LEFT">
+                    <Label fx:id="statusLabel" text="" style="-fx-text-fill: #6b7280; -fx-font-size: 12px;"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button text="✅ Confirmer" styleClass="btn, btn-success, btn-sm" onAction="#handleConfirmer"/>
+                    <Button text="❌ Annuler"   styleClass="btn, btn-danger, btn-sm"  onAction="#handleAnnuler"/>
+                    <Button text="✔ Terminer"  styleClass="btn, btn-info, btn-sm"    onAction="#handleTerminer"/>
+                    <Button text="🗑 Supprimer" styleClass="btn, btn-secondary, btn-sm" onAction="#handleDelete"/>
+                </HBox>
+            </VBox>
+        </VBox>
+    </center>
+</BorderPane>

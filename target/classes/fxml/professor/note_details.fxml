@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.learnhub.controller.professor.NoteDetailsController"
+      style="-fx-background-color: #f5f7fa; -fx-padding: 30;"
+      prefWidth="700" spacing="20">
+
+    <!-- Top Banner -->
+    <HBox style="-fx-background-color: #0A1F44; -fx-padding: 20 24; -fx-background-radius: 12;" alignment="CENTER">
+        <VBox spacing="4" HBox.hgrow="ALWAYS">
+            <Label text="📊 Détails de la Note" style="-fx-font-size: 20px; -fx-font-weight: 900; -fx-text-fill: white;"/>
+            <Label text="Informations complètes de l'évaluation" style="-fx-text-fill: rgba(255,255,255,0.7); -fx-font-size: 12px;"/>
+        </VBox>
+        <HBox spacing="10" alignment="CENTER_RIGHT">
+            <Button text="✏️ Modifier" style="-fx-background-color: #FFC107; -fx-text-fill: #0A1F44; -fx-font-weight: bold; -fx-background-radius: 8; -fx-cursor: hand;" onAction="#handleEdit"/>
+            <Button text="🗑️ Supprimer" style="-fx-background-color: #FF6F61; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8; -fx-cursor: hand;" onAction="#handleDelete"/>
+        </HBox>
+    </HBox>
+
+    <VBox style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 24; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 8, 0, 0, 3);" spacing="20">
+        
+        <Label text="🎯 Évaluation" style="-fx-font-weight: bold; -fx-text-fill: #1E3A8A; -fx-font-size: 14px;"/>
+
+        <!-- Big Score Box -->
+        <HBox alignment="CENTER" style="-fx-background-color: #f3f4f6; -fx-background-radius: 12; -fx-padding: 30;" spacing="15">
+            <Label fx:id="lblScore" text="20.00 / 20" style="-fx-font-size: 32px; -fx-font-weight: 900; -fx-text-fill: #1E3A8A;"/>
+            <Label fx:id="lblMention" text="★ EXCELLENT" style="-fx-background-color: #dcfce7; -fx-text-fill: #166534; -fx-font-weight: bold; -fx-padding: 4 12; -fx-background-radius: 12; -fx-font-size: 12px;"/>
+        </HBox>
+
+        <Label text="📋 Informations" style="-fx-font-weight: bold; -fx-text-fill: #1E3A8A; -fx-font-size: 14px; -fx-padding: 10 0 0 0;"/>
+
+        <GridPane hgap="20" vgap="15">
+            <!-- Col 1 -->
+            <VBox GridPane.columnIndex="0" GridPane.rowIndex="0" style="-fx-background-color: #f9fafb; -fx-padding: 12; -fx-background-radius: 8; -fx-border-color: #e5e7eb; -fx-border-radius: 8;" prefWidth="300">
+                <Label text="👨‍🎓 ÉTUDIANT" style="-fx-text-fill: #6b7280; -fx-font-size: 10px; -fx-font-weight: bold;"/>
+                <Label fx:id="lblEtudiant" text="-" style="-fx-text-fill: #1f2937; -fx-font-weight: bold; -fx-font-size: 13px;"/>
+            </VBox>
+            
+            <!-- Col 2 -->
+            <VBox GridPane.columnIndex="1" GridPane.rowIndex="0" style="-fx-background-color: #f9fafb; -fx-padding: 12; -fx-background-radius: 8; -fx-border-color: #e5e7eb; -fx-border-radius: 8;" prefWidth="300">
+                <Label text="📚 MODULE" style="-fx-text-fill: #6b7280; -fx-font-size: 10px; -fx-font-weight: bold;"/>
+                <Label fx:id="lblModule" text="-" style="-fx-text-fill: #1f2937; -fx-font-weight: bold; -fx-font-size: 13px;"/>
+            </VBox>
+
+            <VBox GridPane.columnIndex="0" GridPane.rowIndex="1" style="-fx-background-color: #f9fafb; -fx-padding: 12; -fx-background-radius: 8; -fx-border-color: #e5e7eb; -fx-border-radius: 8;">
+                <Label text="📝 TYPE DE NOTE" style="-fx-text-fill: #6b7280; -fx-font-size: 10px; -fx-font-weight: bold;"/>
+                <Label fx:id="lblType" text="-" style="-fx-text-fill: #1f2937; -fx-font-weight: bold; -fx-font-size: 13px;"/>
+            </VBox>
+
+            <VBox GridPane.columnIndex="1" GridPane.rowIndex="1" style="-fx-background-color: #f9fafb; -fx-padding: 12; -fx-background-radius: 8; -fx-border-color: #e5e7eb; -fx-border-radius: 8;">
+                <Label text="⚖️ COEFFICIENT" style="-fx-text-fill: #6b7280; -fx-font-size: 10px; -fx-font-weight: bold;"/>
+                <Label fx:id="lblCoeff" text="-" style="-fx-text-fill: #1f2937; -fx-font-weight: bold; -fx-font-size: 13px;"/>
+            </VBox>
+
+            <VBox GridPane.columnIndex="0" GridPane.rowIndex="2" style="-fx-background-color: #f9fafb; -fx-padding: 12; -fx-background-radius: 8; -fx-border-color: #e5e7eb; -fx-border-radius: 8;">
+                <Label text="⭐️ NOTE PONDÉRÉE" style="-fx-text-fill: #6b7280; -fx-font-size: 10px; -fx-font-weight: bold;"/>
+                <Label fx:id="lblPonderee" text="-" style="-fx-text-fill: #1f2937; -fx-font-weight: bold; -fx-font-size: 13px;"/>
+            </VBox>
+
+            <VBox GridPane.columnIndex="1" GridPane.rowIndex="2" style="-fx-background-color: #f9fafb; -fx-padding: 12; -fx-background-radius: 8; -fx-border-color: #e5e7eb; -fx-border-radius: 8;">
+                <Label text="👨‍🏫 ENSEIGNANT" style="-fx-text-fill: #6b7280; -fx-font-size: 10px; -fx-font-weight: bold;"/>
+                <Label fx:id="lblEnseignant" text="-" style="-fx-text-fill: #1f2937; -fx-font-weight: bold; -fx-font-size: 13px;"/>
+            </VBox>
+
+            <VBox GridPane.columnIndex="0" GridPane.rowIndex="3" style="-fx-background-color: #f9fafb; -fx-padding: 12; -fx-background-radius: 8; -fx-border-color: #e5e7eb; -fx-border-radius: 8;">
+                <Label text="📅 DATE DE SAISIE" style="-fx-text-fill: #6b7280; -fx-font-size: 10px; -fx-font-weight: bold;"/>
+                <Label fx:id="lblDate" text="-" style="-fx-text-fill: #1f2937; -fx-font-weight: bold; -fx-font-size: 13px;"/>
+            </VBox>
+        </GridPane>
+    </VBox>
+
+    <HBox alignment="CENTER_RIGHT" spacing="12">
+        <Button text="⬅ Retour à la liste" style="-fx-background-color: #6b7280; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8; -fx-padding: 10 20; -fx-cursor: hand;" onAction="#handleListe"/>
+        <Button text="✏️ Modifier cette note" style="-fx-background-color: #FFC107; -fx-text-fill: #0A1F44; -fx-font-weight: bold; -fx-background-radius: 8; -fx-padding: 10 20; -fx-cursor: hand;" onAction="#handleEdit"/>
+        <Button text="🗑️ Supprimer" style="-fx-background-color: #FF6F61; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8; -fx-padding: 10 20; -fx-cursor: hand;" onAction="#handleDelete"/>
+    </HBox>
+
+</VBox>

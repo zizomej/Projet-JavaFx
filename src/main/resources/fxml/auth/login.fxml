@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<!--
+  LOGIN — Design EXACT du template Symfony security/login.html.twig
+  Glassmorphism sur fond gradient bleu foncé (#0f172a → #1e3a8a)
+  Titre jaune #facc15, bouton #FFC107
+-->
+<StackPane xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.learnhub.controller.auth.LoginController"
+           stylesheets="@/css/styles.css"
+           prefWidth="1280" prefHeight="800"
+           styleClass="auth-root">
+
+    <!-- Fond dégradé comme Symfony -->
+    <VBox alignment="CENTER" spacing="0"
+          style="-fx-background-color: linear-gradient(to bottom right, #0f172a 0%, #0A1F44 50%, #1E3A8A 100%);">
+
+        <!-- Titre au-dessus -->
+        <VBox alignment="CENTER" spacing="6" style="-fx-padding: 0 0 24 0;">
+            <Label text="🎓" style="-fx-font-size: 48px;"/>
+            <Label text="LearnHub"
+                   style="-fx-font-size: 32px; -fx-font-weight: 900; -fx-text-fill: white; -fx-letter-spacing: 1px;"/>
+            <Label text="Plateforme d'apprentissage intelligente"
+                   style="-fx-font-size: 13.5px; -fx-text-fill: rgba(255,255,255,0.65);"/>
+        </VBox>
+
+        <!-- Card glassmorphism -->
+        <VBox styleClass="auth-card" maxWidth="440" spacing="20">
+
+            <VBox spacing="5" alignment="CENTER">
+                <Label text="Connexion" styleClass="auth-title"/>
+                <Label text="Accédez à votre espace personnel" styleClass="auth-subtitle"/>
+            </VBox>
+
+            <Separator styleClass="custom-separator"/>
+
+            <!-- Email -->
+            <VBox spacing="7">
+                <Label text="📧  Adresse e-mail" styleClass="auth-label"/>
+                <TextField fx:id="emailField"
+                           promptText="exemple@learnhub.tn"
+                           styleClass="auth-field"
+                           prefHeight="48"/>
+            </VBox>
+
+            <!-- Mot de passe -->
+            <VBox spacing="7">
+                <Label text="🔒  Mot de passe" styleClass="auth-label"/>
+                <PasswordField fx:id="passwordField"
+                               promptText="••••••••"
+                               styleClass="auth-field"
+                               prefHeight="48"/>
+            </VBox>
+
+            <!-- Erreur -->
+            <Label fx:id="errorLabel" styleClass="alert-danger"
+                   wrapText="true" managed="false" visible="false"/>
+
+            <!-- Connexion -->
+            <Button fx:id="loginButton"
+                    text="🔐  Se connecter"
+                    styleClass="auth-btn"
+                    onAction="#handleLogin"
+                    maxWidth="Infinity" prefHeight="50"/>
+
+            <!-- Google -->
+            <Button text="🌐  Continuer avec Google"
+                    styleClass="btn-google"
+                    maxWidth="Infinity" prefHeight="44"/>
+
+            <Separator styleClass="custom-separator"/>
+
+            <!-- Inscription -->
+            <HBox alignment="CENTER" spacing="6">
+                <Label text="Pas encore de compte ?"
+                       style="-fx-text-fill: rgba(255,255,255,0.68); -fx-font-size: 13px;"/>
+                <Button text="S'inscrire" styleClass="auth-link" onAction="#goToRegister"/>
+            </HBox>
+
+            <!-- Visiteur -->
+            <HBox alignment="CENTER">
+                <Button text="Continuer sans connexion →" styleClass="auth-link"
+                        onAction="#goToVisiteur"/>
+            </HBox>
+
+            <Label text="© 2026 LearnHub • Tous droits réservés"
+                   style="-fx-font-size: 10.5px; -fx-text-fill: rgba(255,255,255,0.40); -fx-alignment: CENTER;"
+                   maxWidth="Infinity"/>
+        </VBox>
+    </VBox>
+</StackPane>

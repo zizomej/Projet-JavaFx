@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.learnhub.controller.professor.ProfessorDashboardController"
+            stylesheets="@/css/styles.css" prefWidth="1280" prefHeight="800">
+    <top>
+        <HBox styleClass="prof-topnav" alignment="CENTER_LEFT" spacing="10">
+            <HBox spacing="10"><Label text="🎓" style="-fx-font-size:28px;"/>
+                <VBox spacing="2">
+                    <Label text="🎓 LearnHub" style="-fx-text-fill:white;-fx-font-size:17px;-fx-font-weight:900;"/>
+                    <Label text="ESPACE PROFESSEUR" styleClass="prof-brand"/></VBox>
+            </HBox>
+            <Region HBox.hgrow="ALWAYS"/>
+            <HBox spacing="4" alignment="CENTER">
+                <Button text="🏠 Tableau de bord" styleClass="prof-nav-btn" onAction="#goDashboard"/>
+                <Button text="📚 Mes Modules"     styleClass="prof-nav-btn" onAction="#goModules"/>
+                <Button text="🗓 Mes Séances"     styleClass="prof-nav-btn" onAction="#goSeances"/>
+                <Button text="📊 Gérer Notes"     styleClass="prof-nav-btn" onAction="#goNotes"/>
+                <Button text="✅ Présences"        styleClass="prof-nav-btn" onAction="#goPresences"/>
+            </HBox>
+            <Region HBox.hgrow="ALWAYS"/>
+            <HBox spacing="8" alignment="CENTER_RIGHT">
+                <Label fx:id="welcomeLabel" text="Professeur" style="-fx-text-fill:white;-fx-font-weight:bold;-fx-font-size:13px;"/>
+                <Label text="PR" styleClass="prof-user-avatar"/>
+                <Button text="🚪 Déconnexion" styleClass="prof-logout" onAction="#handleLogout"/>
+            </HBox>
+        </HBox>
+    </top>
+    <center>
+        <ScrollPane fitToWidth="true" style="-fx-background-color:#f5f7fa;-fx-border-color:transparent;">
+            <VBox styleClass="content-area" spacing="24">
+                <VBox styleClass="welcome-banner" spacing="10">
+                    <Label text="🎉 Événements" styleClass="welcome-name"/>
+                    <Label text="Consultez les événements de l'établissement" styleClass="welcome-sub"/>
+                </VBox>
+                <VBox styleClass="card" VBox.vgrow="ALWAYS">
+                    <HBox styleClass="card-header" alignment="CENTER_LEFT">
+                        <Label text="🎉 Liste des Événements" styleClass="card-header-title"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <TextField fx:id="searchField" promptText="🔍 Rechercher..." prefWidth="220" styleClass="search-field"/>
+                    </HBox>
+                    <VBox styleClass="card-body" VBox.vgrow="ALWAYS">
+                        <TableView fx:id="evenementsTable" VBox.vgrow="ALWAYS" style="-fx-border-color:transparent;">
+                            <columns>
+                                <TableColumn fx:id="colTitre"  text="Titre"  prefWidth="260"/>
+                                <TableColumn fx:id="colType"   text="Type"   prefWidth="130"/>
+                                <TableColumn fx:id="colDate"   text="Date"   prefWidth="130"/>
+                                <TableColumn fx:id="colStatut" text="Statut" prefWidth="120"/>
+                            </columns>
+                            <placeholder><Label text="Aucun événement" style="-fx-text-fill:#9ca3af;"/></placeholder>
+                        </TableView>
+                    </VBox>
+                </VBox>
+            </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>

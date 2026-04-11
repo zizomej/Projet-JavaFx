@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:id="rootPane"
+            fx:controller="com.learnhub.controller.visiteur.PartnersController"
+            stylesheets="@/css/styles.css" prefWidth="1280" prefHeight="800">
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="10" styleClass="visiteur-nav">
+            <Label text="🎓 LearnHub" styleClass="visiteur-nav-title"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button text="Accueil"     styleClass="visiteur-nav-btn" onAction="#goHome"/>
+            <Button text="Programmes"  styleClass="visiteur-nav-btn" onAction="#goPrograms"/>
+            <Button text="Actualités"  styleClass="visiteur-nav-btn" onAction="#goEvents"/>
+            <Button text="Partenaires" styleClass="visiteur-nav-btn"
+                    style="-fx-text-fill: #1E3A8A; -fx-border-color: transparent transparent #FFC107 transparent; -fx-border-width: 0 0 3 0;"
+                    onAction="#goPartners"/>
+            <Button text="🔐  Se connecter" styleClass="visiteur-nav-login" onAction="#goLogin"/>
+        </HBox>
+    </top>
+    <center>
+        <ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-border-color: transparent;">
+            <VBox spacing="0">
+                <!-- Page Hero -->
+                <VBox styleClass="page-hero" alignment="CENTER_LEFT" spacing="14" minHeight="210">
+                    <padding><Insets top="60" bottom="60" left="90" right="90"/></padding>
+                    <Label text="🤝 Nos Filières &amp; Partenaires" styleClass="page-hero-title"/>
+                    <Label text="Explorez nos filières académiques et partenaires institutionnels"
+                           styleClass="page-hero-sub" wrapText="true" maxWidth="620"/>
+                    <HBox spacing="8" alignment="CENTER_LEFT">
+                        <padding><Insets top="8"/></padding>
+                        <Label text="🏠 Accueil" style="-fx-text-fill: rgba(255,255,255,0.55); -fx-font-size: 13px;"/>
+                        <Label text="›" style="-fx-text-fill: rgba(255,255,255,0.45);"/>
+                        <Label text="Partenaires" style="-fx-text-fill: #FFC107; -fx-font-size: 13px; -fx-font-weight: bold;"/>
+                    </HBox>
+                </VBox>
+
+                <!-- Content -->
+                <VBox style="-fx-background-color: #f5f7fa; -fx-padding: 40 80 60 80;" spacing="28">
+                    <!-- Stats -->
+                    <HBox spacing="20">
+                        <VBox styleClass="stat-card, stat-card-primary" HBox.hgrow="ALWAYS" spacing="8">
+                            <HBox alignment="CENTER_LEFT">
+                                <VBox HBox.hgrow="ALWAYS">
+                                    <Label text="PARTENAIRES" styleClass="stat-label"/>
+                                    <Label fx:id="totalPartenairesLabel" text="—" styleClass="stat-value"/>
+                                </VBox>
+                                <Label text="🏢" styleClass="stat-icon"/>
+                            </HBox>
+                        </VBox>
+                        <VBox styleClass="stat-card, stat-card-success" HBox.hgrow="ALWAYS" spacing="8">
+                            <HBox alignment="CENTER_LEFT">
+                                <VBox HBox.hgrow="ALWAYS">
+                                    <Label text="OFFRES DE STAGE" styleClass="stat-label, stat-label-success"/>
+                                    <Label fx:id="totalOffresLabel" text="—" styleClass="stat-value"/>
+                                </VBox>
+                                <Label text="💼" styleClass="stat-icon"/>
+                            </HBox>
+                        </VBox>
+                        <VBox styleClass="stat-card, stat-card-warning" HBox.hgrow="ALWAYS" spacing="8">
+                            <HBox alignment="CENTER_LEFT">
+                                <VBox HBox.hgrow="ALWAYS">
+                                    <Label text="FILIÈRES" styleClass="stat-label, stat-label-warning"/>
+                                    <Label fx:id="totalFilieresLabel" text="—" styleClass="stat-value"/>
+                                </VBox>
+                                <Label text="📂" styleClass="stat-icon"/>
+                            </HBox>
+                        </VBox>
+                    </HBox>
+
+                    <!-- Recherche -->
+                    <HBox spacing="12" alignment="CENTER_LEFT">
+                        <TextField fx:id="searchField" promptText="🔍 Rechercher un partenaire..."
+                                   HBox.hgrow="ALWAYS" styleClass="search-field"/>
+                        <Button text="🔍 Rechercher" styleClass="btn, btn-primary" onAction="#handleSearch"/>
+                    </HBox>
+
+                    <!-- Tableau partenaires -->
+                    <VBox styleClass="card" VBox.vgrow="ALWAYS">
+                        <HBox styleClass="card-header" alignment="CENTER_LEFT">
+                            <Label text="🤝 Nos Partenaires" styleClass="card-header-title"/>
+                        </HBox>
+                        <VBox styleClass="card-body" VBox.vgrow="ALWAYS">
+                            <TableView fx:id="partenaireTable" VBox.vgrow="ALWAYS" style="-fx-border-color: transparent;">
+                                <columns>
+                                    <TableColumn fx:id="colNom"      text="Partenaire" prefWidth="220"/>
+                                    <TableColumn fx:id="colSecteur"  text="Secteur"    prefWidth="160"/>
+                                    <TableColumn fx:id="colVille"    text="Ville"      prefWidth="130"/>
+                                    <TableColumn fx:id="colEmail"    text="Email"      prefWidth="200"/>
+                                    <TableColumn fx:id="colStatut"   text="Statut"     prefWidth="100"/>
+                                </columns>
+                                <placeholder>
+                                    <Label text="Aucun partenaire trouvé" style="-fx-text-fill: #9ca3af;"/>
+                                </placeholder>
+                            </TableView>
+                        </VBox>
+                    </VBox>
+                </VBox>
+
+                <!-- Footer -->
+                <HBox alignment="CENTER"
+                      style="-fx-background-color: linear-gradient(to right, #0A1F44, #1E3A8A); -fx-padding: 24 60;">
+                    <Label text="© 2026 LearnHub • Plateforme d'apprentissage intelligente"
+                           style="-fx-text-fill: rgba(255,255,255,0.7); -fx-font-size: 13px;"/>
+                </HBox>
+            </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>

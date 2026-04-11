@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.geometry.*?>
+
+<!--
+  ADMIN DASHBOARD — Design EXACT du template Symfony admin/layout.html.twig + admin/dashboard.html.twig
+  Sidebar gradient #0A1F44 → #1E3A8A, nav-item avec bordure jaune #FFC107, stat-cards avec border-left
+-->
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.learnhub.controller.admin.AdminDashboardController"
+            stylesheets="@/css/styles.css"
+            prefWidth="1280" prefHeight="800">
+
+    <!-- ══ SIDEBAR GAUCHE (gradient comme Symfony) ══ -->
+    <left>
+        <VBox styleClass="sidebar" spacing="0">
+
+            <!-- Logo / Brand -->
+            <VBox styleClass="sidebar-brand" spacing="5">
+                <Label text="🎓 LearnHub" styleClass="sidebar-brand-text"/>
+                <Label text="Espace Administrateur" styleClass="sidebar-brand-sub"/>
+            </VBox>
+
+            <!-- Navigation scrollable -->
+            <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS"
+                        style="-fx-background-color: transparent; -fx-border-color: transparent;">
+                <VBox spacing="2" style="-fx-padding: 12 0;">
+
+                    <Button text="📊  Dashboard" styleClass="nav-btn, nav-btn-active"
+                            maxWidth="Infinity"/>
+
+                    <Label text="UTILISATEURS" styleClass="nav-section-title"/>
+                    <Button text="👥  Utilisateurs" styleClass="nav-btn"
+                            onAction="#goUtilisateurs" maxWidth="Infinity"/>
+
+                    <Label text="PÉDAGOGIE" styleClass="nav-section-title"/>
+                    <Button text="📚  Modules" styleClass="nav-btn"
+                            onAction="#goModules" maxWidth="Infinity"/>
+                    <Button text="📅  Séances" styleClass="nav-btn"
+                            onAction="#goSeances" maxWidth="Infinity"/>
+                    <Button text="📊  Notes" styleClass="nav-btn"
+                            onAction="#goNotes" maxWidth="Infinity"/>
+                    <Button text="✅  Présences" styleClass="nav-btn"
+                            onAction="#goPresences" maxWidth="Infinity"/>
+                    <Button text="📂  Filières" styleClass="nav-btn"
+                            onAction="#goFilieres" maxWidth="Infinity"/>
+
+                    <Label text="MÉDICAL" styleClass="nav-section-title"/>
+                    <Button text="🏥  RDV Médicaux" styleClass="nav-btn"
+                            onAction="#goRdv" maxWidth="Infinity"/>
+                    <Button text="🕐  Créneaux" styleClass="nav-btn"
+                            onAction="#goCreneaux" maxWidth="Infinity"/>
+
+                    <Label text="ÉVÉNEMENTS" styleClass="nav-section-title"/>
+                    <Button text="🎉  Événements" styleClass="nav-btn"
+                            onAction="#goEvenements" maxWidth="Infinity"/>
+
+                    <Label text="STAGE" styleClass="nav-section-title"/>
+                    <Button text="🤝  Partenaires" styleClass="nav-btn"
+                            onAction="#goPartenaires" maxWidth="Infinity"/>
+                    <Button text="💼  Offres de Stage" styleClass="nav-btn"
+                            onAction="#goOffresStage" maxWidth="Infinity"/>
+                    <Button text="📝  Demandes de Stage" styleClass="nav-btn"
+                            onAction="#goDemandesStage" maxWidth="Infinity"/>
+                </VBox>
+            </ScrollPane>
+
+            <!-- Admin info + Déconnexion (bas sidebar) -->
+            <VBox styleClass="admin-section" spacing="12">
+                <HBox spacing="12" alignment="CENTER_LEFT">
+                    <Label text="AD"
+                           style="-fx-background-color: linear-gradient(to bottom right, #FFC107, #FF6F61);
+                                  -fx-background-radius: 50; -fx-min-width: 44px; -fx-min-height: 44px;
+                                  -fx-max-width: 44px; -fx-max-height: 44px; -fx-text-fill: white;
+                                  -fx-font-weight: bold; -fx-font-size: 15px; -fx-alignment: CENTER;"/>
+                    <VBox spacing="3">
+                        <Label fx:id="welcomeLabel" text="Administrateur" styleClass="admin-name-label"/>
+                        <Label text="admin@learnhub.tn" styleClass="admin-role-label"/>
+                    </VBox>
+                </HBox>
+                <Button text="🚪  Déconnexion" styleClass="nav-logout"
+                        onAction="#handleLogout" maxWidth="Infinity"/>
+            </VBox>
+        </VBox>
+    </left>
+
+    <!-- ══ CONTENU PRINCIPAL ══ -->
+    <center>
+        <VBox spacing="0">
+
+            <!-- Topbar blanc -->
+            <HBox styleClass="topbar" alignment="CENTER_LEFT" spacing="16">
+                <VBox spacing="3" HBox.hgrow="ALWAYS">
+                    <Label text="📊 Tableau de bord" styleClass="topbar-title"/>
+                    <Label text="Vue d'ensemble de la plateforme LearnHub" styleClass="topbar-user"/>
+                </VBox>
+                <TextField promptText="🔍  Rechercher..."
+                           style="-fx-background-radius: 20; -fx-border-radius: 20;
+                                  -fx-border-color: #e2e8f0; -fx-border-width: 1;
+                                  -fx-padding: 10 16; -fx-pref-width: 260px;"/>
+                <Button text="🔔"
+                        style="-fx-background-color: #f3f4f6; -fx-background-radius: 8;
+                               -fx-padding: 10 14; -fx-cursor: hand; -fx-font-size: 16px; -fx-border-width: 0;"/>
+                <Button text="⚙️"
+                        style="-fx-background-color: #f3f4f6; -fx-background-radius: 8;
+                               -fx-padding: 10 14; -fx-cursor: hand; -fx-font-size: 16px; -fx-border-width: 0;"/>
+            </HBox>
+
+            <!-- Zone scrollable -->
+            <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS"
+                        style="-fx-background-color: #f5f7fa; -fx-border-color: transparent;">
+                <VBox styleClass="content-area" spacing="24">
+
+                    <!-- LIGNE 1 : 4 stat cards principales -->
+                    <HBox spacing="20">
+                        <VBox styleClass="stat-card, stat-card-primary" HBox.hgrow="ALWAYS" spacing="8">
+                            <HBox alignment="CENTER_LEFT" spacing="12">
+                                <VBox HBox.hgrow="ALWAYS">
+                                    <Label text="UTILISATEURS" styleClass="stat-label"/>
+                                    <Label fx:id="totalUsersLabel" text="—" styleClass="stat-value"/>
+                                </VBox>
+                                <Label text="👥" styleClass="stat-icon"/>
+                            </HBox>
+                            <Label text="Tous rôles confondus"
+                                   style="-fx-font-size: 12px; -fx-text-fill: #6b7280;"/>
+                        </VBox>
+
+                        <VBox styleClass="stat-card, stat-card-warning" HBox.hgrow="ALWAYS" spacing="8">
+                            <HBox alignment="CENTER_LEFT" spacing="12">
+                                <VBox HBox.hgrow="ALWAYS">
+                                    <Label text="MODULES" styleClass="stat-label, stat-label-warning"/>
+                                    <Label fx:id="totalModulesLabel" text="—" styleClass="stat-value"/>
+                                </VBox>
+                                <Label text="📚" styleClass="stat-icon"/>
+                            </HBox>
+                            <Label text="Cours disponibles"
+                                   style="-fx-font-size: 12px; -fx-text-fill: #6b7280;"/>
+                        </VBox>
+
+                        <VBox styleClass="stat-card, stat-card-success" HBox.hgrow="ALWAYS" spacing="8">
+                            <HBox alignment="CENTER_LEFT" spacing="12">
+                                <VBox HBox.hgrow="ALWAYS">
+                                    <Label text="ÉVÉNEMENTS" styleClass="stat-label, stat-label-success"/>
+                                    <Label fx:id="totalEvenementsLabel" text="—" styleClass="stat-value"/>
+                                </VBox>
+                                <Label text="🎉" styleClass="stat-icon"/>
+                            </HBox>
+                            <Label text="Événements programmés"
+                                   style="-fx-font-size: 12px; -fx-text-fill: #6b7280;"/>
+                        </VBox>
+
+                        <VBox styleClass="stat-card, stat-card-info" HBox.hgrow="ALWAYS" spacing="8">
+                            <HBox alignment="CENTER_LEFT" spacing="12">
+                                <VBox HBox.hgrow="ALWAYS">
+                                    <Label text="RDV MÉDICAUX" styleClass="stat-label, stat-label-info"/>
+                                    <Label fx:id="totalRdvLabel" text="—" styleClass="stat-value"/>
+                                </VBox>
+                                <Label text="🏥" styleClass="stat-icon"/>
+                            </HBox>
+                            <Label text="Rendez-vous au total"
+                                   style="-fx-font-size: 12px; -fx-text-fill: #6b7280;"/>
+                        </VBox>
+                    </HBox>
+
+                    <!-- LIGNE 2 : 3 stat cards (partenaires, offres, demandes) -->
+                    <HBox spacing="20">
+                        <VBox styleClass="stat-card, stat-card-primary" HBox.hgrow="ALWAYS" spacing="8">
+                            <HBox alignment="CENTER_LEFT" spacing="12">
+                                <VBox HBox.hgrow="ALWAYS">
+                                    <Label text="PARTENAIRES" styleClass="stat-label"/>
+                                    <Label fx:id="totalPartenairesLabel" text="—" styleClass="stat-value"/>
+                                </VBox>
+                                <Label text="🤝" styleClass="stat-icon"/>
+                            </HBox>
+                            <Label text="Entreprises partenaires"
+                                   style="-fx-font-size: 12px; -fx-text-fill: #6b7280;"/>
+                        </VBox>
+
+                        <VBox styleClass="stat-card, stat-card-success" HBox.hgrow="ALWAYS" spacing="8">
+                            <HBox alignment="CENTER_LEFT" spacing="12">
+                                <VBox HBox.hgrow="ALWAYS">
+                                    <Label text="OFFRES DE STAGE" styleClass="stat-label, stat-label-success"/>
+                                    <Label fx:id="totalOffresLabel" text="—" styleClass="stat-value"/>
+                                </VBox>
+                                <Label text="💼" styleClass="stat-icon"/>
+                            </HBox>
+                            <Label text="Offres disponibles"
+                                   style="-fx-font-size: 12px; -fx-text-fill: #6b7280;"/>
+                        </VBox>
+
+                        <VBox styleClass="stat-card, stat-card-warning" HBox.hgrow="ALWAYS" spacing="8">
+                            <HBox alignment="CENTER_LEFT" spacing="12">
+                                <VBox HBox.hgrow="ALWAYS">
+                                    <Label text="DEMANDES STAGE" styleClass="stat-label, stat-label-warning"/>
+                                    <Label fx:id="totalDemandesLabel" text="—" styleClass="stat-value"/>
+                                </VBox>
+                                <Label text="📝" styleClass="stat-icon"/>
+                            </HBox>
+                            <Label text="Candidatures soumises"
+                                   style="-fx-font-size: 12px; -fx-text-fill: #6b7280;"/>
+                        </VBox>
+                    </HBox>
+
+                    <!-- ACCÈS RAPIDES (comme Symfony quick actions) -->
+                    <VBox styleClass="card" spacing="0">
+                        <HBox styleClass="card-header">
+                            <Label text="⚡ Accès Rapides" styleClass="card-header-title"/>
+                        </HBox>
+                        <VBox styleClass="card-body" spacing="12">
+                            <FlowPane hgap="12" vgap="12">
+                                <Button text="👥 Gérer Utilisateurs" styleClass="btn, btn-primary, btn-sm"
+                                        onAction="#goUtilisateurs"/>
+                                <Button text="📚 Gérer Modules" styleClass="btn, btn-secondary, btn-sm"
+                                        onAction="#goModules"/>
+                                <Button text="🎉 Gérer Événements" styleClass="btn, btn-secondary, btn-sm"
+                                        onAction="#goEvenements"/>
+                                <Button text="🏥 RDV Médicaux" styleClass="btn, btn-secondary, btn-sm"
+                                        onAction="#goRdv"/>
+                                <Button text="🤝 Partenaires" styleClass="btn, btn-secondary, btn-sm"
+                                        onAction="#goPartenaires"/>
+                                <Button text="💼 Offres de Stage" styleClass="btn, btn-secondary, btn-sm"
+                                        onAction="#goOffresStage"/>
+                                <Button text="📝 Demandes Stage" styleClass="btn, btn-secondary, btn-sm"
+                                        onAction="#goDemandesStage"/>
+                            </FlowPane>
+                        </VBox>
+                    </VBox>
+
+                </VBox>
+            </ScrollPane>
+        </VBox>
+    </center>
+</BorderPane>
