@@ -14,18 +14,17 @@ public class SeanceDAO {
         s.setId(rs.getInt("id"));
         s.setModuleId(rs.getInt("module_id"));
         s.setModuleTitre(rs.getString("module_titre"));
-        s.setDate(rs.getString("date"));
+        s.setDate(rs.getString("date_seance"));
         s.setHeureDebut(rs.getString("heure_debut"));
         s.setHeureFin(rs.getString("heure_fin"));
         s.setSalle(rs.getString("salle"));
         s.setType(rs.getString("type"));
-        s.setDescription(rs.getString("description"));
         return s;
     }
 
     public List<Seance> findAll() throws SQLException {
         List<Seance> list = new ArrayList<>();
-        String sql = "SELECT s.*, m.titre as module_titre FROM seance s LEFT JOIN module m ON s.module_id=m.id ORDER BY s.date DESC, s.heure_debut";
+        String sql = "SELECT s.*, m.intitule as module_titre FROM seance s LEFT JOIN module m ON s.module_id=m.id ORDER BY s.date_seance DESC, s.heure_debut";
         try (Statement st = DatabaseConnection.getInstance().createStatement();
              ResultSet rs = st.executeQuery(sql)) {
             while (rs.next()) list.add(mapRow(rs));
@@ -35,7 +34,7 @@ public class SeanceDAO {
 
     public List<Seance> findByModule(int moduleId) throws SQLException {
         List<Seance> list = new ArrayList<>();
-        String sql = "SELECT s.*, m.titre as module_titre FROM seance s LEFT JOIN module m ON s.module_id=m.id WHERE s.module_id=? ORDER BY s.date DESC";
+        String sql = "SELECT s.*, m.intitule as module_titre FROM seance s LEFT JOIN module m ON s.module_id=m.id WHERE s.module_id=? ORDER BY s.date_seance DESC";
         try (PreparedStatement ps = DatabaseConnection.getInstance().prepareStatement(sql)) {
             ps.setInt(1, moduleId);
             ResultSet rs = ps.executeQuery();
@@ -46,7 +45,7 @@ public class SeanceDAO {
 
     public List<Seance> findByProfesseur(int professeurId) throws SQLException {
         List<Seance> list = new ArrayList<>();
-        String sql = "SELECT s.*, m.titre as module_titre FROM seance s JOIN module m ON s.module_id=m.id WHERE m.professeur_id=? ORDER BY s.date DESC";
+        String sql = "SELECT s.*, m.intitule as module_titre FROM seance s JOIN module m ON s.module_id=m.id WHERE m.responsable_id=? ORDER BY s.date_seance DESC";
         try (PreparedStatement ps = DatabaseConnection.getInstance().prepareStatement(sql)) {
             ps.setInt(1, professeurId);
             ResultSet rs = ps.executeQuery();
@@ -56,7 +55,7 @@ public class SeanceDAO {
     }
 
     public Seance findById(int id) throws SQLException {
-        String sql = "SELECT s.*, m.titre as module_titre FROM seance s LEFT JOIN module m ON s.module_id=m.id WHERE s.id=?";
+        String sql = "SELECT s.*, m.intitule as module_titre FROM seance s LEFT JOIN module m ON s.module_id=m.id WHERE s.id=?";
         try (PreparedStatement ps = DatabaseConnection.getInstance().prepareStatement(sql)) {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
@@ -66,7 +65,7 @@ public class SeanceDAO {
     }
 
     public void insert(Seance s) throws SQLException {
-        String sql = "INSERT INTO seance (module_id, date, heure_debut, heure_fin, salle, type, description) VALUES (?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO seance (module_id, date_seance, heure_debut, heure_fin, salle, type) VALUES (?,?,?,?,?,?)";
         try (PreparedStatement ps = DatabaseConnection.getInstance().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             ps.setInt(1, s.getModuleId());
             ps.setString(2, s.getDate());
@@ -74,7 +73,6 @@ public class SeanceDAO {
             ps.setString(4, s.getHeureFin());
             ps.setString(5, s.getSalle());
             ps.setString(6, s.getType());
-            ps.setString(7, s.getDescription());
             ps.executeUpdate();
             ResultSet keys = ps.getGeneratedKeys();
             if (keys.next()) s.setId(keys.getInt(1));
@@ -82,7 +80,7 @@ public class SeanceDAO {
     }
 
     public void update(Seance s) throws SQLException {
-        String sql = "UPDATE seance SET module_id=?, date=?, heure_debut=?, heure_fin=?, salle=?, type=?, description=? WHERE id=?";
+        String sql = "UPDATE seance SET module_id=?, date_seance=?, heure_debut=?, heure_fin=?, salle=?, type=? WHERE id=?";
         try (PreparedStatement ps = DatabaseConnection.getInstance().prepareStatement(sql)) {
             ps.setInt(1, s.getModuleId());
             ps.setString(2, s.getDate());
@@ -90,8 +88,7 @@ public class SeanceDAO {
             ps.setString(4, s.getHeureFin());
             ps.setString(5, s.getSalle());
             ps.setString(6, s.getType());
-            ps.setString(7, s.getDescription());
-            ps.setInt(8, s.getId());
+            ps.setInt(7, s.getId());
             ps.executeUpdate();
         }
     }
@@ -112,4 +109,5 @@ public class SeanceDAO {
         }
         return 0;
     }
+
 }
