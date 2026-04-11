@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.learnhub.controller.student.StudentDashboardController"
+            stylesheets="@/css/styles.css" prefWidth="1280" prefHeight="800"
+            style="-fx-background-color: #f9fafb;">
+
+    <!-- TOPBAR -->
+    <top>
+        <HBox styleClass="student-topbar" alignment="CENTER_LEFT" spacing="30">
+            <!-- Logo -->
+            <VBox>
+                <Label text="🎓 LearnHub" style="-fx-font-size: 16px; -fx-font-weight: 900; -fx-text-fill: #1e40af;"/>
+                <Label text="ESPACE ÉTUDIANT" style="-fx-font-size: 10px; -fx-text-fill: #ef4444; -fx-font-weight: bold;"/>
+            </VBox>
+            
+            <Region HBox.hgrow="ALWAYS"/>
+            
+            <!-- Navigation -->
+            <HBox spacing="10" alignment="CENTER">
+                <Button text="📊 Tableau de bord" styleClass="student-nav-btn, student-nav-active"/>
+                <Button text="📚 Mes Modules" styleClass="student-nav-btn" onAction="#goModules"/>
+                <Button text="📝 Mes Notes" styleClass="student-nav-btn" onAction="#goNotes"/>
+                <Button text="🗓 Emploi du Temps" styleClass="student-nav-btn" onAction="#goEmploi"/>
+                <Button text="💼 Stages" styleClass="student-nav-btn" onAction="#goStages"/>
+                <Button text="✅ Présences" styleClass="student-nav-btn" onAction="#goPresences"/>
+            </HBox>
+
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <!-- User Profile & Logout -->
+            <HBox alignment="CENTER" spacing="15">
+                <Button text="🔔" style="-fx-background-color: transparent; -fx-font-size: 16px;"/>
+                <HBox alignment="CENTER" spacing="10">
+                    <Label text="AZ" styleClass="prof-user-avatar" style="-fx-background-color: #fbbf24; -fx-text-fill: white;"/>
+                    <VBox alignment="CENTER_LEFT">
+                        <Label fx:id="topUserName" text="ahmed zneidi" style="-fx-font-weight: bold; -fx-font-size: 12px;"/>
+                        <Label text="Étudiant LearnHub" style="-fx-text-fill: #6b7280; -fx-font-size: 10px;"/>
+                    </VBox>
+                </HBox>
+                <Button text="🚪" style="-fx-background-color: transparent; -fx-cursor: hand;" onAction="#handleLogout"/>
+            </HBox>
+        </HBox>
+    </top>
+
+    <!-- CONTENT -->
+    <center>
+        <ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-border-color: transparent;">
+            <VBox spacing="20" style="-fx-padding: 30;">
+
+                <!-- Banner -->
+                <VBox style="-fx-background-color: linear-gradient(to right, #1e3a8a, #0f172a); -fx-background-radius: 12; -fx-padding: 30;" spacing="10">
+                    <Label fx:id="welcomeTitleLabel" text="Bonjour ahmed zneidi ! 👋" style="-fx-font-size: 24px; -fx-font-weight: 900; -fx-text-fill: white;"/>
+                    <Label text="Bienvenue dans votre espace étudiant LearnHub" style="-fx-text-fill: #93c5fd; -fx-font-size: 14px;"/>
+                    <HBox spacing="10" style="-fx-padding: 10 0 0 0;">
+                        <Label text="🎫 INF506" style="-fx-background-color: rgba(255,255,255,0.2); -fx-text-fill: white; -fx-padding: 4 10; -fx-background-radius: 6;"/>
+                        <Label fx:id="emailBadge" text="📧 etudiant@learnhub.tn" style="-fx-background-color: rgba(255,255,255,0.2); -fx-text-fill: white; -fx-padding: 4 10; -fx-background-radius: 6;"/>
+                    </HBox>
+                </VBox>
+
+                <!-- Stats Row -->
+                <HBox spacing="20">
+                    <VBox styleClass="student-dash-card" HBox.hgrow="ALWAYS" spacing="10">
+                        <Label text="📚" style="-fx-font-size: 24px;"/>
+                        <Label fx:id="modulesLabel" text="0" styleClass="student-dash-stat"/>
+                        <Label text="Modules Inscrits" style="-fx-text-fill: #6b7280; -fx-font-size: 12px;"/>
+                    </VBox>
+                    <VBox styleClass="student-dash-card" HBox.hgrow="ALWAYS" spacing="10">
+                        <Label text="📄" style="-fx-font-size: 24px;"/>
+                        <Label fx:id="moyenneLabel" text="0.00" styleClass="student-dash-stat"/>
+                        <Label text="Moyenne Générale" style="-fx-text-fill: #6b7280; -fx-font-size: 12px;"/>
+                    </VBox>
+                    <VBox styleClass="student-dash-card" HBox.hgrow="ALWAYS" spacing="10">
+                        <Label text="📅" style="-fx-font-size: 24px;"/>
+                        <Label fx:id="absencesLabel" text="0%" styleClass="student-dash-stat"/>
+                        <Label text="Taux de Présence" style="-fx-text-fill: #6b7280; -fx-font-size: 12px;"/>
+                    </VBox>
+                    <VBox styleClass="student-dash-card" HBox.hgrow="ALWAYS" spacing="10">
+                        <Label text="💼" style="-fx-font-size: 24px;"/>
+                        <Label fx:id="stagesLabel" text="0" styleClass="student-dash-stat"/>
+                        <Label text="Demandes Stage" style="-fx-text-fill: #6b7280; -fx-font-size: 12px;"/>
+                    </VBox>
+                </HBox>
+
+                <!-- Statut Demandes de Stage Row (Yellow, Green, Pink bars) -->
+                <VBox spacing="10">
+                    <Label text="💼 Statut des Demandes de Stage" style="-fx-font-weight: bold; -fx-text-fill: #111827;"/>
+                    <HBox spacing="15">
+                        <VBox alignment="CENTER" style="-fx-background-color: #fde68a; -fx-background-radius: 8; -fx-padding: 15;" HBox.hgrow="ALWAYS">
+                            <Label text="1" style="-fx-font-weight: 900; -fx-text-fill: #d97706; -fx-font-size: 18px;"/>
+                            <Label text="En attente" style="-fx-text-fill: #d97706; -fx-font-size: 12px;"/>
+                        </VBox>
+                        <VBox alignment="CENTER" style="-fx-background-color: #a7f3d0; -fx-background-radius: 8; -fx-padding: 15;" HBox.hgrow="ALWAYS">
+                            <Label text="0" style="-fx-font-weight: 900; -fx-text-fill: #059669; -fx-font-size: 18px;"/>
+                            <Label text="Acceptées" style="-fx-text-fill: #059669; -fx-font-size: 12px;"/>
+                        </VBox>
+                        <VBox alignment="CENTER" style="-fx-background-color: #fecdd3; -fx-background-radius: 8; -fx-padding: 15;" HBox.hgrow="ALWAYS">
+                            <Label text="0" style="-fx-font-weight: 900; -fx-text-fill: #e11d48; -fx-font-size: 18px;"/>
+                            <Label text="Refusées" style="-fx-text-fill: #e11d48; -fx-font-size: 12px;"/>
+                        </VBox>
+                    </HBox>
+                </VBox>
+
+                <!-- Service Médical Banner -->
+                <HBox style="-fx-background-color: #10b981; -fx-background-radius: 12; -fx-padding: 20 25;" alignment="CENTER_LEFT" spacing="15">
+                    <Label text="🏥" style="-fx-font-size: 32px; -fx-text-fill: white;"/>
+                    <VBox spacing="5">
+                        <Label text="Service Médical" style="-fx-font-weight: 900; -fx-text-fill: white; -fx-font-size: 16px;"/>
+                        <Label text="Consulter les créneaux et gérer vos rendez-vous médicaux" style="-fx-text-fill: #d1fae5; -fx-font-size: 12px;"/>
+                    </VBox>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button text="→" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 20px; -fx-cursor: hand;" onAction="#goRdv"/>
+                </HBox>
+
+                <!-- Activities & Info -->
+                <HBox spacing="20">
+                    <!-- Mes Modules Preview (Left) -->
+                    <VBox styleClass="student-dash-card" HBox.hgrow="ALWAYS" spacing="15">
+                        <HBox alignment="CENTER_LEFT">
+                            <Label text="📚 Mes Modules" style="-fx-font-weight: bold; -fx-text-fill: #111827;"/>
+                            <Region HBox.hgrow="ALWAYS"/>
+                            <Button text="Voir tout" style="-fx-background-color: #1e3a8a; -fx-text-fill: white; -fx-background-radius: 20; -fx-font-size: 11px;" onAction="#goModules"/>
+                        </HBox>
+                        <VBox style="-fx-border-color: #fbbf24; -fx-border-radius: 8; -fx-padding: 15; -fx-background-color: #fffbeb;" spacing="10">
+                            <HBox alignment="CENTER_LEFT">
+                                <Label text="webjava" style="-fx-font-weight: bold; -fx-text-fill: #1e3a8a;"/>
+                                <Region HBox.hgrow="ALWAYS"/>
+                                <Label text="symfony123" style="-fx-text-fill: #9ca3af; -fx-font-size: 11px;"/>
+                            </HBox>
+                            <HBox spacing="20">
+                                <Label text="👤 M. Smith" style="-fx-text-fill: #6b7280; -fx-font-size: 11px;"/>
+                                <Label text="📅 Semestre 1" style="-fx-text-fill: #6b7280; -fx-font-size: 11px;"/>
+                                <Label text="📁 5 ressources" style="-fx-text-fill: #10b981; -fx-font-size: 11px;"/>
+                            </HBox>
+                        </VBox>
+                    </VBox>
+
+                    <!-- Événements (Right) -->
+                    <VBox styleClass="student-dash-card" HBox.hgrow="ALWAYS" prefWidth="400" spacing="15">
+                        <Label text="🎉 Événements" style="-fx-font-weight: bold; -fx-text-fill: #111827;"/>
+                        <VBox alignment="CENTER" spacing="10" VBox.vgrow="ALWAYS" style="-fx-padding: 30 0;">
+                            <Label text="📌" style="-fx-font-size: 24px;"/>
+                            <Label text="Aucun événement à venir" style="-fx-text-fill: #9ca3af; -fx-font-size: 12px;"/>
+                        </VBox>
+                    </VBox>
+                </HBox>
+
+            </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.shape.Circle?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.learnhub.controller.professor.ProfessorDashboardController"
+            stylesheets="@/css/styles.css" prefWidth="1280" prefHeight="800">
+
+    <!-- TOP NAV HORIZONTAL -->
+    <top>
+        <HBox styleClass="prof-topnav" alignment="CENTER_LEFT" spacing="12">
+            <!-- Logo + Brand -->
+            <HBox spacing="10" alignment="CENTER_LEFT" style="-fx-padding: 0 40 0 0;">
+                <Label text="🎓" style="-fx-font-size: 24px;"/>
+                <Label text="LEARNHUB" style="-fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: 900;"/>
+                <Label text="ESPACE PROFESSEUR" style="-fx-text-fill: rgba(255,255,255,0.7); -fx-font-size: 11px; -fx-font-weight: bold;"/>
+            </HBox>
+
+            <!-- Navigation links -->
+            <HBox spacing="15" alignment="CENTER">
+                <Button text="🏠 Tableau de bord" style="-fx-background-color: #FFC107; -fx-text-fill: #0A1F44; -fx-font-weight: bold; -fx-background-radius: 8; -fx-padding: 8 16;"/>
+                <Button text="📚 Modules"     styleClass="prof-nav-btn" onAction="#goModules"/>
+                <Button text="👥 Étudiants"   styleClass="prof-nav-btn"/>
+                <Button text="📊 Notes"       styleClass="prof-nav-btn" onAction="#goNotes"/>
+                <Button text="🗓 Séances"     styleClass="prof-nav-btn" onAction="#goSeances"/>
+            </HBox>
+
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <!-- User info + logout -->
+            <HBox spacing="15" alignment="CENTER_RIGHT">
+                <VBox spacing="0" alignment="CENTER_RIGHT">
+                    <Label fx:id="navProfName" text="Prof. Hassan Alami" style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 12px;"/>
+                    <Label text="Professeur" style="-fx-text-fill: rgba(255,255,255,0.6); -fx-font-size: 10px;"/>
+                </VBox>
+                <Label text="HA" styleClass="prof-user-avatar" style="-fx-min-width: 32px; -fx-min-height: 32px; -fx-max-width: 32px; -fx-max-height: 32px; -fx-font-size: 12px;"/>
+                <Button text="🚪 Déconnexion" styleClass="prof-logout" onAction="#handleLogout"/>
+            </HBox>
+        </HBox>
+    </top>
+
+    <!-- CONTENT -->
+    <center>
+        <ScrollPane fitToWidth="true" style="-fx-background-color: #f5f7fa; -fx-border-color: transparent;">
+            <VBox styleClass="content-area" spacing="20">
+
+                <!-- Welcome Banner -->
+                <VBox styleClass="welcome-banner" style="-fx-background-color: #0A1F44; -fx-background-radius: 12; -fx-padding: 24 30;">
+                    <HBox alignment="CENTER_LEFT" spacing="20">
+                        <VBox HBox.hgrow="ALWAYS" spacing="4">
+                            <HBox alignment="CENTER_LEFT" spacing="10">
+                                <Label text="👋" style="-fx-font-size: 24px;"/>
+                                <Label fx:id="welcomeTitleLabel" text="Bonjour, Professeur" style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;"/>
+                            </HBox>
+                            <Label text="Bienvenue dans votre espace professeur" style="-fx-text-fill: rgba(255,255,255,0.7); -fx-font-size: 12px;"/>
+                        </VBox>
+                        <Label text="PR" styleClass="prof-user-avatar" style="-fx-min-width: 60px; -fx-min-height: 60px; -fx-max-width: 60px; -fx-max-height: 60px; -fx-font-size: 20px;"/>
+                    </HBox>
+                </VBox>
+
+                <!-- Stat Cards -->
+                <HBox spacing="15">
+                    <VBox styleClass="stat-card" style="-fx-padding: 16; -fx-border-color: transparent; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.04), 10, 0, 0, 4);" HBox.hgrow="ALWAYS" spacing="5">
+                        <HBox alignment="CENTER_LEFT"><Label text="📚" style="-fx-font-size: 18px;"/></HBox>
+                        <Label fx:id="modulesLabel" text="5" style="-fx-text-fill: #1E3A8A; -fx-font-size: 28px; -fx-font-weight: 900;"/>
+                        <Label text="Modules assignés" style="-fx-font-size: 11px; -fx-text-fill: #6b7280;"/>
+                    </VBox>
+                    <VBox styleClass="stat-card" style="-fx-padding: 16; -fx-border-color: transparent; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.04), 10, 0, 0, 4);" HBox.hgrow="ALWAYS" spacing="5">
+                        <HBox alignment="CENTER_LEFT"><Label text="👥" style="-fx-font-size: 18px;"/></HBox>
+                        <Label fx:id="studentsLabel" text="-" style="-fx-text-fill: #10b981; -fx-font-size: 28px; -fx-font-weight: 900;"/>
+                        <Label text="Étudiants" style="-fx-font-size: 11px; -fx-text-fill: #6b7280;"/>
+                    </VBox>
+                    <VBox styleClass="stat-card" style="-fx-padding: 16; -fx-border-color: transparent; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.04), 10, 0, 0, 4);" HBox.hgrow="ALWAYS" spacing="5">
+                        <HBox alignment="CENTER_LEFT"><Label text="📝" style="-fx-font-size: 18px;"/></HBox>
+                        <Label fx:id="notesLabel" text="-" style="-fx-text-fill: #FFC107; -fx-font-size: 28px; -fx-font-weight: 900;"/>
+                        <Label text="Notes saisies" style="-fx-font-size: 11px; -fx-text-fill: #6b7280;"/>
+                    </VBox>
+                    <VBox styleClass="stat-card" style="-fx-padding: 16; -fx-border-color: transparent; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.04), 10, 0, 0, 4);" HBox.hgrow="ALWAYS" spacing="5">
+                        <HBox alignment="CENTER_LEFT"><Label text="✅" style="-fx-font-size: 18px;"/></HBox>
+                        <Label fx:id="presencesLabel" text="-" style="-fx-text-fill: #ef4444; -fx-font-size: 28px; -fx-font-weight: 900;"/>
+                        <Label text="Présences enregistrées" style="-fx-font-size: 11px; -fx-text-fill: #6b7280;"/>
+                    </VBox>
+                </HBox>
+
+                <!-- Actions rapides -->
+                <VBox spacing="10">
+                    <Label text="⚡ Actions rapides" style="-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: #1f2937;"/>
+                    <HBox spacing="15">
+                        <Button text="📚 Gérer modules" HBox.hgrow="ALWAYS" maxWidth="Infinity" style="-fx-background-color: #0A1F44; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 20; -fx-background-radius: 8;" onAction="#goModules"/>
+                        <Button text="📊 Saisir notes" HBox.hgrow="ALWAYS" maxWidth="Infinity" style="-fx-background-color: #10b981; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 20; -fx-background-radius: 8;" onAction="#goNotes"/>
+                        <Button text="🗓 Mes séances" HBox.hgrow="ALWAYS" maxWidth="Infinity" style="-fx-background-color: #f59e0b; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 20; -fx-background-radius: 8;" onAction="#goSeances"/>
+                        <Button text="✅ Gérer présences" HBox.hgrow="ALWAYS" maxWidth="Infinity" style="-fx-background-color: #8b5cf6; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 20; -fx-background-radius: 8;" onAction="#goPresences"/>
+                    </HBox>
+                </VBox>
+
+                <!-- Bottom sections -->
+                <HBox spacing="20" VBox.vgrow="ALWAYS">
+                    <!-- Activités récentes -->
+                    <VBox styleClass="card" HBox.hgrow="ALWAYS" spacing="10" style="-fx-padding: 16;">
+                        <Label text="📅 Activités récentes" style="-fx-font-weight: bold; -fx-font-size: 14px;"/>
+                        <VBox fx:id="activitiesList" spacing="8" VBox.vgrow="ALWAYS">
+                            <!-- Items générés dynamiquement via code -->
+                            <Label text="Chargement..." style="-fx-text-fill: #9ca3af;"/>
+                        </VBox>
+                    </VBox>
+
+                    <!-- Statistiques présences -->
+                    <VBox styleClass="card" HBox.hgrow="ALWAYS" spacing="10" style="-fx-padding: 16;">
+                        <Label text="📊 Statistiques présences" style="-fx-font-weight: bold; -fx-font-size: 14px;"/>
+                        <VBox spacing="12">
+                            <VBox spacing="4" style="-fx-background-color: #1E3A8A; -fx-padding: 12; -fx-background-radius: 8;">
+                                <Label text="Taux de présence global" style="-fx-text-fill: white; -fx-font-size: 11px;"/>
+                                <Label text="98%" style="-fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold;"/>
+                            </VBox>
+                            <VBox spacing="4" style="-fx-background-color: #0A1F44; -fx-padding: 12; -fx-background-radius: 8;">
+                                <Label text="✅ Présents" style="-fx-text-fill: white; -fx-font-size: 11px;"/>
+                                <Label text="2" style="-fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold;"/>
+                            </VBox>
+                            <VBox spacing="4" style="-fx-background-color: #0A1F44; -fx-padding: 12; -fx-background-radius: 8;">
+                                <Label text="❌ Absents" style="-fx-text-fill: white; -fx-font-size: 11px;"/>
+                                <Label text="1" style="-fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold;"/>
+                            </VBox>
+                        </VBox>
+                    </VBox>
+                </HBox>
+
+            </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>

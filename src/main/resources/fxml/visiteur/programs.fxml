@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:id="rootPane"
+            fx:controller="com.learnhub.controller.visiteur.ProgramsController"
+            stylesheets="@/css/styles.css" prefWidth="1280" prefHeight="800">
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="10" styleClass="visiteur-nav">
+            <Label text="🎓 LearnHub" styleClass="visiteur-nav-title"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button text="Accueil"     styleClass="visiteur-nav-btn" onAction="#goHome"/>
+            <Button text="Programmes"  styleClass="visiteur-nav-btn"
+                    style="-fx-text-fill: #1E3A8A; -fx-border-color: transparent transparent #FFC107 transparent; -fx-border-width: 0 0 3 0;"
+                    onAction="#goPrograms"/>
+            <Button text="Actualités"  styleClass="visiteur-nav-btn" onAction="#goEvents"/>
+            <Button text="Partenaires" styleClass="visiteur-nav-btn" onAction="#goPartners"/>
+            <Button text="🔐  Se connecter" styleClass="visiteur-nav-login" onAction="#goLogin"/>
+        </HBox>
+    </top>
+    <center>
+        <ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-border-color: transparent;">
+            <VBox spacing="0">
+                <!-- Page Hero -->
+                <VBox styleClass="page-hero" alignment="CENTER_LEFT" spacing="14" minHeight="210">
+                    <padding><Insets top="60" bottom="60" left="90" right="90"/></padding>
+                    <Label text="📚 Nos Programmes" styleClass="page-hero-title"/>
+                    <Label text="Découvrez l'ensemble de nos formations, filières et modules disponibles"
+                           styleClass="page-hero-sub" wrapText="true" maxWidth="620"/>
+                    <HBox spacing="8" alignment="CENTER_LEFT">
+                        <padding><Insets top="8"/></padding>
+                        <Label text="🏠 Accueil" style="-fx-text-fill: rgba(255,255,255,0.55); -fx-font-size: 13px;"/>
+                        <Label text="›" style="-fx-text-fill: rgba(255,255,255,0.45);"/>
+                        <Label text="Programmes" style="-fx-text-fill: #FFC107; -fx-font-size: 13px; -fx-font-weight: bold;"/>
+                    </HBox>
+                </VBox>
+
+                <!-- Contenu -->
+                <VBox style="-fx-background-color: #f5f7fa; -fx-padding: 40 80 60 80;" spacing="28">
+                    <!-- Filtres -->
+                    <HBox spacing="12" alignment="CENTER_LEFT">
+                        <ComboBox fx:id="niveauFilter" promptText="🎓 Niveau" prefWidth="160" styleClass="filter-combo"/>
+                        <ComboBox fx:id="filiereFilter" promptText="📂 Filière" prefWidth="180" styleClass="filter-combo"/>
+                        <TextField fx:id="searchField" promptText="🔍 Rechercher une filière, un module..."
+                                   HBox.hgrow="ALWAYS" styleClass="search-field"/>
+                        <Button text="🔍 Rechercher" styleClass="btn, btn-primary" onAction="#handleSearch"/>
+                    </HBox>
+
+                    <!-- Filières -->
+                    <VBox styleClass="card">
+                        <HBox styleClass="card-header" alignment="CENTER_LEFT">
+                            <Label text="📂 Nos Filières" styleClass="card-header-title"/>
+                            <Region HBox.hgrow="ALWAYS"/>
+                            <Label fx:id="countFilieresLabel" text="" style="-fx-text-fill: #6b7280; -fx-font-size: 13px;"/>
+                        </HBox>
+                        <VBox styleClass="card-body">
+                            <TableView fx:id="filieresTable" prefHeight="280" style="-fx-border-color: transparent;">
+                                <columns>
+                                    <TableColumn fx:id="colNom"     text="Filière"   prefWidth="250"/>
+                                    <TableColumn fx:id="colNiveau"  text="Niveau"    prefWidth="120"/>
+                                    <TableColumn fx:id="colDuree"   text="Durée"     prefWidth="110"/>
+                                    <TableColumn fx:id="colCapacite" text="Capacité" prefWidth="100"/>
+                                    <TableColumn fx:id="colUniv"    text="Université" prefWidth="220"/>
+                                </columns>
+                                <placeholder>
+                                    <Label text="Aucune filière disponible" style="-fx-text-fill: #9ca3af;"/>
+                                </placeholder>
+                            </TableView>
+                        </VBox>
+                    </VBox>
+
+                    <!-- Modules -->
+                    <VBox styleClass="card">
+                        <HBox styleClass="card-header" alignment="CENTER_LEFT">
+                            <Label text="📚 Nos Modules" styleClass="card-header-title"/>
+                            <Region HBox.hgrow="ALWAYS"/>
+                            <Label fx:id="countModulesLabel" text="" style="-fx-text-fill: #6b7280; -fx-font-size: 13px;"/>
+                        </HBox>
+                        <VBox styleClass="card-body">
+                            <TableView fx:id="modulesTable" prefHeight="280" style="-fx-border-color: transparent;">
+                                <columns>
+                                    <TableColumn fx:id="colModuleTitre"   text="Module"     prefWidth="260"/>
+                                    <TableColumn fx:id="colModuleFiliere" text="Filière"    prefWidth="180"/>
+                                    <TableColumn fx:id="colModuleSem"     text="Semestre"   prefWidth="100"/>
+                                    <TableColumn fx:id="colModuleCredits" text="Crédits"    prefWidth="90"/>
+                                </columns>
+                                <placeholder>
+                                    <Label text="Aucun module disponible" style="-fx-text-fill: #9ca3af;"/>
+                                </placeholder>
+                            </TableView>
+                        </VBox>
+                    </VBox>
+                </VBox>
+            </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>

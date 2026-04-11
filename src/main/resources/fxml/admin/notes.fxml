@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.learnhub.controller.admin.NotesController"
+            stylesheets="@/css/styles.css" prefWidth="1280" prefHeight="800">
+
+    <!-- SIDEBAR -->
+    <left>
+        <VBox styleClass="sidebar" spacing="0">
+            <VBox styleClass="sidebar-brand" spacing="5">
+                <Label text="🎓 LearnHub" styleClass="sidebar-brand-text"/>
+                <Label text="Espace Administrateur" styleClass="sidebar-brand-sub"/>
+            </VBox>
+            <VBox spacing="2" style="-fx-padding: 10 0;">
+                <Label text="NAVIGATION" styleClass="nav-section-title"/>
+                <Button text="🏠  Dashboard" styleClass="nav-btn" onAction="#goDashboard" maxWidth="Infinity"/>
+                <Button text="👥  Utilisateurs" styleClass="nav-btn" maxWidth="Infinity"/>
+                <Button text="🏛  Universités" styleClass="nav-btn" maxWidth="Infinity"/>
+                <Button text="📁  Filières" styleClass="nav-btn" maxWidth="Infinity"/>
+                <Button text="📚  Modules" styleClass="nav-btn" onAction="#goModules" maxWidth="Infinity"/>
+                <Button text="📅  Séances" styleClass="nav-btn" maxWidth="Infinity"/>
+                <Button text="📊  Notes" styleClass="nav-btn, prof-nav-btn-active" maxWidth="Infinity"/>
+            </VBox>
+            <Region VBox.vgrow="ALWAYS"/>
+            <VBox styleClass="admin-section" spacing="10">
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <Label text="AD" styleClass="prof-user-avatar" style="-fx-min-width: 36; -fx-min-height: 36;"/>
+                    <VBox>
+                        <Label text="Admin Principal" styleClass="admin-name-label"/>
+                        <Label text="admin@learnhub.tn" styleClass="admin-role-label"/>
+                    </VBox>
+                </HBox>
+                <Button text="🚪 Déconnexion" styleClass="nav-logout" onAction="#handleLogout" maxWidth="Infinity"/>
+            </VBox>
+        </VBox>
+    </left>
+
+
+    <!-- TOPBAR -->
+    <top>
+        <HBox styleClass="topbar" alignment="CENTER_LEFT" spacing="20">
+            <VBox>
+                <Label text="Dashboard" styleClass="topbar-title"/>
+                <Label text="Bienvenue sur votre tableau de bord" styleClass="topbar-user"/>
+            </VBox>
+            <Region HBox.hgrow="ALWAYS"/>
+            <TextField promptText="Rechercher..." styleClass="search-field" prefWidth="250"/>
+            <Button text="🔔" style="-fx-background-color: transparent; -fx-font-size: 16px;"/>
+            <Button text="⚙" style="-fx-background-color: transparent; -fx-font-size: 16px;"/>
+        </HBox>
+    </top>
+
+    <!-- CONTENT -->
+    <center>
+        <VBox styleClass="content-area" spacing="20">
+            
+            <!-- Banner -->
+            <HBox styleClass="card" style="-fx-padding: 24; -fx-background-color: #1E3A8A; -fx-border-width: 0; -fx-background-radius: 12;" alignment="CENTER_LEFT" spacing="15">
+                <Label text="📊" style="-fx-font-size: 32px; -fx-text-fill: white;"/>
+                <VBox spacing="4">
+                    <Label text="Gestion des Notes" styleClass="page-title" style="-fx-text-fill: white;"/>
+                    <Label text="Administration - Suppression uniquement" styleClass="page-subtitle" style="-fx-text-fill: #e0e7ff;"/>
+                </VBox>
+            </HBox>
+
+            <!-- Filters Area -->
+            <VBox styleClass="card" style="-fx-padding: 20;" spacing="15">
+                <HBox>
+                    <TextField fx:id="searchField" promptText="🔍 Rechercher un étudiant, module..." styleClass="search-field" HBox.hgrow="ALWAYS"/>
+                </HBox>
+                <HBox spacing="15">
+                    <ComboBox fx:id="comboModule" promptText="📚 Tous les modules" styleClass="filter-combo" prefWidth="250" HBox.hgrow="ALWAYS"/>
+                    <ComboBox fx:id="comboEtudiant" promptText="🎓 Tous les étudiants" styleClass="filter-combo" prefWidth="250" HBox.hgrow="ALWAYS"/>
+                    <ComboBox fx:id="comboType" promptText="📝 Tous les types" styleClass="filter-combo" prefWidth="250" HBox.hgrow="ALWAYS"/>
+                </HBox>
+            </VBox>
+
+            <!-- Stats Boxes -->
+            <HBox spacing="20">
+                <VBox styleClass="card" HBox.hgrow="ALWAYS" style="-fx-padding: 20;" spacing="10">
+                    <Label text="📈" style="-fx-font-size: 24px; -fx-background-color: #e0e7ff; -fx-padding: 5 10; -fx-background-radius: 8; -fx-max-width: 44;"/>
+                    <Label fx:id="lblTotalNotes" text="0" style="-fx-font-size: 28px; -fx-font-weight: 900; -fx-text-fill: #111827;"/>
+                    <Label text="Total Notes" style="-fx-text-fill: #6b7280; -fx-font-size: 13px;"/>
+                </VBox>
+                
+                <VBox styleClass="card" HBox.hgrow="ALWAYS" style="-fx-padding: 20;" spacing="10">
+                    <Label text="📊" style="-fx-font-size: 24px; -fx-background-color: #e0e7ff; -fx-padding: 5 10; -fx-background-radius: 8; -fx-max-width: 44;"/>
+                    <Label fx:id="lblMoyenne" text="0.00" style="-fx-font-size: 28px; -fx-font-weight: 900; -fx-text-fill: #111827;"/>
+                    <Label text="Moyenne Générale" style="-fx-text-fill: #6b7280; -fx-font-size: 13px;"/>
+                </VBox>
+
+                <VBox styleClass="card" HBox.hgrow="ALWAYS" style="-fx-padding: 20;" spacing="10">
+                    <Label text="✅" style="-fx-font-size: 24px; -fx-background-color: #d1fae5; -fx-padding: 5 10; -fx-background-radius: 8; -fx-max-width: 44;"/>
+                    <Label fx:id="lblTaux" text="0%" style="-fx-font-size: 28px; -fx-font-weight: 900; -fx-text-fill: #111827;"/>
+                    <Label text="Taux de Réussite" style="-fx-text-fill: #6b7280; -fx-font-size: 13px;"/>
+                </VBox>
+            </HBox>
+
+            <!-- Table -->
+            <VBox styleClass="card" VBox.vgrow="ALWAYS" style="-fx-padding: 0;">
+                <TableView fx:id="noteTable" VBox.vgrow="ALWAYS" styleClass="notes-table">
+                    <columns>
+                        <!-- Les colonnes sont instanciées via FXML ou Controller -->
+                        <TableColumn fx:id="colModule" text="📚 MODULE" prefWidth="250"/>
+                        <TableColumn fx:id="colEtudiant" text="🎓 ÉTUDIANT" prefWidth="200"/>
+                        <TableColumn fx:id="colType" text="📝 TYPE" prefWidth="120"/>
+                        <TableColumn fx:id="colNote" text="📊 NOTE" prefWidth="120"/>
+                        <TableColumn fx:id="colCoefficient" text="⚖ COEFFICIENT" prefWidth="120"/>
+                        <TableColumn fx:id="colActions" text="⚙ ACTIONS" prefWidth="100"/>
+                    </columns>
+                </TableView>
+            </VBox>
+        </VBox>
+    </center>
+</BorderPane>

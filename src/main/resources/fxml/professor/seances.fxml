@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.learnhub.controller.professor.ProfessorDashboardController"
+            stylesheets="@/css/styles.css" prefWidth="1280" prefHeight="800">
+    <top>
+        <HBox styleClass="prof-topnav" alignment="CENTER_LEFT" spacing="10">
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label text="🎓" style="-fx-font-size:28px;"/>
+                <VBox spacing="2">
+                    <Label text="🎓 LearnHub" style="-fx-text-fill:white;-fx-font-size:17px;-fx-font-weight:900;"/>
+                    <Label text="ESPACE PROFESSEUR" styleClass="prof-brand"/>
+                </VBox>
+            </HBox>
+            <Region HBox.hgrow="ALWAYS"/>
+            <HBox spacing="4" alignment="CENTER">
+                <Button text="🏠 Tableau de bord" styleClass="prof-nav-btn" onAction="#goDashboard"/>
+                <Button text="📚 Mes Modules"     styleClass="prof-nav-btn"              onAction="#goModules"/>
+                <Button text="🗓 Mes Séances"     styleClass="prof-nav-btn, prof-nav-btn-active" onAction="#goSeances"/>
+                <Button text="📊 Gérer Notes"     styleClass="prof-nav-btn"              onAction="#goNotes"/>
+                <Button text="✅ Présences"        styleClass="prof-nav-btn"              onAction="#goPresences"/>
+            </HBox>
+            <Region HBox.hgrow="ALWAYS"/>
+            <HBox spacing="8" alignment="CENTER_RIGHT">
+                <Label fx:id="welcomeLabel" text="Professeur" style="-fx-text-fill:white;-fx-font-weight:bold;-fx-font-size:13px;"/>
+                <Label text="PR" styleClass="prof-user-avatar"/>
+                <Button text="🚪 Déconnexion" styleClass="prof-logout" onAction="#handleLogout"/>
+            </HBox>
+        </HBox>
+    </top>
+    <center>
+        <ScrollPane fitToWidth="true" style="-fx-background-color:#f5f7fa;-fx-border-color:transparent;">
+            <VBox styleClass="content-area" spacing="24">
+                <!-- Banner -->
+                <VBox styleClass="welcome-banner" spacing="10">
+                    <HBox alignment="CENTER_LEFT" spacing="24">
+                        <VBox HBox.hgrow="ALWAYS" spacing="6">
+                            <Label text="🗓 Mes Séances" styleClass="welcome-name"/>
+                            <Label text="Planifiez et gérez vos séances de cours" styleClass="welcome-sub"/>
+                        </VBox>
+                        <Button text="➕ Ajouter Séance"
+                                style="-fx-background-color:linear-gradient(to right,#FFC107,#FF6F61);
+                                       -fx-text-fill:#0A1F44;-fx-font-weight:900;-fx-font-size:14px;
+                                       -fx-background-radius:10;-fx-border-width:0;
+                                       -fx-padding:12 24;-fx-cursor:hand;"
+                                onAction="#handleAdd"/>
+                    </HBox>
+                </VBox>
+
+                <!-- Filtres -->
+                <HBox spacing="12" alignment="CENTER_LEFT">
+                    <ComboBox fx:id="moduleFilter" promptText="📚 Module" prefWidth="200" styleClass="filter-combo"/>
+                    <ComboBox fx:id="typeFilter"   promptText="📋 Type"   prefWidth="150" styleClass="filter-combo"/>
+                    <TextField fx:id="searchField" promptText="🔍 Rechercher..." HBox.hgrow="ALWAYS" styleClass="search-field"/>
+                    <Button text="↻ Actualiser" styleClass="btn, btn-secondary, btn-sm" onAction="#handleRefresh"/>
+                </HBox>
+
+                <!-- Table séances -->
+                <VBox styleClass="card" VBox.vgrow="ALWAYS">
+                    <HBox styleClass="card-header" spacing="12" alignment="CENTER_LEFT">
+                        <Label text="🗓 Planning des Séances" styleClass="card-header-title"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Label fx:id="statusLabel" text="" style="-fx-text-fill:#6b7280;-fx-font-size:12px;"/>
+                    </HBox>
+                    <VBox styleClass="card-body" VBox.vgrow="ALWAYS">
+                        <TableView fx:id="seancesTable" VBox.vgrow="ALWAYS" style="-fx-border-color:transparent;">
+                            <columns>
+                                <TableColumn fx:id="colDate"     text="Date"        prefWidth="120"/>
+                                <TableColumn fx:id="colHeure"    text="Heure"       prefWidth="130"/>
+                                <TableColumn fx:id="colModule"   text="Module"      prefWidth="200"/>
+                                <TableColumn fx:id="colType"     text="Type"        prefWidth="100"/>
+                                <TableColumn fx:id="colSalle"    text="Salle"       prefWidth="100"/>
+                                <TableColumn fx:id="colPresents" text="Présents"    prefWidth="90"/>
+                                <TableColumn fx:id="colStatut"   text="Statut"      prefWidth="110"/>
+                            </columns>
+                            <placeholder>
+                                <Label text="Aucune séance planifiée" style="-fx-text-fill:#9ca3af;"/>
+                            </placeholder>
+                        </TableView>
+                    </VBox>
+                    <HBox style="-fx-padding:12 20;-fx-border-color:#e5e7eb;-fx-border-width:1 0 0 0;"
+                          spacing="10" alignment="CENTER_LEFT">
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Button text="✏️ Modifier"   styleClass="btn, btn-warning, btn-sm"   onAction="#handleEdit"/>
+                        <Button text="✅ Présences"  styleClass="btn, btn-success, btn-sm"   onAction="#goPresences"/>
+                        <Button text="🗑 Supprimer" styleClass="btn, btn-danger, btn-sm"    onAction="#handleDelete"/>
+                    </HBox>
+                </VBox>
+            </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>

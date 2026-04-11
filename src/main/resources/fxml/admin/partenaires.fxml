@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.learnhub.controller.admin.PartenairesController"
+            stylesheets="@/css/styles.css" prefWidth="1280" prefHeight="800">
+    <left>
+        <VBox styleClass="sidebar" spacing="0">
+            <VBox styleClass="sidebar-brand" spacing="5">
+                <Label text="🎓 LearnHub" styleClass="sidebar-brand-text"/>
+                <Label text="Espace Administrateur" styleClass="sidebar-brand-sub"/>
+            </VBox>
+            <VBox spacing="2" style="-fx-padding: 10 0;">
+                <Label text="NAVIGATION" styleClass="nav-section-title"/>
+                <Button text="🏠  Tableau de bord" styleClass="nav-btn" onAction="#goBack" maxWidth="Infinity"/>
+                <Label text="STAGE" styleClass="nav-section-title"/>
+                <Button text="🏫  Universités" styleClass="nav-btn, nav-btn-active" maxWidth="Infinity"/>
+                <Button text="💼  Offres de Stage" styleClass="nav-btn" maxWidth="Infinity"/>
+                <Button text="📝  Demandes Stage" styleClass="nav-btn" maxWidth="Infinity"/>
+            </VBox>
+            <Region VBox.vgrow="ALWAYS"/>
+            <VBox styleClass="admin-section" spacing="10">
+                <Button text="🚪  Déconnexion" styleClass="nav-logout" maxWidth="Infinity"/>
+            </VBox>
+        </VBox>
+    </left>
+    <center>
+        <ScrollPane fitToWidth="true" style="-fx-background-color:#f5f7fa;-fx-border-color:transparent;">
+            <VBox styleClass="content-area" spacing="24">
+                
+                <!-- TOP HEADER -->
+                <HBox alignment="CENTER_LEFT" spacing="16">
+                    <VBox HBox.hgrow="ALWAYS">
+                        <HBox alignment="CENTER_LEFT" spacing="10">
+                            <Label text="🏫" style="-fx-font-size:24px;"/>
+                            <Label text="Gestion des Universités" styleClass="page-title"/>
+                        </HBox>
+                        <Label text="Gérer les établissements universitaires" styleClass="page-subtitle"/>
+                    </VBox>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <TextField promptText="Rechercher..." style="-fx-background-radius:20;-fx-pref-width:200;" />
+                </HBox>
+
+                <!-- SEARCH PANEL -->
+                <HBox spacing="15" alignment="CENTER_LEFT" styleClass="card" style="-fx-padding:20;">
+                    <TextField fx:id="searchField" promptText="Rechercher une université..." HBox.hgrow="ALWAYS" styleClass="search-field" prefHeight="40"/>
+                    <ComboBox promptText="Tous les types" styleClass="search-field" prefHeight="40" prefWidth="200"/>
+                    <Button text="🔍 Rechercher" styleClass="btn, btn-primary" style="-fx-background-color:#0A1F44;" onAction="#handleSearch" prefHeight="40"/>
+                </HBox>
+
+                <!-- TABLE PANEL -->
+                <VBox styleClass="card" VBox.vgrow="ALWAYS">
+                    <HBox styleClass="card-header" spacing="12" alignment="CENTER_LEFT">
+                        <VBox>
+                            <Label text="📝 Liste des universités" styleClass="card-header-title"/>
+                            <Label fx:id="totalPartenairesLabel" text="0 établissements" style="-fx-text-fill:#6b7280;-fx-font-size:13px;"/>
+                        </VBox>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Button text="➕ Nouveau" styleClass="btn, btn-primary, btn-sm" onAction="#handleAdd"/>
+                        <Button text="↻" styleClass="btn, btn-secondary, btn-sm" onAction="#handleRefresh"/>
+                    </HBox>
+                    
+                    <VBox styleClass="card-body" VBox.vgrow="ALWAYS" style="-fx-padding:0;">
+                        <TableView fx:id="partenaireTable" VBox.vgrow="ALWAYS" style="-fx-border-color:transparent;">
+                            <placeholder>
+                                <Label text="📭 Aucun établissement trouvé" style="-fx-text-fill:#9ca3af;"/>
+                            </placeholder>
+                        </TableView>
+                    </VBox>
+                </VBox>
+                
+            </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>

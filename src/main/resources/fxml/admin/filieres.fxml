@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.learnhub.controller.admin.FilieresController"
+            stylesheets="@/css/styles.css" prefWidth="1280" prefHeight="800">
+    <left>
+        <VBox styleClass="sidebar" spacing="0">
+            <VBox styleClass="sidebar-brand" spacing="5">
+                <Label text="🎓 LearnHub" styleClass="sidebar-brand-text"/>
+                <Label text="Espace Administrateur" styleClass="sidebar-brand-sub"/>
+            </VBox>
+            <VBox spacing="2" style="-fx-padding: 10 0;">
+                <Label text="NAVIGATION" styleClass="nav-section-title"/>
+                <Button text="🏠  Tableau de bord" styleClass="nav-btn" onAction="#goBack" maxWidth="Infinity"/>
+                <Label text="PÉDAGOGIE" styleClass="nav-section-title"/>
+                <Button text="📂  Filières" styleClass="nav-btn, nav-btn-active" maxWidth="Infinity"/>
+            </VBox>
+            <Region VBox.vgrow="ALWAYS"/>
+            <VBox styleClass="admin-section" spacing="10">
+                <Button text="🚪  Déconnexion" styleClass="nav-logout" onAction="#goBack" maxWidth="Infinity"/>
+            </VBox>
+        </VBox>
+    </left>
+    <center>
+        <ScrollPane fitToWidth="true" style="-fx-background-color:#f5f7fa;-fx-border-color:transparent;">
+            <VBox styleClass="content-area" spacing="24">
+                
+                <!-- TOP HEADER -->
+                <HBox alignment="CENTER_LEFT" spacing="16">
+                    <VBox HBox.hgrow="ALWAYS">
+                        <HBox alignment="CENTER_LEFT" spacing="10">
+                            <Label text="🎓" style="-fx-font-size:24px;"/>
+                            <Label text="Gestion des Filières" styleClass="page-title"/>
+                        </HBox>
+                        <Label text="Gérer les filières et parcours" styleClass="page-subtitle"/>
+                    </VBox>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <TextField fx:id="searchField" promptText="Rechercher..." style="-fx-background-radius:20;-fx-pref-width:200;" />
+                </HBox>
+
+                <HBox alignment="CENTER_LEFT">
+                    <HBox alignment="CENTER_LEFT" spacing="10">
+                        <Label text="🎓" style="-fx-font-size:20px;"/>
+                        <Label text="Gestion des Filières" styleClass="page-title" style="-fx-font-size:20px;"/>
+                    </HBox>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button text="+ Ajouter une filière" styleClass="btn, btn-primary" style="-fx-background-color:#0A1F44;" onAction="#handleAdd"/>
+                </HBox>
+
+                <!-- STATS PANELS -->
+                <HBox spacing="20">
+                    <VBox styleClass="card" HBox.hgrow="ALWAYS" alignment="CENTER" spacing="10" style="-fx-padding:30;">
+                        <Label text="📘" style="-fx-font-size:32px;"/>
+                        <Label fx:id="licenceLabel" text="0" style="-fx-font-size:28px;-fx-font-weight:bold;-fx-text-fill:#0A1F44;"/>
+                        <Label text="Licence" style="-fx-text-fill:#6b7280;"/>
+                    </VBox>
+                    <VBox styleClass="card" HBox.hgrow="ALWAYS" alignment="CENTER" spacing="10" style="-fx-padding:30;">
+                        <Label text="📗" style="-fx-font-size:32px;"/>
+                        <Label fx:id="masterLabel" text="0" style="-fx-font-size:28px;-fx-font-weight:bold;-fx-text-fill:#0A1F44;"/>
+                        <Label text="Master" style="-fx-text-fill:#6b7280;"/>
+                    </VBox>
+                    <VBox styleClass="card" HBox.hgrow="ALWAYS" alignment="CENTER" spacing="10" style="-fx-padding:30;">
+                        <Label text="🎓" style="-fx-font-size:32px;"/>
+                        <Label fx:id="doctoratLabel" text="0" style="-fx-font-size:28px;-fx-font-weight:bold;-fx-text-fill:#0A1F44;"/>
+                        <Label text="Doctorat" style="-fx-text-fill:#6b7280;"/>
+                    </VBox>
+                </HBox>
+
+                <!-- TABLE PANEL -->
+                <VBox styleClass="card" VBox.vgrow="ALWAYS">
+                    <HBox styleClass="card-header" spacing="12" alignment="CENTER_LEFT">
+                        <Label text="📋 Liste des filières" styleClass="card-header-title"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Label fx:id="totalFilieresLabel" text="0 parcours" style="-fx-text-fill:#6b7280;-fx-font-size:13px;"/>
+                        <Button text="↻" styleClass="btn, btn-secondary, btn-sm" onAction="#handleRefresh"/>
+                    </HBox>
+                    
+                    <VBox styleClass="card-body" VBox.vgrow="ALWAYS" style="-fx-padding:0;">
+                        <TableView fx:id="table" VBox.vgrow="ALWAYS" style="-fx-border-color:transparent;">
+                            <columns>
+                                <TableColumn fx:id="colCode" text="Code" prefWidth="100"/>
+                                <TableColumn fx:id="colNom" text="Nom de la filière" prefWidth="250"/>
+                                <TableColumn fx:id="colNiveau" text="Niveau" prefWidth="120"/>
+                                <TableColumn fx:id="colUniversite" text="Université" prefWidth="200"/>
+                                <TableColumn fx:id="colDuree" text="Durée" prefWidth="100"/>
+                                <TableColumn fx:id="colCapacite" text="Capacité" prefWidth="100"/>
+                                <TableColumn fx:id="colActions" text="Actions" prefWidth="120"/>
+                            </columns>
+                            <placeholder>
+                                <Label text="📭 Aucune filière trouvée" style="-fx-text-fill:#9ca3af;"/>
+                            </placeholder>
+                        </TableView>
+                    </VBox>
+                </VBox>
+                
+            </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>
