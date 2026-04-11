@@ -56,7 +56,8 @@
                 <!-- SEARCH & FILTER -->
                 <HBox spacing="15" alignment="CENTER_LEFT" styleClass="card" style="-fx-padding:15;">
                     <TextField fx:id="searchField" promptText="Rechercher par module ou salle..." HBox.hgrow="ALWAYS" styleClass="search-field" prefHeight="40"/>
-                    <Button text="🔍 Filtrer" styleClass="btn, btn-primary" style="-fx-background-color:#0A1F44;" prefHeight="40" prefWidth="120"/>
+                    <Button text="🔍 Filtrer" styleClass="btn, btn-primary" style="-fx-background-color:#0A1F44;" prefHeight="40" prefWidth="120"
+                            onAction="#handleFilter"/>
                 </HBox>
 
                 <!-- TABLE CARD -->

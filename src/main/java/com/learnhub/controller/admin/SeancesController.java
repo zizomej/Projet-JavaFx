@@ -83,18 +83,25 @@ public class SeancesController {
         }
     }
 
+    @FXML
+    private void handleFilter() {
+        filterData();
+    }
+
     private void filterData() {
-        String filter = searchField.getText().toLowerCase();
+        String filter = searchField.getText() == null ? "" : searchField.getText().toLowerCase().trim();
         if (filter.isEmpty()) {
             table.setItems(seanceList);
         } else {
-            FilteredList<Seance> filtered = new FilteredList<>(seanceList, s -> 
-                s.getModuleTitre().toLowerCase().contains(filter) || 
-                s.getSalle().toLowerCase().contains(filter)
-            );
+            FilteredList<Seance> filtered = new FilteredList<>(seanceList, s -> {
+                String module = s.getModuleTitre() == null ? "" : s.getModuleTitre().toLowerCase();
+                String salle = s.getSalle() == null ? "" : s.getSalle().toLowerCase();
+                return module.contains(filter) || salle.contains(filter);
+            });
             table.setItems(filtered);
         }
     }
+
 
     @FXML
     private void handleAdd() {
