@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="20.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" 
+      fx:controller="com.learnhub.gestion_rdv_creneau.controller.RDVManagementController"
+      stylesheets="@../css/style.css" prefHeight="600.0" prefWidth="900.0">
+    
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+
+    <HBox alignment="CENTER_LEFT" spacing="10.0" styleClass="header">
+        <Label text="Gestion des Rendez-vous" styleClass="header-title" />
+        <Region HBox.hgrow="ALWAYS" />
+        <Button mnemonicParsing="false" onAction="#handleRefresh" styleClass="btn-primary" text="Actualiser" />
+    </HBox>
+
+    <HBox spacing="20.0" VBox.vgrow="ALWAYS">
+        <!-- List Side -->
+        <VBox spacing="10.0" HBox.hgrow="ALWAYS" styleClass="card">
+            <TableView fx:id="tableRDV" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="colId" prefWidth="40.0" text="ID" />
+                    <TableColumn fx:id="colMotif" prefWidth="120.0" text="Motif" />
+                    <TableColumn fx:id="colDate" prefWidth="100.0" text="Date" />
+                    <TableColumn fx:id="colStatut" prefWidth="100.0" text="Statut" />
+                    <TableColumn fx:id="colCreneau" prefWidth="150.0" text="Créneau" />
+                </columns>
+            </TableView>
+        </VBox>
+
+        <!-- Form Side -->
+        <VBox spacing="10.0" prefWidth="320.0" styleClass="card">
+            <Label text="Détails du RDV" styleClass="header-title">
+                <font>
+                    <Font size="18.0" />
+                </font>
+            </Label>
+            
+            <ScrollPane fitToWidth="true" hbarPolicy="NEVER" VBox.vgrow="ALWAYS" style="-fx-background-color: transparent;">
+                <VBox spacing="10.0">
+                    <VBox spacing="5.0">
+                        <Label text="Motif" styleClass="label-form" />
+                        <TextField fx:id="txtMotif" />
+                    </VBox>
+                    
+                    <VBox spacing="5.0">
+                        <Label text="Description" styleClass="label-form" />
+                        <TextArea fx:id="txtDescription" prefHeight="60.0" wrapText="true" />
+                    </VBox>
+                    
+                    <VBox spacing="5.0">
+                        <Label text="Date" styleClass="label-form" />
+                        <DatePicker fx:id="datePicker" prefWidth="280.0" />
+                    </VBox>
+                    
+                    <VBox spacing="5.0">
+                        <Label text="Statut" styleClass="label-form" />
+                        <ComboBox fx:id="comboStatut" prefWidth="280.0" />
+                    </VBox>
+                    
+                    <VBox spacing="5.0">
+                        <Label text="Créneau" styleClass="label-form" />
+                        <ComboBox fx:id="comboCreneau" prefWidth="280.0" />
+                    </VBox>
+
+                    <VBox spacing="5.0">
+                        <Label text="Compte Rendu" styleClass="label-form" />
+                        <TextArea fx:id="txtCompteRendu" prefHeight="60.0" wrapText="true" />
+                    </VBox>
+                </VBox>
+            </ScrollPane>
+            
+            <HBox spacing="10.0" alignment="CENTER">
+                <Button mnemonicParsing="false" onAction="#handleSave" styleClass="btn-primary" text="Enregistrer" />
+                <Button mnemonicParsing="false" onAction="#handleDelete" styleClass="btn-orange" text="Supprimer" />
+                <Button mnemonicParsing="false" onAction="#handleClear" styleClass="btn-yellow" text="Vider" />
+            </HBox>
+        </VBox>
+    </HBox>
+    
+</VBox>
+

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="com.learnhub.gestion_rdv_creneau.controller.MainController"
+            prefHeight="720.0" prefWidth="1080.0" stylesheets="@../css/style.css">
+    
+    <left>
+        <VBox fx:id="sidebar" prefWidth="250.0" styleClass="sidebar">
+            <children>
+                <!-- Initial content will be overwritten by MainController -->
+                <Label fx:id="lblSessionInfo" text="Session: Admin" textFill="#6c757d" />
+            </children>
+        </VBox>
+    </left>
+    
+    <center>
+        <StackPane fx:id="contentArea">
+            <children>
+                <!-- Dynamic content will be loaded here -->
+                <VBox alignment="CENTER" spacing="20.0">
+                    <Label text="Bienvenue dans la gestion Médicale" styleClass="header-title" />
+                    <Label text="Utilisez le menu latéral pour commencer" textFill="#6c757d" />
+                </VBox>
+            </children>
+        </StackPane>
+    </center>
+    
+</BorderPane>
+

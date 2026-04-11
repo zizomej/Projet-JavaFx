@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="20.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" 
+      fx:controller="com.learnhub.gestion_rdv_creneau.controller.StudentAppointmentsController"
+      stylesheets="@../css/style.css" prefHeight="600.0" prefWidth="900.0">
+    
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+
+    <HBox alignment="CENTER_LEFT" spacing="10.0" styleClass="header">
+        <children>
+            <VBox spacing="5.0">
+                <children>
+                    <Label text="📋 Mes Rendez-vous" styleClass="header-title" />
+                    <Label text="Consultez l'historique et le statut de vos demandes" textFill="#6c757d" />
+                </children>
+            </VBox>
+            <Region HBox.hgrow="ALWAYS" />
+            <Button mnemonicParsing="false" onAction="#loadData" styleClass="btn-primary" text="Actualiser" />
+        </children>
+    </HBox>
+
+    <HBox spacing="20.0">
+        <children>
+            <HBox spacing="10.0" alignment="CENTER" style="-fx-background-color: #dbeafe; -fx-padding: 10; -fx-background-radius: 8;">
+                <Label text="Total :" style="-fx-font-weight: bold; -fx-text-fill: #1E3A8A;" />
+                <Label fx:id="lblTotalRDV" text="0" style="-fx-font-weight: bold;" />
+            </HBox>
+            <HBox spacing="10.0" alignment="CENTER" style="-fx-background-color: #d1fae5; -fx-padding: 10; -fx-background-radius: 8;">
+                <Label text="Confirmés :" style="-fx-font-weight: bold; -fx-text-fill: #059669;" />
+                <Label fx:id="lblConfirmedRDV" text="0" style="-fx-font-weight: bold;" />
+            </HBox>
+        </children>
+    </HBox>
+
+    <TableView fx:id="tableMyRDV" VBox.vgrow="ALWAYS" styleClass="card">
+        <columns>
+            <TableColumn fx:id="colDate" prefWidth="120.0" text="Date" />
+            <TableColumn fx:id="colMotif" prefWidth="150.0" text="Motif" />
+            <TableColumn fx:id="colDescription" prefWidth="250.0" text="Description" />
+            <TableColumn fx:id="colStatut" prefWidth="120.0" text="Statut" />
+            <TableColumn fx:id="colCreneau" prefWidth="200.0" text="Créneau" />
+        </columns>
+    </TableView>
+    
+</VBox>
+

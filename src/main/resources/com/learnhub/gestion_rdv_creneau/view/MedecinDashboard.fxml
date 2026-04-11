@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="25.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" 
+      fx:controller="com.learnhub.gestion_rdv_creneau.controller.MedecinDashboardController"
+      stylesheets="@../css/style.css" prefHeight="600.0" prefWidth="900.0">
+    
+    <padding>
+        <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+    </padding>
+
+    <!-- Header -->
+    <HBox alignment="CENTER_LEFT">
+        <children>
+            <VBox spacing="5.0">
+                <children>
+                    <Label text="Tableau de Bord Médecin" styleClass="header-title" />
+                    <Label text="Aperçu de votre activité et demandes en attente" textFill="#6c757d" />
+                </children>
+            </VBox>
+        </children>
+    </HBox>
+
+    <!-- Stats Grid -->
+    <GridPane hgap="20.0" vgap="20.0">
+        <columnConstraints>
+            <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+        <children>
+            <VBox spacing="5.0" styleClass="stat-card, stat-card-yellow" GridPane.columnIndex="0">
+                <children>
+                    <Label fx:id="lblPendingCount" text="0" styleClass="stat-value" />
+                    <Label text="En attente" styleClass="stat-label" />
+                </children>
+            </VBox>
+            <VBox spacing="5.0" styleClass="stat-card, stat-card-blue" GridPane.columnIndex="1">
+                <children>
+                    <Label fx:id="lblConfirmedCount" text="0" styleClass="stat-value" />
+                    <Label text="Confirmés" styleClass="stat-label" />
+                </children>
+            </VBox>
+            <VBox spacing="5.0" styleClass="stat-card, stat-card-orange" GridPane.columnIndex="2">
+                <children>
+                    <Label fx:id="lblTodayCount" text="0" styleClass="stat-value" />
+                    <Label text="Aujourd'hui" styleClass="stat-label" />
+                </children>
+            </VBox>
+            <VBox spacing="5.0" styleClass="stat-card, stat-card-purple" GridPane.columnIndex="3">
+                <children>
+                    <Label fx:id="lblMonthCount" text="0" styleClass="stat-value" />
+                    <Label text="Ce mois" styleClass="stat-label" />
+                </children>
+            </VBox>
+        </children>
+    </GridPane>
+
+    <!-- Main Content Area -->
+    <VBox spacing="15.0" VBox.vgrow="ALWAYS" styleClass="card">
+        <children>
+            <HBox alignment="CENTER_LEFT">
+                <children>
+                    <Label text="Demandes de Rendez-vous en Attente" style="-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #0A1F44;" />
+                    <Region HBox.hgrow="ALWAYS" />
+                    <Button mnemonicParsing="false" onAction="#refreshData" styleClass="btn-primary" text="Actualiser" />
+                </children>
+            </HBox>
+            
+            <TableView fx:id="tablePendingRDV" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="colMotif" prefWidth="150.0" text="Motif" />
+                    <TableColumn fx:id="colDescription" prefWidth="250.0" text="Description" />
+                    <TableColumn fx:id="colDate" prefWidth="120.0" text="Date souhaitée" />
+                    <TableColumn fx:id="colActions" prefWidth="200.0" text="Actions" />
+                </columns>
+            </TableView>
+        </children>
+    </VBox>
+    
+</VBox>
+
