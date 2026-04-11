@@ -13,6 +13,7 @@ public class SeanceDAO {
         Seance s = new Seance();
         s.setId(rs.getInt("id"));
         s.setModuleId(rs.getInt("module_id"));
+        s.setEnseignantId(rs.getInt("enseignant_id"));
         s.setModuleTitre(rs.getString("module_titre"));
         s.setDate(rs.getString("date_seance"));
         s.setHeureDebut(rs.getString("heure_debut"));
@@ -65,14 +66,15 @@ public class SeanceDAO {
     }
 
     public void insert(Seance s) throws SQLException {
-        String sql = "INSERT INTO seance (module_id, date_seance, heure_debut, heure_fin, salle, type) VALUES (?,?,?,?,?,?)";
+        String sql = "INSERT INTO seance (module_id, enseignant_id, date_seance, heure_debut, heure_fin, salle, type) VALUES (?,?,?,?,?,?,?)";
         try (PreparedStatement ps = DatabaseConnection.getInstance().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             ps.setInt(1, s.getModuleId());
-            ps.setString(2, s.getDate());
-            ps.setString(3, s.getHeureDebut());
-            ps.setString(4, s.getHeureFin());
-            ps.setString(5, s.getSalle());
-            ps.setString(6, s.getType());
+            ps.setInt(2, s.getEnseignantId());
+            ps.setString(3, s.getDate());
+            ps.setString(4, s.getHeureDebut());
+            ps.setString(5, s.getHeureFin());
+            ps.setString(6, s.getSalle());
+            ps.setString(7, s.getType());
             ps.executeUpdate();
             ResultSet keys = ps.getGeneratedKeys();
             if (keys.next()) s.setId(keys.getInt(1));
@@ -80,15 +82,16 @@ public class SeanceDAO {
     }
 
     public void update(Seance s) throws SQLException {
-        String sql = "UPDATE seance SET module_id=?, date_seance=?, heure_debut=?, heure_fin=?, salle=?, type=? WHERE id=?";
+        String sql = "UPDATE seance SET module_id=?, enseignant_id=?, date_seance=?, heure_debut=?, heure_fin=?, salle=?, type=? WHERE id=?";
         try (PreparedStatement ps = DatabaseConnection.getInstance().prepareStatement(sql)) {
             ps.setInt(1, s.getModuleId());
-            ps.setString(2, s.getDate());
-            ps.setString(3, s.getHeureDebut());
-            ps.setString(4, s.getHeureFin());
-            ps.setString(5, s.getSalle());
-            ps.setString(6, s.getType());
-            ps.setInt(7, s.getId());
+            ps.setInt(2, s.getEnseignantId());
+            ps.setString(3, s.getDate());
+            ps.setString(4, s.getHeureDebut());
+            ps.setString(5, s.getHeureFin());
+            ps.setString(6, s.getSalle());
+            ps.setString(7, s.getType());
+            ps.setInt(8, s.getId());
             ps.executeUpdate();
         }
     }

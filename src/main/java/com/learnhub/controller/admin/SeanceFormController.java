@@ -66,7 +66,9 @@ public class SeanceFormController {
 
         if (currentSeance == null) currentSeance = new Seance();
 
-        currentSeance.setModuleId(moduleCombo.getValue().getId());
+        Module selectedModule = moduleCombo.getValue();
+        currentSeance.setModuleId(selectedModule.getId());
+        currentSeance.setEnseignantId(selectedModule.getResponsable_id());
         currentSeance.setDate(datePicker.getValue().toString());
         currentSeance.setHeureDebut(heureDebutField.getText());
         currentSeance.setHeureFin(heureFinField.getText());

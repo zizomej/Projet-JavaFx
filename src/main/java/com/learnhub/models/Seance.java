@@ -11,11 +11,15 @@ public class Seance {
     private String type; // CM, TD, TP
     private String description;
 
+    private int enseignantId;
+
     public Seance() {}
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
     public int getModuleId() { return moduleId; }
     public void setModuleId(int moduleId) { this.moduleId = moduleId; }
+    public int getEnseignantId() { return enseignantId; }
+    public void setEnseignantId(int enseignantId) { this.enseignantId = enseignantId; }
     public String getModuleTitre() { return moduleTitre; }
     public void setModuleTitre(String moduleTitre) { this.moduleTitre = moduleTitre; }
     public String getDate() { return date; }
@@ -32,3 +36,4 @@ public class Seance {
     public void setDescription(String description) { this.description = description; }
     @Override public String toString() { return moduleTitre + " - " + date + " " + heureDebut; }
 }
+
