@@ -123,6 +123,15 @@ public class EvenementFormController {
             return false;
         }
 
+        if (dateFinPicker.getValue().isEqual(dateDebutPicker.getValue())) {
+            LocalTime start = LocalTime.parse(heureDebutField.getText());
+            LocalTime end = LocalTime.parse(heureFinField.getText());
+            if (!end.isAfter(start)) {
+                showAlert("Validation heure", "L'heure de fin doit être après l'heure de début pour un événement le même jour.");
+                return false;
+            }
+        }
+
         return true;
     }
 
