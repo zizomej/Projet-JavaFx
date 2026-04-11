@@ -26,6 +26,7 @@ public class EvenementFormController {
     @FXML private TextArea descriptionArea;
 
     private final EvenementDAO evenementDAO = new EvenementDAO();
+    private final com.learnhub.dao.LieuDAO lieuDAO = new com.learnhub.dao.LieuDAO();
     private Evenement currentEvent;
 
     @FXML
@@ -66,34 +67,41 @@ public class EvenementFormController {
         try {
             currentEvent.setHeureDebut(LocalTime.parse(heureDebutField.getText()));
             currentEvent.setHeureFin(LocalTime.parse(heureFinField.getText()));
-        } catch (DateTimeParseException e) {
-            // Should be caught by validation, but double safety
-        }
-        
-        currentEvent.setCapacite(Integer.parseInt(capaciteField.getText()));
-        currentEvent.setStatut(statutCombo.getValue());
-        currentEvent.setDescription(descriptionArea.getText());
+            
+            // Résolution du lieuId à partir du nom
+            int lieuId = lieuDAO.getOrCreateLieuId(lieuField.getText());
+            currentEvent.setLieuId(lieuId);
+            
+            currentEvent.setCapacite(Integer.parseInt(capaciteField.getText()));
+            currentEvent.setStatut(statutCombo.getValue());
+            currentEvent.setDescription(descriptionArea.getText());
 
-        try {
             if (currentEvent.getId() == 0) {
                 evenementDAO.insert(currentEvent);
             } else {
                 evenementDAO.update(currentEvent);
             }
             goBack();
+        } catch (DateTimeParseException e) {
+            showAlert("Format invalide", "L'heure est invalide.");
         } catch (SQLException e) {
+            e.printStackTrace();
             showAlert("Erreur", "Impossible d'enregistrer l'événement : " + e.getMessage());
+        } catch (NumberFormatException e) {
+            showAlert("Format invalide", "La capacité doit être un nombre.");
         }
     }
 
     private boolean validateInput() {
         if (titreField.getText().isEmpty() || typeCombo.getValue() == null || 
+            lieuField.getText().isEmpty() ||
             dateDebutPicker.getValue() == null || dateFinPicker.getValue() == null || 
             heureDebutField.getText().isEmpty() || heureFinField.getText().isEmpty() ||
             statutCombo.getValue() == null) {
-            showAlert("Validation", "Veuillez remplir tous les champs obligatoires.");
+            showAlert("Validation", "Veuillez remplir tous les champs obligatoires (incluant le Lieu).");
             return false;
         }
+
 
         try {
             LocalTime.parse(heureDebutField.getText());
