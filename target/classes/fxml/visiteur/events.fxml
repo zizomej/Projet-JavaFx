@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane fitToWidth="true"
+            hbarPolicy="NEVER"
+            xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.learnhub.controller.EventsPageController"
+            stylesheets="@/css/styles.css">
+
+    <VBox styleClass="page-root">
+
+        <!-- TOP NAV -->
+        <HBox styleClass="top-nav" alignment="CENTER_LEFT" spacing="0" minHeight="64">
+            <padding><Insets top="0" right="32" bottom="0" left="32"/></padding>
+            <Label text="🎓 LearnHub" styleClass="logo-brand" fx:id="titleLabel"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <HBox alignment="CENTER" spacing="4">
+                <Label text="Accueil"     styleClass="nav-link" onMouseClicked="#goToHome"/>
+                <Label text="Programmes"  styleClass="nav-link" onMouseClicked="#goToPrograms"/>
+                <Label text="Événements"  styleClass="nav-link nav-link-active"/>
+                <Label text="Partenaires" styleClass="nav-link" onMouseClicked="#goToPartners"/>
+            </HBox>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button text="Se connecter" styleClass="btn-login" onAction="#goToLogin"/>
+        </HBox>
+
+        <!-- HERO -->
+        <VBox alignment="CENTER" spacing="16" minHeight="280" styleClass="page-hero">
+            <padding><Insets top="60" right="60" bottom="60" left="60"/></padding>
+            <Label text="🎉" style="-fx-font-size:56px;"/>
+            <Label text="Événements &amp; Activités" styleClass="hero-title"/>
+            <Label text="Conférences, workshops, cérémonies et rencontres sur le campus LearnHub"
+                   styleClass="hero-subtitle" wrapText="true" maxWidth="600" textAlignment="CENTER"/>
+        </VBox>
+
+        <!-- EVENTS GRID -->
+        <VBox spacing="0" style="-fx-background-color:white;">
+            <padding><Insets top="48" right="60" bottom="60" left="60"/></padding>
+
+            <HBox alignment="CENTER" style="-fx-padding:0 0 36 0;">
+                <VBox alignment="CENTER" spacing="8">
+                    <Label text="AGENDA" styleClass="section-label"/>
+                    <Label text="Prochains Événements" styleClass="section-subtitle"/>
+                    <Label text="Restez informé de toute l'actualité du campus"
+                           style="-fx-font-size:14px; -fx-text-fill:#64748b; -fx-text-alignment:center;"
+                           wrapText="true" maxWidth="500" textAlignment="CENTER"/>
+                </VBox>
+            </HBox>
+
+            <!-- Event Cards Row 1 -->
+            <HBox spacing="24" style="-fx-padding:0 0 24 0;">
+                <VBox styleClass="news-card" HBox.hgrow="ALWAYS" spacing="0">
+                    <VBox styleClass="event-image event-image-blue" minHeight="140" alignment="CENTER" spacing="8">
+                        <Label text="🏆" style="-fx-font-size:48px;"/>
+                        <Label text="15 Mars 2026" style="-fx-font-size:13px; -fx-text-fill:#FFC107; -fx-font-weight:700;"/>
+                    </VBox>
+                    <VBox styleClass="event-content" spacing="8">
+                        <Label text="Hackathon Innovation 2026" styleClass="course-title"/>
+                        <Label text="Participez au hackathon annuel et développez des solutions innovantes pour les défis de demain."
+                               styleClass="course-desc" wrapText="true"/>
+                        <HBox spacing="12" alignment="CENTER_LEFT">
+                            <Label text="🕐 09:00 - 18:00" style="-fx-font-size:12px; -fx-text-fill:#64748b;"/>
+                            <Label text="📍 Campus LearnHub" style="-fx-font-size:12px; -fx-text-fill:#64748b;"/>
+                        </HBox>
+                    </VBox>
+                </VBox>
+
+                <VBox styleClass="news-card" HBox.hgrow="ALWAYS" spacing="0">
+                    <VBox styleClass="event-image" minHeight="140" alignment="CENTER" spacing="8"
+                          style="-fx-background-color:linear-gradient(from 0% 0% to 100% 100%, #d97706, #FFC107); -fx-background-radius:12 12 0 0;">
+                        <Label text="💼" style="-fx-font-size:48px;"/>
+                        <Label text="05 Mars 2026" style="-fx-font-size:13px; -fx-text-fill:white; -fx-font-weight:700;"/>
+                    </VBox>
+                    <VBox styleClass="event-content" spacing="8">
+                        <Label text="Forum Emploi &amp; Stages" styleClass="course-title"/>
+                        <Label text="Rencontrez des recruteurs de plus de 50 entreprises partenaires et décrochez votre stage."
+                               styleClass="course-desc" wrapText="true"/>
+                        <HBox spacing="12" alignment="CENTER_LEFT">
+                            <Label text="🕐 09:00 - 17:00" style="-fx-font-size:12px; -fx-text-fill:#64748b;"/>
+                            <Label text="📍 Hall Principal" style="-fx-font-size:12px; -fx-text-fill:#64748b;"/>
+                        </HBox>
+                    </VBox>
+                </VBox>
+
+                <VBox styleClass="news-card" HBox.hgrow="ALWAYS" spacing="0">
+                    <VBox styleClass="event-image" minHeight="140" alignment="CENTER" spacing="8"
+                          style="-fx-background-color:linear-gradient(from 0% 0% to 100% 100%, #6d28d9, #8b5cf6); -fx-background-radius:12 12 0 0;">
+                        <Label text="🚀" style="-fx-font-size:48px;"/>
+                        <Label text="25 Février 2026" style="-fx-font-size:13px; -fx-text-fill:#FFC107; -fx-font-weight:700;"/>
+                    </VBox>
+                    <VBox styleClass="event-content" spacing="8">
+                        <Label text="Tech Summit 2026" styleClass="course-title"/>
+                        <Label text="Conférence internationale sur les dernières tendances en intelligence artificielle et big data."
+                               styleClass="course-desc" wrapText="true"/>
+                        <HBox spacing="12" alignment="CENTER_LEFT">
+                            <Label text="🕐 09:00 - 20:00" style="-fx-font-size:12px; -fx-text-fill:#64748b;"/>
+                            <Label text="📍 Amphi A" style="-fx-font-size:12px; -fx-text-fill:#64748b;"/>
+                        </HBox>
+                    </VBox>
+                </VBox>
+            </HBox>
+
+            <!-- Event Cards Row 2 -->
+            <HBox spacing="24">
+                <VBox styleClass="news-card" HBox.hgrow="ALWAYS" spacing="0">
+                    <VBox styleClass="event-image" minHeight="140" alignment="CENTER" spacing="8"
+                          style="-fx-background-color:linear-gradient(from 0% 0% to 100% 100%, #0f766e, #14b8a6); -fx-background-radius:12 12 0 0;">
+                        <Label text="🎓" style="-fx-font-size:48px;"/>
+                        <Label text="10 Avril 2026" style="-fx-font-size:13px; -fx-text-fill:white; -fx-font-weight:700;"/>
+                    </VBox>
+                    <VBox styleClass="event-content" spacing="8">
+                        <Label text="Cérémonie de Remise des Diplômes" styleClass="course-title"/>
+                        <Label text="Célébrez la réussite de la promotion 2025 lors d'une soirée exceptionnelle."
+                               styleClass="course-desc" wrapText="true"/>
+                        <HBox spacing="12" alignment="CENTER_LEFT">
+                            <Label text="🕐 18:00 - 22:00" style="-fx-font-size:12px; -fx-text-fill:#64748b;"/>
+                            <Label text="📍 Grande Salle" style="-fx-font-size:12px; -fx-text-fill:#64748b;"/>
+                        </HBox>
+                    </VBox>
+                </VBox>
+
+                <VBox styleClass="news-card" HBox.hgrow="ALWAYS" spacing="0">
+                    <VBox styleClass="event-image event-image-blue" minHeight="140" alignment="CENTER" spacing="8">
+                        <Label text="🔬" style="-fx-font-size:48px;"/>
+                        <Label text="20 Avril 2026" style="-fx-font-size:13px; -fx-text-fill:#FFC107; -fx-font-weight:700;"/>
+                    </VBox>
+                    <VBox styleClass="event-content" spacing="8">
+                        <Label text="Journée Portes Ouvertes" styleClass="course-title"/>
+                        <Label text="Découvrez nos programmes, laboratoires et installations lors de la journée annuelle JPO."
+                               styleClass="course-desc" wrapText="true"/>
+                        <HBox spacing="12" alignment="CENTER_LEFT">
+                            <Label text="🕐 10:00 - 17:00" style="-fx-font-size:12px; -fx-text-fill:#64748b;"/>
+                            <Label text="📍 Tout le campus" style="-fx-font-size:12px; -fx-text-fill:#64748b;"/>
+                        </HBox>
+                    </VBox>
+                </VBox>
+
+                <VBox styleClass="news-card" HBox.hgrow="ALWAYS" spacing="0">
+                    <VBox styleClass="event-image" minHeight="140" alignment="CENTER" spacing="8"
+                          style="-fx-background-color:linear-gradient(from 0% 0% to 100% 100%, #dc2626, #ef4444); -fx-background-radius:12 12 0 0;">
+                        <Label text="🎨" style="-fx-font-size:48px;"/>
+                        <Label text="01 Mai 2026" style="-fx-font-size:13px; -fx-text-fill:white; -fx-font-weight:700;"/>
+                    </VBox>
+                    <VBox styleClass="event-content" spacing="8">
+                        <Label text="Festival Culturel" styleClass="course-title"/>
+                        <Label text="Musique, art, gastronomie et culture du monde entier réunis au campus."
+                               styleClass="course-desc" wrapText="true"/>
+                        <HBox spacing="12" alignment="CENTER_LEFT">
+                            <Label text="🕐 14:00 - 22:00" style="-fx-font-size:12px; -fx-text-fill:#64748b;"/>
+                            <Label text="📍 Patio extérieur" style="-fx-font-size:12px; -fx-text-fill:#64748b;"/>
+                        </HBox>
+                    </VBox>
+                </VBox>
+            </HBox>
+        </VBox>
+
+        <!-- CTA -->
+        <VBox alignment="CENTER" spacing="16" minHeight="160"
+              style="-fx-background-color:linear-gradient(from 0% 0% to 100% 100%, #0A1F44, #1E3A8A);">
+            <padding><Insets top="40" right="60" bottom="40" left="60"/></padding>
+            <Label text="Rejoignez la communauté LearnHub !" styleClass="welcome-title"/>
+            <Label text="Inscrivez-vous pour accéder à tous les événements et ressources du campus."
+                   styleClass="welcome-sub" wrapText="true" maxWidth="600" textAlignment="CENTER"/>
+            <Button text="S'inscrire maintenant" styleClass="btn-hero-primary" onAction="#goToRegister"/>
+        </VBox>
+
+        <!-- FOOTER -->
+        <HBox alignment="CENTER" minHeight="60" styleClass="footer">
+            <padding><Insets top="0" right="40" bottom="0" left="40"/></padding>
+            <Label text="© 2026 LearnHub • Plateforme d'apprentissage intelligente • Tous droits réservés"
+                   styleClass="footer-text"/>
+        </HBox>
+    </VBox>
+</ScrollPane>

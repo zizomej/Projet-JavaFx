@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Circle?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.learnhub.controller.admin.DemandeStageDetailsController"
+            stylesheets="@/css/styles.css"
+            prefWidth="1360" prefHeight="820">
+
+    <!-- Sidebar -->
+    <left>
+        <VBox prefWidth="250.0" styleClass="sidebar" BorderPane.alignment="CENTER">
+            <VBox alignment="CENTER" prefHeight="100.0" style="-fx-padding: 20 10;">
+                <Label text="🎓 LearnHub" textFill="WHITE" style="-fx-font-size: 22px; -fx-font-weight: bold;"/>
+                <Label text="Espace Administrateur" textFill="#a0aabf" style="-fx-font-size: 11px;"/>
+            </VBox>
+            <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS" style="-fx-background-color: transparent; -fx-border-color: transparent;">
+                <VBox spacing="2.0" style="-fx-padding: 8 0;">
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="📊 Dashboard" onAction="#goDashboard"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="👥 Utilisateurs" onAction="#goUtilisateurs"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="📚 Modules" onAction="#goModules"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="🗓 Séances" onAction="#goSeances"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="📝 Notes" onAction="#goNotes"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="✔ Présences" onAction="#goPresences"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="🎓 Filières" onAction="#goFilieres"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="🎉 Événements" onAction="#goEvenements"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="🏥 RDV Médicaux" onAction="#goRdv"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="🕐 Créneaux" onAction="#goCreneaux"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="🤝 Partenaires" onAction="#goPartenaires"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="💼 Offres de Stage" onAction="#goOffresStage"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn sidebar-btn-active" text="📋 Demandes Stage" onAction="#goDemandesStage"/>
+                </VBox>
+            </ScrollPane>
+            <VBox alignment="CENTER" prefHeight="100.0" spacing="8.0" style="-fx-background-color: #151a2b; -fx-padding: 10;">
+                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                    <StackPane><Circle fill="#ff9800" radius="18.0"/><Label text="AD" textFill="WHITE" style="-fx-font-weight: bold;"/></StackPane>
+                    <VBox alignment="CENTER_LEFT">
+                        <Label text="Admin Principal" textFill="WHITE" style="-fx-font-weight: bold; -fx-font-size: 13px;"/>
+                        <Label text="admin@learnhub.tn" textFill="#a0aabf" style="-fx-font-size: 11px;"/>
+                    </VBox>
+                </HBox>
+                <Button text="🚪 Déconnexion" maxWidth="Infinity" onAction="#handleLogout" style="-fx-background-color: #293047; -fx-text-fill: white; -fx-background-radius: 5; -fx-cursor: hand; -fx-padding: 8 10;"/>
+            </VBox>
+        </VBox>
+    </left>
+
+    <!-- Main Content -->
+    <center>
+        <ScrollPane fitToWidth="true" style="-fx-background-color: #f8fafc;" hbarPolicy="NEVER">
+            <VBox spacing="20.0" style="-fx-padding: 30;">
+
+                <!-- Header Card -->
+                <HBox alignment="CENTER_LEFT" style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 10, 0, 0, 2);">
+                    <VBox spacing="5" HBox.hgrow="ALWAYS">
+                        <Label fx:id="lblTitre" text="📋 Demande de Stage" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #1e3a8a;"/>
+                        <Label fx:id="lblDate" text="—" textFill="#64748b" style="-fx-font-size: 13px;"/>
+                    </VBox>
+                    <HBox alignment="CENTER_RIGHT" spacing="10">
+                        <Button text="🗑 Supprimer" onAction="#handleDelete"
+                                style="-fx-background-color: #ef4444; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 16; -fx-background-radius: 6; -fx-cursor: hand;"/>
+                        <Button text="⬅ Retour" onAction="#handleBack"
+                                style="-fx-background-color: #475569; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 16; -fx-background-radius: 6; -fx-cursor: hand;"/>
+                    </HBox>
+                </HBox>
+
+                <!-- Status + Update Row -->
+                <HBox spacing="20">
+                    <VBox style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.04), 8, 0, 0, 2);"
+                          spacing="10" HBox.hgrow="ALWAYS">
+                        <Label text="📊 Statut Actuel" style="-fx-font-weight: bold; -fx-text-fill: #374151;"/>
+                        <Label fx:id="lblStatutActuel" text="⏳ en_attente"
+                               style="-fx-background-color: #fef3c7; -fx-text-fill: #d97706; -fx-font-weight: bold; -fx-padding: 8 16; -fx-background-radius: 20; -fx-font-size: 14px;"/>
+                    </VBox>
+                    <VBox style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.04), 8, 0, 0, 2);"
+                          spacing="10" HBox.hgrow="ALWAYS" alignment="TOP_RIGHT">
+                        <Label text="⚡ Changer le statut" style="-fx-font-weight: bold; -fx-text-fill: #374151;"/>
+                        <HBox spacing="10" alignment="CENTER_RIGHT">
+                            <ComboBox fx:id="comboStatut" prefWidth="160"/>
+                            <Button text="Mettre à jour" onAction="#handleUpdateStatut"
+                                    style="-fx-background-color: #1e3a8a; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 6; -fx-cursor: hand; -fx-padding: 8 14;"/>
+                        </HBox>
+                    </VBox>
+                </HBox>
+
+                <!-- Student + Offre Row -->
+                <HBox spacing="20">
+                    <!-- Student Profile -->
+                    <VBox style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.04), 8, 0, 0, 2);"
+                          spacing="15" HBox.hgrow="ALWAYS">
+                        <Label text="👤 Profil de l'Étudiant" style="-fx-font-weight: bold; -fx-font-size: 15px; -fx-text-fill: #1e293b;"/>
+                        <HBox spacing="15" alignment="CENTER_LEFT">
+                            <Label text="ET" style="-fx-background-color: #d97706; -fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold; -fx-padding: 12; -fx-background-radius: 50;"/>
+                            <VBox spacing="4">
+                                <Label fx:id="lblEtudiantNom" text="—" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #1e293b;"/>
+                            </VBox>
+                        </HBox>
+                        <Separator/>
+                        <GridPane hgap="20" vgap="12">
+                            <Label text="ID Étudiant" textFill="#64748b" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                            <Label fx:id="lblEtudiantId" text="#—" style="-fx-font-weight: bold;" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+                            <Label text="Email" textFill="#64748b" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                            <Label fx:id="lblEtudiantEmail" text="—" style="-fx-font-weight: bold;" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                        </GridPane>
+                    </VBox>
+
+                    <!-- Offre de Stage -->
+                    <VBox style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.04), 8, 0, 0, 2);"
+                          spacing="15" HBox.hgrow="ALWAYS">
+                        <Label text="💼 Offre de Stage" style="-fx-font-weight: bold; -fx-font-size: 15px; -fx-text-fill: #1e293b;"/>
+                        <VBox style="-fx-background-color: #1e3a8a; -fx-background-radius: 8; -fx-padding: 15;" spacing="5">
+                            <Label fx:id="lblOffreTitre" text="—" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+                            <HBox spacing="5">
+                                <Label text="🏢" textFill="white"/>
+                                <Label fx:id="lblPartenaireNom" text="—" textFill="#cbd5e1"/>
+                            </HBox>
+                        </VBox>
+                    </VBox>
+                </HBox>
+
+                <!-- Motivation + PJ Row -->
+                <HBox spacing="20">
+                    <!-- Lettre de motivation -->
+                    <VBox style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.04), 8, 0, 0, 2);"
+                          spacing="10" HBox.hgrow="ALWAYS">
+                        <Label text="💭 Lettre de Motivation" style="-fx-font-weight: bold; -fx-font-size: 15px; -fx-text-fill: #1e293b;"/>
+                        <TextArea fx:id="txtMotivation" prefRowCount="5" wrapText="true" editable="false"
+                                  style="-fx-background-color: #f8fafc; -fx-border-color: #e5e7eb; -fx-border-radius: 8;"/>
+                    </VBox>
+
+                    <!-- Pièce Jointe -->
+                    <VBox style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.04), 8, 0, 0, 2);"
+                          spacing="10" prefWidth="280">
+                        <Label text="📎 Pièce Jointe" style="-fx-font-weight: bold; -fx-font-size: 15px; -fx-text-fill: #1e293b;"/>
+                        <VBox spacing="10">
+                            <HBox spacing="15" alignment="CENTER_LEFT" style="-fx-background-color: #f8fafc; -fx-padding: 10; -fx-background-radius: 8;">
+                                <Label text="📄" style="-fx-font-size: 24px; -fx-background-color: #ef4444; -fx-text-fill: white; -fx-padding: 10; -fx-background-radius: 8;"/>
+                                <Label fx:id="lblPieceJointe" text="Aucune pièce jointe" textFill="#475569" style="-fx-font-size: 11px;" wrapText="true"/>
+                            </HBox>
+                            <Button text="⬇ Télécharger le CV" onAction="#handleDownloadCv"
+                                    style="-fx-background-color: #1e3a8a; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 6; -fx-padding: 8 14; -fx-cursor: hand;"/>
+                        </VBox>
+                    </VBox>
+                </HBox>
+
+            </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>

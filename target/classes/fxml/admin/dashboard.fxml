@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="700.0" prefWidth="1200.0"
+            stylesheets="@/css/styles.css"
+            xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.learnhub.controller.admin.AdminDashboardController">
+
+    <!-- LEFT SIDEBAR -->
+    <left>
+        <VBox prefWidth="250.0" styleClass="sidebar" BorderPane.alignment="CENTER">
+            <VBox alignment="CENTER" prefHeight="100.0" style="-fx-padding: 20 10;">
+                <Label text="🎓 LearnHub" textFill="WHITE" style="-fx-font-size: 22px; -fx-font-weight: bold;"/>
+                <Label text="Espace Administrateur" textFill="#a0aabf" style="-fx-font-size: 11px;"/>
+            </VBox>
+
+            <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS"
+                        style="-fx-background-color: transparent; -fx-border-color: transparent;">
+                <VBox spacing="2.0" style="-fx-padding: 8 0;">
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn sidebar-btn-active" text="📊 Dashboard" onAction="#goDashboard"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="👥 Utilisateurs" onAction="#goUtilisateurs"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="📚 Modules" onAction="#goModules"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="🗓 Séances" onAction="#goSeances"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="📝 Notes" onAction="#goNotes"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="✔ Présences" onAction="#goPresences"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="🎓 Filières" onAction="#goFilieres"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="🎉 Événements" onAction="#goEvenements"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="🏥 RDV Médicaux" onAction="#goRdv"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="🕐 Créneaux" onAction="#goCreneaux"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="🤝 Partenaires" onAction="#goPartenaires"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="💼 Offres de Stage" onAction="#goOffresStage"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="📋 Demandes Stage" onAction="#goDemandesStage"/>
+                </VBox>
+            </ScrollPane>
+
+            <VBox alignment="CENTER" prefHeight="100.0" spacing="8.0"
+                  style="-fx-background-color: #151a2b; -fx-padding: 10;">
+                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                    <StackPane>
+                        <Circle fill="#ff9800" radius="18.0"/>
+                        <Label text="AD" textFill="WHITE" style="-fx-font-weight: bold;"/>
+                    </StackPane>
+                    <VBox alignment="CENTER_LEFT">
+                        <Label text="Admin Principal" textFill="WHITE" style="-fx-font-weight: bold; -fx-font-size: 13px;"/>
+                        <Label text="admin@learnhub.tn" textFill="#a0aabf" style="-fx-font-size: 11px;"/>
+                    </VBox>
+                </HBox>
+                <Button text="🚪 Déconnexion" maxWidth="Infinity" onAction="#handleLogout"
+                        style="-fx-background-color: #293047; -fx-text-fill: white; -fx-background-radius: 5; -fx-cursor: hand; -fx-padding: 8 10;"/>
+            </VBox>
+        </VBox>
+    </left>
+
+    <!-- MAIN CONTENT -->
+    <center>
+        <ScrollPane fitToWidth="true" style="-fx-background-color: #f4f5f7; -fx-border-color: transparent;">
+            <VBox spacing="20.0" style="-fx-background-color: #f4f5f7; -fx-padding: 20 30 20 30;">
+
+                <!-- Top Header -->
+                <HBox alignment="CENTER_LEFT" spacing="20.0">
+                    <VBox>
+                        <Label text="Dashboard" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #1a2238;"/>
+                        <Label text="Bienvenue sur votre tableau de bord" textFill="#7a7a7a"/>
+                    </VBox>
+                    <Pane HBox.hgrow="ALWAYS"/>
+                    <TextField promptText="Rechercher..." prefWidth="250.0" styleClass="search-field"/>
+                </HBox>
+
+                <!-- Welcome Banner -->
+                <HBox alignment="CENTER_LEFT" styleClass="dashboard-card">
+                    <VBox spacing="5.0">
+                        <Label text="📊 Tableau de Bord" style="-fx-font-size: 24px; -fx-font-weight: bold;" textFill="#1a2238"/>
+                        <Label fx:id="welcomeLabel" text="Bienvenue sur LearnHub" textFill="#888888"/>
+                    </VBox>
+                    <Pane HBox.hgrow="ALWAYS"/>
+                    <Label text="🛡 Administration" style="-fx-background-color: #f0f4f8; -fx-padding: 10 20; -fx-background-radius: 20; -fx-text-fill: #333;"/>
+                </HBox>
+
+                <!-- Top 4 Stat Cards -->
+                <HBox spacing="20.0">
+                    <VBox styleClass="dashboard-card" spacing="10.0" HBox.hgrow="ALWAYS">
+                        <HBox alignment="CENTER_LEFT">
+                            <Label text="👥" style="-fx-font-size:30; -fx-text-fill: #8338ec;"/>
+                            <Pane HBox.hgrow="ALWAYS"/>
+                            <Label text="↗ Total" styleClass="subcard-green" textFill="#388e3c"/>
+                        </HBox>
+                        <Label fx:id="totalUsersLabel" text="0" style="-fx-font-weight: bold; -fx-font-size: 36px; -fx-text-fill: #1a2238;"/>
+                        <Label text="Utilisateurs" textFill="#888888"/>
+                    </VBox>
+
+                    <VBox styleClass="dashboard-card" spacing="10.0" HBox.hgrow="ALWAYS">
+                        <HBox alignment="CENTER_LEFT">
+                            <Label text="📚" style="-fx-font-size:30; -fx-text-fill: #1a56db;"/>
+                            <Pane HBox.hgrow="ALWAYS"/>
+                            <Label text="↗ Actifs" styleClass="subcard-blue" textFill="#1976d2"/>
+                        </HBox>
+                        <Label fx:id="totalModulesLabel" text="0" style="-fx-font-weight: bold; -fx-font-size: 36px; -fx-text-fill: #1a2238;"/>
+                        <Label text="Modules" textFill="#888888"/>
+                    </VBox>
+
+                    <VBox styleClass="dashboard-card" spacing="10.0" HBox.hgrow="ALWAYS">
+                        <HBox alignment="CENTER_LEFT">
+                            <Label text="🎉" style="-fx-font-size:30; -fx-text-fill: #0bb177;"/>
+                            <Pane HBox.hgrow="ALWAYS"/>
+                            <Label text="↗ Programmés" styleClass="subcard-green" textFill="#388e3c"/>
+                        </HBox>
+                        <Label fx:id="totalEvenementsLabel" text="0" style="-fx-font-weight: bold; -fx-font-size: 36px; -fx-text-fill: #1a2238;"/>
+                        <Label text="Événements" textFill="#888888"/>
+                    </VBox>
+
+                    <VBox styleClass="dashboard-card" spacing="10.0" HBox.hgrow="ALWAYS">
+                        <HBox alignment="CENTER_LEFT">
+                            <Label text="🏥" style="-fx-font-size:30; -fx-text-fill: #ef3c42;"/>
+                            <Pane HBox.hgrow="ALWAYS"/>
+                            <Label text="↗ Total" styleClass="subcard-red" textFill="#d32f2f"/>
+                        </HBox>
+                        <Label fx:id="totalRdvLabel" text="0" style="-fx-font-weight: bold; -fx-font-size: 36px; -fx-text-fill: #1a2238;"/>
+                        <Label text="RDV Médicaux" textFill="#888888"/>
+                    </VBox>
+                </HBox>
+
+                <!-- Second Row: 4 more cards -->
+                <HBox spacing="20.0">
+                    <VBox styleClass="dashboard-card" spacing="10.0" HBox.hgrow="ALWAYS">
+                        <HBox alignment="CENTER_LEFT">
+                            <Label text="🤝" style="-fx-font-size:30; -fx-text-fill: #f7941d;"/>
+                            <Pane HBox.hgrow="ALWAYS"/>
+                            <Label text="Entreprises" styleClass="subcard-yellow" textFill="#f57c00"/>
+                        </HBox>
+                        <Label fx:id="totalPartenairesLabel" text="0" style="-fx-font-weight: bold; -fx-font-size: 36px; -fx-text-fill: #1a2238;"/>
+                        <Label text="Partenaires" textFill="#888888"/>
+                    </VBox>
+
+                    <VBox styleClass="dashboard-card" spacing="10.0" HBox.hgrow="ALWAYS">
+                        <HBox alignment="CENTER_LEFT">
+                            <Label text="💼" style="-fx-font-size:30; -fx-text-fill: #0bb177;"/>
+                            <Pane HBox.hgrow="ALWAYS"/>
+                            <Label text="Disponibles" styleClass="subcard-green" textFill="#388e3c"/>
+                        </HBox>
+                        <Label fx:id="offresStageLabel" text="0" style="-fx-font-weight: bold; -fx-font-size: 36px; -fx-text-fill: #1a2238;"/>
+                        <Label text="Offres de Stage" textFill="#888888"/>
+                    </VBox>
+
+                    <VBox styleClass="dashboard-card" spacing="10.0" HBox.hgrow="ALWAYS">
+                        <HBox alignment="CENTER_LEFT">
+                            <Label text="📋" style="-fx-font-size:30; -fx-text-fill: #ffc107;"/>
+                            <Pane HBox.hgrow="ALWAYS"/>
+                            <Label text="En attente" styleClass="subcard-yellow" textFill="#f57c00"/>
+                        </HBox>
+                        <Label fx:id="demandesStageLabel" text="0" style="-fx-font-weight: bold; -fx-font-size: 36px; -fx-text-fill: #1a2238;"/>
+                        <Label text="Demandes Stage" textFill="#888888"/>
+                    </VBox>
+
+                    <VBox styleClass="dashboard-card" spacing="10.0" HBox.hgrow="ALWAYS">
+                        <HBox alignment="CENTER_LEFT">
+                            <Label text="🎓" style="-fx-font-size:30; -fx-text-fill: #1a2238;"/>
+                            <Pane HBox.hgrow="ALWAYS"/>
+                            <Label text="Spécialités" styleClass="subcard-blue" textFill="#1976d2"/>
+                        </HBox>
+                        <Label fx:id="filieresLabel" text="0" style="-fx-font-weight: bold; -fx-font-size: 36px; -fx-text-fill: #1a2238;"/>
+                        <Label text="Filières" textFill="#888888"/>
+                    </VBox>
+                </HBox>
+
+                <!-- Accès Rapides -->
+                <VBox styleClass="dashboard-card" spacing="15.0">
+                    <Label text="🚀 Accès Rapides" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+                    <HBox spacing="15.0" alignment="CENTER">
+                        <VBox styleClass="quick-access-btn" prefWidth="90.0" onMouseClicked="#goUtilisateurs">
+                            <Label text="👥" style="-fx-font-size: 28; -fx-text-fill: #8338ec;"/>
+                            <Label text="Utilisateurs" style="-fx-font-weight: bold; -fx-font-size: 11px;"/>
+                        </VBox>
+                        <VBox styleClass="quick-access-btn" prefWidth="90.0" onMouseClicked="#goModules">
+                            <Label text="📚" style="-fx-font-size: 28; -fx-text-fill: #1a56db;"/>
+                            <Label text="Modules" style="-fx-font-weight: bold; -fx-font-size: 11px;"/>
+                        </VBox>
+                        <VBox styleClass="quick-access-btn" prefWidth="90.0" onMouseClicked="#goNotes">
+                            <Label text="📝" style="-fx-font-size: 28; -fx-text-fill: #0bb177;"/>
+                            <Label text="Notes" style="-fx-font-weight: bold; -fx-font-size: 11px;"/>
+                        </VBox>
+                        <VBox styleClass="quick-access-btn" prefWidth="90.0" onMouseClicked="#goSeances">
+                            <Label text="📅" style="-fx-font-size: 28; -fx-text-fill: #00bcd4;"/>
+                            <Label text="Séances" style="-fx-font-weight: bold; -fx-font-size: 11px;"/>
+                        </VBox>
+                        <VBox styleClass="quick-access-btn" prefWidth="90.0" onMouseClicked="#goPartenaires">
+                            <Label text="🤝" style="-fx-font-size: 28; -fx-text-fill: #f7941d;"/>
+                            <Label text="Partenaires" style="-fx-font-weight: bold; -fx-font-size: 11px;"/>
+                        </VBox>
+                        <VBox styleClass="quick-access-btn" prefWidth="90.0" onMouseClicked="#goOffresStage">
+                            <Label text="💼" style="-fx-font-size: 28; -fx-text-fill: #0bb177;"/>
+                            <Label text="Offres" style="-fx-font-weight: bold; -fx-font-size: 11px;"/>
+                        </VBox>
+                        <VBox styleClass="quick-access-btn" prefWidth="90.0" onMouseClicked="#goDemandesStage">
+                            <Label text="📋" style="-fx-font-size: 28; -fx-text-fill: #ffc107;"/>
+                            <Label text="Demandes" style="-fx-font-weight: bold; -fx-font-size: 11px;"/>
+                        </VBox>
+                        <VBox styleClass="quick-access-btn" prefWidth="90.0" onMouseClicked="#goEvenements">
+                            <Label text="🎉" style="-fx-font-size: 28; -fx-text-fill: #8338ec;"/>
+                            <Label text="Événements" style="-fx-font-weight: bold; -fx-font-size: 11px;"/>
+                        </VBox>
+                        <VBox styleClass="quick-access-btn" prefWidth="90.0" onMouseClicked="#goRdv">
+                            <Label text="🏥" style="-fx-font-size: 28; -fx-text-fill: #ef3c42;"/>
+                            <Label text="RDV" style="-fx-font-weight: bold; -fx-font-size: 11px;"/>
+                        </VBox>
+                        <VBox styleClass="quick-access-btn" prefWidth="90.0" onMouseClicked="#goFilieres">
+                            <Label text="🎓" style="-fx-font-size: 28; -fx-text-fill: #555555;"/>
+                            <Label text="Filières" style="-fx-font-weight: bold; -fx-font-size: 11px;"/>
+                        </VBox>
+                    </HBox>
+                </VBox>
+
+            </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>

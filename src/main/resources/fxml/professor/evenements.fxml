@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.learnhub.controller.professor.ProfessorEventsController"
+            stylesheets="@/css/styles.css"
+            prefWidth="1280" prefHeight="800">
+
+    <!-- ═══ TOP NAVBAR ═══ -->
+    <top>
+        <HBox styleClass="dash-nav" alignment="CENTER_LEFT" minHeight="64" spacing="4">
+            <padding><Insets top="0" right="24" bottom="0" left="28"/></padding>
+            <Label text="🎓 LearnHub" styleClass="dash-nav-brand"/>
+            <Label text="  |  PROFESSEUR" style="-fx-text-fill:rgba(255,255,255,0.45); -fx-font-size:11px;"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button text="🏠 Tableau de bord" styleClass="dash-nav-link" onAction="#goDashboard"/>
+            <Button text="📚 Modules"          styleClass="dash-nav-link" onAction="#goModules"/>
+            <Button text="🗓 Séances"          styleClass="dash-nav-link" onAction="#goSeances"/>
+            <Button text="📊 Notes"            styleClass="dash-nav-link" onAction="#goNotes"/>
+            <Button text="✔ Présences"        styleClass="dash-nav-link" onAction="#goPresences"/>
+            <Button text="🎉 Événements"       styleClass="dash-nav-link dash-nav-link-active" onAction="#goEvenements"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <VBox alignment="CENTER_RIGHT" spacing="1" style="-fx-padding:0 10 0 0;">
+                <Label fx:id="welcomeLabel" text="Professeur" styleClass="dash-nav-user"/>
+                <Label text="Corps enseignant" styleClass="dash-nav-role"/>
+            </VBox>
+            <Button text="🚪 Déconnexion" styleClass="btn-logout" onAction="#handleLogout"/>
+        </HBox>
+    </top>
+
+    <!-- ═══ CENTER CONTENT ═══ -->
+    <center>
+        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" styleClass="scroll-pane">
+            <VBox spacing="24" style="-fx-background-color:#f8fafc; -fx-padding:32 40 40 40;">
+
+                <!-- Page title -->
+                <HBox alignment="CENTER_LEFT" spacing="12">
+                    <Label text="🎉 Événements" style="-fx-font-size:22px; -fx-font-weight:800; -fx-text-fill:#0A1F44;"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Label fx:id="statusLabel" text="" style="-fx-text-fill:#64748b; -fx-font-size:13px;"/>
+                </HBox>
+
+                <!-- Table card -->
+                <VBox styleClass="card" spacing="0">
+                    <HBox style="-fx-padding:16 20; -fx-border-color:#e2e8f0; -fx-border-width:0 0 1 0;" alignment="CENTER_LEFT" spacing="12">
+                        <Label text="Liste des événements" style="-fx-font-size:14px; -fx-font-weight:700; -fx-text-fill:#0A1F44;"/>
+                    </HBox>
+                    <TableView fx:id="table" VBox.vgrow="ALWAYS" style="-fx-border-color:transparent;" prefHeight="520">
+                        <columns>
+                            <TableColumn fx:id="colId"     text="ID"     prefWidth="55"/>
+                            <TableColumn fx:id="colTitre"  text="Titre"  prefWidth="220"/>
+                            <TableColumn fx:id="colType"   text="Type"   prefWidth="120"/>
+                            <TableColumn fx:id="colDebut"  text="Début"  prefWidth="140"/>
+                            <TableColumn fx:id="colLieu"   text="Lieu"   prefWidth="150"/>
+                            <TableColumn fx:id="colStatut" text="Statut" prefWidth="100"/>
+                        </columns>
+                        <placeholder><Label text="Aucun événement trouvé" style="-fx-text-fill:#64748b;"/></placeholder>
+                    </TableView>
+                </VBox>
+            </VBox>
+        </ScrollPane>
+    </center>
+
+</BorderPane>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane xmlns="http://javafx.com/javafx/17"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.learnhub.controller.auth.LoginController"
+           stylesheets="@/css/styles.css"
+           prefWidth="1180" prefHeight="760"
+           styleClass="login-page">
+
+    <Pane mouseTransparent="true">
+        <Region layoutX="-40" layoutY="-20" prefWidth="280" prefHeight="280"
+                styleClass="auth-orb"
+                style="-fx-background-color: rgba(59,130,246,0.20);"/>
+        <Region layoutX="880" layoutY="180" prefWidth="260" prefHeight="260"
+                styleClass="auth-orb"
+                style="-fx-background-color: rgba(139,92,246,0.20);"/>
+        <Region layoutX="390" layoutY="520" prefWidth="260" prefHeight="260"
+                styleClass="auth-orb"
+                style="-fx-background-color: rgba(234,179,8,0.18);"/>
+    </Pane>
+
+    <VBox alignment="CENTER" maxWidth="450">
+        <VBox alignment="CENTER" spacing="18" maxWidth="450" styleClass="auth-card-large auth-login-card">
+            <StackPane prefWidth="104" prefHeight="104" styleClass="auth-logo-shell">
+                <StackPane prefWidth="72" prefHeight="72" styleClass="login-logo-badge">
+                    <Label text="L" styleClass="login-logo-text"/>
+                </StackPane>
+            </StackPane>
+
+            <VBox alignment="CENTER" spacing="8">
+                <Label text="LearnHub" styleClass="login-brand-title"/>
+                <Label text="Plateforme d'apprentissage intelligente"
+                       styleClass="login-brand-subtitle"
+                       wrapText="true"
+                       textAlignment="CENTER"/>
+            </VBox>
+
+            <Label fx:id="errorLabel"
+                   text=""
+                   visible="false"
+                   managed="false"
+                   wrapText="true"
+                   maxWidth="380"
+                   styleClass="login-alert"/>
+
+            <VBox spacing="14" maxWidth="390">
+                <VBox spacing="6">
+                    <Label text="Email" styleClass="login-field-label"/>
+                    <TextField fx:id="emailField" promptText="exemple@learnhub.tn" styleClass="login-field"/>
+                </VBox>
+
+                <VBox spacing="6">
+                    <Label text="Mot de passe" styleClass="login-field-label"/>
+                    <PasswordField fx:id="passwordField" promptText="********" styleClass="login-field"/>
+                </VBox>
+            </VBox>
+
+            <Button fx:id="loginButton"
+                    text="Se connecter"
+                    onAction="#handleLogin"
+                    maxWidth="Infinity"
+                    prefHeight="46"
+                    styleClass="login-primary-btn"/>
+
+            <Button text="Se connecter avec Google"
+                    maxWidth="Infinity"
+                    prefHeight="44"
+                    disable="true"
+                    styleClass="login-google-btn"/>
+
+            <Separator maxWidth="390" styleClass="auth-divider"/>
+
+            <VBox alignment="CENTER" spacing="5">
+                <Label text="Pas encore de compte ?" style="-fx-text-fill: white; -fx-font-size: 13px;"/>
+                <Button text="S'inscrire" onAction="#goToRegister" styleClass="login-link-btn"/>
+            </VBox>
+
+            <Button text="Retour a l'accueil" onAction="#goToVisiteur" styleClass="login-back-btn"/>
+
+            <Label text="(c) 2026 LearnHub - Admin &amp; Etudiants"
+                   alignment="CENTER"
+                   maxWidth="Infinity"
+                   styleClass="login-footer"/>
+        </VBox>
+    </VBox>
+</StackPane>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane fitToWidth="true" style="-fx-background-color: transparent;" stylesheets="/css/styles.css, /css/custom_admin.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.learnhub.controller.admin.OffreStageFormController">
+    <VBox alignment="TOP_CENTER" spacing="15.0" style="-fx-padding: 20;">
+
+        <!-- Main Form Card -->
+        <VBox styleClass="form-card" maxWidth="600" spacing="15" style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 25; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 10, 0, 0, 3);">
+            
+            <!-- Header Section -->
+            <VBox alignment="CENTER_LEFT" spacing="5">
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <Label fx:id="titleIcon" text="📝" style="-fx-font-size: 20px;"/>
+                    <Label fx:id="titleLabel" text="Nouvelle Offre de Stage" style="-fx-font-size: 18px; -fx-font-weight: 900; -fx-text-fill: #1e293b;"/>
+                </HBox>
+                <Label text="Renseignez les informations de l'offre" style="-fx-font-size: 12px; -fx-text-fill: #64748b;"/>
+                <Separator style="-fx-padding: 10 0 0 0;" />
+            </VBox>
+
+            <!-- Row 1: Titre de l'offre -->
+            <VBox spacing="5">
+                <Label text="Titre de l'offre *" style="-fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #334155;"/>
+                <TextField fx:id="titreField" promptText="Ex: Stage développement web" style="-fx-background-color: white; -fx-border-color: #cbd5e1; -fx-border-radius: 6; -fx-padding: 10; -fx-font-size: 13px;"/>
+                <Label fx:id="titreError" text="Le titre est obligatoire." style="-fx-text-fill: #ef4444; -fx-font-size: 11px;" visible="false" managed="false"/>
+            </VBox>
+
+            <!-- Row 2: Type / Durée -->
+            <HBox spacing="15">
+                <VBox spacing="5" HBox.hgrow="ALWAYS">
+                    <Label text="Type de stage *" style="-fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #334155;"/>
+                    <ComboBox fx:id="typeBox" promptText="Sélectionner..." maxWidth="Infinity" style="-fx-background-color: white; -fx-border-color: #cbd5e1; -fx-border-radius: 6; -fx-padding: 4 8; -fx-font-size: 13px;" />
+                </VBox>
+                <VBox spacing="5" HBox.hgrow="ALWAYS">
+                    <Label text="Durée (en mois) *" style="-fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #334155;"/>
+                    <TextField fx:id="dureeField" promptText="Ex: 3" style="-fx-background-color: white; -fx-border-color: #cbd5e1; -fx-border-radius: 6; -fx-padding: 10; -fx-font-size: 13px;"/>
+                    <Label fx:id="dureeError" text="La durée est invalide." style="-fx-text-fill: #ef4444; -fx-font-size: 11px;" visible="false" managed="false"/>
+                </VBox>
+            </HBox>
+
+            <!-- Row 3: Partenaire / Filière -->
+            <HBox spacing="15">
+                <VBox spacing="5" HBox.hgrow="ALWAYS">
+                    <Label text="Partenaire *" style="-fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #334155;"/>
+                     <ComboBox fx:id="partenaireBox" promptText="Sélectionner..." maxWidth="Infinity" style="-fx-background-color: white; -fx-border-color: #cbd5e1; -fx-border-radius: 6; -fx-padding: 4 8; -fx-font-size: 13px;" />
+                     <Label fx:id="partenaireError" text="Veuillez sélectionner un partenaire." style="-fx-text-fill: #ef4444; -fx-font-size: 11px;" visible="false" managed="false"/>
+                </VBox>
+                <VBox spacing="5" HBox.hgrow="ALWAYS">
+                    <Label text="Filière concernée *" style="-fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #334155;"/>
+                     <ComboBox fx:id="filiereBox" promptText="Sélectionner..." maxWidth="Infinity" style="-fx-background-color: white; -fx-border-color: #cbd5e1; -fx-border-radius: 6; -fx-padding: 4 8; -fx-font-size: 13px;" />
+                     <Label fx:id="filiereError" text="Veuillez sélectionner une filière." style="-fx-text-fill: #ef4444; -fx-font-size: 11px;" visible="false" managed="false"/>
+                </VBox>
+            </HBox>
+
+            <!-- Row 4: Date de publication -->
+            <VBox spacing="5" maxWidth="300">
+                <Label text="Date de publication" style="-fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #334155;"/>
+                <DatePicker fx:id="publicationPicker" style="-fx-background-color: white; -fx-border-color: #cbd5e1; -fx-border-radius: 6; -fx-padding: 4;" maxWidth="Infinity" />
+            </VBox>
+
+            <!-- Row 5: Description -->
+            <VBox spacing="5">
+                <Label text="Description détaillée *" style="-fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #334155;"/>
+                <TextArea fx:id="descriptionArea" promptText="Décrivez en détail les missions, compétences requises..." prefRowCount="4" style="-fx-background-color: white; -fx-border-color: #cbd5e1; -fx-border-radius: 6; -fx-padding: 5; -fx-font-size: 13px;" wrapText="true" />
+                <Label fx:id="descriptionError" text="La description est obligatoire." style="-fx-text-fill: #ef4444; -fx-font-size: 11px;" visible="false" managed="false"/>
+            </VBox>
+
+            <Separator style="-fx-padding: 5 0;" />
+
+            <!-- Buttons -->
+            <HBox alignment="CENTER_RIGHT" spacing="10">
+                <Button text="Annuler" style="-fx-background-color: #f1f5f9; -fx-text-fill: #475569; -fx-font-weight: bold; -fx-font-size: 13px; -fx-padding: 8 20; -fx-background-radius: 6; -fx-cursor: hand;" onAction="#handleCancel"/>
+                <Button fx:id="saveButton" text="Enregistrer" style="-fx-background-color: #10b981; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 13px; -fx-padding: 8 20; -fx-background-radius: 6; -fx-cursor: hand;" onAction="#handleCreate"/>
+            </HBox>
+
+        </VBox>
+    </VBox>
+</ScrollPane>

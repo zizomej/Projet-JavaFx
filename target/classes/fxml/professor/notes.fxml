@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.learnhub.controller.professor.ProfessorNotesController"
+            stylesheets="@/css/styles.css"
+            prefWidth="1280" prefHeight="800">
+    <top>
+        <HBox styleClass="dash-nav" alignment="CENTER_LEFT" minHeight="64" spacing="4">
+            <padding><Insets top="0" right="24" bottom="0" left="28"/></padding>
+            <Label text="LearnHub" styleClass="dash-nav-brand"/>
+            <Label text="| PROFESSEUR" style="-fx-text-fill:rgba(255,255,255,0.45); -fx-font-size:11px; -fx-padding:0 0 0 8;"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button text="Tableau de bord" styleClass="dash-nav-link" onAction="#goDashboard"/>
+            <Button text="Modules" styleClass="dash-nav-link" onAction="#goModules"/>
+            <Button text="Seances" styleClass="dash-nav-link" onAction="#goSeances"/>
+            <Button text="Notes" styleClass="dash-nav-link dash-nav-link-active" onAction="#goNotes"/>
+            <Button text="Presences" styleClass="dash-nav-link" onAction="#goPresences"/>
+            <Button text="Evenements" styleClass="dash-nav-link" onAction="#goEvenements"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button text="Deconnexion" styleClass="btn-logout" onAction="#handleLogout"/>
+        </HBox>
+    </top>
+
+    <center>
+        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" styleClass="scroll-pane">
+            <VBox spacing="24" style="-fx-background-color:#f8fafc; -fx-padding:32 40 40 40;">
+                <VBox styleClass="welcome-banner" spacing="8">
+                    <padding><Insets top="28" right="28" bottom="28" left="28"/></padding>
+                    <Label text="Gestion des notes" styleClass="welcome-title"/>
+                    <Label fx:id="welcomeLabel" text="Professeur" styleClass="dash-nav-user"/>
+                    <Label text="Saisissez, filtrez et mettez a jour les notes de vos etudiants par module dans une interface plus sobre et plus lisible." styleClass="welcome-sub"/>
+                </VBox>
+
+                <VBox styleClass="card" spacing="0">
+                    <HBox alignment="CENTER_LEFT" spacing="12" style="-fx-padding:16 20; -fx-border-color:#e2e8f0; -fx-border-width:0 0 1 0;">
+                        <VBox HBox.hgrow="ALWAYS" spacing="2">
+                            <Label text="Tableau des notes" styleClass="admin-card-title"/>
+                            <Label text="Filtrez par etudiant ou par module, puis utilisez les boutons pour ajouter ou modifier une evaluation." styleClass="admin-card-subtitle"/>
+                        </VBox>
+                        <Label fx:id="statusLabel" text="" styleClass="admin-page-subtitle"/>
+                    </HBox>
+
+                    <HBox alignment="CENTER_LEFT" spacing="10" style="-fx-padding:14 20; -fx-border-color:#e2e8f0; -fx-border-width:0 0 1 0;">
+                        <TextField fx:id="searchField" promptText="Rechercher un etudiant..." prefWidth="220"/>
+                        <ComboBox fx:id="filtreModule" promptText="Filtrer par module" prefWidth="220"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Button text="Ajouter" styleClass="btn-primary" onAction="#handleAjouter"/>
+                        <Button text="Modifier" styleClass="btn-secondary" onAction="#handleModifier"/>
+                        <Button text="Supprimer" styleClass="btn-danger" onAction="#handleSupprimer"/>
+                    </HBox>
+
+                    <TableView fx:id="table" VBox.vgrow="ALWAYS" prefHeight="500" style="-fx-border-color:transparent;">
+                        <columns>
+                            <TableColumn fx:id="colId" text="ID" prefWidth="55"/>
+                            <TableColumn fx:id="colEtudiant" text="Etudiant" prefWidth="200"/>
+                            <TableColumn fx:id="colModule" text="Module" prefWidth="200"/>
+                            <TableColumn fx:id="colValeur" text="Valeur" prefWidth="90"/>
+                            <TableColumn fx:id="colType" text="Type" prefWidth="110"/>
+                            <TableColumn fx:id="colDate" text="Date" prefWidth="120"/>
+                            <TableColumn fx:id="colMention" text="Mention" prefWidth="130"/>
+                        </columns>
+                        <placeholder>
+                            <Label text="Aucune note disponible" style="-fx-text-fill:#64748b;"/>
+                        </placeholder>
+                    </TableView>
+                </VBox>
+            </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>

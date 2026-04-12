@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane xmlns="http://javafx.com/javafx/17"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.learnhub.controller.auth.RegisterController"
+           stylesheets="@/css/styles.css"
+           prefWidth="1240" prefHeight="860"
+           styleClass="login-page">
+
+    <Pane mouseTransparent="true">
+        <Region layoutX="-30" layoutY="-20" prefWidth="300" prefHeight="300"
+                styleClass="auth-orb"
+                style="-fx-background-color: rgba(59,130,246,0.20);"/>
+        <Region layoutX="960" layoutY="220" prefWidth="260" prefHeight="260"
+                styleClass="auth-orb"
+                style="-fx-background-color: rgba(139,92,246,0.18);"/>
+        <Region layoutX="420" layoutY="650" prefWidth="250" prefHeight="250"
+                styleClass="auth-orb"
+                style="-fx-background-color: rgba(234,179,8,0.18);"/>
+    </Pane>
+
+    <ScrollPane fitToWidth="true"
+                hbarPolicy="NEVER"
+                styleClass="auth-scroll-pane"
+                maxWidth="760" maxHeight="820">
+        <VBox alignment="CENTER" style="-fx-padding: 24;">
+            <VBox alignment="CENTER" spacing="18" maxWidth="650" styleClass="auth-card-large auth-register-card">
+                <StackPane prefWidth="96" prefHeight="96" styleClass="auth-logo-shell">
+                    <StackPane prefWidth="68" prefHeight="68" styleClass="login-logo-badge">
+                        <Label text="L" styleClass="login-logo-text"/>
+                    </StackPane>
+                </StackPane>
+
+                <VBox alignment="CENTER" spacing="8">
+                    <Label text="Creer un compte" styleClass="login-brand-title"/>
+                    <Label text="Rejoignez notre plateforme educative"
+                           styleClass="login-brand-subtitle"
+                           wrapText="true"
+                           textAlignment="CENTER"/>
+                </VBox>
+
+                <VBox spacing="10" maxWidth="520">
+                    <HBox alignment="CENTER" spacing="8">
+                        <StackPane fx:id="step1Badge" styleClass="auth-progress-step auth-progress-step-active">
+                            <Label text="1" styleClass="auth-step-label"/>
+                        </StackPane>
+                        <Region fx:id="stepLine1" HBox.hgrow="ALWAYS" styleClass="auth-progress-line auth-progress-line-inactive"/>
+                        <StackPane fx:id="step2Badge" styleClass="auth-progress-step auth-progress-step-inactive">
+                            <Label text="2" styleClass="auth-step-label"/>
+                        </StackPane>
+                        <Region fx:id="stepLine2" HBox.hgrow="ALWAYS" styleClass="auth-progress-line auth-progress-line-inactive"/>
+                        <StackPane fx:id="step3Badge" styleClass="auth-progress-step auth-progress-step-inactive">
+                            <Label text="3" styleClass="auth-step-label"/>
+                        </StackPane>
+                    </HBox>
+                    <HBox alignment="CENTER" spacing="30">
+                        <Label fx:id="step1Label" text="Type de compte" styleClass="auth-step-label"/>
+                        <Label fx:id="step2Label" text="Informations" styleClass="auth-step-label"/>
+                        <Label fx:id="step3Label" text="Coordonnees" styleClass="auth-step-label"/>
+                    </HBox>
+                </VBox>
+
+                <Label fx:id="errorLabel"
+                       text=""
+                       visible="false"
+                       managed="false"
+                       wrapText="true"
+                       maxWidth="520"
+                       styleClass="login-alert"/>
+
+                <VBox fx:id="step1Container" spacing="14" maxWidth="540">
+                    <Label text="Selectionnez votre role"
+                           alignment="CENTER"
+                           maxWidth="Infinity"
+                           styleClass="auth-section-title"/>
+
+                    <GridPane hgap="14" vgap="14">
+                        <columnConstraints>
+                            <ColumnConstraints percentWidth="50"/>
+                            <ColumnConstraints percentWidth="50"/>
+                        </columnConstraints>
+
+                        <VBox fx:id="etudiantCard" alignment="CENTER" spacing="8" styleClass="auth-role-card auth-role-card-active" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                            <StackPane styleClass="auth-role-icon">
+                                <Label text="ETU" styleClass="auth-role-icon-text"/>
+                            </StackPane>
+                            <RadioButton fx:id="etudiantRadio" text="Etudiant" selected="true" style="-fx-text-fill: white;">
+                                <toggleGroup><ToggleGroup fx:id="accountTypeGroup"/></toggleGroup>
+                            </RadioButton>
+                            <Label text="Cours, notes et presences" styleClass="auth-role-subtitle"/>
+                        </VBox>
+
+                        <VBox fx:id="professeurCard" alignment="CENTER" spacing="8" styleClass="auth-role-card" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                            <StackPane styleClass="auth-role-icon">
+                                <Label text="PRO" styleClass="auth-role-icon-text"/>
+                            </StackPane>
+                            <RadioButton fx:id="professeurRadio" text="Professeur" style="-fx-text-fill: white;" toggleGroup="$accountTypeGroup"/>
+                            <Label text="Gestion pedagogique" styleClass="auth-role-subtitle"/>
+                        </VBox>
+
+                        <VBox fx:id="adminCard" alignment="CENTER" spacing="8" styleClass="auth-role-card" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                            <StackPane styleClass="auth-role-icon">
+                                <Label text="ADM" styleClass="auth-role-icon-text"/>
+                            </StackPane>
+                            <RadioButton fx:id="adminRadio" text="Admin" style="-fx-text-fill: white;" toggleGroup="$accountTypeGroup"/>
+                            <Label text="Administration globale" styleClass="auth-role-subtitle"/>
+                        </VBox>
+
+                        <VBox alignment="CENTER" spacing="8" styleClass="auth-role-card" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                            <StackPane styleClass="auth-role-icon">
+                                <Label text="MED" styleClass="auth-role-icon-text"/>
+                            </StackPane>
+                            <RadioButton text="Medecin" style="-fx-text-fill: white;" toggleGroup="$accountTypeGroup"/>
+                            <Label text="Suivi medical etudiants" styleClass="auth-role-subtitle"/>
+                        </VBox>
+
+                        <VBox alignment="CENTER" spacing="8" styleClass="auth-role-card" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                            <StackPane styleClass="auth-role-icon">
+                                <Label text="PAR" styleClass="auth-role-icon-text"/>
+                            </StackPane>
+                            <RadioButton text="Parent" style="-fx-text-fill: white;" toggleGroup="$accountTypeGroup"/>
+                            <Label text="Suivi de mon enfant" styleClass="auth-role-subtitle"/>
+                        </VBox>
+
+                        <VBox alignment="CENTER" spacing="8" styleClass="auth-role-card" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                            <StackPane styleClass="auth-role-icon">
+                                <Label text="VIS" styleClass="auth-role-icon-text"/>
+                            </StackPane>
+                            <RadioButton text="Visiteur" style="-fx-text-fill: white;" toggleGroup="$accountTypeGroup"/>
+                            <Label text="Consulter les programmes" styleClass="auth-role-subtitle"/>
+                        </VBox>
+                    </GridPane>
+                </VBox>
+
+                <VBox fx:id="step2Container" spacing="14" maxWidth="540" visible="false" managed="false">
+                    <GridPane hgap="12" vgap="10">
+                        <columnConstraints>
+                            <ColumnConstraints percentWidth="50"/>
+                            <ColumnConstraints percentWidth="50"/>
+                        </columnConstraints>
+
+                        <Label text="Nom" styleClass="login-field-label" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                        <TextField fx:id="nomField" promptText="Bennis" styleClass="login-field" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+
+                        <Label text="Prenom" styleClass="login-field-label" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+                        <TextField fx:id="prenomField" promptText="Sara" styleClass="login-field" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                        <Label text="CIN" styleClass="login-field-label" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                        <TextField fx:id="cinField" promptText="12345678" styleClass="login-field" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+
+                        <Label text="Telephone" styleClass="login-field-label" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                        <TextField fx:id="telephoneField" promptText="+216 12 345 678" styleClass="login-field" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                    </GridPane>
+
+                    <VBox fx:id="filiereContainer" spacing="6" visible="false" managed="false">
+                        <Label text="Filiere" styleClass="login-field-label"/>
+                        <ComboBox fx:id="filiereCombo" promptText="Selectionnez votre filiere" maxWidth="Infinity" styleClass="auth-combo-box"/>
+                    </VBox>
+                </VBox>
+
+                <VBox fx:id="step3Container" spacing="14" maxWidth="540" visible="false" managed="false">
+                    <VBox spacing="6">
+                        <Label text="Email" styleClass="login-field-label"/>
+                        <TextField fx:id="emailField" promptText="sara@learnhub.com" styleClass="login-field"/>
+                    </VBox>
+
+                    <VBox spacing="6">
+                        <Label text="Mot de passe" styleClass="login-field-label"/>
+                        <PasswordField fx:id="passwordField" promptText="********" styleClass="login-field"/>
+                    </VBox>
+
+                    <VBox spacing="6">
+                        <Label text="Confirmer le mot de passe" styleClass="login-field-label"/>
+                        <PasswordField fx:id="confirmPasswordField" promptText="********" styleClass="login-field"/>
+                    </VBox>
+                </VBox>
+
+                <HBox spacing="10" maxWidth="540">
+                    <Button text="Precedent"
+                            onAction="#previousStep"
+                            HBox.hgrow="ALWAYS"
+                            maxWidth="Infinity"
+                            styleClass="auth-secondary-btn"/>
+                    <Button text="Suivant"
+                            onAction="#nextStep"
+                            HBox.hgrow="ALWAYS"
+                            maxWidth="Infinity"
+                            styleClass="login-primary-btn"/>
+                </HBox>
+
+                <Separator maxWidth="540" styleClass="auth-divider"/>
+
+                <HBox alignment="CENTER" spacing="6">
+                    <Label text="Vous avez deja un compte ?" style="-fx-text-fill: white; -fx-font-size: 13px;"/>
+                    <Button text="Se connecter" onAction="#goToLogin" styleClass="login-link-btn"/>
+                </HBox>
+
+                <Button text="Retour a l'accueil" onAction="#goToHome" styleClass="login-back-btn"/>
+
+                <Label text="(c) 2026 LearnHub - Plateforme Universitaire"
+                       alignment="CENTER"
+                       maxWidth="Infinity"
+                       styleClass="login-footer"/>
+            </VBox>
+        </VBox>
+    </ScrollPane>
+</StackPane>

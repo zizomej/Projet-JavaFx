@@ -1,0 +1,170 @@
+/* login.css - Style moderne et élégant */
+
+/* LEFT PANEL - Gradient comme le dashboard */
+.left-panel {
+    -fx-background-color: linear-gradient(to bottom right, #0a1f44, #1e3a8a);
+}
+
+.brand-title {
+    -fx-font-size: 38px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.brand-subtitle {
+    -fx-font-size: 14px;
+    -fx-text-fill: rgba(255, 255, 255, 0.8);
+}
+
+.brand-separator {
+    -fx-background-color: rgba(255, 255, 255, 0.25);
+    -fx-pref-width: 80;
+    -fx-max-width: 80;
+}
+
+.check-icon {
+    -fx-font-size: 16px;
+    -fx-text-fill: #1cc88a;
+}
+
+.check-text {
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
+}
+
+/* RIGHT PANEL */
+.right-panel {
+    -fx-background-color: #f8f9fc;
+}
+
+/* Login Card */
+.login-card {
+    -fx-background-color: white;
+    -fx-background-radius: 16;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.08), 15, 0, 0, 5);
+}
+
+/* Typography */
+.login-title {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1e293b;
+}
+
+.login-subtitle {
+    -fx-font-size: 13px;
+    -fx-text-fill: #64748b;
+}
+
+.field-label {
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #475569;
+}
+
+/* Form Controls */
+.form-control {
+    -fx-background-color: #f8fafc;
+    -fx-border-color: #e2e8f0;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-padding: 12 14;
+    -fx-font-size: 14px;
+    -fx-text-fill: #1e293b;
+    -fx-prompt-text-fill: #94a3b8;
+}
+
+.form-control:focused {
+    -fx-background-color: white;
+    -fx-border-color: #4e73df;
+    -fx-border-width: 2;
+}
+
+/* Login Button */
+.btn-login {
+    -fx-background-color: #4e73df;
+    -fx-text-fill: white;
+    -fx-background-radius: 10;
+    -fx-cursor: hand;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 12;
+}
+
+.btn-login:hover {
+    -fx-background-color: #2e59d9;
+    -fx-effect: dropshadow(gaussian, rgba(78, 115, 223, 0.3), 8, 0, 0, 2);
+}
+
+/* Google Button */
+.btn-google {
+    -fx-background-color: white;
+    -fx-text-fill: #475569;
+    -fx-border-color: #e2e8f0;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-cursor: hand;
+    -fx-font-size: 14px;
+    -fx-padding: 12;
+}
+
+.btn-google:hover {
+    -fx-background-color: #f8fafc;
+    -fx-border-color: #4e73df;
+}
+
+/* Separator */
+.separator-line {
+    -fx-background-color: #e2e8f0;
+    -fx-pref-height: 1;
+}
+
+.separator-text {
+    -fx-text-fill: #94a3b8;
+    -fx-font-size: 12px;
+}
+
+/* Register Links */
+.register-text {
+    -fx-text-fill: #64748b;
+    -fx-font-size: 13px;
+}
+
+.register-link {
+    -fx-text-fill: #4e73df;
+    -fx-font-size: 13px;
+    -fx-cursor: hand;
+    -fx-font-weight: 600;
+}
+
+.register-link:hover {
+    -fx-text-fill: #2e59d9;
+    -fx-underline: true;
+}
+
+.footer-text {
+    -fx-text-fill: #94a3b8;
+    -fx-font-size: 11px;
+    -fx-alignment: center;
+}
+
+/* Alert Error */
+.alert-error {
+    -fx-background-color: #fee2e2;
+    -fx-border-color: #fecaca;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-text-fill: #dc2626;
+    -fx-padding: 10;
+    -fx-font-size: 12px;
+}
+
+/* ScrollPane pour register */
+.scroll-pane {
+    -fx-background-color: #f8f9fc;
+    -fx-background: #f8f9fc;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: #f8f9fc;
+}

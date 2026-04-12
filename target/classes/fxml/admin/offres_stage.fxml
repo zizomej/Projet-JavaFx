@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Circle?>
+<BorderPane prefHeight="700.0" prefWidth="1200.0" stylesheets="/css/styles.css, /css/custom_admin.css"
+            xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.learnhub.controller.admin.OffresStageController">
+    <left>
+        <VBox prefWidth="240.0" styleClass="sidebar" BorderPane.alignment="CENTER">
+            <VBox alignment="CENTER" prefHeight="100.0" style="-fx-padding: 20 10;">
+                <HBox alignment="CENTER" spacing="10">
+                    <Label text="🎓" style="-fx-font-size: 24px;"/>
+                    <Label text="LearnHub" textFill="WHITE" style="-fx-font-size: 22px; -fx-font-weight: bold;"/>
+                </HBox>
+                <Label text="Espace Administrateur" textFill="#94a3b8" style="-fx-font-size: 11px;"/>
+            </VBox>
+            <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS" style="-fx-background-color: transparent; -fx-border-color: transparent;">
+                <VBox spacing="2.0" style="-fx-padding: 8 0;">
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="📊 Dashboard" onAction="#goDashboard"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="👥 Utilisateurs" onAction="#goUtilisateurs"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="📚 Modules" onAction="#goModules"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="🗓 Séances" onAction="#goSeances"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="📝 Notes" onAction="#goNotes"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="✔ Présences" onAction="#goPresences"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="🎓 Filières" onAction="#goFilieres"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="🎉 Événements" onAction="#goEvenements"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="🏥 RDV Médicaux" onAction="#goRdv"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="🕐 Créneaux" onAction="#goCreneaux"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="🤝 Partenaires" onAction="#goPartenaires"/>
+                    <!-- Apply TWO classes here: standard btn and active class -->
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" style="-fx-background-color: #f59e0b; -fx-text-fill: white;" text="💼 Offres de Stage" onAction="#goOffresStage"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="📋 Demandes Stage" onAction="#goDemandesStage"/>
+                </VBox>
+            </ScrollPane>
+            <VBox alignment="CENTER" prefHeight="100.0" spacing="8.0" style="-fx-background-color: #0f172a; -fx-padding: 10;">
+                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                    <StackPane><Circle fill="#f59e0b" radius="16.0"/><Label text="AD" textFill="WHITE" style="-fx-font-weight: bold;"/></StackPane>
+                    <VBox alignment="CENTER_LEFT">
+                        <Label text="Admin Principal" textFill="WHITE" style="-fx-font-weight: bold; -fx-font-size: 13px;"/>
+                        <Label text="admin@learnhub.tn" textFill="#94a3b8" style="-fx-font-size: 11px;"/>
+                    </VBox>
+                </HBox>
+                <Button text="🚪 Déconnexion" maxWidth="Infinity" onAction="#handleLogout" style="-fx-background-color: transparent; -fx-border-color: #334155; -fx-border-radius: 6; -fx-text-fill: white; -fx-cursor: hand; -fx-padding: 6 10;"/>
+            </VBox>
+        </VBox>
+    </left>
+    <center>
+        <VBox style="-fx-background-color: #f8fafc;">
+            <!-- Top Navbar -->
+            <HBox styleClass="top-navbar" alignment="CENTER_LEFT">
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <Label text="💼" style="-fx-font-size: 24px;"/>
+                    <VBox>
+                        <Label text="Gestion des Stages" style="-fx-font-size: 20px; -fx-font-weight: 900; -fx-text-fill: #1e293b;"/>
+                        <Label text="Gérer les stages et opportunités" style="-fx-text-fill: #64748b; -fx-font-size: 12px;"/>
+                    </VBox>
+                </HBox>
+                <Pane HBox.hgrow="ALWAYS" />
+                <HBox alignment="CENTER" spacing="15">
+                    <TextField fx:id="navbarSearchField" promptText="Rechercher..." style="-fx-background-color: white; -fx-border-color: #e2e8f0; -fx-border-radius: 20; -fx-padding: 6 15; -fx-pref-width: 200;" />
+                    <Label text="🔍" style="-fx-text-fill: #3b82f6;"/>
+                    <StackPane>
+                        <Label text="🔔" style="-fx-font-size: 18px;"/>
+                        <Circle fill="#ef4444" radius="6" StackPane.alignment="TOP_RIGHT"/>
+                    </StackPane>
+                </HBox>
+            </HBox>
+
+            <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS" style="-fx-background-color: transparent; -fx-border-color: transparent;">
+                <VBox spacing="20.0" style="-fx-padding: 30;">
+
+                    <!-- Dark Blue Banner -->
+                    <HBox alignment="CENTER_LEFT" styleClass="banner-dark">
+                        <VBox spacing="5" HBox.hgrow="ALWAYS">
+                            <HBox alignment="CENTER_LEFT" spacing="10">
+                                <Label text="📚" style="-fx-font-size: 28px;"/>
+                                <Label text="Gestion des Offres de Stage" style="-fx-font-size: 24px; -fx-font-weight: 900; -fx-text-fill: white;"/>
+                            </HBox>
+                            <Label fx:id="bannerSubtitleLabel" text="Administrateur | 17 offre(s) disponible(s)" style="-fx-text-fill: #bae6fd; -fx-font-weight: bold;"/>
+                        </VBox>
+                        <Button text="➕ Nouvelle Offre" onAction="#handleAdd" style="-fx-background-color: #f59e0b; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8; -fx-padding: 10 20; -fx-cursor: hand;"/>
+                    </HBox>
+
+                    <!-- KPI Cards (4 cards matching the image) -->
+                    <HBox spacing="15">
+                        <VBox styleClass="kpi-card, kpi-border-blue" HBox.hgrow="ALWAYS" spacing="10">
+                            <Label fx:id="totalOffresLabel" text="0" styleClass="kpi-number"/>
+                            <Label text="Total Offres" styleClass="kpi-label"/>
+                        </VBox>
+                        <VBox styleClass="kpi-card, kpi-border-yellow" HBox.hgrow="ALWAYS" spacing="10">
+                            <Label fx:id="observationLabel" text="0" styleClass="kpi-number"/>
+                            <Label text="Observation" styleClass="kpi-label"/>
+                        </VBox>
+                        <VBox styleClass="kpi-card, kpi-border-green" HBox.hgrow="ALWAYS" spacing="10">
+                            <Label fx:id="pfeLabel" text="0" styleClass="kpi-number"/>
+                            <Label text="PFE" styleClass="kpi-label"/>
+                        </VBox>
+                        <VBox styleClass="kpi-card, kpi-border-red" HBox.hgrow="ALWAYS" spacing="10">
+                            <Label fx:id="eteLabel" text="0" styleClass="kpi-number"/>
+                            <Label text="Été" styleClass="kpi-label"/>
+                        </VBox>
+                    </HBox>
+
+                    <!-- Filter Bar -->
+                    <HBox spacing="15" alignment="BOTTOM_LEFT" style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.04), 10, 0, 0, 2);">
+                        <VBox spacing="5" HBox.hgrow="ALWAYS" maxWidth="300">
+                            <Label text="🔍 Recherche (Temps Réel)" style="-fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #1e40af;"/>
+                            <TextField fx:id="searchField" promptText="Tapez pour rechercher..." style="-fx-background-color: white; -fx-border-color: #e2e8f0; -fx-border-radius: 6; -fx-padding: 8;"/>
+                        </VBox>
+                        <VBox spacing="5" HBox.hgrow="ALWAYS">
+                            <Label text="📊 Type de stage" style="-fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #64748b;"/>
+                            <ComboBox fx:id="filtreType" promptText="Tous" maxWidth="Infinity" style="-fx-background-color: white; -fx-border-color: #e2e8f0; -fx-border-radius: 6;"/>
+                        </VBox>
+                        <VBox spacing="5" HBox.hgrow="ALWAYS">
+                            <Label text="🎓 Filière" style="-fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #64748b;"/>
+                            <ComboBox promptText="Toutes" maxWidth="Infinity" style="-fx-background-color: white; -fx-border-color: #e2e8f0; -fx-border-radius: 6;"/>
+                        </VBox>
+                        <VBox spacing="5" HBox.hgrow="ALWAYS">
+                            <Label text="🏢 Partenaire" style="-fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #64748b;"/>
+                            <ComboBox promptText="Tous" maxWidth="Infinity" style="-fx-background-color: white; -fx-border-color: #e2e8f0; -fx-border-radius: 6;"/>
+                        </VBox>
+                        <VBox spacing="5" alignment="BOTTOM_RIGHT">
+                            <Button text="Filtrer" onAction="#handleSearch" style="-fx-background-color: #1e3a8a; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 6; -fx-padding: 8 20; -fx-cursor: hand;"/>
+                        </VBox>
+                    </HBox>
+
+                    <!-- Table Section -->
+                    <VBox spacing="15" style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.04), 10, 0, 0, 2);">
+                        <Label fx:id="tableTitleLabel" text="Liste des Offres (0)" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #0f172a;"/>
+                        <TableView fx:id="offreTable" prefHeight="400.0">
+                            <placeholder>
+                                <Label text="Aucune offre trouvée" style="-fx-text-fill: #9ca3af;"/>
+                            </placeholder>
+                        </TableView>
+                    </VBox>
+
+                </VBox>
+            </ScrollPane>
+        </VBox>
+    </center>
+</BorderPane>

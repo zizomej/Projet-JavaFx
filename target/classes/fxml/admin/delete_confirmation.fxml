@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="TOP_CENTER" spacing="15.0" style="-fx-background-color: white; -fx-padding: 30; -fx-background-radius: 12;" stylesheets="@/css/styles.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.learnhub.controller.admin.DeleteConfirmationController">
+    
+    <!-- Top Icon -->
+    <Label text="🗑️" style="-fx-font-size: 50px;" />
+    
+    <!-- Title -->
+    <Label fx:id="titleLabel" text="Confirmer la suppression" style="-fx-font-size: 20px; -fx-font-weight: 900; -fx-text-fill: #dc2626;" />
+    
+    <!-- Subtitle -->
+    <Label fx:id="messageLabel" text="Êtes-vous sûr de vouloir supprimer cet élément ? Cette action est irréversible." wrapText="true" textAlignment="CENTER" style="-fx-text-fill: #475569; -fx-font-size: 13px; -fx-max-width: 300px;" />
+    
+    <!-- Data Review Box -->
+    <VBox fx:id="detailsBox" spacing="12" style="-fx-border-color: #ef4444; -fx-border-width: 2; -fx-border-radius: 8; -fx-padding: 15; -fx-min-width: 320;" />
+
+    <Pane VBox.vgrow="ALWAYS" minHeight="10" />
+
+    <!-- Buttons -->
+    <HBox spacing="15" alignment="CENTER">
+        <Button text="🗑 Oui, supprimer" onAction="#handleConfirm" style="-fx-background-color: #ef4444; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 13px; -fx-padding: 10 20; -fx-background-radius: 6; -fx-cursor: hand;" />
+        <Button text="✕ Annuler" onAction="#handleCancel" style="-fx-background-color: #f1f5f9; -fx-text-fill: #475569; -fx-font-weight: bold; -fx-font-size: 13px; -fx-padding: 10 20; -fx-background-radius: 6; -fx-cursor: hand;" />
+    </HBox>
+
+</VBox>

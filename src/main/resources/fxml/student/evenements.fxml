@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<BorderPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:id="root"
+            fx:controller="com.learnhub.controller.student.StudentEvenementsController"
+            stylesheets="@/css/styles.css"
+            prefWidth="1280" prefHeight="800">
+    <top>
+        <HBox styleClass="dash-nav" alignment="CENTER_LEFT" minHeight="64" spacing="4">
+            <padding><Insets top="0" right="24" bottom="0" left="28"/></padding>
+            <Label text="🎓 LearnHub" styleClass="dash-nav-brand"/>
+            <Label text="  |  ÉTUDIANT" style="-fx-text-fill:rgba(255,255,255,0.45); -fx-font-size:11px;"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button text="📊 Tableau de bord" styleClass="dash-nav-link" onAction="#goDashboard"/>
+            <Button text="📚 Modules"          styleClass="dash-nav-link" onAction="#goModules"/>
+            <Button text="📝 Notes"            styleClass="dash-nav-link" onAction="#goNotes"/>
+            <Button text="📅 Emploi"           styleClass="dash-nav-link" onAction="#goEmploi"/>
+            <Button text="✔ Présences"        styleClass="dash-nav-link" onAction="#goPresences"/>
+            <Button text="🏥 RDV Médical"      styleClass="dash-nav-link" onAction="#goRdv"/>
+            <Button text="🎉 Événements"       styleClass="dash-nav-link dash-nav-link-active" onAction="#goEvenements"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button text="🚪 Déconnexion" styleClass="btn-logout" onAction="#handleLogout"/>
+        </HBox>
+    </top>
+    <center>
+        <VBox alignment="CENTER" spacing="16" style="-fx-background-color:#f8fafc;">
+            <padding><Insets top="60" right="40" bottom="60" left="40"/></padding>
+            <Label text="Événements du campus" style="-fx-font-size:28px; -fx-font-weight:900; -fx-text-fill:#0A1F44;"/>
+            <Label text="Section en cours de construction" style="-fx-font-size:14px; -fx-text-fill:#64748b;"/>
+        </VBox>
+    </center>
+</BorderPane>

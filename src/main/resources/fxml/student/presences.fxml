@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.learnhub.controller.student.StudentPresencesController"
+            stylesheets="@/css/styles.css"
+            prefWidth="1280" prefHeight="800">
+    <top>
+        <HBox styleClass="dash-nav" alignment="CENTER_LEFT" minHeight="64" spacing="4">
+            <padding><Insets top="0" right="24" bottom="0" left="28"/></padding>
+            <Label text="LearnHub" styleClass="dash-nav-brand"/>
+            <Label text="| ETUDIANT" style="-fx-text-fill:rgba(255,255,255,0.45); -fx-font-size:11px; -fx-padding:0 0 0 8;"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button text="Tableau de bord" styleClass="dash-nav-link" onAction="#goDashboard"/>
+            <Button text="Modules" styleClass="dash-nav-link" onAction="#goModules"/>
+            <Button text="Notes" styleClass="dash-nav-link" onAction="#goNotes"/>
+            <Button text="Emploi du temps" styleClass="dash-nav-link" onAction="#goEmploi"/>
+            <Button text="Presences" styleClass="dash-nav-link dash-nav-link-active" onAction="#goPresences"/>
+            <Button text="RDV medical" styleClass="dash-nav-link" onAction="#goRdv"/>
+            <Button text="Evenements" styleClass="dash-nav-link" onAction="#goEvenements"/>
+            <Button text="Offres de stage" styleClass="dash-nav-link" onAction="#goOffresStage"/>
+            <Button text="Mes demandes" styleClass="dash-nav-link" onAction="#goDemandesStage"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Label fx:id="userLabel" text="Etudiant" styleClass="dash-nav-user" style="-fx-padding:0 12 0 0;"/>
+            <Button text="Deconnexion" styleClass="btn-logout" onAction="#handleLogout"/>
+        </HBox>
+    </top>
+
+    <center>
+        <ScrollPane fitToWidth="true" hbarPolicy="NEVER">
+            <VBox spacing="24" style="-fx-background-color:#f8fafc; -fx-padding:32 40 40 40;">
+                <HBox alignment="CENTER_LEFT" spacing="16">
+                    <VBox HBox.hgrow="ALWAYS" spacing="4">
+                        <Label text="Mes presences" styleClass="page-title"/>
+                        <Label text="Visualisez votre historique de presence et reperez rapidement les absences a regulariser." styleClass="page-subtitle-text"/>
+                    </VBox>
+                    <HBox spacing="12">
+                        <VBox alignment="CENTER" spacing="2" styleClass="stat-card-small">
+                            <Label fx:id="presentLabel" text="0" styleClass="admin-kpi-value"/>
+                            <Label text="Presents" styleClass="admin-kpi-meta"/>
+                        </VBox>
+                        <VBox alignment="CENTER" spacing="2" styleClass="stat-card-small">
+                            <Label fx:id="absentLabel" text="0" styleClass="admin-kpi-value"/>
+                            <Label text="Absents" styleClass="admin-kpi-meta"/>
+                        </VBox>
+                    </HBox>
+                </HBox>
+
+                <VBox styleClass="card" spacing="0">
+                    <HBox alignment="CENTER_LEFT" spacing="12" style="-fx-padding:16 20; -fx-border-color:#e2e8f0; -fx-border-width:0 0 1 0;">
+                        <VBox HBox.hgrow="ALWAYS" spacing="2">
+                            <Label text="Historique des presences" styleClass="admin-card-title"/>
+                            <Label text="Le detail synthese indique si votre statut est valide, en retard ou a regulariser." styleClass="admin-card-subtitle"/>
+                        </VBox>
+                        <TextField fx:id="searchField" promptText="Rechercher une seance..." prefWidth="220"/>
+                    </HBox>
+                    <TableView fx:id="table" prefHeight="500" style="-fx-border-color:transparent;">
+                        <columns>
+                            <TableColumn fx:id="colSeance" text="Seance" prefWidth="300"/>
+                            <TableColumn fx:id="colStatut" text="Statut" prefWidth="140"/>
+                            <TableColumn fx:id="colDate" text="Date" prefWidth="130"/>
+                            <TableColumn fx:id="colCommentaire" text="Detail" prefWidth="220"/>
+                        </columns>
+                        <placeholder>
+                            <Label text="Aucune presence disponible" style="-fx-text-fill:#64748b;"/>
+                        </placeholder>
+                    </TableView>
+                </VBox>
+            </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>

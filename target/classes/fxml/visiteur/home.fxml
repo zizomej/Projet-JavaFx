@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<ScrollPane fitToWidth="true" hbarPolicy="NEVER"
+            xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.learnhub.controller.HomePageController"
+            style="-fx-background: #f8fafc; -fx-background-color: #f8fafc; -fx-border-color: transparent;">
+
+    <VBox style="-fx-background-color: #f8fafc;">
+
+        <!-- ============ TOP NAVIGATION ============ -->
+        <HBox alignment="CENTER_LEFT" spacing="0" minHeight="70"
+              style="-fx-background-color: white; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 10, 0, 0, 2);">
+            <padding><Insets top="0" right="32" bottom="0" left="32"/></padding>
+
+            <Label fx:id="titleLabel" text="🎓 LearnHub" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #0A1F44;"/>
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <HBox alignment="CENTER" spacing="24">
+                <Label text="Accueil" style="-fx-text-fill: #FFC107; -fx-font-weight: bold; -fx-font-size: 14px; -fx-cursor: hand;" onMouseClicked="#goToHome"/>
+                <Label text="Programmes" style="-fx-text-fill: #4b5563; -fx-font-size: 14px; -fx-cursor: hand;" onMouseClicked="#goToPrograms"/>
+                <Label text="Événements" style="-fx-text-fill: #4b5563; -fx-font-size: 14px; -fx-cursor: hand;" onMouseClicked="#goToEvents"/>
+                <Label text="Partenaires" style="-fx-text-fill: #4b5563; -fx-font-size: 14px; -fx-cursor: hand;" onMouseClicked="#goToPartners"/>
+            </HBox>
+
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <HBox alignment="CENTER" spacing="10">
+                <Button text="S'inscrire" onAction="#goToRegister"
+                        style="-fx-background-color: white; -fx-text-fill: #0A1F44; -fx-font-weight: bold; -fx-border-color: #0A1F44; -fx-border-width: 1.5; -fx-border-radius: 50; -fx-background-radius: 50; -fx-padding: 10 22; -fx-cursor: hand; -fx-font-size: 13px;"/>
+                <Button text="Se connecter" onAction="#goToLogin"
+                        style="-fx-background-color: linear-gradient(to right, #FFC107, #FF6F61); -fx-text-fill: #0A1F44; -fx-font-weight: bold; -fx-background-radius: 50; -fx-padding: 10 24; -fx-cursor: hand; -fx-font-size: 13px;"/>
+            </HBox>
+        </HBox>
+
+        <!-- ============ HERO SECTION ============ -->
+        <VBox alignment="CENTER" spacing="24" minHeight="550"
+              style="-fx-background-color: #0A1F44;">
+            <padding><Insets top="80" right="60" bottom="80" left="60"/></padding>
+
+            <Label text="Bienvenue sur" style="-fx-font-size: 18px; -fx-text-fill: rgba(255,255,255,0.8);"/>
+            <Label text="LEARNHUB" style="-fx-font-size: 56px; -fx-font-weight: 900; -fx-text-fill: #FFC107;"/>
+            <Label text="Votre plateforme d'excellence pour une éducation moderne et innovante"
+                   style="-fx-font-size: 18px; -fx-text-fill: rgba(255,255,255,0.9); -fx-text-alignment: center;"
+                   wrapText="true" maxWidth="700"/>
+
+            <HBox alignment="CENTER" spacing="20" style="-fx-padding: 20 0 0 0;">
+                <Button text="Découvrir nos programmes" onAction="#goToPrograms"
+                        style="-fx-background-color: linear-gradient(to right, #FFC107, #FF6F61); -fx-text-fill: #0A1F44; -fx-font-weight: bold; -fx-background-radius: 50; -fx-padding: 14 32; -fx-cursor: hand; -fx-font-size: 14px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 2);"/>
+                <Button text="S'inscrire" onAction="#goToRegister"
+                        style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-weight: bold; -fx-border-color: white; -fx-border-width: 2; -fx-border-radius: 50; -fx-background-radius: 50; -fx-padding: 12 30; -fx-cursor: hand; -fx-font-size: 14px;"/>
+            </HBox>
+        </VBox>
+
+        <!-- ============ STATS BAR ============ -->
+        <HBox alignment="CENTER" spacing="0" minHeight="140"
+              style="-fx-background-color: white; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 15, 0, 0, 5);">
+
+            <VBox alignment="CENTER" spacing="8" HBox.hgrow="ALWAYS" style="-fx-padding: 20;">
+                <Label text="🎓" style="-fx-font-size: 40px;"/>
+                <Label text="48+" style="-fx-font-size: 36px; -fx-font-weight: 900; -fx-text-fill: #0A1F44;"/>
+                <Label text="Programmes" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #4b5563;"/>
+                <Label text="Licence &amp; Master" style="-fx-font-size: 12px; -fx-text-fill: #9ca3af;"/>
+            </VBox>
+
+            <VBox alignment="CENTER" spacing="8" HBox.hgrow="ALWAYS" style="-fx-padding: 20;">
+                <Label text="🤝" style="-fx-font-size: 40px;"/>
+                <Label text="24+" style="-fx-font-size: 36px; -fx-font-weight: 900; -fx-text-fill: #0A1F44;"/>
+                <Label text="Partenaires" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #4b5563;"/>
+                <Label text="Entreprises &amp; Universités" style="-fx-font-size: 12px; -fx-text-fill: #9ca3af;"/>
+            </VBox>
+
+            <VBox alignment="CENTER" spacing="8" HBox.hgrow="ALWAYS" style="-fx-padding: 20;">
+                <Label text="👨‍🎓" style="-fx-font-size: 40px;"/>
+                <Label text="1200+" style="-fx-font-size: 36px; -fx-font-weight: 900; -fx-text-fill: #0A1F44;"/>
+                <Label text="Étudiants" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #4b5563;"/>
+                <Label text="Inscrits cette année" style="-fx-font-size: 12px; -fx-text-fill: #9ca3af;"/>
+            </VBox>
+
+            <VBox alignment="CENTER" spacing="8" HBox.hgrow="ALWAYS" style="-fx-padding: 20;">
+                <Label text="📊" style="-fx-font-size: 40px;"/>
+                <Label text="98%" style="-fx-font-size: 36px; -fx-font-weight: 900; -fx-text-fill: #0A1F44;"/>
+                <Label text="Insertion" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #4b5563;"/>
+                <Label text="Taux d'employabilité" style="-fx-font-size: 12px; -fx-text-fill: #9ca3af;"/>
+            </VBox>
+        </HBox>
+
+        <!-- ============ POURQUOI CHOISIR LEARNHUB ============ -->
+        <VBox alignment="CENTER" spacing="40" style="-fx-padding: 60 80;">
+            <VBox alignment="CENTER" spacing="16">
+                <Label text="NOS ATOUTS"
+                       style="-fx-background-color: linear-gradient(to right, #FFC107, #FF6F61); -fx-text-fill: #0A1F44; -fx-padding: 8 24; -fx-background-radius: 50; -fx-font-size: 12px; -fx-font-weight: bold;"/>
+                <Label text="Pourquoi choisir LearnHub ?"
+                       style="-fx-font-size: 36px; -fx-font-weight: 900; -fx-text-fill: #0A1F44;"/>
+                <Label text="Une pédagogie innovante et des opportunités uniques pour votre réussite"
+                       style="-fx-font-size: 16px; -fx-text-fill: #6b7280; -fx-text-alignment: center;"
+                       wrapText="true" maxWidth="700"/>
+            </VBox>
+
+            <HBox alignment="CENTER" spacing="30">
+                <!-- Card 1 -->
+                <VBox spacing="16" style="-fx-background-color: white; -fx-background-radius: 24; -fx-padding: 32; -fx-border-color: #e5e7eb; -fx-border-width: 2; -fx-border-radius: 24; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 10, 0, 0, 2);" prefWidth="320">
+                    <Label text="🎯" style="-fx-font-size: 48px;"/>
+                    <Label text="Pédagogie Humaniste" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #0A1F44;"/>
+                    <Label text="Une approche centrée sur l'étudiant avec un accompagnement personnalisé" style="-fx-font-size: 14px; -fx-text-fill: #6b7280;" wrapText="true"/>
+                </VBox>
+
+                <!-- Card 2 -->
+                <VBox spacing="16" style="-fx-background-color: white; -fx-background-radius: 24; -fx-padding: 32; -fx-border-color: #e5e7eb; -fx-border-width: 2; -fx-border-radius: 24; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 10, 0, 0, 2);" prefWidth="320">
+                    <Label text="🌍" style="-fx-font-size: 48px;"/>
+                    <Label text="Reconnaissance Internationale" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #0A1F44;"/>
+                    <Label text="Des diplômes certifiés et reconnus à l'international" style="-fx-font-size: 14px; -fx-text-fill: #6b7280;" wrapText="true"/>
+                </VBox>
+
+                <!-- Card 3 -->
+                <VBox spacing="16" style="-fx-background-color: white; -fx-background-radius: 24; -fx-padding: 32; -fx-border-color: #e5e7eb; -fx-border-width: 2; -fx-border-radius: 24; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 10, 0, 0, 2);" prefWidth="320">
+                    <Label text="💼" style="-fx-font-size: 48px;"/>
+                    <Label text="Esprit Entrepreneurial" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #0A1F44;"/>
+                    <Label text="Formation à l'entrepreneuriat et accompagnement de projets" style="-fx-font-size: 14px; -fx-text-fill: #6b7280;" wrapText="true"/>
+                </VBox>
+            </HBox>
+
+            <HBox alignment="CENTER" spacing="30" style="-fx-padding: 10 0 0 0;">
+                <!-- Card 4 -->
+                <VBox spacing="16" style="-fx-background-color: white; -fx-background-radius: 24; -fx-padding: 32; -fx-border-color: #e5e7eb; -fx-border-width: 2; -fx-border-radius: 24; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 10, 0, 0, 2);" prefWidth="320">
+                    <Label text="✈️" style="-fx-font-size: 48px;"/>
+                    <Label text="Mobilité Internationale" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #0A1F44;"/>
+                    <Label text="Programmes d'échange et stages à l'étranger" style="-fx-font-size: 14px; -fx-text-fill: #6b7280;" wrapText="true"/>
+                </VBox>
+
+                <!-- Card 5 -->
+                <VBox spacing="16" style="-fx-background-color: white; -fx-background-radius: 24; -fx-padding: 32; -fx-border-color: #e5e7eb; -fx-border-width: 2; -fx-border-radius: 24; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 10, 0, 0, 2);" prefWidth="320">
+                    <Label text="🏆" style="-fx-font-size: 48px;"/>
+                    <Label text="Doubles Diplômes" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #0A1F44;"/>
+                    <Label text="Possibilité d'obtenir deux diplômes en partenariat" style="-fx-font-size: 14px; -fx-text-fill: #6b7280;" wrapText="true"/>
+                </VBox>
+
+                <!-- Card 6 -->
+                <VBox spacing="16" style="-fx-background-color: white; -fx-background-radius: 24; -fx-padding: 32; -fx-border-color: #e5e7eb; -fx-border-width: 2; -fx-border-radius: 24; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 10, 0, 0, 2);" prefWidth="320">
+                    <Label text="⚡" style="-fx-font-size: 48px;"/>
+                    <Label text="Compétences Valorisées" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #0A1F44;"/>
+                    <Label text="Développement de soft skills recherchées" style="-fx-font-size: 14px; -fx-text-fill: #6b7280;" wrapText="true"/>
+                </VBox>
+            </HBox>
+        </VBox>
+
+        <!-- ============ ACTUALITÉS ============ -->
+        <VBox alignment="CENTER" spacing="40"
+              style="-fx-background-color: #f8fafc; -fx-padding: 60 80;">
+            <VBox alignment="CENTER" spacing="16">
+                <Label text="ACTUALITÉS"
+                       style="-fx-background-color: linear-gradient(to right, #FFC107, #FF6F61); -fx-text-fill: #0A1F44; -fx-padding: 8 24; -fx-background-radius: 50; -fx-font-size: 12px; -fx-font-weight: bold;"/>
+                <Label text="Dernières Nouvelles"
+                       style="-fx-font-size: 36px; -fx-font-weight: 900; -fx-text-fill: #0A1F44;"/>
+                <Label text="Restez informés de nos événements et réalisations"
+                       style="-fx-font-size: 16px; -fx-text-fill: #6b7280; -fx-text-alignment: center;"
+                       wrapText="true" maxWidth="700"/>
+            </VBox>
+
+            <HBox alignment="CENTER" spacing="30">
+                <!-- Event Card 1 -->
+                <VBox spacing="0" style="-fx-background-color: white; -fx-background-radius: 24; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 10, 0, 0, 2);" prefWidth="320">
+                    <VBox alignment="CENTER" prefHeight="160"
+                          style="-fx-background-color: linear-gradient(to right, #1E3A8A, #0A1F44); -fx-background-radius: 24 24 0 0;">
+                        <Label text="🎤" style="-fx-font-size: 60px;"/>
+                    </VBox>
+                    <VBox spacing="12" style="-fx-padding: 20;">
+                        <Label text="📅 15 Mars 2026" style="-fx-font-size: 12px; -fx-text-fill: #FF6F61; -fx-font-weight: bold;"/>
+                        <Label text="Conférence IA" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #0A1F44;"/>
+                        <Label text="Découvrez les dernières avancées en intelligence artificielle avec nos experts."
+                               style="-fx-font-size: 14px; -fx-text-fill: #6b7280;" wrapText="true"/>
+                        <Label text="Lire la suite →" style="-fx-text-fill: #1E3A8A; -fx-font-size: 13px; -fx-font-weight: bold; -fx-cursor: hand;" onMouseClicked="#goToEvents"/>
+                    </VBox>
+                </VBox>
+
+                <!-- Event Card 2 -->
+                <VBox spacing="0" style="-fx-background-color: white; -fx-background-radius: 24; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 10, 0, 0, 2);" prefWidth="320">
+                    <VBox alignment="CENTER" prefHeight="160"
+                          style="-fx-background-color: linear-gradient(to right, #1E3A8A, #0A1F44); -fx-background-radius: 24 24 0 0;">
+                        <Label text="🤝" style="-fx-font-size: 60px;"/>
+                    </VBox>
+                    <VBox spacing="12" style="-fx-padding: 20;">
+                        <Label text="📅 20 Avril 2026" style="-fx-font-size: 12px; -fx-text-fill: #FF6F61; -fx-font-weight: bold;"/>
+                        <Label text="Forum des Partenaires" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #0A1F44;"/>
+                        <Label text="Rencontrez nos partenaires et découvrez les opportunités de carrière."
+                               style="-fx-font-size: 14px; -fx-text-fill: #6b7280;" wrapText="true"/>
+                        <Label text="Lire la suite →" style="-fx-text-fill: #1E3A8A; -fx-font-size: 13px; -fx-font-weight: bold; -fx-cursor: hand;" onMouseClicked="#goToEvents"/>
+                    </VBox>
+                </VBox>
+
+                <!-- Event Card 3 -->
+                <VBox spacing="0" style="-fx-background-color: white; -fx-background-radius: 24; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 10, 0, 0, 2);" prefWidth="320">
+                    <VBox alignment="CENTER" prefHeight="160"
+                          style="-fx-background-color: linear-gradient(to right, #1E3A8A, #0A1F44); -fx-background-radius: 24 24 0 0;">
+                        <Label text="🏆" style="-fx-font-size: 60px;"/>
+                    </VBox>
+                    <VBox spacing="12" style="-fx-padding: 20;">
+                        <Label text="📅 10 Mai 2026" style="-fx-font-size: 12px; -fx-text-fill: #FF6F61; -fx-font-weight: bold;"/>
+                        <Label text="Cérémonie de Remise des Diplômes" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #0A1F44;"/>
+                        <Label text="Célébrez la réussite de nos diplômés lors d'une cérémonie exceptionnelle."
+                               style="-fx-font-size: 14px; -fx-text-fill: #6b7280;" wrapText="true"/>
+                        <Label text="Lire la suite →" style="-fx-text-fill: #1E3A8A; -fx-font-size: 13px; -fx-font-weight: bold; -fx-cursor: hand;" onMouseClicked="#goToEvents"/>
+                    </VBox>
+                </VBox>
+            </HBox>
+
+            <Button text="Voir toutes les actualités →" onAction="#goToEvents"
+                    style="-fx-background-color: linear-gradient(to right, #1E3A8A, #0A1F44); -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 50; -fx-padding: 14 32; -fx-cursor: hand; -fx-font-size: 14px;"/>
+        </VBox>
+
+        <!-- ============ PARTENAIRES ============ -->
+        <VBox alignment="CENTER" spacing="40" style="-fx-padding: 60 80;">
+            <VBox alignment="CENTER" spacing="16">
+                <Label text="PARTENAIRES"
+                       style="-fx-background-color: linear-gradient(to right, #FFC107, #FF6F61); -fx-text-fill: #0A1F44; -fx-padding: 8 24; -fx-background-radius: 50; -fx-font-size: 12px; -fx-font-weight: bold;"/>
+                <Label text="Ils nous font confiance"
+                       style="-fx-font-size: 36px; -fx-font-weight: 900; -fx-text-fill: #0A1F44;"/>
+                <Label text="Des collaborations prestigieuses au service de votre réussite"
+                       style="-fx-font-size: 16px; -fx-text-fill: #6b7280; -fx-text-alignment: center;"
+                       wrapText="true" maxWidth="700"/>
+            </VBox>
+
+            <HBox alignment="CENTER" spacing="20">
+                <VBox alignment="CENTER" prefWidth="120" prefHeight="80"
+                      style="-fx-background-color: white; -fx-background-radius: 16; -fx-border-color: #e5e7eb; -fx-border-width: 1; -fx-border-radius: 16;">
+                    <Label text="amazon" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #FF9900;"/>
+                </VBox>
+                <VBox alignment="CENTER" prefWidth="120" prefHeight="80"
+                      style="-fx-background-color: white; -fx-background-radius: 16; -fx-border-color: #e5e7eb; -fx-border-width: 1; -fx-border-radius: 16;">
+                    <Label text="Google" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #EA4335;"/>
+                </VBox>
+                <VBox alignment="CENTER" prefWidth="120" prefHeight="80"
+                      style="-fx-background-color: white; -fx-background-radius: 16; -fx-border-color: #e5e7eb; -fx-border-width: 1; -fx-border-radius: 16;">
+                    <Label text="Microsoft" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #0052CC;"/>
+                </VBox>
+                <VBox alignment="CENTER" prefWidth="120" prefHeight="80"
+                      style="-fx-background-color: white; -fx-background-radius: 16; -fx-border-color: #e5e7eb; -fx-border-width: 1; -fx-border-radius: 16;">
+                    <Label text="IBM" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #0668E1;"/>
+                </VBox>
+                <VBox alignment="CENTER" prefWidth="120" prefHeight="80"
+                      style="-fx-background-color: white; -fx-background-radius: 16; -fx-border-color: #e5e7eb; -fx-border-width: 1; -fx-border-radius: 16;">
+                    <Label text="SAMSUNG" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #1428A0;"/>
+                </VBox>
+                <VBox alignment="CENTER" prefWidth="120" prefHeight="80"
+                      style="-fx-background-color: white; -fx-background-radius: 16; -fx-border-color: #e5e7eb; -fx-border-width: 1; -fx-border-radius: 16;">
+                    <Label text="HUAWEI" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #000;"/>
+                </VBox>
+            </HBox>
+
+            <Button text="Découvrir tous nos partenaires →" onAction="#goToPartners"
+                    style="-fx-background-color: linear-gradient(to right, #1E3A8A, #0A1F44); -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 50; -fx-padding: 14 32; -fx-cursor: hand; -fx-font-size: 14px;"/>
+        </VBox>
+
+        <!-- ============ TÉMOIGNAGES ============ -->
+        <VBox alignment="CENTER" spacing="40"
+              style="-fx-background-color: #f8fafc; -fx-padding: 60 80;">
+            <VBox alignment="CENTER" spacing="16">
+                <Label text="TÉMOIGNAGES"
+                       style="-fx-background-color: linear-gradient(to right, #FFC107, #FF6F61); -fx-text-fill: #0A1F44; -fx-padding: 8 24; -fx-background-radius: 50; -fx-font-size: 12px; -fx-font-weight: bold;"/>
+                <Label text="Ce que disent nos étudiants"
+                       style="-fx-font-size: 36px; -fx-font-weight: 900; -fx-text-fill: #0A1F44;"/>
+                <Label text="Des parcours inspirants et des réussites exceptionnelles"
+                       style="-fx-font-size: 16px; -fx-text-fill: #6b7280; -fx-text-alignment: center;"
+                       wrapText="true" maxWidth="700"/>
+            </VBox>
+
+            <HBox alignment="CENTER" spacing="30">
+                <!-- Testimonial 1 -->
+                <VBox spacing="16" style="-fx-background-color: white; -fx-background-radius: 24; -fx-padding: 28; -fx-border-color: #e5e7eb; -fx-border-width: 2; -fx-border-radius: 24;">
+                    <HBox spacing="15" alignment="CENTER_LEFT">
+                        <Label text="FD"
+                               style="-fx-background-color: linear-gradient(to right, #1E3A8A, #FFC107); -fx-min-width: 55; -fx-min-height: 55; -fx-max-width: 55; -fx-max-height: 55; -fx-background-radius: 50; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 18px; -fx-alignment: center;"/>
+                        <VBox spacing="4">
+                            <Label text="Fatima Drissi" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #0A1F44;"/>
+                            <Label text="Master IA &amp; Data Science" style="-fx-font-size: 12px; -fx-text-fill: #6b7280;"/>
+                        </VBox>
+                    </HBox>
+                    <Label text="Grâce à la formation dispensée, j'ai pu développer mes compétences et décrocher un poste d'ingénieur data chez Amazon."
+                           style="-fx-font-size: 14px; -fx-text-fill: #4b5563; -fx-font-style: italic;" wrapText="true"/>
+                </VBox>
+
+                <!-- Testimonial 2 -->
+                <VBox spacing="16" style="-fx-background-color: white; -fx-background-radius: 24; -fx-padding: 28; -fx-border-color: #e5e7eb; -fx-border-width: 2; -fx-border-radius: 24;">
+                    <HBox spacing="15" alignment="CENTER_LEFT">
+                        <Label text="MH"
+                               style="-fx-background-color: linear-gradient(to right, #1E3A8A, #FFC107); -fx-min-width: 55; -fx-min-height: 55; -fx-max-width: 55; -fx-max-height: 55; -fx-background-radius: 50; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 18px; -fx-alignment: center;"/>
+                        <VBox spacing="4">
+                            <Label text="Mehdi Haddad" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #0A1F44;"/>
+                            <Label text="Ingénieur chez Google" style="-fx-font-size: 12px; -fx-text-fill: #6b7280;"/>
+                        </VBox>
+                    </HBox>
+                    <Label text="L'approche pédagogique basée sur des projets concrets m'a permis d'acquérir une expérience précieuse."
+                           style="-fx-font-size: 14px; -fx-text-fill: #4b5563; -fx-font-style: italic;" wrapText="true"/>
+                </VBox>
+
+                <!-- Testimonial 3 -->
+                <VBox spacing="16" style="-fx-background-color: white; -fx-background-radius: 24; -fx-padding: 28; -fx-border-color: #e5e7eb; -fx-border-width: 2; -fx-border-radius: 24;">
+                    <HBox spacing="15" alignment="CENTER_LEFT">
+                        <Label text="SB"
+                               style="-fx-background-color: linear-gradient(to right, #1E3A8A, #FFC107); -fx-min-width: 55; -fx-min-height: 55; -fx-max-width: 55; -fx-max-height: 55; -fx-background-radius: 50; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 18px; -fx-alignment: center;"/>
+                        <VBox spacing="4">
+                            <Label text="Salma Bennani" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #0A1F44;"/>
+                            <Label text="Licence Génie Informatique" style="-fx-font-size: 12px; -fx-text-fill: #6b7280;"/>
+                        </VBox>
+                    </HBox>
+                    <Label text="Les professeurs sont experts, les infrastructures modernes et l'ambiance exceptionnelle."
+                           style="-fx-font-size: 14px; -fx-text-fill: #4b5563; -fx-font-style: italic;" wrapText="true"/>
+                </VBox>
+            </HBox>
+        </VBox>
+
+        <!-- ============ FOOTER ============ -->
+        <VBox alignment="CENTER" spacing="8" minHeight="100"
+              style="-fx-background-color: #0A1F44;">
+            <padding><Insets top="30" right="40" bottom="30" left="40"/></padding>
+            <Label text="© 2026 LearnHub · Plateforme Universitaire Intelligente"
+                   style="-fx-text-fill: rgba(255,255,255,0.7); -fx-font-size: 13px;"/>
+            <Label text="contact@learnhub.tn  ·  +216 XX XXX XXX"
+                   style="-fx-text-fill: rgba(255,255,255,0.5); -fx-font-size: 12px;"/>
+        </VBox>
+
+    </VBox>
+</ScrollPane>

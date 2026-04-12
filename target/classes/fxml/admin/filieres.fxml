@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Circle?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.learnhub.controller.admin.FilieresAdminController"
+            stylesheets="@/css/styles.css"
+            prefWidth="1360" prefHeight="820">
+    <left>
+        <VBox prefWidth="250.0" styleClass="sidebar" BorderPane.alignment="CENTER">
+            <VBox alignment="CENTER" prefHeight="100.0" style="-fx-padding: 20 10;">
+                <Label text="🎓 LearnHub" textFill="WHITE" style="-fx-font-size: 22px; -fx-font-weight: bold;"/>
+                <Label text="Espace Administrateur" textFill="#a0aabf" style="-fx-font-size: 11px;"/>
+            </VBox>
+            <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS" style="-fx-background-color: transparent; -fx-border-color: transparent;">
+                <VBox spacing="2.0" style="-fx-padding: 8 0;">
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="📊 Dashboard" onAction="#goDashboard"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="👥 Utilisateurs" onAction="#goUtilisateurs"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="📚 Modules" onAction="#goModules"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="🗓 Séances" onAction="#goSeances"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="📝 Notes" onAction="#goNotes"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="✔ Présences" onAction="#goPresences"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn sidebar-btn-active" text="🎓 Filières" onAction="#goFilieres"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="🎉 Événements" onAction="#goEvenements"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="🏥 RDV Médicaux" onAction="#goRdv"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="🕐 Créneaux" onAction="#goCreneaux"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="🤝 Partenaires" onAction="#goPartenaires"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="💼 Offres de Stage" onAction="#goOffresStage"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="📋 Demandes Stage" onAction="#goDemandesStage"/>
+                </VBox>
+            </ScrollPane>
+            <VBox alignment="CENTER" prefHeight="100.0" spacing="8.0" style="-fx-background-color: #151a2b; -fx-padding: 10;">
+                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                    <StackPane><Circle fill="#ff9800" radius="18.0"/><Label text="AD" textFill="WHITE" style="-fx-font-weight: bold;"/></StackPane>
+                    <VBox alignment="CENTER_LEFT">
+                        <Label text="Admin Principal" textFill="WHITE" style="-fx-font-weight: bold; -fx-font-size: 13px;"/>
+                        <Label text="admin@learnhub.tn" textFill="#a0aabf" style="-fx-font-size: 11px;"/>
+                    </VBox>
+                </HBox>
+                <Button text="🚪 Déconnexion" maxWidth="Infinity" onAction="#handleLogout" style="-fx-background-color: #293047; -fx-text-fill: white; -fx-background-radius: 5; -fx-cursor: hand; -fx-padding: 8 10;"/>
+            </VBox>
+        </VBox>
+    </left>
+    <center>
+        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" styleClass="admin-scroll">
+            <VBox styleClass="admin-main">
+
+                <!-- Green Banner Header -->
+                <HBox alignment="CENTER_LEFT" spacing="16.0"
+                      style="-fx-background-color: linear-gradient(to right, #16a34a, #22c55e); -fx-padding: 24 28; -fx-background-radius: 0 0 12 12;">
+                    <VBox HBox.hgrow="ALWAYS" spacing="6">
+                        <Label text="🎓 Gestion des Filières"
+                               style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+                        <Label text="Création et gestion des filières et spécialités de l'établissement"
+                               style="-fx-font-size: 13px; -fx-text-fill: rgba(255,255,255,0.85);"/>
+                    </VBox>
+                    <HBox spacing="8" alignment="CENTER_RIGHT">
+                        <Button text="➕ Ajouter"    styleClass="btn-primary"   onAction="#handleAdd"/>
+                        <Button text="✏️ Modifier"   styleClass="btn-warning"   onAction="#handleEdit"/>
+                        <Button text="🗑️ Supprimer"  styleClass="btn-danger"    onAction="#handleDelete"/>
+                        <Button text="🔄 Actualiser" styleClass="btn-secondary" onAction="#handleRefresh"/>
+                    </HBox>
+                </HBox>
+
+                <!-- Table Card -->
+                <VBox styleClass="admin-card">
+                    <HBox alignment="CENTER_LEFT" spacing="12" styleClass="admin-toolbar">
+                        <VBox HBox.hgrow="ALWAYS" spacing="2">
+                            <Label text="Liste des filières" styleClass="admin-card-title"/>
+                            <Label text="Cliquez sur une ligne puis utilisez les boutons Modifier / Supprimer" styleClass="admin-card-subtitle"/>
+                        </VBox>
+                        <TextField fx:id="searchField" promptText="🔍 Rechercher une filière..." prefWidth="280"/>
+                        <Label fx:id="statusLabel" text="" styleClass="admin-card-subtitle"/>
+                    </HBox>
+                    <VBox styleClass="admin-card-body" VBox.vgrow="ALWAYS">
+                        <TableView fx:id="table" VBox.vgrow="ALWAYS" prefHeight="580">
+                            <columns>
+                                <TableColumn fx:id="colId"       text="ID"           prefWidth="55"/>
+                                <TableColumn fx:id="colCode"     text="Code"         prefWidth="110"/>
+                                <TableColumn fx:id="colNom"      text="Nom"          prefWidth="240"/>
+                                <TableColumn fx:id="colNiveau"   text="Niveau"       prefWidth="120"/>
+                                <TableColumn fx:id="colDuree"    text="Durée (ans)"  prefWidth="110"/>
+                                <TableColumn fx:id="colCapacite" text="Capacité max" prefWidth="120"/>
+                            </columns>
+                            <placeholder>
+                                <Label text="Aucune filière trouvée" styleClass="admin-page-subtitle"/>
+                            </placeholder>
+                        </TableView>
+                    </VBox>
+                </VBox>
+
+            </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>

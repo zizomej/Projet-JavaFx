@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.learnhub.controller.student.StudentModulesController"
+            stylesheets="@/css/styles.css" prefWidth="1280" prefHeight="800"
+            style="-fx-background-color: #f9fafb;">
+
+    <!-- TOPBAR -->
+    <top>
+        <HBox styleClass="student-topbar" alignment="CENTER_LEFT" spacing="30">
+            <VBox>
+                <Label text="🎓 LearnHub" style="-fx-font-size: 16px; -fx-font-weight: 900; -fx-text-fill: #1e40af;"/>
+                <Label text="ESPACE ÉTUDIANT" style="-fx-font-size: 10px; -fx-text-fill: #ef4444; -fx-font-weight: bold;"/>
+            </VBox>
+            <Region HBox.hgrow="ALWAYS"/>
+            <HBox spacing="10" alignment="CENTER">
+                <Button text="📊 Tableau de bord" styleClass="student-nav-btn" onAction="#goDashboard"/>
+                <Button text="📚 Mes Modules" styleClass="student-nav-btn student-nav-active"/>
+                <Button text="📝 Mes Notes" styleClass="student-nav-btn" onAction="#goNotes"/>
+                <Button text="🗓 Emploi du Temps" styleClass="student-nav-btn" onAction="#goEmploi"/>
+                <Button text="💼 Stages" styleClass="student-nav-btn" onAction="#goStages"/>
+                <Button text="✅ Présences" styleClass="student-nav-btn" onAction="#goPresences"/>
+            </HBox>
+            <Region HBox.hgrow="ALWAYS"/>
+            <HBox alignment="CENTER" spacing="15">
+                <Button text="🔔" style="-fx-background-color: transparent; -fx-font-size: 16px;"/>
+                <HBox alignment="CENTER" spacing="10">
+                    <Label text="ET" styleClass="prof-user-avatar" style="-fx-background-color: #fbbf24;"/>
+                    <VBox alignment="CENTER_LEFT">
+                        <Label fx:id="topUserName" text="Étudiant" style="-fx-font-weight: bold; -fx-font-size: 12px;"/>
+                        <Label text="Étudiant LearnHub" style="-fx-text-fill: #6b7280; -fx-font-size: 10px;"/>
+                    </VBox>
+                </HBox>
+                <Button text="🚪" style="-fx-background-color: transparent; -fx-cursor: hand;" onAction="#handleLogout"/>
+            </HBox>
+        </HBox>
+    </top>
+
+    <!-- CONTENT -->
+    <center>
+        <ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-border-color: transparent;">
+            <VBox spacing="20" style="-fx-padding: 30;">
+
+                <!-- Banner -->
+                <VBox style="-fx-background-color: #1e3a8a; -fx-background-radius: 12; -fx-padding: 24 30;" spacing="5">
+                    <HBox alignment="CENTER_LEFT" spacing="10">
+                        <Label text="📚" style="-fx-font-size: 24px;"/>
+                        <Label text="Mes Modules" style="-fx-font-size: 24px; -fx-font-weight: 900; -fx-text-fill: white;"/>
+                    </HBox>
+                    <Label text="Consultez vos modules et ressources pédagogiques" style="-fx-text-fill: #bfdbfe; -fx-font-size: 14px;"/>
+                </VBox>
+
+                <!-- Stats -->
+                <HBox spacing="20">
+                    <VBox styleClass="student-dash-card" HBox.hgrow="ALWAYS" spacing="10">
+                        <Label text="TOTAL MODULES" style="-fx-text-fill: #6b7280; -fx-font-size: 11px; -fx-font-weight: bold;"/>
+                        <Label fx:id="lblTotalModules" text="0" styleClass="student-dash-stat" style="-fx-font-size: 24px;"/>
+                    </VBox>
+                    <VBox styleClass="student-dash-card" HBox.hgrow="ALWAYS" spacing="10">
+                        <Label text="RESSOURCES" style="-fx-text-fill: #6b7280; -fx-font-size: 11px; -fx-font-weight: bold;"/>
+                        <Label fx:id="lblTotalRessources" text="0" styleClass="student-dash-stat" style="-fx-font-size: 24px;"/>
+                    </VBox>
+                </HBox>
+
+                <!-- Accordion -->
+                <Accordion fx:id="modulesAccordion" styleClass="notes-accordion" VBox.vgrow="ALWAYS"/>
+
+            </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>

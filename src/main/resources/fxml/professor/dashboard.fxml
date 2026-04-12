@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.learnhub.controller.professor.ProfessorDashboardController"
+            stylesheets="@/css/styles.css"
+            prefWidth="1280" prefHeight="800">
+    <top>
+        <HBox styleClass="dash-nav" alignment="CENTER_LEFT" minHeight="64" spacing="4">
+            <padding><Insets top="0" right="24" bottom="0" left="28"/></padding>
+            <Label text="LearnHub" styleClass="dash-nav-brand"/>
+            <Label text="| PROFESSEUR" style="-fx-text-fill:rgba(255,255,255,0.45); -fx-font-size:11px; -fx-padding:0 0 0 8;"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button text="Tableau de bord" styleClass="dash-nav-link dash-nav-link-active" onAction="#goDashboard"/>
+            <Button text="Modules" styleClass="dash-nav-link" onAction="#goModules"/>
+            <Button text="Seances" styleClass="dash-nav-link" onAction="#goSeances"/>
+            <Button text="Notes" styleClass="dash-nav-link" onAction="#goNotes"/>
+            <Button text="Presences" styleClass="dash-nav-link" onAction="#goPresences"/>
+            <Button text="Evenements" styleClass="dash-nav-link" onAction="#goEvenements"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Label text="Espace enseignant" styleClass="dash-nav-role" style="-fx-padding:0 12 0 0;"/>
+            <Button text="Deconnexion" styleClass="btn-logout" onAction="#handleLogout"/>
+        </HBox>
+    </top>
+
+    <center>
+        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" styleClass="scroll-pane">
+            <VBox spacing="26" style="-fx-background-color:#f8fafc; -fx-padding:32 40 40 40;">
+                <VBox styleClass="welcome-banner" spacing="8">
+                    <padding><Insets top="30" right="30" bottom="30" left="30"/></padding>
+                    <Label fx:id="welcomeLabel" text="Espace professeur" styleClass="welcome-title"/>
+                    <Label text="Pilotez vos modules, vos seances et vos evaluations dans un tableau de bord plus propre et plus proche du style Symfony." styleClass="welcome-sub"/>
+                </VBox>
+
+                <HBox spacing="18">
+                    <VBox styleClass="stat-card stat-card-blue" HBox.hgrow="ALWAYS" spacing="8">
+                        <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+                        <Label text="Modules suivis" styleClass="stat-label"/>
+                        <Label fx:id="modulesLabel" text="--" styleClass="stat-value"/>
+                        <Label text="Modules dont vous etes responsable" styleClass="stat-card-label"/>
+                    </VBox>
+                    <VBox styleClass="stat-card stat-card-green" HBox.hgrow="ALWAYS" spacing="8">
+                        <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+                        <Label text="Seances planifiees" styleClass="stat-label"/>
+                        <Label fx:id="seancesLabel" text="--" styleClass="stat-value"/>
+                        <Label text="Seances rattachees a votre compte" styleClass="stat-card-label"/>
+                    </VBox>
+                    <VBox styleClass="stat-card stat-card-gold" HBox.hgrow="ALWAYS" spacing="8">
+                        <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+                        <Label text="Priorites" styleClass="stat-label"/>
+                        <Label text="Suivi" styleClass="stat-value"/>
+                        <Label text="Notes, presences et animation pedagogique" styleClass="stat-card-label"/>
+                    </VBox>
+                </HBox>
+
+                <HBox spacing="18">
+                    <VBox HBox.hgrow="ALWAYS" styleClass="admin-note-box" spacing="8">
+                        <Label text="Vue enseignant" styleClass="admin-card-title"/>
+                        <Label text="Les donnees sont organisees autour des modules et des seances pour faciliter le suivi pedagogique au quotidien." styleClass="admin-page-subtitle"/>
+                    </VBox>
+                    <HBox alignment="CENTER_LEFT" spacing="12" styleClass="card" HBox.hgrow="ALWAYS">
+                        <padding><Insets top="18" right="20" bottom="18" left="20"/></padding>
+                        <VBox HBox.hgrow="ALWAYS" spacing="4">
+                            <Label text="Actions rapides" styleClass="admin-card-title"/>
+                            <Label text="Accedez directement aux notes, aux presences et a vos seances." styleClass="admin-page-subtitle"/>
+                        </VBox>
+                        <Button text="Notes" styleClass="btn-primary" onAction="#goNotes"/>
+                        <Button text="Presences" styleClass="btn-secondary" onAction="#goPresences"/>
+                        <Button text="Seances" styleClass="btn-secondary" onAction="#goSeances"/>
+                    </HBox>
+                </HBox>
+
+                <HBox spacing="22">
+                    <VBox styleClass="card" HBox.hgrow="ALWAYS" spacing="0">
+                        <HBox alignment="CENTER_LEFT" spacing="12" style="-fx-padding:16 20; -fx-border-color:#e2e8f0; -fx-border-width:0 0 1 0;">
+                            <VBox HBox.hgrow="ALWAYS" spacing="2">
+                                <Label text="Mes modules" styleClass="admin-card-title"/>
+                                <Label text="Liste des modules encadres actuellement" styleClass="admin-card-subtitle"/>
+                            </VBox>
+                            <Button text="Ouvrir" styleClass="btn-secondary" onAction="#goModules"/>
+                        </HBox>
+                        <TableView fx:id="modulesTable" prefHeight="260" style="-fx-border-color:transparent;">
+                            <columns>
+                                <TableColumn fx:id="colTitre" text="Module" prefWidth="230"/>
+                                <TableColumn fx:id="colNiveau" text="Niveau" prefWidth="150"/>
+                            </columns>
+                            <placeholder>
+                                <Label text="Aucun module disponible" style="-fx-text-fill:#64748b;"/>
+                            </placeholder>
+                        </TableView>
+                    </VBox>
+
+                    <VBox styleClass="card" HBox.hgrow="ALWAYS" spacing="0">
+                        <HBox alignment="CENTER_LEFT" spacing="12" style="-fx-padding:16 20; -fx-border-color:#e2e8f0; -fx-border-width:0 0 1 0;">
+                            <VBox HBox.hgrow="ALWAYS" spacing="2">
+                                <Label text="Mes prochaines seances" styleClass="admin-card-title"/>
+                                <Label text="Planification a venir par module et salle" styleClass="admin-card-subtitle"/>
+                            </VBox>
+                            <Button text="Ouvrir" styleClass="btn-secondary" onAction="#goSeances"/>
+                        </HBox>
+                        <TableView fx:id="seancesTable" prefHeight="260" style="-fx-border-color:transparent;">
+                            <columns>
+                                <TableColumn fx:id="colSeanceModule" text="Module" prefWidth="190"/>
+                                <TableColumn fx:id="colSeanceDate" text="Date" prefWidth="120"/>
+                                <TableColumn fx:id="colSeanceSalle" text="Salle" prefWidth="110"/>
+                            </columns>
+                            <placeholder>
+                                <Label text="Aucune seance a venir" style="-fx-text-fill:#64748b;"/>
+                            </placeholder>
+                        </TableView>
+                    </VBox>
+                </HBox>
+            </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>

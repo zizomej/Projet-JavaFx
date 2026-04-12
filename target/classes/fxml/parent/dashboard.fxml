@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.learnhub.controller.parent.ParentDashboardController"
+            stylesheets="@/css/styles.css"
+            prefWidth="1280" prefHeight="800">
+
+    <!-- ═══ TOP NAVBAR (purple - parent theme) ═══ -->
+    <top>
+        <HBox styleClass="parent-nav" alignment="CENTER_LEFT" minHeight="64" spacing="4">
+            <padding><Insets top="0" right="24" bottom="0" left="28"/></padding>
+            <Label text="🎓 LearnHub" styleClass="dash-nav-brand"/>
+            <Label text="  |  PARENT" style="-fx-text-fill:rgba(255,255,255,0.45); -fx-font-size:11px;"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button text="🏠 Tableau de bord" styleClass="parent-nav-link parent-nav-link-active" onAction="#goDashboard"/>
+            <Button text="📊 Notes"           styleClass="parent-nav-link" onAction="#goNotes"/>
+            <Button text="✔ Présences"       styleClass="parent-nav-link" onAction="#goPresences"/>
+            <Button text="📅 Emploi du temps" styleClass="parent-nav-link" onAction="#goEmploi"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <VBox alignment="CENTER_RIGHT" spacing="1" style="-fx-padding:0 10 0 0;">
+                <Label fx:id="welcomeLabel" text="Parent" styleClass="dash-nav-user"/>
+                <Label text="Compte Parent" styleClass="dash-nav-role"/>
+            </VBox>
+            <Button text="🚪 Déconnexion" styleClass="btn-logout" onAction="#handleLogout"/>
+        </HBox>
+    </top>
+
+    <center>
+        <ScrollPane fitToWidth="true" hbarPolicy="NEVER">
+            <VBox spacing="28" style="-fx-background-color:#f8fafc; -fx-padding:32 40 40 40;">
+
+                <!-- Welcome Banner (purple) -->
+                <VBox styleClass="welcome-banner-purple" spacing="6">
+                    <padding><Insets top="28" right="32" bottom="28" left="32"/></padding>
+                    <HBox alignment="CENTER_LEFT" spacing="20">
+                        <VBox spacing="6" HBox.hgrow="ALWAYS">
+                            <Label text="Espace Parent 👨‍👩‍👧" style="-fx-font-size:24px; -fx-font-weight:900; -fx-text-fill:white;"/>
+                            <Label text="Suivez la scolarité et les présences de votre enfant" style="-fx-font-size:14px; -fx-text-fill:rgba(255,255,255,0.85);"/>
+                        </VBox>
+                        <Label text="👪" style="-fx-font-size:72px;"/>
+                    </HBox>
+                </VBox>
+
+                <!-- Stats (purple theme) -->
+                <HBox spacing="20">
+                    <VBox styleClass="stat-card-purple-solid" HBox.hgrow="ALWAYS" spacing="8">
+                        <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+                        <Label text="📊" style="-fx-font-size:28px;"/>
+                        <Label fx:id="moyenneLabel" text="—" style="-fx-font-size:32px; -fx-font-weight:900; -fx-text-fill:white;"/>
+                        <Label text="Moyenne générale" style="-fx-font-size:12px; -fx-text-fill:rgba(255,255,255,0.8);"/>
+                    </VBox>
+                    <VBox styleClass="stat-card stat-card-red" HBox.hgrow="ALWAYS" spacing="8">
+                        <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+                        <Label text="⚠️" styleClass="stat-icon"/>
+                        <Label fx:id="absencesLabel" text="—" styleClass="stat-value"/>
+                        <Label text="Absences" styleClass="stat-label"/>
+                    </VBox>
+                    <VBox styleClass="stat-card stat-card-blue" HBox.hgrow="ALWAYS" spacing="8">
+                        <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+                        <Label text="📚" styleClass="stat-icon"/>
+                        <Label fx:id="modulesLabel" text="—" styleClass="stat-value"/>
+                        <Label text="Modules inscrits" styleClass="stat-label"/>
+                    </VBox>
+                </HBox>
+
+                <!-- Info Banner -->
+                <HBox styleClass="card" alignment="CENTER_LEFT" spacing="20" minHeight="80">
+                    <padding><Insets top="20" right="24" bottom="20" left="24"/></padding>
+                    <Label text="👁️" style="-fx-font-size:42px;"/>
+                    <VBox HBox.hgrow="ALWAYS" spacing="4">
+                        <Label text="Suivi en temps réel" style="-fx-font-size:17px; -fx-font-weight:800; -fx-text-fill:#7c3aed;"/>
+                        <Label text="Consultez les notes, présences et l'emploi du temps de votre enfant à tout moment" style="-fx-font-size:13px; -fx-text-fill:#64748b;"/>
+                    </VBox>
+                    <Button text="Voir les notes →" style="-fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #7c3aed, #9333ea); -fx-text-fill:white; -fx-background-radius:8; -fx-font-weight:700; -fx-padding:10 20;" onAction="#goNotes"/>
+                </HBox>
+
+                <!-- Two-column tables -->
+                <HBox spacing="24">
+                    <VBox styleClass="card" HBox.hgrow="ALWAYS" spacing="0">
+                        <HBox style="-fx-padding:16 20; -fx-border-color:#e2e8f0; -fx-border-width:0 0 1 0;" alignment="CENTER_LEFT" spacing="12">
+                            <Label text="📊 Notes de mon enfant" style="-fx-font-size:15px; -fx-font-weight:700; -fx-text-fill:#0A1F44;"/>
+                            <Region HBox.hgrow="ALWAYS"/>
+                            <Button text="Voir tout →" styleClass="btn-details" onAction="#goNotes"/>
+                        </HBox>
+                        <TableView fx:id="notesTable" prefHeight="280" style="-fx-border-color:transparent;">
+                            <columns>
+                                <TableColumn fx:id="colModule"  text="Module"   prefWidth="180"/>
+                                <TableColumn fx:id="colNote"    text="Note /20" prefWidth="90"/>
+                                <TableColumn fx:id="colMention" text="Mention"  prefWidth="110"/>
+                            </columns>
+                            <placeholder><Label text="Aucune note" style="-fx-text-fill:#64748b;"/></placeholder>
+                        </TableView>
+                    </VBox>
+
+                    <VBox styleClass="card" HBox.hgrow="ALWAYS" spacing="0">
+                        <HBox style="-fx-padding:16 20; -fx-border-color:#e2e8f0; -fx-border-width:0 0 1 0;" alignment="CENTER_LEFT" spacing="12">
+                            <Label text="✔ Présences" style="-fx-font-size:15px; -fx-font-weight:700; -fx-text-fill:#0A1F44;"/>
+                            <Region HBox.hgrow="ALWAYS"/>
+                            <Button text="Voir tout →" styleClass="btn-details" onAction="#goPresences"/>
+                        </HBox>
+                        <TableView fx:id="presencesTable" prefHeight="280" style="-fx-border-color:transparent;">
+                            <columns>
+                                <TableColumn fx:id="colSeance" text="Séance"  prefWidth="180"/>
+                                <TableColumn fx:id="colStatut" text="Statut"  prefWidth="90"/>
+                                <TableColumn fx:id="colDate"   text="Date"    prefWidth="100"/>
+                            </columns>
+                            <placeholder><Label text="Aucune présence" style="-fx-text-fill:#64748b;"/></placeholder>
+                        </TableView>
+                    </VBox>
+                </HBox>
+
+                <!-- Quick actions -->
+                <HBox spacing="12">
+                    <Button text="📊 Voir les notes"      style="-fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #7c3aed, #9333ea); -fx-text-fill:white; -fx-background-radius:8; -fx-font-weight:700; -fx-padding:12;" onAction="#goNotes"     HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                    <Button text="✔ Voir les présences"  style="-fx-background-color: #7c3aed; -fx-text-fill:white; -fx-background-radius:8; -fx-font-weight:700; -fx-padding:12;" onAction="#goPresences" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                    <Button text="📅 Emploi du temps"     styleClass="btn-secondary"  onAction="#goEmploi"   HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                </HBox>
+            </VBox>
+        </ScrollPane>
+    </center>
+
+</BorderPane>

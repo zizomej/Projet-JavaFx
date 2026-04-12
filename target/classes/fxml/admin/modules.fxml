@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Circle?>
+<BorderPane prefHeight="700.0" prefWidth="1200.0" stylesheets="@/css/styles.css"
+            xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.learnhub.controller.admin.ModulesController">
+    <left>
+        <VBox prefWidth="250.0" styleClass="sidebar" BorderPane.alignment="CENTER">
+            <VBox alignment="CENTER" prefHeight="100.0" style="-fx-padding: 20 10;">
+                <Label text="🎓 LearnHub" textFill="WHITE" style="-fx-font-size: 22px; -fx-font-weight: bold;"/>
+                <Label text="Espace Administrateur" textFill="#a0aabf" style="-fx-font-size: 11px;"/>
+            </VBox>
+            <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS" style="-fx-background-color: transparent; -fx-border-color: transparent;">
+                <VBox spacing="2.0" style="-fx-padding: 8 0;">
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="📊 Dashboard" onAction="#goDashboard"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="👥 Utilisateurs" onAction="#goUtilisateurs"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn sidebar-btn-active" text="📚 Modules" onAction="#goModules"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="🗓 Séances" onAction="#goSeances"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="📝 Notes" onAction="#goNotes"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="✔ Présences" onAction="#goPresences"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="🎓 Filières" onAction="#goFilieres"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="🎉 Événements" onAction="#goEvenements"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="🏥 RDV Médicaux" onAction="#goRdv"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="🕐 Créneaux" onAction="#goCreneaux"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="🤝 Partenaires" onAction="#goPartenaires"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="💼 Offres de Stage" onAction="#goOffresStage"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="📋 Demandes Stage" onAction="#goDemandesStage"/>
+                </VBox>
+            </ScrollPane>
+            <VBox alignment="CENTER" prefHeight="100.0" spacing="8.0" style="-fx-background-color: #151a2b; -fx-padding: 10;">
+                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                    <StackPane><Circle fill="#ff9800" radius="18.0"/><Label text="AD" textFill="WHITE" style="-fx-font-weight: bold;"/></StackPane>
+                    <VBox alignment="CENTER_LEFT">
+                        <Label text="Admin Principal" textFill="WHITE" style="-fx-font-weight: bold; -fx-font-size: 13px;"/>
+                        <Label text="admin@learnhub.tn" textFill="#a0aabf" style="-fx-font-size: 11px;"/>
+                    </VBox>
+                </HBox>
+                <Button text="🚪 Déconnexion" maxWidth="Infinity" onAction="#handleLogout" style="-fx-background-color: #293047; -fx-text-fill: white; -fx-background-radius: 5; -fx-cursor: hand; -fx-padding: 8 10;"/>
+            </VBox>
+        </VBox>
+    </left>
+    <center>
+        <VBox spacing="0" style="-fx-background-color: #f8fafc;">
+
+            <!-- Banner -->
+            <HBox alignment="CENTER_LEFT" spacing="15"
+                  style="-fx-background-color: linear-gradient(to right, #0891b2, #06b6d4); -fx-padding: 24 28; -fx-background-radius: 0 0 12 12;">
+                <Label text="📚" style="-fx-font-size: 32px;"/>
+                <VBox spacing="4">
+                    <Label text="Gestion Modules &amp; Ressources" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+                    <Label text="Visualisation et suppression des modules et ressources" style="-fx-font-size: 13px; -fx-text-fill: rgba(255,255,255,0.85);"/>
+                </VBox>
+            </HBox>
+
+            <!-- Filters -->
+            <HBox spacing="15" alignment="CENTER_LEFT" style="-fx-padding: 16 20 10 20;">
+                <TextField fx:id="searchField" promptText="🔍 Rechercher un module..." prefWidth="300" HBox.hgrow="ALWAYS"
+                           style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-border-color: #d1d5db; -fx-padding: 8 16;"/>
+                <ComboBox fx:id="comboSemestre" promptText="Tous les semestres" prefWidth="180"/>
+                <ComboBox fx:id="comboTrier" promptText="Trier par" prefWidth="180"/>
+            </HBox>
+
+            <!-- Split Layout -->
+            <HBox spacing="20" VBox.vgrow="ALWAYS" style="-fx-padding: 0 20 20 20;">
+                <!-- Left: Modules -->
+                <VBox spacing="12" prefWidth="380" minWidth="300">
+                    <Label text="📚 Liste des Modules" style="-fx-font-weight: 900; -fx-font-size: 15px; -fx-text-fill: #0A1F44; -fx-padding: 5 0;"/>
+                    <ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-border-color: transparent;" prefHeight="600">
+                        <VBox fx:id="modulesContainer" spacing="16" style="-fx-padding: 5;"/>
+                    </ScrollPane>
+                </VBox>
+
+                <!-- Right: Resources -->
+                <VBox spacing="15" HBox.hgrow="ALWAYS"
+                      style="-fx-background-color: white; -fx-background-radius: 12; -fx-border-color: #e5e7eb; -fx-border-radius: 12; -fx-padding: 24;">
+                    <Label text="📂 Toutes les Ressources" style="-fx-font-size: 16px; -fx-font-weight: 900; -fx-text-fill: #0A1F44;"/>
+                    <ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-border-color: transparent;" VBox.vgrow="ALWAYS" prefHeight="570">
+                        <VBox fx:id="resourcesContainer" spacing="20"/>
+                    </ScrollPane>
+                </VBox>
+            </HBox>
+        </VBox>
+    </center>
+</BorderPane>

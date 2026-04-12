@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.learnhub.controller.medecin.MedecinDashboardController"
+            stylesheets="@/css/styles.css"
+            prefWidth="1280" prefHeight="800">
+
+    <!-- ═══ TOP NAVBAR (green - medecin theme) ═══ -->
+    <top>
+        <HBox styleClass="medecin-nav" alignment="CENTER_LEFT" minHeight="64" spacing="4">
+            <padding><Insets top="0" right="24" bottom="0" left="28"/></padding>
+            <Label text="🎓 LearnHub" styleClass="dash-nav-brand"/>
+            <Label text="  |  MÉDECIN" style="-fx-text-fill:rgba(255,255,255,0.45); -fx-font-size:11px;"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button text="🏠 Tableau de bord" styleClass="medecin-nav-link medecin-nav-link-active" onAction="#goDashboard"/>
+            <Button text="📅 Mes RDV"         styleClass="medecin-nav-link" onAction="#goRdv"/>
+            <Button text="🕐 Mes Créneaux"    styleClass="medecin-nav-link" onAction="#goCreneaux"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <VBox alignment="CENTER_RIGHT" spacing="1" style="-fx-padding:0 10 0 0;">
+                <Label fx:id="welcomeLabel" text="Dr. Médecin" styleClass="dash-nav-user"/>
+                <Label text="Médecin Universitaire" styleClass="dash-nav-role"/>
+            </VBox>
+            <Button text="🚪 Déconnexion" styleClass="btn-logout" onAction="#handleLogout"/>
+        </HBox>
+    </top>
+
+    <center>
+        <ScrollPane fitToWidth="true" hbarPolicy="NEVER">
+            <VBox spacing="28" style="-fx-background-color:#f8fafc; -fx-padding:32 40 40 40;">
+
+                <!-- Welcome Banner (green) -->
+                <VBox styleClass="welcome-banner-green" spacing="6">
+                    <padding><Insets top="28" right="32" bottom="28" left="32"/></padding>
+                    <HBox alignment="CENTER_LEFT" spacing="20">
+                        <VBox spacing="6" HBox.hgrow="ALWAYS">
+                            <Label text="Espace Médecin 🏥" style="-fx-font-size:24px; -fx-font-weight:900; -fx-text-fill:white;"/>
+                            <Label text="Gérez vos créneaux et rendez-vous médicaux étudiants" style="-fx-font-size:14px; -fx-text-fill:rgba(255,255,255,0.85);"/>
+                        </VBox>
+                        <Label text="🩺" style="-fx-font-size:72px;"/>
+                    </HBox>
+                </VBox>
+
+                <!-- Stats (green theme) -->
+                <HBox spacing="20">
+                    <VBox styleClass="stat-card-green-solid" HBox.hgrow="ALWAYS" spacing="8">
+                        <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+                        <Label text="📅" style="-fx-font-size:28px;"/>
+                        <Label fx:id="rdvTotalLabel" text="—" style="-fx-font-size:32px; -fx-font-weight:900; -fx-text-fill:white;"/>
+                        <Label text="RDV total" style="-fx-font-size:12px; -fx-text-fill:rgba(255,255,255,0.8);"/>
+                    </VBox>
+                    <VBox styleClass="stat-card stat-card-gold" HBox.hgrow="ALWAYS" spacing="8">
+                        <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+                        <Label text="⏳" styleClass="stat-icon"/>
+                        <Label fx:id="rdvAttenteLabel" text="—" styleClass="stat-value"/>
+                        <Label text="En attente" styleClass="stat-label"/>
+                    </VBox>
+                    <VBox styleClass="stat-card stat-card-teal" HBox.hgrow="ALWAYS" spacing="8">
+                        <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+                        <Label text="🕐" styleClass="stat-icon"/>
+                        <Label fx:id="creneauxLabel" text="—" styleClass="stat-value"/>
+                        <Label text="Créneaux disponibles" styleClass="stat-label"/>
+                    </VBox>
+                </HBox>
+
+                <!-- Quick access banner -->
+                <HBox styleClass="card" alignment="CENTER_LEFT" spacing="20" minHeight="80">
+                    <padding><Insets top="20" right="24" bottom="20" left="24"/></padding>
+                    <Label text="🗓️" style="-fx-font-size:42px;"/>
+                    <VBox HBox.hgrow="ALWAYS" spacing="4">
+                        <Label text="Gestion des créneaux médicaux" style="-fx-font-size:17px; -fx-font-weight:800; -fx-text-fill:#059669;"/>
+                        <Label text="Définissez vos disponibilités pour que les étudiants puissent prendre rendez-vous" style="-fx-font-size:13px; -fx-text-fill:#64748b;"/>
+                    </VBox>
+                    <Button text="Gérer les créneaux →"
+                            style="-fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #059669, #16a34a);
+                                   -fx-text-fill:white; -fx-background-radius:8; -fx-font-weight:700; -fx-padding:10 20;"
+                            onAction="#goCreneaux"/>
+                </HBox>
+
+                <!-- RDV Table -->
+                <VBox styleClass="card" spacing="0">
+                    <HBox style="-fx-padding:16 20; -fx-border-color:#e2e8f0; -fx-border-width:0 0 1 0;" alignment="CENTER_LEFT" spacing="12">
+                        <Label text="📅 Demandes de Rendez-vous" style="-fx-font-size:15px; -fx-font-weight:700; -fx-text-fill:#0A1F44;"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Button text="Gérer tous les RDV →"
+                                style="-fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #059669, #16a34a);
+                                       -fx-text-fill:white; -fx-background-radius:8; -fx-font-weight:700; -fx-padding:8 16;"
+                                onAction="#goRdv"/>
+                    </HBox>
+                    <TableView fx:id="rdvTable" prefHeight="280" style="-fx-border-color:transparent;">
+                        <columns>
+                            <TableColumn fx:id="colPatient" text="Patient"    prefWidth="220"/>
+                            <TableColumn fx:id="colDate"    text="Date"       prefWidth="170"/>
+                            <TableColumn fx:id="colMotif"   text="Motif"      prefWidth="280"/>
+                            <TableColumn fx:id="colStatut"  text="Statut"     prefWidth="130"/>
+                        </columns>
+                        <placeholder><Label text="Aucun RDV" style="-fx-text-fill:#64748b;"/></placeholder>
+                    </TableView>
+                </VBox>
+
+                <!-- Quick actions -->
+                <HBox spacing="12">
+                    <Button text="📅 Gérer mes RDV"
+                            style="-fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #059669, #16a34a); -fx-text-fill:white; -fx-background-radius:8; -fx-font-weight:700; -fx-padding:12;"
+                            onAction="#goRdv"      HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                    <Button text="🕐 Gérer mes créneaux" styleClass="btn-secondary"
+                            onAction="#goCreneaux" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                </HBox>
+            </VBox>
+        </ScrollPane>
+    </center>
+
+</BorderPane>
