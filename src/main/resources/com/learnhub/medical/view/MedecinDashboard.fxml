@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="25.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.learnhub.medical.controller.MedecinDashboardController"
+      stylesheets="@../css/style.css" prefHeight="640.0" prefWidth="950.0">
+
+    <padding><Insets bottom="25.0" left="25.0" right="25.0" top="25.0"/></padding>
+
+    <!-- Header -->
+    <HBox alignment="CENTER_LEFT" spacing="15.0">
+        <VBox spacing="4.0">
+            <Label text="Tableau de Bord Médecin" styleClass="header-title"/>
+            <Label text="Aperçu de votre activité médicale" style="-fx-text-fill: #6c757d;"/>
+        </VBox>
+        <Region HBox.hgrow="ALWAYS"/>
+        <ComboBox fx:id="comboSort" promptText="Trier par..." prefWidth="160"/>
+        <TextField fx:id="txtSearch" promptText="Rechercher..." prefWidth="200"
+                   style="-fx-border-radius: 20; -fx-background-radius: 20; -fx-padding: 6 12;"/>
+        <Button mnemonicParsing="false" onAction="#refreshData" styleClass="btn-primary" text="Actualiser"/>
+    </HBox>
+
+    <!-- Stats Cards -->
+    <HBox spacing="20.0">
+        <VBox spacing="5.0" styleClass="stat-card, stat-card-yellow" HBox.hgrow="ALWAYS" alignment="CENTER">
+            <Label fx:id="lblPendingCount"   text="0" styleClass="stat-value"/>
+            <Label text="En attente"              styleClass="stat-label"/>
+        </VBox>
+        <VBox spacing="5.0" styleClass="stat-card, stat-card-blue" HBox.hgrow="ALWAYS" alignment="CENTER">
+            <Label fx:id="lblConfirmedCount" text="0" styleClass="stat-value"/>
+            <Label text="Confirmés"               styleClass="stat-label"/>
+        </VBox>
+        <VBox spacing="5.0" styleClass="stat-card, stat-card-orange" HBox.hgrow="ALWAYS" alignment="CENTER">
+            <Label fx:id="lblTodayCount"     text="0" styleClass="stat-value"/>
+            <Label text="Aujourd'hui"             styleClass="stat-label"/>
+        </VBox>
+        <VBox spacing="5.0" styleClass="stat-card, stat-card-purple" HBox.hgrow="ALWAYS" alignment="CENTER">
+            <Label fx:id="lblMonthCount"     text="0" styleClass="stat-value"/>
+            <Label text="Ce mois"                 styleClass="stat-label"/>
+        </VBox>
+    </HBox>
+
+    <!-- Table des RDV -->
+    <VBox spacing="10.0" VBox.vgrow="ALWAYS" styleClass="card">
+        <Label text="Demandes de Rendez-vous"
+               style="-fx-font-size: 17; -fx-font-weight: bold; -fx-text-fill: #0A1F44;"/>
+        <TableView fx:id="tableRDV" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="colStudent"  prefWidth="150.0" text="Étudiant"/>
+                <TableColumn fx:id="colMotif"    prefWidth="150.0" text="Motif"/>
+                <TableColumn fx:id="colCreneau"  prefWidth="160.0" text="Créneau"/>
+                <TableColumn fx:id="colDate"     prefWidth="110.0" text="Date"/>
+                <TableColumn fx:id="colStatut"   prefWidth="100.0" text="Statut"/>
+                <TableColumn fx:id="colActions"  prefWidth="200.0" text="Actions"/>
+            </columns>
+            <placeholder><Label text="Aucun rendez-vous trouvé"/></placeholder>
+        </TableView>
+    </VBox>
+
+</VBox>

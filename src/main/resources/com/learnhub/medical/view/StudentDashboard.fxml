@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="25.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.learnhub.medical.controller.StudentDashboardController"
+      stylesheets="@../css/style.css" prefHeight="600.0" prefWidth="900.0">
+
+    <padding><Insets bottom="30.0" left="30.0" right="30.0" top="30.0"/></padding>
+
+    <VBox spacing="10.0" styleClass="medical-header" style="-fx-padding: 30; -fx-background-radius: 20;">
+        <Label fx:id="lblWelcome" text="Bienvenue !" textFill="WHITE" style="-fx-font-size: 28; -fx-font-weight: bold;"/>
+        <Label text="Espace Santé Étudiant — Prenez soin de vous" textFill="WHITE" style="-fx-opacity: 0.9;"/>
+    </VBox>
+
+    <HBox spacing="20.0">
+        <VBox spacing="10.0" styleClass="card" HBox.hgrow="ALWAYS">
+            <Label text="Prochain RDV" style="-fx-font-weight: bold; -fx-text-fill: #1E3A8A;"/>
+            <Label fx:id="lblNextRDV" text="..." style="-fx-font-size: 16;"/>
+        </VBox>
+        <VBox spacing="10.0" styleClass="card" HBox.hgrow="ALWAYS">
+            <Label text="Mes Demandes" style="-fx-font-weight: bold; -fx-text-fill: #1E3A8A;"/>
+            <Label fx:id="lblTotalMyRDV" text="0" style="-fx-font-size: 24; -fx-font-weight: bold;"/>
+        </VBox>
+    </HBox>
+
+    <VBox spacing="15.0" VBox.vgrow="ALWAYS" styleClass="card" alignment="CENTER">
+        <Label text="Besoin d'une consultation ?" style="-fx-font-size: 18; -fx-font-weight: bold;"/>
+        <Button text="Choisir un créneau disponible" styleClass="btn-primary" prefWidth="300" />
+    </VBox>
+
+</VBox>

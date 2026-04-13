@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="20.0" prefWidth="500.0" style="-fx-background-color: white; -fx-background-radius: 12;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.learnhub.medical.controller.DoctorRDVDialogController" stylesheets="@../css/style.css">
+
+    <padding><Insets bottom="25.0" left="25.0" right="25.0" top="25.0"/></padding>
+
+    <!-- Header -->
+    <HBox alignment="CENTER_LEFT" spacing="12.0" style="-fx-border-color: #F1F5F9; -fx-border-width: 0 0 1 0; -fx-padding: 0 0 15 0;">
+        <StackPane style="-fx-background-color: #FFF7ED; -fx-padding: 10; -fx-background-radius: 8;">
+            <Label text="📝" style="-fx-font-size: 18;" />
+        </StackPane>
+        <VBox>
+            <Label fx:id="lblTitle" text="Ajouter un Rendez-vous" style="-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #1E293B;" />
+            <Label text="Veuillez remplir les informations" style="-fx-text-fill: #94A3B8; -fx-font-size: 11;" />
+        </VBox>
+    </HBox>
+
+    <!-- Form -->
+    <GridPane vgap="15.0" hgap="15.0">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+        </columnConstraints>
+
+        <VBox spacing="5.0" GridPane.rowIndex="0">
+            <Label text="Motif *" styleClass="label-form" />
+            <TextField fx:id="txtMotif" promptText="Ex: Consultation générale" />
+        </VBox>
+
+        <VBox spacing="5.0" GridPane.rowIndex="1">
+            <Label text="Description" styleClass="label-form" />
+            <TextArea fx:id="txtDescription" prefHeight="80.0" wrapText="true" promptText="Symptômes, remarques..." />
+        </VBox>
+
+        <HBox spacing="15.0" GridPane.rowIndex="2">
+            <VBox spacing="5.0" HBox.hgrow="ALWAYS">
+                <Label text="Date *" styleClass="label-form" />
+                <DatePicker fx:id="datePicker" maxWidth="Infinity" />
+            </VBox>
+            <VBox spacing="5.0" HBox.hgrow="ALWAYS">
+                <Label text="Créneau *" styleClass="label-form" />
+                <ComboBox fx:id="comboCreneau" maxWidth="Infinity" />
+            </VBox>
+        </HBox>
+
+        <VBox spacing="5.0" GridPane.rowIndex="3">
+            <Label text="Statut" styleClass="label-form" />
+            <ComboBox fx:id="comboStatut" maxWidth="Infinity" />
+        </VBox>
+
+        <VBox spacing="5.0" GridPane.rowIndex="4">
+            <Label text="Compte Rendu" styleClass="label-form" />
+            <TextArea fx:id="txtCompteRendu" prefHeight="100.0" wrapText="true" />
+        </VBox>
+    </GridPane>
+
+    <!-- Actions -->
+    <HBox spacing="10.0" alignment="CENTER_RIGHT" style="-fx-padding: 10 0 0 0;">
+        <Button onAction="#handleCancel" styleClass="btn-header-action" text="Annuler" />
+        <Button fx:id="btnSave" onAction="#handleSave" styleClass="btn-save-blue" text="Enregistrer" />
+    </HBox>
+
+</VBox>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.shape.Circle?>
+
+<VBox prefHeight="650.0" prefWidth="550.0" spacing="0.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.learnhub.medical.controller.EditRDVController" stylesheets="@../css/style.css">
+
+    <!-- Header -->
+    <HBox alignment="CENTER_LEFT" spacing="15.0" styleClass="dialog-header" style="-fx-padding: 25;">
+        <StackPane>
+            <Circle radius="22" fill="#E0F2FE" />
+            <Label fx:id="lblHeaderIcon" text="📋" style="-fx-font-size: 20;" />
+        </StackPane>
+        <VBox spacing="2.0">
+            <Label fx:id="lblHeaderTitle" styleClass="header-title" text="Nouveau Rendez-vous" />
+            <Label fx:id="lblHeaderSubtitle" text="Détails techniques de la consultation" style="-fx-text-fill: #64748B; -fx-font-size: 13;" />
+        </VBox>
+        <Region HBox.hgrow="ALWAYS" />
+        <Button fx:id="btnRetour" onAction="#handleCancel" styleClass="btn-header-action" text="← Retour" />
+        <Button fx:id="btnDelete" onAction="#handleDelete" styleClass="btn-header-action" text="🗑 Supprimer" style="-fx-text-fill: #EF4444;" visible="false" />
+    </HBox>
+
+    <ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-background: transparent;" VBox.vgrow="ALWAYS">
+        <VBox spacing="25.0" style="-fx-padding: 30 40;">
+
+            <!-- Section 1 : Étudiant & Motif -->
+            <VBox spacing="15.0">
+                <HBox alignment="CENTER_LEFT" spacing="10.0" styleClass="section-header-box">
+                    <Label text="👤 Informations Étudiant" styleClass="section-label" />
+                </HBox>
+                
+                <VBox spacing="8.0">
+                    <Label text="Étudiant / Demandeur *" styleClass="label-form" />
+                    <ComboBox fx:id="comboStudent" prefHeight="45.0" maxWidth="Infinity" promptText="Sélectionner un étudiant..." />
+                </VBox>
+
+                <VBox spacing="8.0">
+                    <Label text="Motif du Rendez-vous *" styleClass="label-form" />
+                    <TextField fx:id="txtMotif" prefHeight="45.0" promptText="Ex: Fièvre, Consultation de suivi..." />
+                </VBox>
+            </VBox>
+
+            <!-- Section 2 : Détails & Timing -->
+            <VBox spacing="15.0">
+                <HBox alignment="CENTER_LEFT" spacing="10.0" styleClass="section-header-box">
+                    <Label text="⏰ Créneau & État" styleClass="section-label" />
+                </HBox>
+
+                <HBox spacing="15.0">
+                    <VBox spacing="8.0" HBox.hgrow="ALWAYS">
+                        <Label text="Jour demandé *" styleClass="label-form" />
+                        <DatePicker fx:id="datePicker" prefHeight="45.0" maxWidth="Infinity" />
+                    </VBox>
+                    <VBox spacing="8.0" HBox.hgrow="ALWAYS">
+                        <Label text="Statut" styleClass="label-form" />
+                        <ComboBox fx:id="comboStatut" prefHeight="45.0" maxWidth="Infinity" />
+                    </VBox>
+                </HBox>
+
+                <VBox spacing="8.0">
+                    <Label text="Créneau Horaire *" styleClass="label-form" />
+                    <ComboBox fx:id="comboCreneau" prefHeight="45.0" maxWidth="Infinity" promptText="Choisir un créneau..." />
+                </VBox>
+            </VBox>
+
+            <!-- Section 3 : Notes Médicales -->
+            <VBox spacing="15.0">
+                <HBox alignment="CENTER_LEFT" spacing="10.0" styleClass="section-header-box">
+                    <Label text="📝 Notes & Comptes-rendus" styleClass="section-label" />
+                </HBox>
+
+                <VBox spacing="8.0">
+                    <Label text="Description de l'étudiant" styleClass="label-form" />
+                    <TextArea fx:id="txtDescription" prefHeight="80.0" wrapText="true" promptText="Symptômes décrits..." />
+                </VBox>
+
+                <VBox spacing="8.0">
+                    <Label text="Compte-rendu médical" styleClass="label-form" />
+                    <TextArea fx:id="txtCompteRendu" prefHeight="100.0" wrapText="true" promptText="Résultat de la consultation, diagnostic..." />
+                </VBox>
+            </VBox>
+
+        </VBox>
+    </ScrollPane>
+
+    <!-- Footer Action Buttons -->
+    <HBox alignment="CENTER_RIGHT" spacing="15.0" style="-fx-padding: 20 40; -fx-background-color: #F8FAFC; -fx-border-color: #E2E8F0; -fx-border-width: 1 0 0 0;">
+        <Button onAction="#handleCancel" prefHeight="45.0" prefWidth="120.0" style="-fx-background-color: #E2E8F0; -fx-text-fill: #475569; -fx-font-weight: bold; -fx-background-radius: 6;" text="Annuler" />
+        <Button fx:id="btnSave" onAction="#handleSave" prefHeight="45.0" prefWidth="180.0" styleClass="btn-save-blue" text="Enregistrer" />
+    </HBox>
+
+</VBox>

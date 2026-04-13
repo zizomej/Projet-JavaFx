@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="20.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.learnhub.medical.controller.UserManagementController"
+      stylesheets="@../css/style.css" prefHeight="650.0" prefWidth="1000.0">
+
+    <padding><Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/></padding>
+
+    <!-- Header -->
+    <HBox alignment="CENTER_LEFT" spacing="15.0" styleClass="header">
+        <VBox spacing="4.0">
+            <Label text="👥 Gestion des Utilisateurs" styleClass="header-title"/>
+            <Label text="Administrez les comptes Médecins, Étudiants et Admin"
+                   style="-fx-text-fill: #6c757d;"/>
+        </VBox>
+        <Region HBox.hgrow="ALWAYS"/>
+        <TextField fx:id="txtSearch" promptText="🔍 Rechercher un utilisateur..." prefWidth="250"
+                   style="-fx-background-radius: 20; -fx-border-radius: 20;"/>
+        <Button mnemonicParsing="false" onAction="#handleRefresh" styleClass="btn-primary" text="Actualiser"/>
+    </HBox>
+
+    <HBox spacing="20.0" VBox.vgrow="ALWAYS">
+        <!-- Table -->
+        <VBox spacing="10.0" HBox.hgrow="ALWAYS" styleClass="card">
+            <TableView fx:id="tableUsers" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="colId" prefWidth="40.0" text="ID"/>
+                    <TableColumn fx:id="colNom" prefWidth="120.0" text="Nom"/>
+                    <TableColumn fx:id="colPrenom" prefWidth="120.0" text="Prénom"/>
+                    <TableColumn fx:id="colEmail" prefWidth="180.0" text="Email"/>
+                    <TableColumn fx:id="colRole" prefWidth="100.0" text="Rôle"/>
+                    <TableColumn fx:id="colStatut" prefWidth="80.0" text="Statut"/>
+                </columns>
+                <placeholder><Label text="Aucun utilisateur trouvé"/></placeholder>
+            </TableView>
+        </VBox>
+
+        <!-- Form Side -->
+        <VBox spacing="12.0" prefWidth="320.0" styleClass="card">
+            <Label text="👤 Détails Utilisateur"
+                   style="-fx-font-size: 17; -fx-font-weight: bold; -fx-text-fill: #1E3A8A;"/>
+            <Separator/>
+
+            <ScrollPane fitToWidth="true" hbarPolicy="NEVER" VBox.vgrow="ALWAYS"
+                        style="-fx-background-color: transparent;">
+                <VBox spacing="10.0">
+                    <VBox spacing="4.0">
+                        <Label text="Nom *" styleClass="label-form"/>
+                        <TextField fx:id="txtNom"/>
+                    </VBox>
+                    <VBox spacing="4.0">
+                        <Label text="Prénom *" styleClass="label-form"/>
+                        <TextField fx:id="txtPrenom"/>
+                    </VBox>
+                    <VBox spacing="4.0">
+                        <Label text="Email *" styleClass="label-form"/>
+                        <TextField fx:id="txtEmail"/>
+                    </VBox>
+                    <VBox spacing="4.0">
+                        <Label text="CIN" styleClass="label-form"/>
+                        <TextField fx:id="txtCin"/>
+                    </VBox>
+                    <VBox spacing="4.0">
+                        <Label text="Rôle *" styleClass="label-form"/>
+                        <ComboBox fx:id="comboRole" prefWidth="280.0"/>
+                    </VBox>
+                    <VBox spacing="4.0">
+                        <Label text="Téléphone" styleClass="label-form"/>
+                        <TextField fx:id="txtTelephone"/>
+                    </VBox>
+                    <VBox spacing="4.0">
+                        <Label text="Statut" styleClass="label-form"/>
+                        <ComboBox fx:id="comboStatut" prefWidth="280.0"/>
+                    </VBox>
+                </VBox>
+            </ScrollPane>
+
+            <Separator/>
+            <HBox spacing="8.0" alignment="CENTER">
+                <Button mnemonicParsing="false" onAction="#handleSave" styleClass="btn-primary" text="💾 Enregistrer"/>
+                <Button mnemonicParsing="false" onAction="#handleDelete" styleClass="btn-orange" text="🗑 Supprimer"/>
+                <Button mnemonicParsing="false" onAction="#handleClear" styleClass="btn-yellow" text="✖ Vider"/>
+            </HBox>
+        </VBox>
+    </HBox>
+</VBox>

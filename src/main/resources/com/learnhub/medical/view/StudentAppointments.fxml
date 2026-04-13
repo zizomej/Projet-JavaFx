@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.shape.Circle?>
+
+<VBox spacing="25.0" style="-fx-background-color: linear-gradient(to bottom right, #F1F5F9, #E2E8F0);" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.learnhub.medical.controller.StudentAppointmentsController" stylesheets="@../css/style.css" prefHeight="700.0" prefWidth="1050.0">
+
+    <padding><Insets bottom="30.0" left="30.0" right="30.0" top="30.0"/></padding>
+
+    <!-- Premium Header -->
+    <HBox alignment="CENTER_LEFT" spacing="15.0" styleClass="section-header-box" style="-fx-padding: 0 0 15 0;">
+        <StackPane>
+            <Circle radius="22" fill="#E0F2FE" />
+            <Label text="📋" style="-fx-font-size: 20;" />
+        </StackPane>
+        <VBox spacing="2.0" HBox.hgrow="ALWAYS">
+            <Label styleClass="header-title" text="Mes Rendez-vous" />
+            <Label text="Suivez l'état de vos demandes et consultez vos futurs rendez-vous" style="-fx-text-fill: #64748B; -fx-font-size: 13;" />
+        </VBox>
+        <HBox spacing="20.0" alignment="CENTER_RIGHT">
+            <TextField fx:id="txtSearch" promptText="Rechercher un rdv..." style="-fx-background-radius: 20; -fx-padding: 8 15; -fx-pref-width: 200;" />
+            <HBox spacing="10.0">
+                <VBox alignment="CENTER" style="-fx-background-color: #FFFFFF; -fx-padding: 5 15; -fx-background-radius: 8; -fx-border-color: #E2E8F0; -fx-border-radius: 8;">
+                    <Label text="Total" style="-fx-font-size: 10; -fx-text-fill: #64748B;" />
+                    <Label fx:id="lblTotalRDV" text="0" style="-fx-font-weight: bold; -fx-font-size: 16; -fx-text-fill: #1E3A8A;" />
+                </VBox>
+                <VBox alignment="CENTER" style="-fx-background-color: #FFFFFF; -fx-padding: 5 15; -fx-background-radius: 8; -fx-border-color: #E2E8F0; -fx-border-radius: 8;">
+                    <Label text="Confirmés" style="-fx-font-size: 10; -fx-text-fill: #64748B;" />
+                    <Label fx:id="lblConfirmedRDV" text="0" style="-fx-font-weight: bold; -fx-font-size: 16; -fx-text-fill: #059669;" />
+                </VBox>
+            </HBox>
+            <Button onAction="#loadData" styleClass="btn-header-action" text="🔄 Actualiser" />
+        </HBox>
+    </HBox>
+
+    <ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-background: transparent;" VBox.vgrow="ALWAYS">
+        <VBox fx:id="vboxAppointments" spacing="20.0" style="-fx-padding: 5;">
+            <!-- Les cartes de RDV seront injectées ici dynamiquement -->
+        </VBox>
+    </ScrollPane>
+    
+</VBox>

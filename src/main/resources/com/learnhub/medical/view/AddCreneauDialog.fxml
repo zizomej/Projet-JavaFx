@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.shape.Circle?>
+
+<VBox prefHeight="650.0" prefWidth="550.0" spacing="0.0" style="-fx-background-color: #F8FAFC;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.learnhub.medical.controller.AddCreneauController" stylesheets="@../css/style.css">
+
+    <!-- Header (Match Symfony) -->
+    <HBox alignment="CENTER_LEFT" spacing="15.0" styleClass="dialog-header">
+        <StackPane>
+            <Circle radius="22" fill="#FFF7ED" />
+            <Label text="📝" style="-fx-font-size: 20;" />
+        </StackPane>
+        <VBox spacing="2.0">
+            <Label fx:id="lblTitle" styleClass="header-title" text="Modifier le Créneau" />
+            <Label fx:id="lblSubtitle" style="-fx-text-fill: #64748B; -fx-font-size: 13;" text="Mettre à jour les informations du créneau" />
+        </VBox>
+        <Region HBox.hgrow="ALWAYS" />
+        <HBox spacing="10.0">
+            <Button fx:id="btnRetour" onAction="#handleCancel" styleClass="btn-header-action" text="← Retour" />
+            <Button fx:id="btnDelete" onAction="#handleDelete" styleClass="btn-header-action, btn-delete-light" text="🗑 Supprimer" visible="false" />
+        </HBox>
+    </HBox>
+
+    <ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-background: transparent;" VBox.vgrow="ALWAYS">
+        <VBox spacing="30.0" style="-fx-padding: 30 40;">
+            
+            <!-- Section 1: Horaires & Fréquence -->
+            <VBox spacing="15.0">
+                <HBox alignment="CENTER_LEFT" spacing="10.0" styleClass="section-header-box">
+                    <Label text="🕒" style="-fx-font-size: 16;" />
+                    <Label text="Horaires &amp; Fréquence" styleClass="section-label" />
+                </HBox>
+
+                <VBox spacing="8.0">
+                    <Label text="Date du créneau" styleClass="label-form" />
+                    <DatePicker fx:id="datePicker" maxWidth="Infinity" prefHeight="45.0" />
+                </VBox>
+
+                <VBox spacing="8.0">
+                    <Label text="Heure de début" styleClass="label-form" />
+                    <HBox spacing="10.0">
+                        <ComboBox fx:id="comboHeure" prefHeight="45.0" prefWidth="120.0" />
+                        <Label text=":" style="-fx-font-size: 20; -fx-padding: 5 0 0 0;" />
+                        <ComboBox fx:id="comboMinute" prefHeight="45.0" prefWidth="120.0" />
+                    </HBox>
+                </VBox>
+
+                <VBox spacing="8.0">
+                    <Label text="Récurrence" styleClass="label-form" />
+                    <ComboBox fx:id="comboRecurrence" maxWidth="Infinity" prefHeight="45.0" />
+                </VBox>
+            </VBox>
+
+            <!-- Section 2: État du créneau -->
+            <VBox spacing="15.0">
+                <HBox alignment="CENTER_LEFT" spacing="10.0" styleClass="section-header-box">
+                    <Label text="✅" style="-fx-font-size: 16;" />
+                    <Label text="État du créneau" styleClass="section-label" />
+                </HBox>
+
+                <VBox styleClass="disponibility-box">
+                    <CheckBox fx:id="checkDisponibilite" mnemonicParsing="false" selected="true" 
+                              style="-fx-font-size: 14; -fx-font-weight: bold; -fx-text-fill: #166534;" 
+                              text="Marquer comme Disponible" />
+                </VBox>
+            </VBox>
+
+        </VBox>
+    </ScrollPane>
+
+    <!-- Footer -->
+    <HBox alignment="CENTER_RIGHT" spacing="15.0" style="-fx-padding: 20 40; -fx-background-color: #F1F5F9; -fx-border-color: #E2E8F0; -fx-border-width: 1 0 0 0;">
+        <Button onAction="#handleCancel" prefHeight="45.0" prefWidth="100.0" style="-fx-background-color: #E2E8F0; -fx-text-fill: #475569; -fx-font-weight: bold; -fx-background-radius: 6;" text="Annuler" />
+        <Button fx:id="btnSave" onAction="#handleSave" prefHeight="45.0" prefWidth="200.0" styleClass="btn-save-blue" text="💾 Enregistrer le Créneau" />
+    </HBox>
+
+</VBox>

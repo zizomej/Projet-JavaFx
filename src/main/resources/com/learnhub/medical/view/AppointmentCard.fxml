@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.shape.Circle?>
+
+<HBox fx:id="cardRoot" spacing="0.0" style="-fx-background-color: white; -fx-background-radius: 15; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 15, 0, 0, 5); -fx-cursor: hand;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+    
+    <!-- Left Status Indicator Bar -->
+    <Pane fx:id="statusIndicator" prefWidth="6.0" style="-fx-background-color: #10B981; -fx-background-radius: 15 0 0 15;" />
+
+    <VBox spacing="15.0" HBox.hgrow="ALWAYS" style="-fx-padding: 22;">
+        <!-- Card Header: Date & Status -->
+        <HBox alignment="CENTER_LEFT" spacing="10.0">
+            <VBox spacing="2.0">
+                <HBox spacing="10.0" alignment="CENTER_LEFT">
+                    <Label text="📅" style="-fx-font-size: 18;" />
+                    <Label fx:id="lblDate" id="lblDate" text="28 Février 2026" style="-fx-font-size: 20; -fx-font-weight: 900; -fx-text-fill: #0F172A;" />
+                </HBox>
+                <HBox spacing="10.0" alignment="CENTER_LEFT" style="-fx-padding: 0 0 0 28;">
+                    <Label fx:id="lblTime" id="lblTime" text="⏰ 08:00" style="-fx-font-weight: bold; -fx-text-fill: #64748B; -fx-font-size: 13;" />
+                </HBox>
+            </VBox>
+            <Region HBox.hgrow="ALWAYS" />
+            <Label fx:id="lblStatus" id="lblStatus" text="CONFIRMÉ" style="-fx-background-color: #D1FAE5; -fx-text-fill: #065F46; -fx-padding: 6 15; -fx-background-radius: 25; -fx-font-weight: 900; -fx-font-size: 10; -fx-letter-spacing: 1px;" />
+        </HBox>
+
+        <Separator opacity="0.3" />
+
+        <!-- Card Body -->
+        <GridPane hgap="40.0" vgap="15.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="220.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="220.0" />
+            </columnConstraints>
+
+            <HBox spacing="12.0" alignment="CENTER_LEFT" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                <StackPane style="-fx-background-color: #F1F5F9; -fx-background-radius: 10; -fx-padding: 8;">
+                    <Label text="⚕" style="-fx-font-size: 14;" />
+                </StackPane>
+                <VBox>
+                    <Label text="MÉDECIN EN CHARGE" style="-fx-text-fill: #94A3B8; -fx-font-size: 9; -fx-font-weight: 900; -fx-letter-spacing: 0.5px;" />
+                    <Label fx:id="lblDoctor" id="lblDoctor" text="Dr. Khalil (SANTÉ)" style="-fx-font-weight: bold; -fx-text-fill: #1E293B; -fx-font-size: 14;" />
+                </VBox>
+            </HBox>
+
+            <HBox spacing="12.0" alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                <StackPane style="-fx-background-color: #F1F5F9; -fx-background-radius: 10; -fx-padding: 8;">
+                    <Label text="📋" style="-fx-font-size: 14;" />
+                </StackPane>
+                <VBox>
+                    <Label text="MOTIF DE CONSULTATION" style="-fx-text-fill: #94A3B8; -fx-font-size: 9; -fx-font-weight: 900; -fx-letter-spacing: 0.5px;" />
+                    <Label fx:id="lblMotif" id="lblMotif" text="Absence" style="-fx-font-weight: bold; -fx-text-fill: #1E293B; -fx-font-size: 14;" />
+                </VBox>
+            </HBox>
+
+            <HBox spacing="12.0" alignment="CENTER_LEFT" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                <StackPane style="-fx-background-color: #F8FAFC; -fx-background-radius: 10; -fx-padding: 8;">
+                    <Label text="📝" style="-fx-font-size: 14;" />
+                </StackPane>
+                <VBox>
+                    <Label text="REMARQUES" style="-fx-text-fill: #94A3B8; -fx-font-size: 9; -fx-font-weight: 900;" />
+                    <Label fx:id="lblDescription" id="lblDescription" text="..." style="-fx-background-color: #F8FAFC; -fx-padding: 8 12; -fx-background-radius: 8; -fx-text-fill: #334155; -fx-font-size: 13; -fx-italic: true;" />
+                </VBox>
+            </HBox>
+        </GridPane>
+
+        <!-- Medical Report Box (Stylized as a document) -->
+        <VBox fx:id="boxCompteRendu" id="boxCompteRendu" spacing="8.0" style="-fx-background-color: #FFFFFF; -fx-padding: 15; -fx-background-radius: 10; -fx-border-color: #E2E8F0; -fx-border-width: 1; -fx-border-radius: 10; -fx-effect: innershadow(three-pass-box, rgba(0,0,0,0.02), 5, 0, 0, 2);">
+            <HBox spacing="10.0" alignment="CENTER_LEFT">
+                <Label text="📄" style="-fx-font-size: 16;" />
+                <Label text="COMPTE-RENDU MÉDICAL OFFICIEL" style="-fx-text-fill: #1E3A8A; -fx-font-size: 10; -fx-font-weight: 900; -fx-letter-spacing: 1px;" />
+            </HBox>
+            <Label fx:id="lblCompteRendu" id="lblCompteRendu" text="Aucun compte-rendu pour le moment." style="-fx-text-fill: #1E293B; -fx-font-weight: bold; -fx-wrap-text: true; -fx-line-spacing: 4;" />
+        </VBox>
+
+        <!-- Footer Actions -->
+        <HBox spacing="15.0" alignment="CENTER_RIGHT" style="-fx-padding: 5 0 0 0;">
+            <Button fx:id="btnDetails" text="🔍 Voir Détails" style="-fx-background-color: #F1F5F9; -fx-text-fill: #475569; -fx-font-weight: bold; -fx-background-radius: 8; -fx-padding: 8 20;" />
+        </HBox>
+    </VBox>
+</HBox>

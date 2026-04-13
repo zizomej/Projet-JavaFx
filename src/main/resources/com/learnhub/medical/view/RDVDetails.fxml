@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.shape.Circle?>
+
+<VBox spacing="0.0" prefWidth="650.0" style="-fx-background-color: #F8FAFC; -fx-background-radius: 12;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.learnhub.medical.controller.RDVDetailsController" stylesheets="@../css/style.css">
+
+    <!-- Header / Actions Area -->
+    <HBox alignment="CENTER_LEFT" spacing="15.0" style="-fx-background-color: white; -fx-padding: 20; -fx-border-color: #F1F5F9; -fx-border-width: 0 0 1 0; -fx-background-radius: 12 12 0 0;">
+        <StackPane style="-fx-background-color: #F0FDF4; -fx-padding: 8; -fx-background-radius: 50%;">
+            <Label text="ℹ️" style="-fx-font-size: 18;" />
+        </StackPane>
+        <VBox HBox.hgrow="ALWAYS">
+            <Label text="Détails du Rendez-vous" style="-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #1E293B;" />
+            <Label text="Informations complètes" style="-fx-text-fill: #94A3B8; -fx-font-size: 11;" />
+        </VBox>
+        <HBox spacing="10.0">
+            <Button onAction="#handleBack" styleClass="btn-header-action" text="⬅ Retour" />
+            <Button fx:id="btnEdit" onAction="#handleEdit" styleClass="btn-yellow" text="📝 Modifier" />
+            <Button fx:id="btnDelete" onAction="#handleDelete" styleClass="btn-orange" text="🗑 Supprimer" />
+        </HBox>
+    </HBox>
+
+    <!-- Main Content Area (Styled as a document table) -->
+    <ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-background: transparent; -fx-padding: 25;">
+        <VBox spacing="15.0">
+             <Label text="Informations du rendez-vous" style="-fx-font-weight: bold; -fx-text-fill: #475569; -fx-font-size: 13;" />
+             
+             <VBox style="-fx-background-color: white; -fx-background-radius: 10; -fx-border-color: #E2E8F0; -fx-border-radius: 10;">
+                
+                <!-- Row template -->
+                <HBox style="-fx-padding: 15; -fx-border-color: #F1F5F9; -fx-border-width: 0 0 1 0;">
+                    <Label text="ID" prefWidth="150.0" style="-fx-text-fill: #64748B; -fx-font-weight: bold;" />
+                    <Label fx:id="lblId" text="83" style="-fx-text-fill: #1E293B; -fx-font-weight: bold;" />
+                </HBox>
+                
+                <HBox style="-fx-padding: 15; -fx-border-color: #F1F5F9; -fx-border-width: 0 0 1 0;">
+                    <Label text="Étudiant" prefWidth="150.0" style="-fx-text-fill: #64748B; -fx-font-weight: bold;" />
+                    <Label fx:id="lblEtudiant" text="Non assigné" style="-fx-text-fill: #1E293B; -fx-font-weight: bold;" />
+                </HBox>
+
+                <HBox style="-fx-padding: 15; -fx-border-color: #F1F5F9; -fx-border-width: 0 0 1 0;">
+                    <Label text="Date de demande" prefWidth="150.0" style="-fx-text-fill: #64748B; -fx-font-weight: bold;" />
+                    <Label fx:id="lblDate" text="11/04/2026" style="-fx-text-fill: #1E293B; -fx-font-weight: bold;" />
+                </HBox>
+
+                <HBox style="-fx-padding: 15; -fx-border-color: #F1F5F9; -fx-border-width: 0 0 1 0;">
+                    <Label text="Créneau" prefWidth="150.0" style="-fx-text-fill: #64748B; -fx-font-weight: bold;" />
+                    <Label fx:id="lblCreneau" text="2026-04-09 à 15:45" style="-fx-text-fill: #475569;" />
+                </HBox>
+
+                <HBox style="-fx-padding: 15; -fx-border-color: #F1F5F9; -fx-border-width: 0 0 1 0;">
+                    <Label text="Motif" prefWidth="150.0" style="-fx-text-fill: #64748B; -fx-font-weight: bold;" />
+                    <Label fx:id="lblMotif" text="--" style="-fx-text-fill: #475569;" />
+                </HBox>
+
+                <HBox style="-fx-padding: 15; -fx-border-color: #F1F5F9; -fx-border-width: 0 0 1 0;">
+                    <Label text="Description" prefWidth="150.0" style="-fx-text-fill: #64748B; -fx-font-weight: bold;" />
+                    <Label fx:id="lblDescription" text="--" wrapText="true" HBox.hgrow="ALWAYS" style="-fx-text-fill: #475569;" />
+                </HBox>
+
+                <HBox alignment="CENTER_LEFT" style="-fx-padding: 15; -fx-border-color: #F1F5F9; -fx-border-width: 0 0 1 0;">
+                    <Label text="Statut" prefWidth="150.0" style="-fx-text-fill: #64748B; -fx-font-weight: bold;" />
+                    <Label fx:id="lblStatus" text="Confirmé" style="-fx-background-color: #D1FAE5; -fx-text-fill: #065F46; -fx-padding: 4 10; -fx-background-radius: 15; -fx-font-weight: bold; -fx-font-size: 11;" />
+                </HBox>
+
+                <HBox style="-fx-padding: 15; -fx-border-color: #F1F5F9; -fx-border-width: 0 0 1 0;">
+                    <Label text="Compte rendu" prefWidth="150.0" style="-fx-text-fill: #64748B; -fx-font-weight: bold;" />
+                    <Label fx:id="lblCompteRendu" text="--" wrapText="true" HBox.hgrow="ALWAYS" style="-fx-text-fill: #475569;" />
+                </HBox>
+
+                <HBox style="-fx-padding: 15;">
+                    <Label text="Ordonnance (URL)" prefWidth="150.0" style="-fx-text-fill: #64748B; -fx-font-weight: bold;" />
+                    <Label fx:id="lblOrdonnance" text="-" style="-fx-text-fill: #64748B;" />
+                </HBox>
+
+             </VBox>
+        </VBox>
+    </ScrollPane>
+
+</VBox>

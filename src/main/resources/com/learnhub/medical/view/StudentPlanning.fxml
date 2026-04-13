@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.shape.Circle?>
+
+<VBox prefHeight="700.0" prefWidth="1050.0" spacing="25.0" style="-fx-background-color: linear-gradient(to bottom right, #F8FAFC, #E2E8F0);" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.learnhub.medical.controller.StudentPlanningController" stylesheets="@../css/style.css">
+
+    <padding><Insets bottom="30.0" left="30.0" right="30.0" top="30.0"/></padding>
+
+    <!-- Premium Calendar Header -->
+    <HBox alignment="CENTER_LEFT" spacing="20.0" style="-fx-background-color: white; -fx-padding: 25; -fx-background-radius: 15; -fx-effect: dropshadow(three-pass-box, rgba(30,58,138,0.1), 15, 0, 0, 5);">
+        <HBox alignment="CENTER_LEFT" spacing="15.0">
+            <StackPane>
+                <Circle radius="26" fill="#EFF6FF" />
+                <Label text="🗓️" style="-fx-font-size: 26;" />
+            </StackPane>
+            <VBox spacing="3.0">
+                <Label fx:id="lblWeekRange" style="-fx-font-size: 22; -fx-font-weight: bold; -fx-text-fill: #1E3A8A;" text="Semaine du --/-- au --/--" />
+                <HBox spacing="5.0" alignment="CENTER_LEFT">
+                    <Label text="●" style="-fx-text-fill: #10B981; -fx-font-size: 8;" />
+                    <Label text="Sélectionnez un créneau pour réserver votre rendez-vous médicale" style="-fx-text-fill: #64748B; -fx-font-size: 13;" />
+                </HBox>
+            </VBox>
+        </HBox>
+        <Region HBox.hgrow="ALWAYS" />
+        <HBox spacing="12.0" alignment="CENTER_RIGHT">
+            <Button onAction="#handlePrevWeek" styleClass="btn-header-action" style="-fx-background-color: #F8FAFC; -fx-border-color: #E2E8F0; -fx-text-fill: #1E3A8A;" text="← Semaine précédente" />
+            <VBox alignment="CENTER" style="-fx-min-width: 140;">
+                <Label fx:id="lblMonthYear" style="-fx-font-weight: bold; -fx-font-size: 14; -fx-text-fill: #1E3A8A; -fx-text-alignment: center;" text="AVRIL 2026" />
+                <Separator prefWidth="50" style="-fx-opacity: 0.3;" />
+            </VBox>
+            <Button onAction="#handleNextWeek" styleClass="btn-header-action" style="-fx-background-color: #F8FAFC; -fx-border-color: #E2E8F0; -fx-text-fill: #1E3A8A;" text="Semaine suivante →" />
+        </HBox>
+    </HBox>
+
+    <!-- Weekly Grid -->
+    <ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-background: transparent;" VBox.vgrow="ALWAYS">
+        <GridPane fx:id="gridPlanning" hgap="15.0" vgap="15.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="ALWAYS" minWidth="130" percentWidth="14.28" />
+                <ColumnConstraints hgrow="ALWAYS" minWidth="130" percentWidth="14.28" />
+                <ColumnConstraints hgrow="ALWAYS" minWidth="130" percentWidth="14.28" />
+                <ColumnConstraints hgrow="ALWAYS" minWidth="130" percentWidth="14.28" />
+                <ColumnConstraints hgrow="ALWAYS" minWidth="130" percentWidth="14.28" />
+                <ColumnConstraints hgrow="ALWAYS" minWidth="130" percentWidth="14.28" />
+                <ColumnConstraints hgrow="ALWAYS" minWidth="130" percentWidth="14.28" />
+            </columnConstraints>
+        </GridPane>
+    </ScrollPane>
+
+    <!-- Interactive Legend -->
+    <HBox spacing="50.0" alignment="CENTER" style="-fx-padding: 18; -fx-background-color: white; -fx-background-radius: 15; -fx-border-color: #E2E8F0; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.02), 10, 0, 0, 5);">
+        <HBox spacing="10.0" alignment="CENTER">
+            <Pane prefHeight="16.0" prefWidth="16.0" style="-fx-background-color: #F0FDF4; -fx-border-color: #22C55E; -fx-border-style: solid; -fx-border-width: 2; -fx-border-radius: 4;" />
+            <Label text="DISPONIBLE" style="-fx-font-weight: 900; -fx-text-fill: #166534; -fx-font-size: 11; -fx-letter-spacing: 1px;" />
+        </HBox>
+        <HBox spacing="10.0" alignment="CENTER">
+            <Pane prefHeight="16.0" prefWidth="16.0" style="-fx-background-color: #FEF2F2; -fx-border-color: #EF4444; -fx-border-style: solid; -fx-border-width: 2; -fx-border-radius: 4;" />
+            <Label text="RÉSERVÉ" style="-fx-font-weight: 900; -fx-text-fill: #991B1B; -fx-font-size: 11; -fx-letter-spacing: 1px;" />
+        </HBox>
+        <HBox spacing="10.0" alignment="CENTER">
+            <Pane prefHeight="16.0" prefWidth="16.0" style="-fx-background-color: #F8FAFC; -fx-border-color: #94A3B8; -fx-border-style: solid; -fx-border-width: 2; -fx-border-radius: 4;" />
+            <Label text="FERMÉ" style="-fx-font-weight: 900; -fx-text-fill: #475569; -fx-font-size: 11; -fx-letter-spacing: 1px;" />
+        </HBox>
+    </HBox>
+
+</VBox>
