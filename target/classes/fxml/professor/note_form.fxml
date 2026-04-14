@@ -19,46 +19,35 @@
         </HBox>
     </VBox>
 
-    <VBox spacing="20" style="-fx-padding: 24;">
+    <VBox spacing="15" style="-fx-padding: 24;">
         
-        <Label text="📋 Informations de base" style="-fx-font-weight: bold; -fx-text-fill: #1E3A8A; -fx-font-size: 14px; -fx-border-color: transparent transparent #FFC107 transparent; -fx-padding: 0 0 6 0;"/>
+        <Label text="📋 Informations de l'évaluation" style="-fx-font-weight: bold; -fx-text-fill: #1E3A8A; -fx-font-size: 14px; -fx-border-color: transparent transparent #FFC107 transparent; -fx-padding: 0 0 6 0;"/>
 
         <HBox spacing="15">
             <VBox spacing="6" HBox.hgrow="ALWAYS">
                 <Label text="Module *" style="-fx-font-weight: bold; -fx-text-fill: #1f2937; -fx-font-size: 11px;"/>
                 <ComboBox fx:id="cbModule" promptText="📚 Sélectionnez un module" style="-fx-background-color: white; -fx-border-color: #d1d5db; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 3 0;" maxWidth="Infinity"/>
-                <Label text="Sélectionnez le module concerné" style="-fx-text-fill: #6b7280; -fx-font-size: 9px;"/>
             </VBox>
-            <VBox spacing="6" HBox.hgrow="ALWAYS">
-                <Label text="Étudiant *" style="-fx-font-weight: bold; -fx-text-fill: #1f2937; -fx-font-size: 11px;"/>
-                <ComboBox fx:id="cbEtudiant" promptText="👨‍🎓 Sélectionnez un étudiant" style="-fx-background-color: white; -fx-border-color: #d1d5db; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 3 0;" maxWidth="Infinity"/>
-                <Label text="Sélectionnez l'étudiant" style="-fx-text-fill: #6b7280; -fx-font-size: 9px;"/>
-            </VBox>
-        </HBox>
-
-        <Label text="✏️ Détails de la note" style="-fx-font-weight: bold; -fx-text-fill: #1E3A8A; -fx-font-size: 14px; -fx-border-color: transparent transparent #FFC107 transparent; -fx-padding: 10 0 6 0;"/>
-
-        <HBox spacing="15">
             <VBox spacing="6" HBox.hgrow="ALWAYS">
                 <Label text="Type de Note *" style="-fx-font-weight: bold; -fx-text-fill: #1f2937; -fx-font-size: 11px;"/>
                 <ComboBox fx:id="cbTypeNote" promptText="Sélectionnez un type" style="-fx-background-color: white; -fx-border-color: #d1d5db; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 3 0;" maxWidth="Infinity"/>
-                <Label text="DS, TP, Projet, Examen, CC" style="-fx-text-fill: #6b7280; -fx-font-size: 9px;"/>
-            </VBox>
-            <VBox spacing="6" HBox.hgrow="ALWAYS">
-                <Label text="Valeur (sur 20) *" style="-fx-font-weight: bold; -fx-text-fill: #1f2937; -fx-font-size: 11px;"/>
-                <TextField fx:id="tfValeur" promptText="0.00" style="-fx-background-color: white; -fx-border-color: #d1d5db; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 8 12;"/>
-                <Label text="Note entre 0 et 20" style="-fx-text-fill: #6b7280; -fx-font-size: 9px;"/>
             </VBox>
             <VBox spacing="6" HBox.hgrow="ALWAYS">
                 <Label text="Coefficient *" style="-fx-font-weight: bold; -fx-text-fill: #1f2937; -fx-font-size: 11px;"/>
                 <TextField fx:id="tfCoefficient" promptText="1.0" style="-fx-background-color: white; -fx-border-color: #d1d5db; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 8 12;"/>
-                <Label text="Coefficient entre 0.5 et 10" style="-fx-text-fill: #6b7280; -fx-font-size: 9px;"/>
             </VBox>
         </HBox>
 
+        <Label text="👨‍🎓 Saisie des notes (Laissez vide si absent/non noté)" style="-fx-font-weight: bold; -fx-text-fill: #1E3A8A; -fx-font-size: 14px; -fx-border-color: transparent transparent #FFC107 transparent; -fx-padding: 5 0 6 0;"/>
+
+        <!-- Container for dynamically generated student rows -->
+        <ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-background: white;" prefHeight="300" vbarPolicy="AS_NEEDED" hbarPolicy="NEVER">
+            <VBox fx:id="studentsListContainer" spacing="10" style="-fx-padding: 10; -fx-background-color: white;"/>
+        </ScrollPane>
+
         <HBox alignment="CENTER_RIGHT" spacing="12" style="-fx-margin-top: 10;">
             <Button text="✕ Annuler" style="-fx-background-color: #6b7280; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8; -fx-padding: 10 20; -fx-cursor: hand;" onAction="#handleClose"/>
-            <Button text="💾 Ajouter la note" style="-fx-background-color: #FFC107; -fx-text-fill: #0A1F44; -fx-font-weight: bold; -fx-background-radius: 8; -fx-padding: 10 20; -fx-cursor: hand;" onAction="#handleSave"/>
+            <Button text="💾 Enregistrer les notes" style="-fx-background-color: #FFC107; -fx-text-fill: #0A1F44; -fx-font-weight: bold; -fx-background-radius: 8; -fx-padding: 10 20; -fx-cursor: hand;" onAction="#handleSave"/>
         </HBox>
     </VBox>
 </VBox>

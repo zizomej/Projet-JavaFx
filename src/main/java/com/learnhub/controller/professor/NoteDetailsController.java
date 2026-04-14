@@ -4,6 +4,7 @@ import com.learnhub.dao.NoteDAO;
 import com.learnhub.models.Note;
 import com.learnhub.models.Utilisateur;
 import com.learnhub.util.SessionManager;
+import com.learnhub.util.DialogUtil;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -84,9 +85,8 @@ public class NoteDetailsController {
 
     @FXML
     private void handleDelete() {
-        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION, "Voulez-vous vraiment supprimer cette note ?", ButtonType.YES, ButtonType.NO);
-        confirm.showAndWait();
-        if (confirm.getResult() == ButtonType.YES) {
+        boolean confirmed = DialogUtil.showDeleteConfirmation("cette note", currentNote != null ? currentNote.getTypeNote() + " de " + currentNote.getEtudiantNom() : "Note inconnue");
+        if (confirmed) {
             try {
                 noteDAO.delete(currentNote.getId());
                 if (onSuccess != null) onSuccess.run();

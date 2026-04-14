@@ -17,8 +17,10 @@ com\learnhub\dao\CoursDAO.class
 com\learnhub\util\DatabaseConnection.class
 com\learnhub\controller\admin\RdvAdminController$1.class
 com\learnhub\controller\admin\NotesController$1.class
+com\learnhub\controller\professor\NoteFormController$StudentRow.class
 com\learnhub\controller\admin\DemandesStageController$1.class
 com\learnhub\controller\admin\DemandesStageController.class
+com\learnhub\util\DialogUtil.class
 com\learnhub\controller\student\StudentDashboardController.class
 com\learnhub\dao\PresenceDAO.class
 com\learnhub\controller\professor\ProfessorModulesController.class
