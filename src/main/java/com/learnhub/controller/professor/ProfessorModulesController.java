@@ -2,8 +2,10 @@ package com.learnhub.controller.professor;
 
 import com.learnhub.dao.ModuleDAO;
 import com.learnhub.dao.RessourceDAO;
+import com.learnhub.dao.QuizDAO;
 import com.learnhub.models.Module;
 import com.learnhub.models.Ressource;
+import com.learnhub.models.Quiz;
 import com.learnhub.models.Utilisateur;
 import com.learnhub.util.NavigationUtil;
 import com.learnhub.util.SessionManager;
@@ -37,6 +39,7 @@ public class ProfessorModulesController {
 
     private final ModuleDAO moduleDAO = new ModuleDAO();
     private final RessourceDAO ressourceDAO = new RessourceDAO();
+    private final QuizDAO quizDAO = new QuizDAO();
     private Module selectedModule = null;
 
     @FXML
@@ -199,12 +202,18 @@ public class ProfessorModulesController {
         Label resBadge = new Label(resText);
         resBadge.setStyle("-fx-background-color: rgba(255,255,255,0.15); -fx-text-fill: white; -fx-font-size: 11px; -fx-padding: 5 12; -fx-background-radius: 12; -fx-font-weight: bold;");
 
-        // Bouton Ajouter Ressource comme l'ancien code
-        Button addResBtn = new Button("➕");
-        addResBtn.setStyle("-fx-background-color: transparent; -fx-text-fill: white; -fx-cursor: hand; -fx-font-size: 14px;");
+        Button addResBtn = new Button("➕ Ressource");
+        addResBtn.setStyle("-fx-background-color: transparent; -fx-text-fill: white; -fx-cursor: hand; -fx-font-size: 13px; -fx-font-weight: bold;");
         addResBtn.setOnAction(e -> handleAddRessource(m));
 
-        header.getChildren().addAll(title, spacer, resBadge, addResBtn);
+        Button addQuizBtn = new Button("➕ Quiz");
+        addQuizBtn.setStyle("-fx-background-color: transparent; -fx-text-fill: white; -fx-cursor: hand; -fx-font-size: 13px; -fx-font-weight: bold;");
+        addQuizBtn.setOnAction(e -> handleAddQuiz(m));
+
+        HBox actionsBox = new HBox(10, addResBtn, addQuizBtn);
+        actionsBox.setAlignment(Pos.CENTER_RIGHT);
+
+        header.getChildren().addAll(title, spacer, resBadge, actionsBox);
 
         // Cards Container
         VBox cardsContainer = new VBox();
@@ -215,6 +224,10 @@ public class ProfessorModulesController {
             List<Ressource> ressources = ressourceDAO.findByModule(m.getId());
             for (Ressource r : ressources) {
                 cardsContainer.getChildren().add(createRessourceCard(r, m));
+            }
+            List<Quiz> quizzes = quizDAO.getQuizzesByModule(m.getId());
+            for (Quiz q : quizzes) {
+                cardsContainer.getChildren().add(createQuizCard(q, m));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -333,6 +346,100 @@ public class ProfessorModulesController {
         return toggle;
     }
 
+    private VBox createQuizCard(Quiz q, Module currentModule) {
+        VBox card = new VBox();
+        card.setStyle("-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 24; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 15, 0, 0, 4);");
+        card.setSpacing(20);
+
+        HBox topBox = new HBox();
+        topBox.setAlignment(Pos.TOP_LEFT);
+
+        VBox leftContent = new VBox();
+        leftContent.setSpacing(10);
+        leftContent.setAlignment(Pos.TOP_LEFT);
+
+        Label icon = new Label("📝");
+        icon.setStyle("-fx-font-size: 32px; -fx-text-fill: #10b981; -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #d1fae5, #34d399); -fx-background-radius: 12; -fx-padding: 8 16;");
+
+        Label title = new Label(q.getTitre());
+        title.setStyle("-fx-font-weight: 900; -fx-font-size: 16px; -fx-text-fill: #0f172a; -fx-text-transform: uppercase;");
+
+        Label typePill = new Label("QUIZ");
+        typePill.setStyle("-fx-background-color: #10b981; -fx-text-fill: #ffffff; -fx-font-weight: 900; -fx-font-size: 11px; -fx-padding: 4 10; -fx-background-radius: 16;");
+
+        HBox deadlineBox = new HBox(6);
+        deadlineBox.setAlignment(Pos.CENTER_LEFT);
+        Label clock = new Label("⏰");
+        clock.setStyle("-fx-text-fill: #ef4444; -fx-font-size: 12px;");
+        Label deadlineStr = new Label("Tâche due : " + (q.getDeadline() != null ? q.getDeadline().toString() : "N/A"));
+        deadlineStr.setStyle("-fx-text-fill: #ef4444; -fx-font-size: 12px; -fx-font-weight: bold;");
+        deadlineBox.getChildren().addAll(clock, deadlineStr);
+
+        leftContent.getChildren().addAll(icon, title, typePill, deadlineBox);
+
+        Region spacer1 = new Region();
+        HBox.setHgrow(spacer1, Priority.ALWAYS);
+
+        HBox actions = new HBox(12);
+        actions.setAlignment(Pos.TOP_RIGHT);
+        
+        Button delBtn = new Button("🗑️");
+        delBtn.setStyle("-fx-background-color: #fee2e2; -fx-text-fill: #ef4444; -fx-cursor: hand; -fx-background-radius: 8; -fx-padding: 8 12; -fx-font-size: 14px; -fx-font-family: 'Segoe UI Emoji';");
+        delBtn.setOnAction(e -> handleDeleteQuiz(q, currentModule));
+
+        actions.getChildren().addAll(delBtn);
+
+        topBox.getChildren().addAll(leftContent, spacer1, actions);
+
+        HBox bottomBox = new HBox(12);
+        bottomBox.setAlignment(Pos.CENTER_LEFT);
+        Label visLabel = new Label("Visible pour tous :");
+        visLabel.setStyle("-fx-font-size: 13px; -fx-text-fill: #475569; -fx-font-weight: 600;");
+
+        StackPane toggleSwitch = createQuizToggleSwitch(q.isIs_visible(), q);
+
+        bottomBox.getChildren().addAll(visLabel, toggleSwitch);
+
+        card.getChildren().addAll(topBox, bottomBox);
+        return card;
+    }
+
+    private StackPane createQuizToggleSwitch(boolean isPublic, Quiz q) {
+        StackPane toggle = new StackPane();
+        toggle.setPrefSize(44, 22);
+        toggle.setMinSize(44, 22);
+        toggle.setMaxSize(44, 22);
+        toggle.setStyle("-fx-cursor: hand;");
+
+        Rectangle bg = new Rectangle(44, 22);
+        bg.setArcWidth(22);
+        bg.setArcHeight(22);
+        bg.setFill(isPublic ? Color.valueOf("#10b981") : Color.valueOf("#e2e8f0"));
+
+        Circle knob = new Circle(9);
+        knob.setFill(Color.WHITE);
+        DropShadow ds = new DropShadow();
+        ds.setRadius(3);
+        ds.setOffsetY(1);
+        ds.setColor(Color.rgb(0,0,0,0.2));
+        knob.setEffect(ds);
+
+        StackPane.setAlignment(knob, isPublic ? Pos.CENTER_RIGHT : Pos.CENTER_LEFT);
+        StackPane.setMargin(knob, new javafx.geometry.Insets(0, 2, 0, 2));
+
+        toggle.getChildren().addAll(bg, knob);
+
+        toggle.setOnMouseClicked(e -> {
+            boolean newState = !q.isIs_visible();
+            q.setIs_visible(newState);
+            bg.setFill(newState ? Color.valueOf("#10b981") : Color.valueOf("#e2e8f0"));
+            StackPane.setAlignment(knob, newState ? Pos.CENTER_RIGHT : Pos.CENTER_LEFT);
+            try { quizDAO.updateQuizVisibility(q.getId(), newState); } catch(Exception ex) { ex.printStackTrace(); }
+        });
+
+        return toggle;
+    }
+
     @FXML
     private void handleRetour() {
         // Implement return logic or simply do nothing since this is full view
@@ -429,6 +536,53 @@ public class ProfessorModulesController {
         } catch (IOException e) {
             e.printStackTrace();
             showAlert("Erreur", "Impossible de charger le formulaire de ressource.");
+        }
+    }
+
+    private void handleAddQuiz(Module currentModule) {
+        if (currentModule == null) {
+            showAlert("Action impossible", "Sélectionnez d'abord un module.");
+            return;
+        }
+        showQuizDialog(currentModule);
+    }
+
+    private void showQuizDialog(Module currentModule) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/professor/quiz_create_dialog.fxml"));
+            Parent root = loader.load();
+            QuizCreateDialogController controller = loader.getController();
+            controller.setModule(currentModule);
+
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.initStyle(StageStyle.UNDECORATED);
+            stage.setScene(new Scene(root));
+
+            stage.showAndWait();
+            
+            if (controller.isConfirmed()) {
+                Utilisateur user = SessionManager.getInstance().getCurrentUser();
+                if (user != null) loadModules(user.getId());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Erreur", "Impossible de charger la boîte de dialogue de création de quiz.");
+        }
+    }
+
+    private void handleDeleteQuiz(Quiz q, Module currentModule) {
+        boolean confirmed = DialogUtil.showDeleteConfirmation("le quiz", q.getTitre());
+        if (confirmed) {
+            try {
+                // Delete questions and options first? 
+                // Normally handled in cascade by DB or explicitly.
+                quizDAO.deleteQuiz(q.getId());
+                Utilisateur user = SessionManager.getInstance().getCurrentUser();
+                if (user != null) loadModules(user.getId());
+            } catch (SQLException e) {
+                showAlert("Erreur", e.getMessage());
+            }
         }
     }
 

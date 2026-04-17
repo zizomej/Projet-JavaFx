@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.shape.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.learnhub.controller.student.QuizTakeController"
+      spacing="15" style="-fx-background-color: #f0f4f8; -fx-padding: 30;" 
+      prefWidth="900" prefHeight="650" alignment="CENTER">
+
+    <!-- Header Panel -->
+    <VBox style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 10, 0, 0, 2);"
+          maxWidth="700">
+        <HBox alignment="CENTER_LEFT" spacing="15">
+            <Label text="📘" style="-fx-font-size: 20px;"/>
+            <Label fx:id="lblTitre" text="Quiz - Titre" style="-fx-font-size: 18px; -fx-font-weight: 900; -fx-text-fill: #1e3a8a;"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <!-- Timer / Points box mimicking mockup -->
+            <HBox spacing="10" alignment="CENTER">
+                <Label fx:id="lblChronometer" text="00:00" style="-fx-background-color: #f1f5f9; -fx-text-fill: #475569; -fx-font-weight: bold; -fx-padding: 6 12; -fx-background-radius: 6; -fx-border-color: #cbd5e1; -fx-border-radius: 6;"/>
+                <Label fx:id="lblProgress" text="1/1" style="-fx-background-color: #f97316; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 6 12; -fx-background-radius: 6;"/>
+            </HBox>
+        </HBox>
+        <Rectangle height="4" width="200" fill="#4f46e5" style="-fx-translate-y: 15;"/>
+    </VBox>
+
+    <!-- Main Content Panel -->
+    <VBox fx:id="mainContent" style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 30; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 10, 0, 0, 2);"
+          spacing="25" maxWidth="700" VBox.vgrow="ALWAYS">
+        
+        <Label fx:id="lblQuestionText" text="Texte de la question..." style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #1f2937; -fx-wrap-text: true;"/>
+
+        <VBox fx:id="optionsContainer" spacing="12">
+            <!-- Les options (RadioButtons enveloppés dans des HBox) seront injectées ici -->
+        </VBox>
+
+    </VBox>
+
+    <!-- Footer Controls -->
+    <HBox spacing="20" maxWidth="700" alignment="CENTER">
+        <Button fx:id="btnPrev" text="←" style="-fx-background-color: #e5e7eb; -fx-text-fill: #374151; -fx-font-weight: 900; -fx-background-radius: 6; -fx-padding: 8 16; -fx-cursor: hand;" onAction="#handlePrev"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button fx:id="btnNext" text="→" style="-fx-background-color: #4f46e5; -fx-text-fill: white; -fx-font-weight: 900; -fx-background-radius: 6; -fx-padding: 8 16; -fx-cursor: hand;" onAction="#handleNext"/>
+        <Button fx:id="btnSubmit" text="✓" style="-fx-background-color: #10b981; -fx-text-fill: white; -fx-font-weight: 900; -fx-background-radius: 6; -fx-padding: 8 16; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(16,185,129,0.4), 8, 0, 0, 2);" onAction="#handleSubmit"/>
+    </HBox>
+
+</VBox>

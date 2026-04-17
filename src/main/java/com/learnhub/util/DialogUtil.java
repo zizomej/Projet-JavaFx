@@ -96,4 +96,105 @@ public class DialogUtil {
 
         return confirmed.get();
     }
+
+    public static void showSuccessMessage(String titleText, String subtitleText) {
+        Stage dialog = new Stage();
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        dialog.initStyle(StageStyle.TRANSPARENT);
+
+        VBox root = new VBox();
+        root.setStyle("-fx-background-color: transparent; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 15, 0, 0, 5);");
+        root.setPrefWidth(400);
+
+        VBox roundedContainer = new VBox();
+        roundedContainer.setStyle("-fx-background-color: white; -fx-background-radius: 12;");
+
+        // Header (Green)
+        VBox header = new VBox(5);
+        header.setAlignment(Pos.CENTER);
+        header.setStyle("-fx-background-color: #10b981; -fx-background-radius: 12 12 0 0; -fx-padding: 25;");
+        Label successIcon = new Label("✅");
+        successIcon.setStyle("-fx-font-size: 36px; -fx-text-fill: white;");
+        Label title = new Label(titleText);
+        title.setStyle("-fx-font-size: 20px; -fx-font-weight: 900; -fx-text-fill: white;");
+        header.getChildren().addAll(successIcon, title);
+
+        // Body (White)
+        VBox body = new VBox(25);
+        body.setAlignment(Pos.CENTER);
+        body.setStyle("-fx-padding: 30 20 25 20;");
+
+        Text message = new Text(subtitleText);
+        message.setStyle("-fx-font-size: 15px; -fx-fill: #374151; -fx-font-weight: bold;");
+        message.setTextAlignment(TextAlignment.CENTER);
+        TextFlow messageFlow = new TextFlow(message);
+        messageFlow.setTextAlignment(TextAlignment.CENTER);
+
+        HBox actions = new HBox(15);
+        actions.setAlignment(Pos.CENTER);
+
+        Button okBtn = new Button("Continuer");
+        okBtn.setStyle("-fx-background-color: #10b981; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8; -fx-padding: 10 30; -fx-cursor: hand;");
+        okBtn.setOnAction(e -> dialog.close());
+
+        actions.getChildren().add(okBtn);
+
+        body.getChildren().addAll(messageFlow, actions);
+        roundedContainer.getChildren().addAll(header, body);
+        root.getChildren().add(roundedContainer);
+
+        Scene scene = new Scene(root);
+        scene.setFill(Color.TRANSPARENT);
+        dialog.setScene(scene);
+        dialog.centerOnScreen();
+        dialog.showAndWait();
+    }
+
+    public static void showErrorMessage(String titleText, String subtitleText) {
+        Stage dialog = new Stage();
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        dialog.initStyle(StageStyle.TRANSPARENT);
+
+        VBox root = new VBox();
+        root.setStyle("-fx-background-color: transparent; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 15, 0, 0, 5);");
+        root.setPrefWidth(400);
+
+        VBox roundedContainer = new VBox();
+        roundedContainer.setStyle("-fx-background-color: white; -fx-background-radius: 12;");
+
+        // Header (Red)
+        VBox header = new VBox(5);
+        header.setAlignment(Pos.CENTER);
+        header.setStyle("-fx-background-color: #ef4444; -fx-background-radius: 12 12 0 0; -fx-padding: 25;");
+        Label errorIcon = new Label("❌");
+        errorIcon.setStyle("-fx-font-size: 36px; -fx-text-fill: white;");
+        Label title = new Label(titleText);
+        title.setStyle("-fx-font-size: 20px; -fx-font-weight: 900; -fx-text-fill: white;");
+        header.getChildren().addAll(errorIcon, title);
+
+        // Body
+        VBox body = new VBox(25);
+        body.setAlignment(Pos.CENTER);
+        body.setStyle("-fx-padding: 30 20 25 20;");
+
+        Text message = new Text(subtitleText);
+        message.setStyle("-fx-font-size: 14px; -fx-fill: #374151;");
+        message.setTextAlignment(TextAlignment.CENTER);
+        TextFlow messageFlow = new TextFlow(message);
+        messageFlow.setTextAlignment(TextAlignment.CENTER);
+
+        Button closeBtn = new Button("Fermer");
+        closeBtn.setStyle("-fx-background-color: #ef4444; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8; -fx-padding: 10 30; -fx-cursor: hand;");
+        closeBtn.setOnAction(e -> dialog.close());
+
+        body.getChildren().addAll(messageFlow, closeBtn);
+        roundedContainer.getChildren().addAll(header, body);
+        root.getChildren().add(roundedContainer);
+
+        Scene scene = new Scene(root);
+        scene.setFill(Color.TRANSPARENT);
+        dialog.setScene(scene);
+        dialog.centerOnScreen();
+        dialog.showAndWait();
+    }
 }

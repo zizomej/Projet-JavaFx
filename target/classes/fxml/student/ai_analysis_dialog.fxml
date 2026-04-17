@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.shape.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.learnhub.controller.student.AiAnalysisDialogController"
+      style="-fx-background-color: transparent;" prefWidth="600">
+
+    <VBox style="-fx-background-color: white; -fx-background-radius: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 15, 0, 0, 5);">
+        
+        <!-- Header -->
+        <HBox alignment="CENTER_LEFT" style="-fx-background-color: linear-gradient(to right, #6366f1, #a855f7); -fx-background-radius: 15 15 0 0; -fx-padding: 15 25;">
+            <Label text="🤖 Assistant IA - Analyse de Document" style="-fx-font-size: 18px; -fx-font-weight: 900; -fx-text-fill: white;"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button text="✖" style="-fx-background-color: rgba(255,255,255,0.2); -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 20; -fx-cursor: hand;" onAction="#closeDialog"/>
+        </HBox>
+
+        <!-- Container principal -->
+        <VBox style="-fx-padding: 30;" spacing="20" alignment="CENTER">
+
+            <!-- Phase 1: Upload Zone -->
+            <VBox fx:id="uploadZone" alignment="CENTER" spacing="15"
+                  style="-fx-border-style: dashed; -fx-border-color: #8b5cf6; -fx-border-width: 2; -fx-border-radius: 12; -fx-background-color: #f8fafc; -fx-background-radius: 12; -fx-padding: 50; -fx-cursor: hand;"
+                  onMouseClicked="#handleUploadClick">
+                
+                <Label text="📄" style="-fx-font-size: 48px; -fx-text-fill: #cbd5e1;"/>
+                <VBox alignment="CENTER" spacing="5">
+                    <Label text="Déposez votre document ici" style="-fx-font-weight: 900; -fx-font-size: 18px; -fx-text-fill: #1e293b;"/>
+                    <Label text="ou cliquez pour sélectionner" style="-fx-text-fill: #64748b; -fx-font-size: 14px;"/>
+                </VBox>
+            </VBox>
+
+            <!-- Phase 2: Loading Zone -->
+            <VBox fx:id="loadingZone" alignment="CENTER" spacing="15" visible="false" managed="false" style="-fx-padding: 40;">
+                <ProgressIndicator style="-fx-progress-color: #8b5cf6;" prefWidth="50" prefHeight="50"/>
+                <Label text="Traitement par l'IA en cours..." style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-text-fill: #6366f1;"/>
+                <Label text="Analyse du document et génération de la vidéo..." style="-fx-text-fill: #64748b;"/>
+            </VBox>
+
+            <!-- Phase 3: Results Zone -->
+            <VBox fx:id="resultZone" spacing="15" visible="false" managed="false" style="-fx-background-color: white; -fx-padding: 10;">
+                
+                <Label text="✅ Analyse terminée !" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-text-fill: #10b981; -fx-alignment: center; -fx-max-width: Infinity;"/>
+
+                <!-- Tab Navigation -->
+                <HBox alignment="CENTER" spacing="0" style="-fx-border-color: #cbd5e1; -fx-border-width: 0 0 1 0;">
+                    <ToggleButton fx:id="btnTabResume" text="📝 Résumé" selected="true" onAction="#showResumeTab" style="-fx-background-color: transparent; -fx-text-fill: #6366f1; -fx-font-weight: bold; -fx-padding: 10 20; -fx-border-color: #6366f1; -fx-border-width: 0 0 2 0; -fx-cursor: hand;">
+                        <toggleGroup>
+                            <ToggleGroup fx:id="tabGroup"/>
+                        </toggleGroup>
+                    </ToggleButton>
+                    <ToggleButton fx:id="btnTabVideo" text="🎬 Vidéo Explicative" toggleGroup="$tabGroup" onAction="#showVideoTab" style="-fx-background-color: transparent; -fx-text-fill: #64748b; -fx-font-weight: bold; -fx-padding: 10 20; -fx-border-color: transparent; -fx-border-width: 0 0 2 0; -fx-cursor: hand;"/>
+                    <ToggleButton fx:id="btnTabPodcast" text="🎙️ Podcast IA" toggleGroup="$tabGroup" onAction="#showPodcastTab" style="-fx-background-color: transparent; -fx-text-fill: #64748b; -fx-font-weight: bold; -fx-padding: 10 20; -fx-border-color: transparent; -fx-border-width: 0 0 2 0; -fx-cursor: hand;"/>
+                </HBox>
+
+                <!-- StackPane pour le contenu -->
+                <StackPane>
+                    <!-- Contenu Résumé -->
+                    <VBox fx:id="contentResume" spacing="10" VBox.vgrow="ALWAYS">
+                        <HBox alignment="CENTER_RIGHT">
+                             <Button text="📥 Télécharger le résumé" style="-fx-background-color: #6366f1; -fx-text-fill: white; -fx-background-radius: 6; -fx-cursor: hand;" onAction="#downloadResume"/>
+                        </HBox>
+                        <TextArea fx:id="txtResume" wrapText="true" editable="false" VBox.vgrow="ALWAYS"
+                                  style="-fx-background-color: #f8fafc; -fx-border-color: #cbd5e1; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 10; -fx-font-size: 14px; -fx-text-fill: #334155;"/>
+                    </VBox>
+
+                    <!-- Contenu Vidéo -->
+                    <VBox fx:id="contentVideo" spacing="10" visible="false">
+                        <HBox alignment="CENTER_LEFT" spacing="15" style="-fx-background-color: #f8fafc; -fx-border-color: #cbd5e1; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 15;">
+                            <StackPane>
+                                <Rectangle width="80" height="45" fill="#f43f5e" arcWidth="8" arcHeight="8"/>
+                                <Polygon points="0.0, 0.0, 0.0, 15.0, 12.0, 7.5" fill="white" style="-fx-translate-x: 2;"/>
+                            </StackPane>
+                            <VBox spacing="2">
+                                <Label fx:id="lblVideoTitle" text="Vidéo Explicative - IA" style="-fx-font-weight: bold; -fx-text-fill: #1e293b;"/>
+                                <Label text="Double-cliquez ou utiliser le bouton" style="-fx-text-fill: #64748b; -fx-font-size: 11px;"/>
+                            </VBox>
+                            <Region HBox.hgrow="ALWAYS"/>
+                            <Button text="▶ Lire sur YouTube" style="-fx-background-color: #f43f5e; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 6; -fx-cursor: hand;" onAction="#playVideo"/>
+                        </HBox>
+                    </VBox>
+
+                    <!-- Contenu Podcast -->
+                    <VBox fx:id="contentPodcast" spacing="15" visible="false" style="-fx-background-color: #f8fafc; -fx-border-color: #cbd5e1; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 15;">
+                        <HBox spacing="20" alignment="CENTER">
+                            <VBox fx:id="hostAliceBox" alignment="CENTER" spacing="8" style="-fx-padding: 10; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: transparent; -fx-border-width: 2;">
+                                <StackPane>
+                                    <Circle radius="26" fill="#f3e8ff"/>
+                                    <Circle radius="22" fill="#a855f7"/>
+                                    <Label text="👩" style="-fx-font-size: 24px; -fx-translate-y: -2;"/>
+                                </StackPane>
+                                <Label text="Alice" style="-fx-font-weight: bold; -fx-text-fill: #334155;"/>
+                            </VBox>
+                            
+                            <VBox HBox.hgrow="ALWAYS" alignment="CENTER" style="-fx-min-height: 80px; -fx-background-color: white; -fx-background-radius: 8; -fx-padding: 10; -fx-border-color: #e2e8f0; -fx-border-radius: 8;">
+                                <Label fx:id="podcastSubtitleLabel" text="Appuyez sur 'Lire le Podcast' pour commencer..." wrapText="true" textAlignment="CENTER" style="-fx-font-size: 14px; -fx-font-style: italic; -fx-text-fill: #475569;"/>
+                            </VBox>
+                            
+                            <VBox fx:id="hostBobBox" alignment="CENTER" spacing="8" style="-fx-padding: 10; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: transparent; -fx-border-width: 2;">
+                                <StackPane>
+                                    <Circle radius="26" fill="#dbeafe"/>
+                                    <Circle radius="22" fill="#3b82f6"/>
+                                    <Label text="👨" style="-fx-font-size: 24px; -fx-translate-y: -2;"/>
+                                </StackPane>
+                                <Label text="Bob" style="-fx-font-weight: bold; -fx-text-fill: #334155;"/>
+                            </VBox>
+                        </HBox>
+                        
+                        <HBox alignment="CENTER" spacing="10">
+                            <Button fx:id="btnPlayPodcast" text="▶ Lire le Podcast" style="-fx-background-color: #6366f1; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8; -fx-cursor: hand; -fx-padding: 8 25;" onAction="#playPodcast"/>
+                        </HBox>
+                    </VBox>
+                </StackPane>
+
+                <HBox alignment="CENTER" spacing="10" style="-fx-padding: 10 0 0 0;">
+                      <Button text="Nouveau document" style="-fx-background-color: #6366f1; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 6; -fx-padding: 8 20; -fx-cursor: hand;" onAction="#resetDialog"/>
+                </HBox>
+            </VBox>
+
+        </VBox>
+    </VBox>
+</VBox>

@@ -2,8 +2,10 @@ package com.learnhub.controller.student;
 
 import com.learnhub.dao.ModuleDAO;
 import com.learnhub.dao.RessourceDAO;
+import com.learnhub.dao.QuizDAO;
 import com.learnhub.models.Module;
 import com.learnhub.models.Ressource;
+import com.learnhub.models.Quiz;
 import com.learnhub.models.Utilisateur;
 import com.learnhub.util.NavigationUtil;
 import com.learnhub.util.SessionManager;
@@ -26,6 +28,7 @@ public class StudentModulesController {
 
     private final ModuleDAO moduleDAO = new ModuleDAO();
     private final RessourceDAO ressourceDAO = new RessourceDAO();
+    private final QuizDAO quizDAO = new QuizDAO();
 
     @FXML
     public void initialize() {
@@ -39,28 +42,36 @@ public class StudentModulesController {
     private void loadModules() {
         modulesAccordion.getPanes().clear();
         try {
-            List<Module> modules = moduleDAO.findAll(); // Assuming student sees all available modules or adjust if there's a link mapping
+            List<Module> modules = moduleDAO.findAll(); 
             List<Ressource> allRessources = ressourceDAO.findAll();
             
             lblTotalModules.setText(String.valueOf(modules.size()));
-            lblTotalRessources.setText(String.valueOf(allRessources.size()));
+            
+            int totalResEtQuizzes = allRessources.size();
 
             for (Module m : modules) {
                 // Get resources for this module
                 List<Ressource> resList = allRessources.stream()
-                        .filter(r -> r.getModuleId() == m.getId())
+                        .filter(r -> r.getModuleId() == m.getId() && r.isEstPublic())
                         .collect(Collectors.toList());
+                        
+                // Get quizzes for this module using proper method
+                List<Quiz> quizList = quizDAO.getVisibleQuizzesByModule(m.getId());
+                totalResEtQuizzes += quizList.size();
 
                 // Build Resource list view
                 VBox contentBox = new VBox(0);
                 
-                if (resList.isEmpty()) {
-                    Label noRes = new Label("Aucune ressource disponible pour ce module.");
+                if (resList.isEmpty() && quizList.isEmpty()) {
+                    Label noRes = new Label("Aucune ressource ou quiz disponible pour ce module.");
                     noRes.setStyle("-fx-text-fill: #9ca3af; -fx-padding: 30; -fx-font-size: 14px;");
                     contentBox.getChildren().add(noRes);
                 } else {
                     for (Ressource r : resList) {
                         contentBox.getChildren().add(createResourceRow(r));
+                    }
+                    for (Quiz q : quizList) {
+                        contentBox.getChildren().add(createQuizRow(q));
                     }
                 }
 
@@ -76,6 +87,8 @@ public class StudentModulesController {
             if (!modulesAccordion.getPanes().isEmpty()) {
                 modulesAccordion.setExpandedPane(modulesAccordion.getPanes().get(0));
             }
+            
+            lblTotalRessources.setText(String.valueOf(totalResEtQuizzes));
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -185,9 +198,84 @@ public class StudentModulesController {
 
         Button btnAi = new Button("✨ analyser avec l'IA");
         btnAi.setStyle("-fx-background-color: #6366f1; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 20; -fx-padding: 6 15; -fx-cursor: hand;");
+        btnAi.setOnAction(e -> openAiDialog());
 
         row.getChildren().addAll(icon, texts, spacer, btnDl, btnAi);
         return row;
+    }
+
+    private HBox createQuizRow(Quiz q) {
+        HBox row = new HBox(15);
+        row.setAlignment(Pos.CENTER_LEFT);
+        row.setStyle("-fx-padding: 15 25; -fx-border-color: transparent transparent #f3f4f6 transparent; -fx-background-color: #f8fafc;");
+
+        // Icon
+        Label icon = new Label("📝");
+        icon.setAlignment(Pos.CENTER);
+        icon.setStyle("-fx-background-color: #d1fae5; -fx-text-fill: #059669; -fx-min-width: 36; -fx-min-height: 36; -fx-background-radius: 8; -fx-font-size: 16px;");
+
+        // Title and Badges
+        VBox texts = new VBox(6);
+        Label title = new Label(q.getTitre());
+        title.setStyle("-fx-font-weight: 900; -fx-font-size: 13px; -fx-text-fill: #111827;");
+        
+        HBox badges = new HBox(10);
+        Label typeBadge = new Label("QUIZ");
+        typeBadge.setStyle("-fx-background-color: #059669; -fx-text-fill: white; -fx-font-size: 10px; -fx-padding: 2 8; -fx-background-radius: 10; -fx-font-weight: bold;");
+        
+        Label deadlineBadge = new Label(q.getDeadline() != null ? "Due: " + q.getDeadline().toLocalDate().toString() : "Aucune date");
+        deadlineBadge.setStyle("-fx-background-color: #fee2e2; -fx-text-fill: #dc2626; -fx-font-size: 10px; -fx-padding: 2 8; -fx-background-radius: 10; -fx-font-weight: bold;");
+        
+        badges.getChildren().addAll(typeBadge, deadlineBadge);
+        texts.getChildren().addAll(title, badges);
+
+        Region spacer = new Region();
+        HBox.setHgrow(spacer, Priority.ALWAYS);
+
+        Button btnTake = new Button("▶ Passer ce Quiz");
+        btnTake.setStyle("-fx-background-color: #10b981; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 20; -fx-padding: 6 15; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(16,185,129,0.3), 8, 0, 0, 2);");
+        btnTake.setOnAction(e -> handleTakeQuiz(q));
+
+        row.getChildren().addAll(icon, texts, spacer, btnTake);
+        return row;
+    }
+
+    private void handleTakeQuiz(Quiz q) {
+        // Rediriger vers l'espace de passage de quiz ou afficher un dialog
+        try {
+            javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(getClass().getResource("/fxml/student/quiz_take.fxml"));
+            javafx.scene.Parent root = loader.load();
+            com.learnhub.controller.student.QuizTakeController controller = loader.getController();
+            controller.initQuiz(q);
+
+            Stage stage = new Stage();
+            stage.setTitle("Passer le Quiz : " + q.getTitre());
+            stage.setScene(new javafx.scene.Scene(root));
+            stage.show();
+        } catch (java.io.IOException e) {
+            e.printStackTrace();
+            showAlert("Erreur", "Impossible de charger l'interface du quiz.", Alert.AlertType.ERROR);
+        }
+    }
+
+    private void openAiDialog() {
+        try {
+            javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(getClass().getResource("/fxml/student/ai_analysis_dialog.fxml"));
+            javafx.scene.Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
+            stage.initStyle(javafx.stage.StageStyle.TRANSPARENT);
+            
+            javafx.scene.Scene scene = new javafx.scene.Scene(root);
+            scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
+            stage.setScene(scene);
+            stage.centerOnScreen();
+            stage.show();
+        } catch (java.io.IOException ex) {
+            ex.printStackTrace();
+            showAlert("Erreur", "Impossible de charger l'interface de l'Assistant IA.", Alert.AlertType.ERROR);
+        }
     }
 
     @FXML private void goDashboard() { navigate("/fxml/student/dashboard.fxml", "Tableau de bord"); }

@@ -21,6 +21,7 @@
                 <Button text="👥 Étudiants"   styleClass="prof-nav-btn"/>
                 <Button text="📊 Notes"       styleClass="prof-nav-btn" onAction="#goNotes"/>
                 <Button text="🗓 Séances"     styleClass="prof-nav-btn" onAction="#goSeances"/>
+
             </HBox>
             <Region HBox.hgrow="ALWAYS"/>
             <HBox spacing="15" alignment="CENTER_RIGHT">

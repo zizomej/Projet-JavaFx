@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.shape.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.learnhub.controller.professor.QuizCreateDialogController"
+      style="-fx-background-color: #f4f6f8; -fx-padding: 20;"
+      prefWidth="1000" prefHeight="700" spacing="20">
+
+    <!-- Header area -->
+    <HBox alignment="CENTER_LEFT" spacing="10" style="-fx-padding: 0 0 10 0; -fx-border-color: transparent transparent #e5e7eb transparent; -fx-border-width: 0 0 1 0;">
+        <Label text="📝 Créer un Quiz" style="-fx-font-size: 20px; -fx-font-weight: 900; -fx-text-fill: #1e3a8a;"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button text="✕" style="-fx-background-color: transparent; -fx-text-fill: #9ca3af; -fx-font-weight: bold; -fx-cursor: hand; -fx-font-size: 16px;" onAction="#handleCancel"/>
+    </HBox>
+
+    <ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-border-color: transparent;" VBox.vgrow="ALWAYS">
+        <VBox spacing="15" style="-fx-padding: 5;">
+            
+            <!-- Paramètres du Quiz Card -->
+            <VBox style="-fx-background-color: white; -fx-background-radius: 12; -fx-border-radius: 12; -fx-border-color: #e5e7eb; -fx-padding: 20;" spacing="15">
+                <HBox alignment="CENTER_LEFT" spacing="8">
+                    <Label text="⚙" style="-fx-text-fill: #6b7280; -fx-font-size: 14px;"/>
+                    <Label text="Paramètres du Quiz" style="-fx-font-weight: 900; -fx-font-size: 14px; -fx-text-fill: #111827;"/>
+                </HBox>
+
+                <!-- Titre -->
+                <VBox spacing="5">
+                    <Label text="Titre" style="-fx-text-fill: #374151; -fx-font-size: 12px;"/>
+                    <TextField fx:id="txtTitle" style="-fx-background-color: white; -fx-border-color: #d1d5db; -fx-border-radius: 6; -fx-padding: 8;"/>
+                </VBox>
+
+                <!-- Description -->
+                <VBox spacing="5">
+                    <Label text="Description" style="-fx-text-fill: #374151; -fx-font-size: 12px;"/>
+                    <TextArea fx:id="txtDescription" prefRowCount="2" style="-fx-background-color: white; -fx-border-color: #d1d5db; -fx-border-radius: 6;"/>
+                </VBox>
+
+                <!-- Second Row (Deadline, Time, Visibility) -->
+                <HBox spacing="20">
+                    <VBox spacing="5" HBox.hgrow="ALWAYS">
+                        <HBox alignment="CENTER_LEFT" spacing="5">
+                            <Label text="📅" style="-fx-text-fill: #3b82f6;"/>
+                            <Label text="Date limite" style="-fx-text-fill: #374151; -fx-font-size: 12px;"/>
+                        </HBox>
+                        <DatePicker fx:id="dateDeadline" style="-fx-background-color: white; -fx-border-color: #d1d5db; -fx-border-radius: 6;" maxWidth="Infinity"/>
+                    </VBox>
+                    <VBox spacing="5" HBox.hgrow="ALWAYS">
+                        <HBox alignment="CENTER_LEFT" spacing="5">
+                            <Label text="⏰" style="-fx-text-fill: #3b82f6;"/>
+                            <Label text="Heure (HH:MM)" style="-fx-text-fill: #374151; -fx-font-size: 12px;"/>
+                        </HBox>
+                        <TextField fx:id="txtTimeDeadline" promptText="23:59" style="-fx-background-color: white; -fx-border-color: #d1d5db; -fx-border-radius: 6; -fx-padding: 8;"/>
+                    </VBox>
+                    <VBox spacing="5" HBox.hgrow="ALWAYS">
+                        <HBox alignment="CENTER_LEFT" spacing="5">
+                            <Label text="👁" style="-fx-text-fill: #3b82f6;"/>
+                            <Label text="Visibilité" style="-fx-text-fill: #374151; -fx-font-size: 12px;"/>
+                        </HBox>
+                        <CheckBox fx:id="chkVisible" text="Visible immédiatement" style="-fx-padding: 8 0 0 0;"/>
+                    </VBox>
+                </HBox>
+
+            </VBox>
+
+            <!-- Dynamic Questions Container -->
+            <VBox fx:id="questionsContainer" spacing="15">
+                <!-- Les questions seront injectées ici par le contrôleur -->
+            </VBox>
+
+        </VBox>
+    </ScrollPane>
+
+    <!-- Bottom Actions -->
+    <HBox spacing="15" alignment="CENTER_LEFT" style="-fx-padding: 10 0 0 0;">
+        <Button text="➕ Ajouter Question" style="-fx-background-color: #4f46e5; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 6; -fx-padding: 8 16; -fx-cursor: hand;" onAction="#handleAddQuestion"/>
+        <Button text="✅ Enregistrer" style="-fx-background-color: #10b981; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 6; -fx-padding: 8 16; -fx-cursor: hand;" onAction="#handleSave"/>
+    </HBox>
+
+</VBox>
