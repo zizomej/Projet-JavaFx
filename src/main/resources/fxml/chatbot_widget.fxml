@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<StackPane xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.learnhub.controller.ChatbotController"
+           pickOnBounds="false"
+           alignment="BOTTOM_RIGHT"
+           style="-fx-padding: 30;">
+
+    <!-- Chat Window (hidden by default) -->
+    <VBox fx:id="chatWindow" visible="false" spacing="0" 
+          style="-fx-background-color: white; -fx-background-radius: 12; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 15, 0, 0, 5);"
+          maxWidth="360" maxHeight="550" prefWidth="360" prefHeight="550"
+          StackPane.alignment="BOTTOM_RIGHT">
+          
+        <!-- Header -->
+        <HBox alignment="CENTER_LEFT" spacing="12" style="-fx-background-color: #0A1F44; -fx-padding: 15; -fx-background-radius: 12 12 0 0;">
+             <!-- Robot Icon -->
+             <Label text="🤖" style="-fx-background-color: #FF7F50; -fx-text-fill: white; -fx-font-size: 20px; -fx-background-radius: 20; -fx-min-width: 40; -fx-min-height: 40; -fx-alignment: CENTER;"/>
+             <VBox spacing="2">
+                 <Label text="LearnHub AI" style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px;"/>
+                 <Label text="Assistant intelligent" style="-fx-text-fill: #9ca3af; -fx-font-size: 11px;"/>
+             </VBox>
+             <Region HBox.hgrow="ALWAYS"/>
+             <Button text="✕" onAction="#toggleChat" style="-fx-background-color: rgba(255,255,255,0.1); -fx-text-fill: white; -fx-background-radius: 15; -fx-cursor: hand; -fx-min-width: 30; -fx-min-height: 30;"/>
+        </HBox>
+
+        <!-- Messages Area -->
+        <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" VBox.vgrow="ALWAYS" style="-fx-background: transparent; -fx-background-color: transparent; -fx-border-color: transparent;">
+            <VBox fx:id="messagesContainer" spacing="15" style="-fx-padding: 15; -fx-background-color: white;"/>
+        </ScrollPane>
+
+        <!-- Quick Suggestions -->
+        <FlowPane fx:id="suggestionsPane" hgap="8" vgap="8" style="-fx-padding: 10 15; -fx-background-color: #f9fafb; -fx-border-color: #f3f4f6 transparent transparent transparent;">
+            <!-- Buttons injected here -->
+             <Button text="Quels programmes proposez-vous ?" onAction="#handleSuggestion" style="-fx-background-color: white; -fx-text-fill: #1e3a8a; -fx-border-color: #d1d5db; -fx-border-radius: 20; -fx-background-radius: 20; -fx-cursor: hand; -fx-font-size: 11px;"/>
+             <Button text="Comment m'inscrire ?" onAction="#handleSuggestion" style="-fx-background-color: white; -fx-text-fill: #1e3a8a; -fx-border-color: #d1d5db; -fx-border-radius: 20; -fx-background-radius: 20; -fx-cursor: hand; -fx-font-size: 11px;"/>
+             <Button text="Quels sont les partenaires ?" onAction="#handleSuggestion" style="-fx-background-color: white; -fx-text-fill: #1e3a8a; -fx-border-color: #d1d5db; -fx-border-radius: 20; -fx-background-radius: 20; -fx-cursor: hand; -fx-font-size: 11px;"/>
+        </FlowPane>
+
+        <!-- Input Area -->
+        <HBox spacing="10" alignment="CENTER" style="-fx-padding: 15; -fx-background-color: white; -fx-border-color: #f3f4f6 transparent transparent transparent; -fx-background-radius: 0 0 12 12;">
+             <TextField fx:id="inputField" promptText="Posez votre question..." style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-border-color: #9ca3af; -fx-background-color: transparent; -fx-padding: 8 15;" HBox.hgrow="ALWAYS"/>
+             <Button fx:id="btnSend" text="➤" onAction="#handleSend" style="-fx-background-color: #0A1F44; -fx-text-fill: white; -fx-background-radius: 20; -fx-min-width: 36; -fx-min-height: 36; -fx-cursor: hand;"/>
+        </HBox>
+    </VBox>
+
+    <!-- Floating Action Button -->
+    <Button fx:id="fabBtn" text="💬" onAction="#toggleChat"
+            style="-fx-background-color: #0A1F44; -fx-text-fill: white; -fx-font-size: 24px; -fx-background-radius: 30; -fx-min-width: 60; -fx-min-height: 60; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 5); -fx-cursor: hand;"
+            StackPane.alignment="BOTTOM_RIGHT">
+         <StackPane.margin>
+             <Insets bottom="0" right="0" />
+         </StackPane.margin>
+    </Button>
+
+</StackPane>

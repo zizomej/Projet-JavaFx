@@ -7,11 +7,12 @@
   VISITEUR HOME — Design Symfony visiteur/layout.html.twig + dashboard.html.twig
   Navbar blanche, Hero gradient #0A1F44 → #1E3A8A, cartes programmes
 -->
-<BorderPane xmlns:fx="http://javafx.com/fxml"
-            fx:id="rootPane"
-            fx:controller="com.learnhub.controller.visiteur.HomeController"
-            stylesheets="@/css/styles.css"
-            prefWidth="1280" prefHeight="800">
+<StackPane xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.learnhub.controller.visiteur.HomeController"
+           stylesheets="@/css/styles.css"
+           prefWidth="1280" prefHeight="800">
+
+<BorderPane fx:id="rootPane">
 
     <!-- TOP NAVBAR BLANCHE -->
     <top>
@@ -147,3 +148,8 @@
         </ScrollPane>
     </center>
 </BorderPane>
+
+    <!-- FLOATING CHATBOT WIDGET -->
+    <fx:include source="/fxml/chatbot_widget.fxml" />
+
+</StackPane>

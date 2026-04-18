@@ -40,6 +40,7 @@ com\learnhub\controller\admin\DemandesStageController.class
 com\learnhub\controller\student\StudentQuizzesController$1.class
 com\learnhub\controller\student\AiAnalysisDialogController.class
 com\learnhub\util\DialogUtil.class
+com\learnhub\controller\ChatbotController.class
 com\learnhub\controller\student\StudentDashboardController.class
 com\learnhub\dao\PresenceDAO.class
 com\learnhub\controller\professor\ProfessorModulesController.class

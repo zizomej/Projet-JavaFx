@@ -17,6 +17,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -32,6 +33,8 @@ public class QuizTakeController {
     @FXML private Label lblChronometer;
     @FXML private Label lblProgress;
     @FXML private VBox mainContent;
+    @FXML private Label lblQuestionHeader;
+    @FXML private Label lblPoints;
     @FXML private Label lblQuestionText;
     @FXML private VBox optionsContainer;
     
@@ -46,6 +49,8 @@ public class QuizTakeController {
 
     private List<QuizQuestion> questions;
     private int currentIndex = 0;
+    private boolean isReviewMode = false;
+
 
     // questionId -> selected Option Id
     private Map<Integer, Integer> userResponses = new HashMap<>();
@@ -100,6 +105,8 @@ public class QuizTakeController {
         lblProgress.setText("Terminé");
         lblQuestionText.setText("✅ Vous avez déjà passé ce quiz.");
         lblQuestionText.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #10b981;");
+        lblQuestionHeader.setText("");
+        lblPoints.setText("");
         
         Label noteLabel = new Label("Votre note : " + note + " points");
         noteLabel.setStyle("-fx-font-size: 16px; -fx-text-fill: #374151;");
@@ -130,6 +137,8 @@ public class QuizTakeController {
         if (questions == null || questions.isEmpty()) return;
 
         QuizQuestion currentQ = questions.get(currentIndex);
+        lblQuestionHeader.setText("Question " + (currentIndex + 1));
+        lblPoints.setText(currentQ.getPoints() + (currentQ.getPoints() > 1 ? " points" : " point"));
         lblQuestionText.setText(currentQ.getTexte_question());
         lblProgress.setText((currentIndex + 1) + " / " + questions.size());
 
@@ -142,34 +151,66 @@ public class QuizTakeController {
             for (QuizOption opt : options) {
                 HBox optBox = new HBox(15);
                 optBox.setAlignment(Pos.CENTER_LEFT);
-                // Default style
-                optBox.setStyle("-fx-background-color: #f9fafb; -fx-border-color: transparent; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 12 20; -fx-cursor: hand;");
+                String baseStyle = "-fx-border-color: #e5e7eb; -fx-border-radius: 4; -fx-background-radius: 4; -fx-padding: 12 20; -fx-background-color: #f3f4f6;";
+                optBox.setStyle(baseStyle);
 
                 RadioButton rb = new RadioButton(opt.getTexte_option());
                 rb.setStyle("-fx-font-size: 14px; -fx-text-fill: #374151;");
                 rb.setToggleGroup(group);
                 rb.setUserData(opt.getId());
 
-                // If user previously selected this option, check it
+                Region spacer = new Region();
+                HBox.setHgrow(spacer, Priority.ALWAYS);
+
+                Label statusLabel = new Label();
+                statusLabel.setStyle("-fx-font-size: 12px; -fx-font-style: italic;");
+                statusLabel.setVisible(false);
+
+                // Initial Selection
                 if (userResponses.containsKey(currentQ.getId()) && userResponses.get(currentQ.getId()) == opt.getId()) {
                     rb.setSelected(true);
-                    optBox.setStyle("-fx-background-color: #eff6ff; -fx-border-color: #3b82f6; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 12 20; -fx-cursor: hand;");
+                    if (!isReviewMode) {
+                        optBox.setStyle("-fx-background-color: white; -fx-border-color: #9ca3af; -fx-border-radius: 4; -fx-background-radius: 4; -fx-padding: 12 20;");
+                    }
                 }
 
-                // Dynamic styling on selection
-                rb.selectedProperty().addListener((obs, oldVal, newVal) -> {
-                    if (newVal) {
-                        optBox.setStyle("-fx-background-color: #eff6ff; -fx-border-color: #3b82f6; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 12 20; -fx-cursor: hand;");
-                        userResponses.put(currentQ.getId(), opt.getId());
-                    } else {
-                        optBox.setStyle("-fx-background-color: #f9fafb; -fx-border-color: transparent; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 12 20; -fx-cursor: hand;");
+                if (isReviewMode) {
+                    rb.setDisable(true);
+                    boolean isCorrectChoice = opt.isIs_correct();
+                    boolean userSelectedThis = rb.isSelected();
+
+                    // Blackboard styling
+                    if (isCorrectChoice) {
+                        statusLabel.setText("Correct answer");
+                        statusLabel.setStyle("-fx-font-size: 12px; -fx-font-style: italic; -fx-text-fill: #10b981;");
+                        statusLabel.setVisible(true);
+                        if (userSelectedThis) {
+                            optBox.setStyle("-fx-background-color: #ecfdf5; -fx-border-color: #10b981; -fx-border-radius: 4; -fx-background-radius: 4; -fx-padding: 12 20;");
+                        } else {
+                            optBox.setStyle("-fx-background-color: #f3f4f6; -fx-border-color: #10b981; -fx-border-radius: 4; -fx-background-radius: 4; -fx-padding: 12 20;");
+                        }
+                    } else if (userSelectedThis && !isCorrectChoice) {
+                        statusLabel.setText("Incorrect");
+                        statusLabel.setStyle("-fx-font-size: 12px; -fx-font-style: italic; -fx-text-fill: #ef4444;");
+                        statusLabel.setVisible(true);
+                        optBox.setStyle("-fx-background-color: #fef2f2; -fx-border-color: #ef4444; -fx-border-radius: 4; -fx-background-radius: 4; -fx-padding: 12 20;");
                     }
-                });
 
-                // Let the whole row be clickable
-                optBox.setOnMouseClicked(e -> rb.setSelected(true));
+                } else {
+                    // Interaction only when not in review mode
+                    rb.selectedProperty().addListener((obs, oldVal, newVal) -> {
+                        if (newVal) {
+                            optBox.setStyle("-fx-background-color: white; -fx-border-color: #9ca3af; -fx-border-radius: 4; -fx-background-radius: 4; -fx-padding: 12 20;");
+                            userResponses.put(currentQ.getId(), opt.getId());
+                        } else {
+                            optBox.setStyle(baseStyle);
+                        }
+                    });
+                    optBox.setOnMouseClicked(e -> rb.setSelected(true));
+                    optBox.setCursor(javafx.scene.Cursor.HAND);
+                }
 
-                optBox.getChildren().add(rb);
+                optBox.getChildren().addAll(rb, spacer, statusLabel);
                 optionsContainer.getChildren().add(optBox);
             }
 
@@ -207,6 +248,11 @@ public class QuizTakeController {
 
     @FXML
     private void handleSubmit() {
+        if (isReviewMode) {
+            closeDialog();
+            return;
+        }
+
         if (userResponses.isEmpty()) { 
             closeDialog();
             return;
@@ -224,12 +270,19 @@ public class QuizTakeController {
         try {
             QuizSoumission sub = new QuizSoumission(0, quiz.getId(), SessionManager.getInstance().getCurrentUser().getId(), score, LocalDateTime.now());
             soumissionDAO.addSoumission(sub);
-
+            
             if (timeline != null) timeline.stop();
+            lblChronometer.setText("Terminé");
 
-            DialogUtil.showSuccessMessage("Succès", "Quiz soumis avec succès !\nVous avez obtenu " + score + " points en " + elapsedSeconds + " secondes.");
+            DialogUtil.showSuccessMessage("Succès", "Quiz soumis avec succès !\nVous avez obtenu " + score + " points en " + elapsedSeconds + " secondes.\nVous pouvez consulter vos erreurs maintenant.");
 
-            closeDialog();
+            // Enter review mode
+            isReviewMode = true;
+            currentIndex = 0; // go back to start to review
+            displayCurrentQuestion();
+            btnSubmit.setVisible(false);
+            btnNext.setVisible(questions.size() > 1);
+
         } catch (SQLException e) {
             e.printStackTrace();
         }

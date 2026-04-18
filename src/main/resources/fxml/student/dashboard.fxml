@@ -3,10 +3,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.geometry.*?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.learnhub.controller.student.StudentDashboardController"
-            stylesheets="@/css/styles.css" prefWidth="1280" prefHeight="800"
-            style="-fx-background-color: #f9fafb;">
+<StackPane xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.learnhub.controller.student.StudentDashboardController"
+           stylesheets="@/css/styles.css" prefWidth="1280" prefHeight="800">
+
+<BorderPane style="-fx-background-color: #f9fafb;">
 
     <!-- TOPBAR -->
     <top>
@@ -152,3 +153,8 @@
         </ScrollPane>
     </center>
 </BorderPane>
+
+    <!-- FLOATING CHATBOT WIDGET -->
+    <fx:include source="/fxml/chatbot_widget.fxml" />
+
+</StackPane>

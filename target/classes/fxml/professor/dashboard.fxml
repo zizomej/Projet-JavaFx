@@ -4,9 +4,11 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.shape.Circle?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.learnhub.controller.professor.ProfessorDashboardController"
-            stylesheets="@/css/styles.css" prefWidth="1280" prefHeight="800">
+<StackPane xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.learnhub.controller.professor.ProfessorDashboardController"
+           stylesheets="@/css/styles.css" prefWidth="1280" prefHeight="800">
+
+<BorderPane>
 
     <!-- TOP NAV HORIZONTAL -->
     <top>
@@ -130,3 +132,8 @@
         </ScrollPane>
     </center>
 </BorderPane>
+
+    <!-- FLOATING CHATBOT WIDGET -->
+    <fx:include source="/fxml/chatbot_widget.fxml" />
+
+</StackPane>

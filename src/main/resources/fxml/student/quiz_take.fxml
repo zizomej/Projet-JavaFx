@@ -27,11 +27,23 @@
 
     <!-- Main Content Panel -->
     <VBox fx:id="mainContent" style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 30; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 10, 0, 0, 2);"
-          spacing="25" maxWidth="700" VBox.vgrow="ALWAYS">
+          spacing="15" maxWidth="700" VBox.vgrow="ALWAYS">
         
-        <Label fx:id="lblQuestionText" text="Texte de la question..." style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #1f2937; -fx-wrap-text: true;"/>
+        <HBox alignment="CENTER_LEFT">
+            <Label fx:id="lblQuestionHeader" text="Question 1" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #1f2937;"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Label fx:id="lblPoints" text="(1 point)" style="-fx-border-color: #d1d5db; -fx-border-radius: 20; -fx-padding: 4 12; -fx-text-fill: #4b5563; -fx-background-color: #f9fafb; -fx-background-radius: 20;"/>
+        </HBox>
 
-        <VBox fx:id="optionsContainer" spacing="12">
+        <Separator/>
+
+        <Label fx:id="lblQuestionText" text="Texte de la question..." style="-fx-font-size: 16px; -fx-text-fill: #374151; -fx-wrap-text: true;">
+            <VBox.margin>
+                <Insets top="10" bottom="15"/>
+            </VBox.margin>
+        </Label>
+
+        <VBox fx:id="optionsContainer" spacing="8">
             <!-- Les options (RadioButtons enveloppés dans des HBox) seront injectées ici -->
         </VBox>
 
