@@ -14,6 +14,7 @@ com\learnhub\controller\student\AiAnalysisDialogController$1.class
 com\learnhub\controller\professor\QuizController$2.class
 com\learnhub\controller\professor\ModuleFormController.class
 com\learnhub\dao\QuizQuestionDAO.class
+com\learnhub\controller\parent\ParentDashboardController$1.class
 com\learnhub\controller\student\StudentModulesController$1.class
 com\learnhub\controller\student\StudentNotesController.class
 com\learnhub\controller\student\StudentQuizzesController.class
@@ -25,6 +26,7 @@ com\learnhub\controller\professor\NoteFormController.class
 com\learnhub\controller\admin\NotesController$3.class
 com\learnhub\controller\student\AiAnalysisDialogController$2.class
 com\learnhub\controller\student\QuizTakeController.class
+com\learnhub\util\PDFGenerator.class
 com\learnhub\controller\professor\RessourceFormController.class
 com\learnhub\controller\student\StudentModulesController.class
 com\learnhub\controller\professor\ProfessorDashboardController.class
@@ -42,6 +44,7 @@ com\learnhub\controller\student\AiAnalysisDialogController.class
 com\learnhub\util\DialogUtil.class
 com\learnhub\controller\ChatbotController.class
 com\learnhub\controller\student\StudentDashboardController.class
+com\learnhub\models\BulletinRow.class
 com\learnhub\dao\PresenceDAO.class
 com\learnhub\controller\professor\ProfessorModulesController.class
 com\learnhub\controller\professor\ProfessorNotesController$3.class

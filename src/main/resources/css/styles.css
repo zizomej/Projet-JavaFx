@@ -1002,3 +1002,44 @@ Label {
     -fx-font-weight: 900;
     -fx-text-fill: #111827;
 }
+
+/* ─── CUSTOM RELEVE TABLE (Parent Dashboard) ──────────── */
+.table-releve {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-table-cell-border-color: transparent;
+}
+.table-releve .column-header-background {
+    -fx-background-color: #1e3a8a; /* Indigo 900 / Dark blue */
+}
+.table-releve .column-header, .table-releve .filler {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-size: 40px; /* Make header thicker */
+}
+.table-releve .column-header .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+    -fx-alignment: center-left;
+    -fx-padding: 0 10px;
+}
+.table-releve .table-row-cell {
+    -fx-background-color: white;
+    -fx-border-color: transparent transparent #f3f4f6 transparent;
+    -fx-border-width: 1px;
+    -fx-cell-size: 40px; /* Thicker rows */
+}
+.table-releve .table-row-cell:odd {
+    -fx-background-color: white;
+}
+.table-releve .table-row-cell:even {
+    -fx-background-color: #fafafc; /* Extremely Light gray */
+}
+.table-releve .table-row-cell:selected {
+    -fx-background-color: #e0e7ff;
+}
+.table-releve .table-cell {
+    -fx-border-color: transparent;
+}
+

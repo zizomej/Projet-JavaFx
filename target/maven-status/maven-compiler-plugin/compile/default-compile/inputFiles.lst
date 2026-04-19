@@ -45,6 +45,7 @@ C:\Users\Admin\Downloads\JAVAFXXX\LearnHub_JavaFX_Finaleeee\learnhub-final\src\m
 C:\Users\Admin\Downloads\JAVAFXXX\LearnHub_JavaFX_Finaleeee\learnhub-final\src\main\java\com\learnhub\util\DatabaseConnection.java
 C:\Users\Admin\Downloads\JAVAFXXX\LearnHub_JavaFX_Finaleeee\learnhub-final\src\main\java\com\learnhub\controller\admin\ModulesController.java
 C:\Users\Admin\Downloads\JAVAFXXX\LearnHub_JavaFX_Finaleeee\learnhub-final\src\main\java\com\learnhub\models\Evenement.java
+C:\Users\Admin\Downloads\JAVAFXXX\LearnHub_JavaFX_Finaleeee\learnhub-final\src\main\java\com\learnhub\util\PDFGenerator.java
 C:\Users\Admin\Downloads\JAVAFXXX\LearnHub_JavaFX_Finaleeee\learnhub-final\src\main\java\com\learnhub\dao\QuizQuestionDAO.java
 C:\Users\Admin\Downloads\JAVAFXXX\LearnHub_JavaFX_Finaleeee\learnhub-final\src\main\java\com\learnhub\models\Creneau.java
 C:\Users\Admin\Downloads\JAVAFXXX\LearnHub_JavaFX_Finaleeee\learnhub-final\src\main\java\com\learnhub\controller\admin\UtilisateursController.java
@@ -56,6 +57,7 @@ C:\Users\Admin\Downloads\JAVAFXXX\LearnHub_JavaFX_Finaleeee\learnhub-final\src\m
 C:\Users\Admin\Downloads\JAVAFXXX\LearnHub_JavaFX_Finaleeee\learnhub-final\src\main\java\com\learnhub\dao\SeanceDAO.java
 C:\Users\Admin\Downloads\JAVAFXXX\LearnHub_JavaFX_Finaleeee\learnhub-final\src\main\java\com\learnhub\dao\CoursDAO.java
 C:\Users\Admin\Downloads\JAVAFXXX\LearnHub_JavaFX_Finaleeee\learnhub-final\src\main\java\com\learnhub\dao\QuizSoumissionDAO.java
+C:\Users\Admin\Downloads\JAVAFXXX\LearnHub_JavaFX_Finaleeee\learnhub-final\src\main\java\com\learnhub\models\BulletinRow.java
 C:\Users\Admin\Downloads\JAVAFXXX\LearnHub_JavaFX_Finaleeee\learnhub-final\src\main\java\com\learnhub\models\OffreStage.java
 C:\Users\Admin\Downloads\JAVAFXXX\LearnHub_JavaFX_Finaleeee\learnhub-final\src\main\java\com\learnhub\models\Module.java
 C:\Users\Admin\Downloads\JAVAFXXX\LearnHub_JavaFX_Finaleeee\learnhub-final\src\main\java\com\learnhub\util\SessionManager.java

@@ -30,7 +30,7 @@ public class ChatbotController {
     @FXML private ScrollPane scrollPane;
 
     // TODO: Remplacez cette clé par votre propre clé API Google Gemini
-    private static final String API_KEY = "AIzaSyAJN1INwtA_m3yHgLH5WDVSAQc7M92qy_0";
+    private static final String API_KEY = "AIzaSyD2z4aNMbMXKBAy2e5GNczWzoxJIXSKw4g";
     private static final String API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" + API_KEY;
 
     private JSONArray chatHistory = new JSONArray();
