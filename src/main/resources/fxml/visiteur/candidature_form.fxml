@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<StackPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.learnhub.controller.visiteur.CandidatureFormController"
+           style="-fx-background-color: transparent;" prefWidth="550" prefHeight="450">
+
+    <VBox spacing="20" alignment="TOP_CENTER" styleClass="card-white"
+          style="-fx-padding: 40; -fx-background-radius: 12; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);">
+        
+        <Label fx:id="titleLabel" text="Postuler en ligne" styleClass="form-title" style="-fx-font-size: 24px; -fx-text-fill: #1E3A8A; -fx-font-weight: 800;"/>
+        <Label fx:id="subtitleLabel" text="Filière : --" style="-fx-text-fill: #64748B; -fx-font-size: 14px;"/>
+
+        <GridPane hgap="15" vgap="25" alignment="CENTER">
+            <columnConstraints>
+                <ColumnConstraints halignment="RIGHT" minWidth="120" />
+                <ColumnConstraints hgrow="ALWAYS" minWidth="250" />
+            </columnConstraints>
+
+            <Label text="Nom complet :" GridPane.columnIndex="0" GridPane.rowIndex="0" styleClass="form-label" style="-fx-text-fill: #475569;"/>
+            <TextField fx:id="nomField" promptText="Ex: Jean Dupont" GridPane.columnIndex="1" GridPane.rowIndex="0" styleClass="form-control"/>
+
+            <Label text="Email :" GridPane.columnIndex="0" GridPane.rowIndex="1" styleClass="form-label" style="-fx-text-fill: #475569;"/>
+            <TextField fx:id="emailField" promptText="Ex: jean.dupont@email.com" GridPane.columnIndex="1" GridPane.rowIndex="1" styleClass="form-control"/>
+
+            <Label text="Téléphone :" GridPane.columnIndex="0" GridPane.rowIndex="2" styleClass="form-label" style="-fx-text-fill: #475569;"/>
+            <TextField fx:id="telephoneField" promptText="Ex: +216 71234567" GridPane.columnIndex="1" GridPane.rowIndex="2" styleClass="form-control"/>
+        </GridPane>
+
+        <Region VBox.vgrow="ALWAYS" />
+
+        <HBox spacing="15" alignment="CENTER_RIGHT">
+            <Button text="Annuler" onAction="#handleCancel" styleClass="btn, btn-secondary" style="-fx-background-color: #F1F5F9; -fx-text-fill: #475569;"/>
+            <Button text="Soumettre la candidature" onAction="#handleSubmit" styleClass="btn, btn-primary" style="-fx-background-color: #1E3A8A; -fx-text-fill: white;"/>
+        </HBox>
+    </VBox>
+</StackPane>

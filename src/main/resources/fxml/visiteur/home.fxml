@@ -78,62 +78,16 @@
                     </VBox>
                 </HBox>
 
-                <!-- PROGRAMMES SECTION -->
-                <VBox alignment="CENTER" spacing="20"
+                <!-- UNIVERSITES SECTION -->
+                <VBox alignment="CENTER" spacing="30"
                       style="-fx-background-color: #f5f7fa; -fx-padding: 60 80 60 80;">
-                    <Label text="Nos Formations" styleClass="section-title"/>
-                    <Label text="Découvrez nos filières et programmes d'excellence"
+                    <Label text="Nos universités" styleClass="section-title"/>
+                    <Label text="Découvrez nos filières et programmes d'excellence au sein de nos universités partenaires"
                            style="-fx-font-size: 15px; -fx-text-fill: #6b7280; -fx-text-alignment: CENTER;"/>
 
-                    <HBox spacing="24" alignment="CENTER">
-                        <!-- Programme card 1 -->
-                        <VBox spacing="16" alignment="CENTER_LEFT"
-                              style="-fx-background-color: white; -fx-background-radius: 16;
-                                     -fx-border-color: #e5e7eb; -fx-border-radius: 16; -fx-border-width: 2;
-                                     -fx-padding: 32; -fx-pref-width: 320;
-                                     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 8, 0, 0, 3);">
-                            <Label text="🖥️"
-                                   style="-fx-background-color: linear-gradient(to bottom right, #1E3A8A, #0A1F44);
-                                          -fx-background-radius: 12; -fx-min-width: 64px; -fx-max-width: 64px;
-                                          -fx-min-height: 64px; -fx-max-height: 64px; -fx-font-size: 28px; -fx-alignment: CENTER;"/>
-                            <Label text="Informatique" style="-fx-font-size: 18px; -fx-font-weight: 900; -fx-text-fill: #0A1F44;"/>
-                            <Label text="Licence &amp; Master en Génie Logiciel, IA, Cybersécurité"
-                                   style="-fx-font-size: 13px; -fx-text-fill: #6b7280;" wrapText="true"/>
-                            <Button text="Découvrir →" styleClass="btn, btn-primary, btn-sm" onAction="#goPrograms"/>
-                        </VBox>
-
-                        <!-- Programme card 2 -->
-                        <VBox spacing="16" alignment="CENTER_LEFT"
-                              style="-fx-background-color: white; -fx-background-radius: 16;
-                                     -fx-border-color: #e5e7eb; -fx-border-radius: 16; -fx-border-width: 2;
-                                     -fx-padding: 32; -fx-pref-width: 320;
-                                     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 8, 0, 0, 3);">
-                            <Label text="📡"
-                                   style="-fx-background-color: linear-gradient(to bottom right, #FFC107, #FF6F61);
-                                          -fx-background-radius: 12; -fx-min-width: 64px; -fx-max-width: 64px;
-                                          -fx-min-height: 64px; -fx-max-height: 64px; -fx-font-size: 28px; -fx-alignment: CENTER;"/>
-                            <Label text="Télécommunications" style="-fx-font-size: 18px; -fx-font-weight: 900; -fx-text-fill: #0A1F44;"/>
-                            <Label text="Réseaux, Systèmes embarqués, IoT"
-                                   style="-fx-font-size: 13px; -fx-text-fill: #6b7280;" wrapText="true"/>
-                            <Button text="Découvrir →" styleClass="btn, btn-primary, btn-sm" onAction="#goPrograms"/>
-                        </VBox>
-
-                        <!-- Programme card 3 -->
-                        <VBox spacing="16" alignment="CENTER_LEFT"
-                              style="-fx-background-color: white; -fx-background-radius: 16;
-                                     -fx-border-color: #e5e7eb; -fx-border-radius: 16; -fx-border-width: 2;
-                                     -fx-padding: 32; -fx-pref-width: 320;
-                                     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 8, 0, 0, 3);">
-                            <Label text="💼"
-                                   style="-fx-background-color: linear-gradient(to bottom right, #10b981, #059669);
-                                          -fx-background-radius: 12; -fx-min-width: 64px; -fx-max-width: 64px;
-                                          -fx-min-height: 64px; -fx-max-height: 64px; -fx-font-size: 28px; -fx-alignment: CENTER;"/>
-                            <Label text="Gestion" style="-fx-font-size: 18px; -fx-font-weight: 900; -fx-text-fill: #0A1F44;"/>
-                            <Label text="Finance, Marketing, Management, Commerce"
-                                   style="-fx-font-size: 13px; -fx-text-fill: #6b7280;" wrapText="true"/>
-                            <Button text="Découvrir →" styleClass="btn, btn-primary, btn-sm" onAction="#goPrograms"/>
-                        </VBox>
-                    </HBox>
+                    <!-- Dynamic container for universities and their filieres -->
+                    <VBox fx:id="universitesContainer" spacing="30" alignment="CENTER" maxWidth="1000">
+                    </VBox>
                 </VBox>
 
                 <!-- FOOTER -->

@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.sql.SQLException;
@@ -36,15 +37,37 @@ public class PresenceFormController {
     private void setupTable() {
         colNom.setCellValueFactory(new PropertyValueFactory<>("etudiantNom"));
         colStatut.setCellFactory(param -> new TableCell<>() {
-            private final ChoiceBox<String> choice = new ChoiceBox<>(FXCollections.observableArrayList("present", "absent", "retard"));
+            private final ToggleButton btnPresent = new ToggleButton("Présent");
+            private final ToggleButton btnAbsent = new ToggleButton("Absent");
+            private final ToggleButton btnRetard = new ToggleButton("Retard");
+            private final ToggleGroup group = new ToggleGroup();
+            private final HBox pane = new HBox(8, btnPresent, btnAbsent, btnRetard);
+
             {
-                choice.setMaxWidth(Double.MAX_VALUE);
-                choice.setOnAction(e -> {
-                    if (getTableRow() != null && getTableRow().getItem() != null) {
-                        getTableRow().getItem().setStatut(choice.getValue());
-                    }
-                });
+                pane.setAlignment(javafx.geometry.Pos.CENTER);
+                btnPresent.setToggleGroup(group);
+                btnAbsent.setToggleGroup(group);
+                btnRetard.setToggleGroup(group);
+
+                btnPresent.getStyleClass().addAll("attendance-chip", "attendance-chip-present");
+                btnAbsent.getStyleClass().addAll("attendance-chip", "attendance-chip-absent");
+                btnRetard.getStyleClass().addAll("attendance-chip", "attendance-chip-retard");
+
+                btnPresent.setMinWidth(80);
+                btnAbsent.setMinWidth(80);
+                btnRetard.setMinWidth(80);
+
+                btnPresent.setOnAction(e -> updateStatut("present"));
+                btnAbsent.setOnAction(e -> updateStatut("absent"));
+                btnRetard.setOnAction(e -> updateStatut("retard"));
             }
+
+            private void updateStatut(String statut) {
+                if (getTableRow() != null && getTableRow().getItem() != null) {
+                    getTableRow().getItem().setStatut(statut);
+                }
+            }
+
             @Override
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
@@ -53,9 +76,12 @@ public class PresenceFormController {
                 } else {
                     Presence p = getTableRow().getItem();
                     if (p != null) {
-                        choice.setValue(p.getStatut());
+                        String s = p.getStatut();
+                        if ("present".equals(s)) btnPresent.setSelected(true);
+                        else if ("absent".equals(s)) btnAbsent.setSelected(true);
+                        else if ("retard".equals(s)) btnRetard.setSelected(true);
                     }
-                    setGraphic(choice);
+                    setGraphic(pane);
                 }
             }
         });

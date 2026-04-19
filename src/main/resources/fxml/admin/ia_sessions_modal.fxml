@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.shape.Circle?>
+
+<VBox xmlns:fx="http://javafx.com/fxml" 
+      fx:controller="com.learnhub.controller.admin.IASessionsController"
+      spacing="0" style="-fx-background-color: white; -fx-background-radius: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 30, 0, 0, 15);"
+      prefWidth="900" prefHeight="700">
+
+    <!-- Header Section -->
+    <HBox spacing="20" alignment="CENTER_LEFT" style="-fx-background-color: #1E3A8A; -fx-background-radius: 20 20 0 0; -fx-padding: 30 40;">
+        <StackPane>
+            <Circle radius="25" fill="white" opacity="0.1"/>
+            <Label text="🧠" style="-fx-font-size: 32px;"/>
+        </StackPane>
+        <VBox spacing="5" HBox.hgrow="ALWAYS">
+            <Label fx:id="headerTitle" text="IA : Intelligence Artificielle" style="-fx-font-size: 26px; -fx-font-weight: 900; -fx-text-fill: white;"/>
+            <Label text="Optimisez votre séance avec l'IA LearnHub" style="-fx-font-size: 14px; -fx-text-fill: #e0e7ff;"/>
+        </VBox>
+        <Button text="✕" onAction="#handleClose" style="-fx-background-color: rgba(255,255,255,0.1); -fx-text-fill: white; -fx-font-size: 18px; -fx-padding: 8 15; -fx-background-radius: 12; -fx-cursor: hand;"/>
+    </HBox>
+
+    <ScrollPane fitToWidth="true" style="-fx-background-color: white; -fx-background: white;" VBox.vgrow="ALWAYS">
+        <VBox spacing="30" style="-fx-padding: 35;">
+            
+            <!-- Tools Grid (Cards) -->
+            <HBox spacing="25">
+                <!-- Transcription Card -->
+                <VBox HBox.hgrow="ALWAYS" styleClass="ia-card" spacing="20" style="-fx-background-color: #f8fafc; -fx-background-radius: 15; -fx-padding: 25; -fx-border-color: #e2e8f0; -fx-border-width: 1; -fx-border-radius: 15;">
+                    <HBox alignment="CENTER_LEFT" spacing="10">
+                        <Label text="🎙️" style="-fx-font-size: 18px;"/>
+                        <Label text="Transcription" style="-fx-font-weight: 800; -fx-text-fill: #1e3a8a; -fx-font-size: 16px;"/>
+                    </HBox>
+                    <Label text="Convertissez l'enregistrement de votre cours en texte." wrapText="true" style="-fx-text-fill: #64748b; -fx-font-size: 13px;"/>
+                    <TextField fx:id="videoUrlField" promptText="URL du fichier audio/vidéo" style="-fx-background-radius: 8; -fx-padding: 10; -fx-border-color: #e2e8f0; -fx-border-radius: 8;"/>
+                    <Button text="Lancer la transcription" onAction="#handleTranscription" maxWidth="Infinity" 
+                            style="-fx-background-color: #1E3A8A; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 12; -fx-background-radius: 8; -fx-cursor: hand;"/>
+                </VBox>
+
+                <!-- Revision Card -->
+                <VBox HBox.hgrow="ALWAYS" styleClass="ia-card" spacing="20" style="-fx-background-color: #f8fafc; -fx-background-radius: 15; -fx-padding: 25; -fx-border-color: #e2e8f0; -fx-border-width: 1; -fx-border-radius: 15;">
+                    <HBox alignment="CENTER_LEFT" spacing="10">
+                        <Label text="📝" style="-fx-font-size: 18px;"/>
+                        <Label text="Fiche de Révision" style="-fx-font-weight: 800; -fx-text-fill: #1e3a8a; -fx-font-size: 16px;"/>
+                    </HBox>
+                    <Label text="Générez automatiquement un résumé pédagogique complet." wrapText="true" style="-fx-text-fill: #64748b; -fx-font-size: 13px;"/>
+                    <Region VBox.vgrow="ALWAYS"/>
+                    <Button text="Générer le résumé" onAction="#handleSummary" maxWidth="Infinity" 
+                            style="-fx-background-color: #8b5cf6; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 12; -fx-background-radius: 8; -fx-cursor: hand;"/>
+                </VBox>
+            </HBox>
+
+            <!-- Quiz Component -->
+            <VBox styleClass="ia-card" spacing="20" style="-fx-background-color: #f8fafc; -fx-background-radius: 15; -fx-padding: 25; -fx-border-color: #e2e8f0; -fx-border-width: 1; -fx-border-radius: 15;">
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <Label text="❓" style="-fx-font-size: 18px;"/>
+                    <Label text="Génération de Quiz" style="-fx-font-weight: 800; -fx-text-fill: #1e3a8a; -fx-font-size: 16px;"/>
+                </HBox>
+                <Label text="Créez un QCM interactif basé sur le contenu du cours (Format JSON AI)." wrapText="true" style="-fx-text-fill: #64748b; -fx-font-size: 13px;"/>
+                <Button text="Générer un QCM (JSON AI)" onAction="#handleQuiz" maxWidth="Infinity" 
+                        style="-fx-background-color: #10b981; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 12; -fx-background-radius: 8; -fx-cursor: hand;"/>
+            </VBox>
+
+            <!-- Preview Section -->
+            <VBox spacing="15" VBox.vgrow="ALWAYS">
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <Label text="📄" style="-fx-font-size: 18px;"/>
+                    <Label text="Aperçu du texte :" style="-fx-font-weight: bold; -fx-text-fill: #1e293b;"/>
+                </HBox>
+                <TextArea fx:id="previewArea" wrapText="true" editable="false" prefHeight="250"
+                          style="-fx-background-radius: 12; -fx-border-radius: 12; -fx-border-color: #e2e8f0; -fx-font-family: 'Consolas', monospace; -fx-font-size: 13px; -fx-padding: 15;"/>
+            </VBox>
+
+        </VBox>
+    </ScrollPane>
+
+</VBox>

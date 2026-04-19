@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.learnhub.controller.admin.MetiersAvancesController"
+            stylesheets="@/css/styles.css" prefWidth="1280" prefHeight="800" style="-fx-background-color: #f8fafc;">
+    
+    <left>
+        <VBox styleClass="sidebar" spacing="0">
+            <VBox styleClass="sidebar-brand" spacing="5">
+                <Label text="🎓 LearnHub" styleClass="sidebar-brand-text"/>
+                <Label text="Espace Administrateur" styleClass="sidebar-brand-sub"/>
+            </VBox>
+            <VBox spacing="2" style="-fx-padding: 10 0;">
+                <Label text="NAVIGATION" styleClass="nav-section-title"/>
+                <Button text="🏠  Tableau de bord" styleClass="nav-btn" onAction="#goBack" maxWidth="Infinity"/>
+                <Label text="VIE SCOLAIRE" styleClass="nav-section-title"/>
+                <Button text="🎉  Événements" styleClass="nav-btn" onAction="#goEvenements" maxWidth="Infinity"/>
+                <Button text="🚀  Outils Avancés" styleClass="nav-btn, nav-btn-active" maxWidth="Infinity"/>
+            </VBox>
+            <Region VBox.vgrow="ALWAYS"/>
+            <VBox styleClass="admin-section" spacing="10">
+                <Button text="🚪  Déconnexion" styleClass="nav-logout" maxWidth="Infinity"/>
+            </VBox>
+        </VBox>
+    </left>
+
+    <center>
+        <ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-background: transparent; -fx-border-color: transparent;">
+            <StackPane styleClass="root-container">
+                <VBox styleClass="content-area" spacing="40" alignment="TOP_CENTER" maxWidth="1100" style="-fx-padding: 40 60;">
+                    
+                    <!-- HERO BANNER -->
+                    <StackPane style="-fx-background-color: linear-gradient(to right, #1E3A8A, #3b82f6); -fx-background-radius: 18; -fx-padding: 50 60; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 20, 0, 0, 10);">
+                        <VBox spacing="10">
+                            <Label text="🚀 Métiers Avancés" style="-fx-font-size: 32px; -fx-font-weight: 900; -fx-text-fill: white;"/>
+                            <Label text="Optimisez votre gestion avec nos outils stratégiques de communication et d'analyse." 
+                                   style="-fx-font-size: 16px; -fx-text-fill: #e2e8f0;"/>
+                        </VBox>
+                    </StackPane>
+
+                    <!-- TOOLS GRID -->
+                    <GridPane hgap="30" vgap="30">
+                        <columnConstraints>
+                            <ColumnConstraints hgrow="ALWAYS" percentWidth="50"/>
+                            <ColumnConstraints hgrow="ALWAYS" percentWidth="50"/>
+                        </columnConstraints>
+
+                        <!-- PROMOTION TOOL CARD -->
+                        <VBox GridPane.columnIndex="0" GridPane.rowIndex="0" styleClass="card" style="-fx-padding: 30; -fx-cursor: hand;" spacing="20" onMouseClicked="#goEvenements">
+                            <StackPane alignment="CENTER_LEFT">
+                                <Circle radius="30" fill="#3b82f61a"/>
+                                <Label text="📢" style="-fx-font-size: 28px; -fx-padding: 0 0 0 15;"/>
+                            </StackPane>
+                            <VBox spacing="8">
+                                <Label text="Outil de Promotion IA" style="-fx-font-size: 20px; -fx-font-weight: 800; -fx-text-fill: #1e293b;"/>
+                                <Label text="Générez automatiquement des emails d'invitation et des posts réseaux sociaux pour vos événements." 
+                                       wrapText="true" style="-fx-text-fill: #64748b; -fx-font-size: 14px; -fx-line-spacing: 5;"/>
+                            </VBox>
+                            <HBox alignment="CENTER_LEFT" spacing="10">
+                                <Label text="Accéder" style="-fx-text-fill: #3b82f6; -fx-font-weight: bold;"/>
+                                <Label text="→" style="-fx-text-fill: #3b82f6;"/>
+                            </HBox>
+                        </VBox>
+
+                        <!-- COMMUNICATION HUB CARD -->
+                        <VBox GridPane.columnIndex="1" GridPane.rowIndex="0" styleClass="card" style="-fx-padding: 30; -fx-cursor: hand;" spacing="20">
+                            <StackPane alignment="CENTER_LEFT">
+                                <Circle radius="30" fill="#10b9811a"/>
+                                <Label text="💬" style="-fx-font-size: 28px; -fx-padding: 0 0 0 15;"/>
+                            </StackPane>
+                            <VBox spacing="8">
+                                <Label text="Centre de Communication" style="-fx-font-size: 20px; -fx-font-weight: 800; -fx-text-fill: #1e293b;"/>
+                                <Label text="Envoyez des notifications groupées aux étudiants et professeurs en un seul clic." 
+                                       wrapText="true" style="-fx-text-fill: #64748b; -fx-font-size: 14px; -fx-line-spacing: 5;"/>
+                            </VBox>
+                            <HBox alignment="CENTER_LEFT" spacing="10">
+                                <Label text="Bientôt disponible" style="-fx-text-fill: #94a3b8; -fx-font-weight: bold;"/>
+                            </HBox>
+                        </VBox>
+
+                        <!-- ANALYTICS CARD -->
+                        <VBox GridPane.columnIndex="0" GridPane.rowIndex="1" styleClass="card" style="-fx-padding: 30; -fx-cursor: hand;" spacing="20">
+                            <StackPane alignment="CENTER_LEFT">
+                                <Circle radius="30" fill="#f59e0b1a"/>
+                                <Label text="📊" style="-fx-font-size: 28px; -fx-padding: 0 0 0 15;"/>
+                            </StackPane>
+                            <VBox spacing="8">
+                                <Label text="Analyse de Performance" style="-fx-font-size: 20px; -fx-font-weight: 800; -fx-text-fill: #1e293b;"/>
+                                <Label text="Visualisez les taux de participation et l'engagement global sur l'année universitaire." 
+                                       wrapText="true" style="-fx-text-fill: #64748b; -fx-font-size: 14px; -fx-line-spacing: 5;"/>
+                            </VBox>
+                            <HBox alignment="CENTER_LEFT" spacing="10">
+                                <Label text="Bientôt disponible" style="-fx-text-fill: #94a3b8; -fx-font-weight: bold;"/>
+                            </HBox>
+                        </VBox>
+
+                        <!-- REPORTING CARD -->
+                        <VBox GridPane.columnIndex="1" GridPane.rowIndex="1" styleClass="card" style="-fx-padding: 30; -fx-cursor: hand;" spacing="20">
+                            <StackPane alignment="CENTER_LEFT">
+                                <Circle radius="30" fill="#ef44441a"/>
+                                <Label text="📑" style="-fx-font-size: 28px; -fx-padding: 0 0 0 15;"/>
+                            </StackPane>
+                            <VBox spacing="8">
+                                <Label text="Rapports d'Activité" style="-fx-font-size: 20px; -fx-font-weight: 800; -fx-text-fill: #1e293b;"/>
+                                <Label text="Exportez des rapports détaillés en PDF et Excel pour vos archives administratives." 
+                                       wrapText="true" style="-fx-text-fill: #64748b; -fx-font-size: 14px; -fx-line-spacing: 5;"/>
+                            </VBox>
+                            <HBox alignment="CENTER_LEFT" spacing="10">
+                                <Label text="Bientôt disponible" style="-fx-text-fill: #94a3b8; -fx-font-weight: bold;"/>
+                            </HBox>
+                        </VBox>
+                    </GridPane>
+
+                </VBox>
+            </StackPane>
+        </ScrollPane>
+    </center>
+
+</BorderPane>

@@ -31,10 +31,11 @@ public class PartenaireDAO {
 
     public List<Partenaire> findAll() throws SQLException {
         List<Partenaire> list = new ArrayList<>();
-        String sql = "SELECT * FROM partenaire ORDER BY nom";
+        String sql = "SELECT * FROM partenaire WHERE statut IS NULL OR statut != 'inactif' ORDER BY nom";
         try (Statement st = DatabaseConnection.getInstance().createStatement();
-             ResultSet rs = st.executeQuery(sql)) {
-            while (rs.next()) list.add(mapRow(rs));
+                ResultSet rs = st.executeQuery(sql)) {
+            while (rs.next())
+                list.add(mapRow(rs));
         }
         return list;
     }
@@ -45,7 +46,8 @@ public class PartenaireDAO {
         try (PreparedStatement ps = DatabaseConnection.getInstance().prepareStatement(sql)) {
             ps.setString(1, statut);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) list.add(mapRow(rs));
+            while (rs.next())
+                list.add(mapRow(rs));
         }
         return list;
     }
@@ -55,14 +57,16 @@ public class PartenaireDAO {
         try (PreparedStatement ps = DatabaseConnection.getInstance().prepareStatement(sql)) {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
-            if (rs.next()) return mapRow(rs);
+            if (rs.next())
+                return mapRow(rs);
         }
         return null;
     }
 
     public void insert(Partenaire p) throws SQLException {
         String sql = "INSERT INTO partenaire (nom, secteur, ville, email, telephone, statut, image, latitude, longitude, adresse_verifiee, adresse, pays, website, description) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-        try (PreparedStatement ps = DatabaseConnection.getInstance().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+        try (PreparedStatement ps = DatabaseConnection.getInstance().prepareStatement(sql,
+                Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, p.getNom());
             ps.setString(2, p.getSecteur());
             ps.setString(3, p.getVille());
@@ -79,7 +83,8 @@ public class PartenaireDAO {
             ps.setString(14, p.getDescription());
             ps.executeUpdate();
             ResultSet keys = ps.getGeneratedKeys();
-            if (keys.next()) p.setId(keys.getInt(1));
+            if (keys.next())
+                p.setId(keys.getInt(1));
         }
     }
 
@@ -106,7 +111,8 @@ public class PartenaireDAO {
     }
 
     public void delete(int id) throws SQLException {
-        String sql = "DELETE FROM partenaire WHERE id=?";
+        // Soft delete to avoid foreign key constraints
+        String sql = "UPDATE partenaire SET statut='inactif' WHERE id=?";
         try (PreparedStatement ps = DatabaseConnection.getInstance().prepareStatement(sql)) {
             ps.setInt(1, id);
             ps.executeUpdate();
@@ -116,8 +122,9 @@ public class PartenaireDAO {
     public int count() throws SQLException {
         String sql = "SELECT COUNT(*) FROM partenaire";
         try (Statement st = DatabaseConnection.getInstance().createStatement();
-             ResultSet rs = st.executeQuery(sql)) {
-            if (rs.next()) return rs.getInt(1);
+                ResultSet rs = st.executeQuery(sql)) {
+            if (rs.next())
+                return rs.getInt(1);
         }
         return 0;
     }
@@ -127,7 +134,8 @@ public class PartenaireDAO {
         try (PreparedStatement ps = DatabaseConnection.getInstance().prepareStatement(sql)) {
             ps.setString(1, statut);
             ResultSet rs = ps.executeQuery();
-            if (rs.next()) return rs.getInt(1);
+            if (rs.next())
+                return rs.getInt(1);
         }
         return 0;
     }

@@ -8,6 +8,7 @@ import com.learnhub.util.NavigationUtil;
 import com.learnhub.util.SessionManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -28,9 +29,11 @@ public class ProfessorSeancesController {
     @FXML private TableColumn<Seance, String> colType;
     
     @FXML private Label welcomeLabel;
+    @FXML private TextField searchField;
 
     private final SeanceDAO seanceDAO = new SeanceDAO();
     private final ObservableList<Seance> masterData = FXCollections.observableArrayList();
+    private FilteredList<Seance> filteredData;
 
     @FXML
     public void initialize() {
@@ -39,7 +42,30 @@ public class ProfessorSeancesController {
             welcomeLabel.setText(user.getNomComplet());
         }
         setupTable();
+        setupSearch();
         loadData();
+    }
+
+    private void setupSearch() {
+        filteredData = new FilteredList<>(masterData, p -> true);
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(seance -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                String lowerCaseFilter = newValue.toLowerCase();
+                
+                if (seance.getModuleTitre().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (seance.getType().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (seance.getSalle().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                }
+                return false;
+            });
+        });
+        seancesTable.setItems(filteredData);
     }
 
     private void setupTable() {
@@ -56,7 +82,6 @@ public class ProfessorSeancesController {
 
         try {
             masterData.setAll(seanceDAO.findByProfesseur(user.getId()));
-            seancesTable.setItems(masterData);
         } catch (SQLException e) {
             e.printStackTrace();
         }

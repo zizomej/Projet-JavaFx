@@ -71,12 +71,20 @@ public class AdminDashboardController {
     @FXML private void goRdv() { navigate("/fxml/admin/rdv.fxml", "RDV Médicaux"); }
     @FXML private void goCreneaux() { navigate("/fxml/admin/creneaux.fxml", "Créneaux"); }
     @FXML private void goEvenements() { navigate("/fxml/admin/evenements.fxml", "Événements"); }
+    @FXML
+    private void goMetiers() {
+        NavigationUtil.navigateTo(getStage(), "/fxml/admin/metiers_avances.fxml", "Outils Avancés");
+    }
     @FXML private void goPartenaires() { navigate("/fxml/admin/partenaires.fxml", "Partenaires"); }
     @FXML private void goOffresStage() { navigate("/fxml/admin/offrestage.fxml", "Offres de Stage"); }
     @FXML private void goDemandesStage() { navigate("/fxml/admin/demandestage.fxml", "Demandes de Stage"); }
     @FXML private void goLieux() { navigate("/fxml/admin/lieux.fxml", "Lieux"); }
     @FXML private void goStatistiques() { navigate("/fxml/admin/statistiques.fxml", "Statistiques"); }
     @FXML private void goParametres() { navigate("/fxml/admin/parametres.fxml", "Paramètres"); }
+
+    private Stage getStage() {
+        return (Stage) totalUsersLabel.getScene().getWindow();
+    }
 
     private void navigate(String fxml, String title) {
         Stage stage = (Stage) totalUsersLabel.getScene().getWindow();

@@ -1,9 +1,9 @@
 package com.learnhub.controller.admin;
 
 import com.learnhub.dao.FiliereDAO;
-import com.learnhub.dao.PartenaireDAO;
+import com.learnhub.dao.UniversiteDAO;
 import com.learnhub.models.Filiere;
-import com.learnhub.models.Partenaire;
+import com.learnhub.models.Universite;
 import com.learnhub.util.NavigationUtil;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -20,23 +20,36 @@ import java.util.stream.Collectors;
 
 public class FilieresController {
 
-    @FXML private TableView<Filiere> table;
-    @FXML private TableColumn<Filiere, String> colCode;
-    @FXML private TableColumn<Filiere, String> colNom;
-    @FXML private TableColumn<Filiere, String> colNiveau;
-    @FXML private TableColumn<Filiere, Integer> colDuree;
-    @FXML private TableColumn<Filiere, Integer> colCapacite;
-    @FXML private TableColumn<Filiere, String> colUniversite;
-    @FXML private TableColumn<Filiere, Void> colActions;
+    @FXML
+    private TableView<Filiere> table;
+    @FXML
+    private TableColumn<Filiere, String> colCode;
+    @FXML
+    private TableColumn<Filiere, String> colNom;
+    @FXML
+    private TableColumn<Filiere, String> colNiveau;
+    @FXML
+    private TableColumn<Filiere, Integer> colDuree;
+    @FXML
+    private TableColumn<Filiere, Integer> colCapacite;
+    @FXML
+    private TableColumn<Filiere, String> colUniversite;
+    @FXML
+    private TableColumn<Filiere, Void> colActions;
 
-    @FXML private Label totalFilieresLabel;
-    @FXML private Label licenceLabel;
-    @FXML private Label masterLabel;
-    @FXML private Label doctoratLabel;
-    @FXML private TextField searchField;
+    @FXML
+    private Label totalFilieresLabel;
+    @FXML
+    private Label licenceLabel;
+    @FXML
+    private Label masterLabel;
+    @FXML
+    private Label doctoratLabel;
+    @FXML
+    private TextField searchField;
 
     private final FiliereDAO filiereDAO = new FiliereDAO();
-    private final PartenaireDAO partenaireDAO = new PartenaireDAO();
+    private final UniversiteDAO universiteDAO = new UniversiteDAO();
     private ObservableList<Filiere> filiereList = FXCollections.observableArrayList();
 
     @FXML
@@ -59,8 +72,9 @@ public class FilieresController {
 
         colUniversite.setCellValueFactory(cellData -> {
             try {
-                Partenaire p = partenaireDAO.findById(cellData.getValue().getUniversiteId());
-                if(p != null) return new SimpleStringProperty(p.getNom());
+                Universite u = universiteDAO.findById(cellData.getValue().getUniversiteId());
+                if (u != null)
+                    return new SimpleStringProperty(u.getNom());
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -80,10 +94,11 @@ public class FilieresController {
             {
                 editBtn.setStyle("-fx-background-color: transparent; -fx-cursor: hand;");
                 deleteBtn.setStyle("-fx-background-color: transparent; -fx-text-fill: red; -fx-cursor: hand;");
-                
+
                 editBtn.setOnAction(e -> handleEdit(getTableView().getItems().get(getIndex())));
                 deleteBtn.setOnAction(e -> handleDelete(getTableView().getItems().get(getIndex())));
             }
+
             @Override
             protected void updateItem(Void item, boolean empty) {
                 super.updateItem(item, empty);
@@ -105,30 +120,32 @@ public class FilieresController {
     private void loadStats() {
         try {
             totalFilieresLabel.setText(filiereDAO.count() + " parcours");
-            
+
             long licenceCount = filiereList.stream().filter(f -> f.getNiveau().equalsIgnoreCase("Licence")).count();
             long masterCount = filiereList.stream().filter(f -> f.getNiveau().equalsIgnoreCase("Master")).count();
             long doctoratCount = filiereList.stream().filter(f -> f.getNiveau().equalsIgnoreCase("Doctorat")).count();
-            
-            if (licenceLabel != null) licenceLabel.setText(String.valueOf(licenceCount));
-            if (masterLabel != null) masterLabel.setText(String.valueOf(masterCount));
-            if (doctoratLabel != null) doctoratLabel.setText(String.valueOf(doctoratCount));
-            
+
+            if (licenceLabel != null)
+                licenceLabel.setText(String.valueOf(licenceCount));
+            if (masterLabel != null)
+                masterLabel.setText(String.valueOf(masterCount));
+            if (doctoratLabel != null)
+                doctoratLabel.setText(String.valueOf(doctoratCount));
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     private void filterData() {
-        if (searchField == null) return;
+        if (searchField == null)
+            return;
         String search = searchField.getText().toLowerCase();
         try {
             List<Filiere> all = filiereDAO.findAll();
-            List<Filiere> filtered = all.stream().filter(f -> 
-                f.getNom().toLowerCase().contains(search) || 
-                f.getCode().toLowerCase().contains(search)
-            ).collect(Collectors.toList());
-            
+            List<Filiere> filtered = all.stream().filter(f -> f.getNom().toLowerCase().contains(search) ||
+                    f.getCode().toLowerCase().contains(search)).collect(Collectors.toList());
+
             filiereList.setAll(filtered);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -137,12 +154,14 @@ public class FilieresController {
 
     @FXML
     private void handleAdd() {
-        NavigationUtil.navigateTo((Stage) table.getScene().getWindow(), "/fxml/admin/filiere_form.fxml", "Ajouter une filière");
+        NavigationUtil.navigateTo((Stage) table.getScene().getWindow(), "/fxml/admin/filiere_form.fxml",
+                "Ajouter une filière");
     }
 
     private void handleEdit(Filiere filiere) {
         try {
-            javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(getClass().getResource("/fxml/admin/filiere_form.fxml"));
+            javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(
+                    getClass().getResource("/fxml/admin/filiere_form.fxml"));
             javafx.scene.Parent root = loader.load();
 
             FiliereFormController controller = loader.getController();
@@ -181,7 +200,8 @@ public class FilieresController {
 
     @FXML
     private void handleRefresh() {
-        if (searchField != null) searchField.clear();
+        if (searchField != null)
+            searchField.clear();
         loadData();
         loadStats();
     }

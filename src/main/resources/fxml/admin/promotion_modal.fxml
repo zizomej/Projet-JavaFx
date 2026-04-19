@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns:fx="http://javafx.com/fxml" 
+      fx:controller="com.learnhub.controller.admin.PromotionController"
+      spacing="25" style="-fx-background-color: white; -fx-padding: 35; -fx-background-radius: 18; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 30, 0, 0, 15);"
+      prefWidth="850">
+
+    <HBox alignment="CENTER_LEFT" spacing="15">
+        <Label text="✨" style="-fx-font-size: 28px;"/>
+        <Label fx:id="mainTitle" text="Promotion de l'événement" style="-fx-font-size: 24px; -fx-font-weight: 800; -fx-text-fill: #1E3A8A;"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button text="✕" onAction="#handleClose" style="-fx-background-color: transparent; -fx-text-fill: #94a3b8; -fx-font-size: 20px; -fx-cursor: hand;"/>
+    </HBox>
+
+    <HBox spacing="30" VBox.vgrow="ALWAYS">
+        <!-- EMAIL SECTION -->
+        <VBox spacing="15" HBox.hgrow="ALWAYS">
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <Label text="📧" style="-fx-font-size: 18px;"/>
+                <Label text="Email d'invitation" style="-fx-font-weight: bold; -fx-text-fill: #334155; -fx-font-size: 15px;"/>
+            </HBox>
+            <TextArea fx:id="emailArea" wrapText="true" VBox.vgrow="ALWAYS" prefHeight="350"
+                      style="-fx-background-radius: 12; -fx-border-radius: 12; -fx-border-color: #e2e8f0; -fx-font-family: 'Segoe UI'; -fx-font-size: 13px; -fx-padding: 10;"/>
+            <Button text="Copier l'email" onAction="#copyEmail" maxWidth="Infinity"
+                    style="-fx-background-color: #f1f5f9; -fx-text-fill: #475569; -fx-font-weight: bold; -fx-padding: 12; -fx-background-radius: 10; -fx-cursor: hand;"/>
+        </VBox>
+
+        <!-- SOCIAL MEDIA SECTION -->
+        <VBox spacing="15" HBox.hgrow="ALWAYS">
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <Label text="📱" style="-fx-font-size: 18px;"/>
+                <Label text="Réseaux Sociaux" style="-fx-font-weight: bold; -fx-text-fill: #334155; -fx-font-size: 15px;"/>
+            </HBox>
+            <TextArea fx:id="socialArea" wrapText="true" VBox.vgrow="ALWAYS" prefHeight="350"
+                      style="-fx-background-radius: 12; -fx-border-radius: 12; -fx-border-color: #e2e8f0; -fx-font-family: 'Segoe UI'; -fx-font-size: 13px; -fx-padding: 10;"/>
+            <Button text="Copier les posts" onAction="#copySocial" maxWidth="Infinity"
+                    style="-fx-background-color: #f1f5f9; -fx-text-fill: #475569; -fx-font-weight: bold; -fx-padding: 12; -fx-background-radius: 10; -fx-cursor: hand;"/>
+        </VBox>
+    </HBox>
+
+    <Label text="Astuce : Le contenu est généré automatiquement en utilisant l'intelligence artificielle pour maximiser l'engagement." 
+           style="-fx-text-fill: #94a3b8; -fx-font-size: 11px; -fx-font-style: italic;"/>
+
+</VBox>

@@ -166,7 +166,7 @@
 
                     <!-- LIGNE 2 : Séances, Universités, Offres, Demandes -->
                     <HBox spacing="20">
-                        <VBox styleClass="stat-card, stat-card-info" HBox.hgrow="ALWAYS" spacing="8">
+                        <VBox styleClass="stat-card, stat-card-info" HBox.hgrow="ALWAYS" spacing="8" onMouseClicked="#goSeances" style="-fx-cursor: hand;">
                             <HBox alignment="CENTER_LEFT" spacing="12">
                                 <VBox HBox.hgrow="ALWAYS">
                                     <Label text="SÉANCES" styleClass="stat-label, stat-label-info"/>
@@ -228,6 +228,8 @@
                                         onAction="#goModules"/>
                                 <Button text="🎉 Gérer Événements" styleClass="btn, btn-secondary, btn-sm"
                                         onAction="#goEvenements"/>
+                                <Button text="📅 Gérer Séances" styleClass="btn, btn-secondary, btn-sm"
+                                        onAction="#goSeances"/>
                                 <Button text="🏥 RDV Médicaux" styleClass="btn, btn-secondary, btn-sm"
                                         onAction="#goRdv"/>
                                 <Button text="🏫 Universités" styleClass="btn, btn-secondary, btn-sm"

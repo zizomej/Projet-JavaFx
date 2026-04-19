@@ -1,10 +1,11 @@
 package com.learnhub.controller.admin;
 
 import com.learnhub.dao.FiliereDAO;
-import com.learnhub.dao.PartenaireDAO;
+import com.learnhub.dao.UniversiteDAO;
 import com.learnhub.models.Filiere;
-import com.learnhub.models.Partenaire;
+import com.learnhub.models.Universite;
 import com.learnhub.util.NavigationUtil;
+import com.learnhub.util.SessionManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
@@ -15,37 +16,43 @@ import java.util.List;
 
 public class FiliereFormController {
 
-    @FXML private Label titleLabel;
-    @FXML private TextField codeField;
-    @FXML private TextField nomField;
-    @FXML private ComboBox<String> niveauCombo;
-    @FXML private TextField dureeField;
-    @FXML private TextField capaciteField;
-    @FXML private ComboBox<Partenaire> universiteCombo;
+    @FXML
+    private Label titleLabel;
+    @FXML
+    private TextField codeField;
+    @FXML
+    private TextField nomField;
+    @FXML
+    private ComboBox<String> niveauCombo;
+    @FXML
+    private TextField dureeField;
+    @FXML
+    private TextField capaciteField;
+    @FXML
+    private ComboBox<Universite> universiteCombo;
 
     private Filiere filiereCourante;
     private final FiliereDAO filiereDAO = new FiliereDAO();
-    private final PartenaireDAO partenaireDAO = new PartenaireDAO();
+    private final UniversiteDAO universiteDAO = new UniversiteDAO();
 
     @FXML
     public void initialize() {
         niveauCombo.getItems().addAll("Licence", "Master", "Doctorat", "Ingénierie");
 
-        // Load Universités (Partenaires)
+        // Load Universités depuis la table 'universite'
         try {
-            List<Partenaire> partenaires = partenaireDAO.findAll();
-            universiteCombo.getItems().addAll(partenaires);
+            List<Universite> universites = universiteDAO.findAll();
+            universiteCombo.getItems().addAll(universites);
 
-            // Set ComboBox to display the "nom" of Partenaire
             universiteCombo.setConverter(new StringConverter<>() {
                 @Override
-                public String toString(Partenaire p) {
-                    return p != null ? p.getNom() : "";
+                public String toString(Universite u) {
+                    return u != null ? u.getNom() : "";
                 }
 
                 @Override
-                public Partenaire fromString(String string) {
-                    return null; // Not needed
+                public Universite fromString(String string) {
+                    return null;
                 }
             });
 
@@ -93,7 +100,17 @@ public class FiliereFormController {
         filiereCourante.setDureeAnnees(Integer.parseInt(dureeField.getText()));
         filiereCourante.setCapaciteMax(Integer.parseInt(capaciteField.getText()));
         filiereCourante.setUniversiteId(universiteCombo.getValue().getId());
-        filiereCourante.setResponsableId(1); // placeholder ou a gerer si besoin
+
+        // Utiliser l'id de l'admin connecté au lieu d'un ID fixe qui peut ne pas
+        // exister
+        int currentUserId = SessionManager.getInstance().getCurrentUserId();
+        if (currentUserId > 0) {
+            filiereCourante.setResponsableId(currentUserId);
+        } else {
+            // Fallback sur 1 seulement si vraiment nécessaire, mais idéalement on devrait
+            // avoir un utilisateur
+            filiereCourante.setResponsableId(1);
+        }
 
         try {
             if (isNew) {
@@ -101,7 +118,7 @@ public class FiliereFormController {
             } else {
                 filiereDAO.update(filiereCourante);
             }
-            
+
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Succès");
             alert.setHeaderText(null);
@@ -122,36 +139,56 @@ public class FiliereFormController {
     private boolean validateInput() {
         StringBuilder errors = new StringBuilder();
 
-        if (codeField.getText() == null || codeField.getText().trim().isEmpty()) {
-            errors.append("- Le code de la filière est requis.\n");
+        // 1. Code de la filière > 3 caractères
+        String code = codeField.getText() == null ? "" : codeField.getText().trim();
+        if (code.length() <= 3) {
+            errors.append("- Le code de la filière doit comporter plus de 3 caractères.\n");
         }
-        if (nomField.getText() == null || nomField.getText().trim().isEmpty()) {
-            errors.append("- Le nom de la filière est requis.\n");
+
+        // 2. Nom de la filière > 3 caractères
+        String nom = nomField.getText() == null ? "" : nomField.getText().trim();
+        if (nom.length() <= 3) {
+            errors.append("- Le nom de la filière doit comporter plus de 3 caractères.\n");
         }
+
+        // 3. Niveau d'études et Université obligatoires
         if (niveauCombo.getValue() == null) {
-            errors.append("- Veuillez sélectionner un niveau d'études.\n");
+            errors.append("- Le niveau d'études est obligatoire.\n");
         }
         if (universiteCombo.getValue() == null) {
-            errors.append("- Veuillez sélectionner l'université d'appartenance.\n");
+            errors.append("- L'université d'appartenance est obligatoire.\n");
         }
 
-        try {
-            Integer.parseInt(dureeField.getText());
-        } catch (NumberFormatException e) {
-            errors.append("- La durée doit être un nombre entier valide.\n");
+        // 4. Durée doit être un nombre entier
+        String dureeTxt = dureeField.getText() == null ? "" : dureeField.getText().trim();
+        if (dureeTxt.isEmpty()) {
+            errors.append("- La durée est obligatoire.\n");
+        } else {
+            try {
+                Integer.parseInt(dureeTxt);
+            } catch (NumberFormatException e) {
+                errors.append("- La durée doit être un nombre entier.\n");
+            }
         }
 
-        try {
-            Integer.parseInt(capaciteField.getText());
-        } catch (NumberFormatException e) {
-            errors.append("- La capacité maximale doit être un nombre entier valide.\n");
+        // 5. Capacité maximale doit être un nombre entier
+        String capaciteTxt = capaciteField.getText() == null ? "" : capaciteField.getText().trim();
+        if (capaciteTxt.isEmpty()) {
+            errors.append("- La capacité maximale est obligatoire.\n");
+        } else {
+            try {
+                Integer.parseInt(capaciteTxt);
+            } catch (NumberFormatException e) {
+                errors.append("- La capacité maximale doit être un nombre entier.\n");
+            }
         }
 
         if (errors.length() > 0) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Validation");
-            alert.setHeaderText("Corrigez les erreurs suivantes :");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur de Saisie");
+            alert.setHeaderText("Veuillez corriger les erreurs suivantes :");
             alert.setContentText(errors.toString());
+            alert.getDialogPane().setStyle("-fx-font-family: 'Segoe UI';");
             alert.showAndWait();
             return false;
         }

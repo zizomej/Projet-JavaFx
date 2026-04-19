@@ -10,9 +10,12 @@
     
     <top>
         <HBox styleClass="prof-topnav" alignment="CENTER_LEFT" spacing="20">
-            <HBox spacing="10" alignment="CENTER_LEFT" style="-fx-padding: 0 40 0 0;">
-                <Label text="🎓" style="-fx-font-size: 24px;"/>
-                <Label text="LEARNHUB" style="-fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: 900;"/>
+            <HBox spacing="12" alignment="CENTER_LEFT" style="-fx-padding: 0 40 0 0;">
+                <Label text="🎓" style="-fx-font-size: 28px;"/>
+                <VBox alignment="CENTER_LEFT">
+                    <Label text="LEARNHUB" style="-fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: 900; -fx-letter-spacing: 1;"/>
+                    <Label text="PROFESSEUR" style="-fx-text-fill: #94a3b8; -fx-font-size: 10px; -fx-font-weight: bold;"/>
+                </VBox>
             </HBox>
             <Label fx:id="titleLabel" text="Appel de la séance" style="-fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold;"/>
             <Region HBox.hgrow="ALWAYS"/>
@@ -32,8 +35,8 @@
                 <VBox styleClass="card-body" VBox.vgrow="ALWAYS">
                     <TableView fx:id="presencesTable" VBox.vgrow="ALWAYS" style="-fx-border-color: transparent;">
                         <columns>
-                            <TableColumn fx:id="colNom" text="Nom et Prénom de l'étudiant" prefWidth="500"/>
-                            <TableColumn fx:id="colStatut" text="Statut de présence" prefWidth="300"/>
+                            <TableColumn fx:id="colNom" text="Nom et Prénom de l'étudiant" prefWidth="500" style="-fx-alignment: CENTER-LEFT; -fx-padding: 0 0 0 20;"/>
+                            <TableColumn fx:id="colStatut" text="Statut de présence" prefWidth="350" styleClass="table-center-col"/>
                         </columns>
                         <placeholder>
                             <Label text="Chargement des étudiants..." style="-fx-text-fill: #9ca3af;"/>

@@ -28,49 +28,71 @@
     </left>
     <center>
         <ScrollPane fitToWidth="true" style="-fx-background-color:#f5f7fa;-fx-border-color:transparent;">
-            <VBox styleClass="content-area" spacing="24">
+            <VBox styleClass="content-area" spacing="30" style="-fx-padding: 35 50;">
                 
-                <!-- TOP HEADER -->
-                <HBox alignment="CENTER_LEFT" spacing="16">
-                    <VBox HBox.hgrow="ALWAYS">
-                        <HBox alignment="CENTER_LEFT" spacing="10">
-                            <Label text="🏫" style="-fx-font-size:24px;"/>
-                            <Label text="Gestion des Universités" styleClass="page-title"/>
-                        </HBox>
-                        <Label text="Gérer les établissements universitaires" styleClass="page-subtitle"/>
-                    </VBox>
-                    <Region HBox.hgrow="ALWAYS"/>
-                    <TextField promptText="Rechercher..." style="-fx-background-radius:20;-fx-pref-width:200;" />
-                </HBox>
-
-                <!-- SEARCH PANEL -->
-                <HBox spacing="15" alignment="CENTER_LEFT" styleClass="card" style="-fx-padding:20;">
-                    <TextField fx:id="searchField" promptText="Rechercher une université..." HBox.hgrow="ALWAYS" styleClass="search-field" prefHeight="40"/>
-                    <ComboBox promptText="Tous les types" styleClass="search-field" prefHeight="40" prefWidth="200"/>
-                    <Button text="🔍 Rechercher" styleClass="btn, btn-primary" style="-fx-background-color:#0A1F44;" onAction="#handleSearch" prefHeight="40"/>
-                </HBox>
-
-                <!-- TABLE PANEL -->
-                <VBox styleClass="card" VBox.vgrow="ALWAYS">
-                    <HBox styleClass="card-header" spacing="12" alignment="CENTER_LEFT">
-                        <VBox>
-                            <Label text="📝 Liste des universités" styleClass="card-header-title"/>
-                            <Label fx:id="totalPartenairesLabel" text="0 établissements" style="-fx-text-fill:#6b7280;-fx-font-size:13px;"/>
+                <!-- BANNER HEADER -->
+                <VBox spacing="10" style="-fx-background-color: linear-gradient(to right, #0A1F44, #1e3a8a, #4f46e5); -fx-background-radius: 20; -fx-padding: 35 45; -fx-effect: dropshadow(gaussian, rgba(30,58,138,0.3), 25, 0, 0, 10);">
+                    <HBox alignment="CENTER_LEFT" spacing="20">
+                        <VBox HBox.hgrow="ALWAYS" spacing="6">
+                            <Label text="Gestion des Universités" style="-fx-font-size: 32px; -fx-font-weight: 900; -fx-text-fill: white;"/>
+                            <Label text="Partenariats académiques et établissements d'enseignement" style="-fx-font-size: 15px; -fx-text-fill: rgba(255,255,255,0.75);"/>
                         </VBox>
                         <Region HBox.hgrow="ALWAYS"/>
-                        <Button text="➕ Nouveau" styleClass="btn, btn-primary, btn-sm" onAction="#handleAdd"/>
-                        <Button text="↻" styleClass="btn, btn-secondary, btn-sm" onAction="#handleRefresh"/>
+                        <Button text="+ Ajouter une université" onAction="#handleAdd"
+                                styleClass="btn-add-premium"/>
                     </HBox>
+                </VBox>
+
+                <!-- STATS ROW -->
+                <HBox spacing="25">
+                    <VBox styleClass="stat-card-indigo" HBox.hgrow="ALWAYS" spacing="12">
+                        <HBox alignment="CENTER_LEFT" spacing="10">
+                            <Label text="🏛️" style="-fx-font-size: 20px;"/>
+                            <Label text="UNIVERSITÉS PUBLIQUES" styleClass="stat-label"/>
+                        </HBox>
+                        <Label fx:id="publiqueLabel" text="0" styleClass="stat-value"/>
+                    </VBox>
+                    <VBox styleClass="stat-card-indigo" HBox.hgrow="ALWAYS" spacing="12" style="-fx-background-color: linear-gradient(to bottom right, #ffffff, #f8fafc); -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 15, 0, 0, 5); -fx-border-color: #e2e8f0; -fx-border-width: 1; -fx-border-radius: 15; -fx-background-radius: 15; -fx-padding: 20;">
+                        <HBox alignment="CENTER_LEFT" spacing="10">
+                            <Label text="🏢" style="-fx-font-size: 20px;"/>
+                            <Label text="UNIVERSITÉS PRIVÉES" style="-fx-font-weight: 700; -fx-text-fill: #475569; -fx-font-size: 13px; -fx-letter-spacing: 1px;"/>
+                        </HBox>
+                        <Label fx:id="priveLabel" text="0" style="-fx-font-size: 36px; -fx-font-weight: 900; -fx-text-fill: #0f172a;"/>
+                    </VBox>
+                    <Region HBox.hgrow="ALWAYS" />
+                </HBox>
+
+                <!-- SEARCH & TABLE CARD -->
+                <VBox VBox.vgrow="ALWAYS" style="-fx-background-color: white; -fx-background-radius: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 25, 0, 0, 8);">
                     
-                    <VBox styleClass="card-body" VBox.vgrow="ALWAYS" style="-fx-padding:0;">
-                        <TableView fx:id="partenaireTable" VBox.vgrow="ALWAYS" style="-fx-border-color:transparent;">
+                    <!-- Card Header -->
+                    <HBox spacing="15" alignment="CENTER_LEFT" style="-fx-padding: 25 35; -fx-border-color: #f1f5f9; -fx-border-width: 0 0 1 0;">
+                        <VBox spacing="3" HBox.hgrow="ALWAYS">
+                            <Label text="Liste des Établissements" style="-fx-font-size: 18px; -fx-font-weight: 800; -fx-text-fill: #0f172a;"/>
+                            <Label text="Gérez les informations de contact et Localisation" style="-fx-font-size: 12px; -fx-text-fill: #94a3b8;"/>
+                        </VBox>
+                        <HBox spacing="10" alignment="CENTER_RIGHT">
+                            <TextField fx:id="searchField" promptText="Rechercher une université..." styleClass="form-control" prefWidth="250"/>
+                            <Button text="🔍" onAction="#handleSearch"
+                                    style="-fx-background-color: #f8fafc; -fx-text-fill: #475569; -fx-font-weight: bold; -fx-padding: 10 15; -fx-background-radius: 10; -fx-border-color: #e2e8f0; -fx-border-width: 1; -fx-border-radius: 10; -fx-cursor: hand;"/>
+                            <Button text="↻" onAction="#handleRefresh"
+                                    style="-fx-background-color: #f8fafc; -fx-text-fill: #475569; -fx-font-weight: bold; -fx-padding: 10 15; -fx-background-radius: 10; -fx-border-color: #e2e8f0; -fx-border-width: 1; -fx-border-radius: 10; -fx-cursor: hand;"/>
+                        </HBox>
+                    </HBox>
+
+                    <!-- Table -->
+                    <VBox VBox.vgrow="ALWAYS" style="-fx-padding: 20;">
+                        <TableView fx:id="partenaireTable" VBox.vgrow="ALWAYS" style="-fx-background-color: transparent;" styleClass="premium-table">
                             <placeholder>
-                                <Label text="📭 Aucun établissement trouvé" style="-fx-text-fill:#9ca3af;"/>
+                                <VBox alignment="CENTER" spacing="10" style="-fx-padding: 40;">
+                                    <Label text="📭" style="-fx-font-size: 40px;"/>
+                                    <Label text="Aucun établissement trouvé" style="-fx-text-fill: #94a3b8; -fx-font-size: 14px; -fx-font-weight: bold;"/>
+                                </VBox>
                             </placeholder>
                         </TableView>
                     </VBox>
                 </VBox>
-                
+
             </VBox>
         </ScrollPane>
     </center>

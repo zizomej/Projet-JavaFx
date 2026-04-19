@@ -26,75 +26,84 @@
     </left>
     <center>
         <ScrollPane fitToWidth="true" style="-fx-background-color:#f5f7fa;-fx-border-color:transparent;">
-            <VBox styleClass="content-area" spacing="24">
+            <VBox styleClass="content-area" spacing="30" style="-fx-padding: 35 50;">
                 
-                <!-- TOP HEADER -->
-                <HBox alignment="CENTER_LEFT" spacing="16">
-                    <VBox HBox.hgrow="ALWAYS">
-                        <HBox alignment="CENTER_LEFT" spacing="10">
-                            <Label text="🎓" style="-fx-font-size:24px;"/>
-                            <Label text="Gestion des Filières" styleClass="page-title"/>
-                        </HBox>
-                        <Label text="Gérer les filières et parcours" styleClass="page-subtitle"/>
-                    </VBox>
-                    <Region HBox.hgrow="ALWAYS"/>
-                    <TextField fx:id="searchField" promptText="Rechercher..." style="-fx-background-radius:20;-fx-pref-width:200;" />
-                </HBox>
-
-                <HBox alignment="CENTER_LEFT">
-                    <HBox alignment="CENTER_LEFT" spacing="10">
-                        <Label text="🎓" style="-fx-font-size:20px;"/>
-                        <Label text="Gestion des Filières" styleClass="page-title" style="-fx-font-size:20px;"/>
-                    </HBox>
-                    <Region HBox.hgrow="ALWAYS"/>
-                    <Button text="+ Ajouter une filière" styleClass="btn, btn-primary" style="-fx-background-color:#0A1F44;" onAction="#handleAdd"/>
-                </HBox>
-
-                <!-- STATS PANELS -->
-                <HBox spacing="20">
-                    <VBox styleClass="card" HBox.hgrow="ALWAYS" alignment="CENTER" spacing="10" style="-fx-padding:30;">
-                        <Label text="📘" style="-fx-font-size:32px;"/>
-                        <Label fx:id="licenceLabel" text="0" style="-fx-font-size:28px;-fx-font-weight:bold;-fx-text-fill:#0A1F44;"/>
-                        <Label text="Licence" style="-fx-text-fill:#6b7280;"/>
-                    </VBox>
-                    <VBox styleClass="card" HBox.hgrow="ALWAYS" alignment="CENTER" spacing="10" style="-fx-padding:30;">
-                        <Label text="📗" style="-fx-font-size:32px;"/>
-                        <Label fx:id="masterLabel" text="0" style="-fx-font-size:28px;-fx-font-weight:bold;-fx-text-fill:#0A1F44;"/>
-                        <Label text="Master" style="-fx-text-fill:#6b7280;"/>
-                    </VBox>
-                    <VBox styleClass="card" HBox.hgrow="ALWAYS" alignment="CENTER" spacing="10" style="-fx-padding:30;">
-                        <Label text="🎓" style="-fx-font-size:32px;"/>
-                        <Label fx:id="doctoratLabel" text="0" style="-fx-font-size:28px;-fx-font-weight:bold;-fx-text-fill:#0A1F44;"/>
-                        <Label text="Doctorat" style="-fx-text-fill:#6b7280;"/>
-                    </VBox>
-                </HBox>
-
-                <!-- TABLE PANEL -->
-                <VBox styleClass="card" VBox.vgrow="ALWAYS">
-                    <HBox styleClass="card-header" spacing="12" alignment="CENTER_LEFT">
-                        <Label text="📋 Liste des filières" styleClass="card-header-title"/>
+                <!-- BANNER HEADER -->
+                <VBox spacing="10" style="-fx-background-color: linear-gradient(to right, #0A1F44, #1e3a8a, #4f46e5); -fx-background-radius: 20; -fx-padding: 35 45; -fx-effect: dropshadow(gaussian, rgba(30,58,138,0.3), 25, 0, 0, 10);">
+                    <HBox alignment="CENTER_LEFT" spacing="20">
+                        <VBox HBox.hgrow="ALWAYS" spacing="6">
+                            <Label text="Gestion des Filières" style="-fx-font-size: 32px; -fx-font-weight: 900; -fx-text-fill: white;"/>
+                            <Label text="Gérez les parcours académiques et les niveaux d'études" style="-fx-font-size: 15px; -fx-text-fill: rgba(255,255,255,0.75);"/>
+                        </VBox>
                         <Region HBox.hgrow="ALWAYS"/>
-                        <Label fx:id="totalFilieresLabel" text="0 parcours" style="-fx-text-fill:#6b7280;-fx-font-size:13px;"/>
-                        <Button text="↻" styleClass="btn, btn-secondary, btn-sm" onAction="#handleRefresh"/>
+                        <Button text="+ Ajouter une filière" onAction="#handleAdd"
+                                styleClass="btn-add-premium"/>
                     </HBox>
+                </VBox>
+
+                <!-- STATS ROW -->
+                <HBox spacing="25">
+                    <VBox styleClass="stat-card-indigo" HBox.hgrow="ALWAYS" spacing="12">
+                        <HBox alignment="CENTER_LEFT" spacing="10">
+                            <Label text="📘" style="-fx-font-size: 20px;"/>
+                            <Label text="LICENCE" styleClass="stat-label"/>
+                        </HBox>
+                        <Label fx:id="licenceLabel" text="0" styleClass="stat-value"/>
+                    </VBox>
+                    <VBox styleClass="stat-card-emerald" HBox.hgrow="ALWAYS" spacing="12">
+                        <HBox alignment="CENTER_LEFT" spacing="10">
+                            <Label text="📗" style="-fx-font-size: 20px;"/>
+                            <Label text="MASTER" styleClass="stat-label" style="-fx-text-fill: #059669;"/>
+                        </HBox>
+                        <Label fx:id="masterLabel" text="0" styleClass="stat-value" style="-fx-text-fill: #059669;"/>
+                    </VBox>
+                    <VBox style="-fx-background-color: white; -fx-background-radius: 20; -fx-padding: 25; -fx-effect: dropshadow(gaussian, rgba(245,158,11,0.08), 20, 0, 0, 10); -fx-border-color: rgba(245,158,11,0.15); -fx-border-radius: 20; -fx-border-width: 1;" HBox.hgrow="ALWAYS" spacing="12">
+                        <HBox alignment="CENTER_LEFT" spacing="10">
+                            <Label text="🎓" style="-fx-font-size: 20px;"/>
+                            <Label text="DOCTORAT" style="-fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #d97706;"/>
+                        </HBox>
+                        <Label fx:id="doctoratLabel" text="0" styleClass="stat-value" style="-fx-text-fill: #d97706;"/>
+                    </VBox>
+                </HBox>
+
+                <!-- SEARCH & TABLE CARD -->
+                <VBox VBox.vgrow="ALWAYS" style="-fx-background-color: white; -fx-background-radius: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 25, 0, 0, 8);">
                     
-                    <VBox styleClass="card-body" VBox.vgrow="ALWAYS" style="-fx-padding:0;">
-                        <TableView fx:id="table" VBox.vgrow="ALWAYS" style="-fx-border-color:transparent;">
+                    <!-- Card Header -->
+                    <HBox spacing="15" alignment="CENTER_LEFT" style="-fx-padding: 25 35; -fx-border-color: #f1f5f9; -fx-border-width: 0 0 1 0;">
+                        <VBox spacing="3" HBox.hgrow="ALWAYS">
+                            <Label text="Liste des Filières" style="-fx-font-size: 18px; -fx-font-weight: 800; -fx-text-fill: #0f172a;"/>
+                            <Label fx:id="totalFilieresLabel" text="Tous les parcours enregistrés" style="-fx-font-size: 12px; -fx-text-fill: #94a3b8;"/>
+                        </VBox>
+                        <HBox spacing="10" alignment="CENTER_RIGHT">
+                            <TextField fx:id="searchField" promptText="Rechercher une filière..." styleClass="form-control" prefWidth="250"/>
+                            <Button text="↻" onAction="#handleRefresh"
+                                    style="-fx-background-color: #f8fafc; -fx-text-fill: #475569; -fx-font-weight: bold; -fx-padding: 10 15; -fx-background-radius: 10; -fx-border-color: #e2e8f0; -fx-border-width: 1; -fx-border-radius: 10; -fx-cursor: hand;"/>
+                        </HBox>
+                    </HBox>
+
+                    <!-- Table -->
+                    <VBox VBox.vgrow="ALWAYS" style="-fx-padding: 20;">
+                        <TableView fx:id="table" VBox.vgrow="ALWAYS" style="-fx-background-color: transparent;">
                             <columns>
-                                <TableColumn fx:id="colCode" text="Code" prefWidth="100"/>
-                                <TableColumn fx:id="colNom" text="Nom de la filière" prefWidth="250"/>
-                                <TableColumn fx:id="colNiveau" text="Niveau" prefWidth="120"/>
-                                <TableColumn fx:id="colUniversite" text="Université" prefWidth="200"/>
-                                <TableColumn fx:id="colDuree" text="Durée" prefWidth="100"/>
-                                <TableColumn fx:id="colCapacite" text="Capacité" prefWidth="100"/>
-                                <TableColumn fx:id="colActions" text="Actions" prefWidth="120"/>
+                                <TableColumn fx:id="colCode" text="CODE" prefWidth="120" style="-fx-alignment: CENTER;"/>
+                                <TableColumn fx:id="colNom" text="NOM DE LA FILIÈRE" prefWidth="280" style="-fx-alignment: CENTER;"/>
+                                <TableColumn fx:id="colNiveau" text="NIVEAU" prefWidth="130" style="-fx-alignment: CENTER;"/>
+                                <TableColumn fx:id="colUniversite" text="UNIVERSITÉ" prefWidth="200" style="-fx-alignment: CENTER;"/>
+                                <TableColumn fx:id="colDuree" text="DURÉE" prefWidth="90" style="-fx-alignment: CENTER;"/>
+                                <TableColumn fx:id="colCapacite" text="CAPACITÉ" prefWidth="100" style="-fx-alignment: CENTER;"/>
+                                <TableColumn fx:id="colActions" text="ACTIONS" prefWidth="130" style="-fx-alignment: CENTER;"/>
                             </columns>
                             <placeholder>
-                                <Label text="📭 Aucune filière trouvée" style="-fx-text-fill:#9ca3af;"/>
+                                <VBox alignment="CENTER" spacing="10" style="-fx-padding: 40;">
+                                    <Label text="📭" style="-fx-font-size: 40px;"/>
+                                    <Label text="Aucune filière trouvée" style="-fx-text-fill: #94a3b8; -fx-font-size: 14px; -fx-font-weight: bold;"/>
+                                </VBox>
                             </placeholder>
                         </TableView>
                     </VBox>
                 </VBox>
+
                 
             </VBox>
         </ScrollPane>

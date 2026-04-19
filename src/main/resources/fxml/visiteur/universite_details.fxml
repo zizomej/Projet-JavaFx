@@ -4,12 +4,11 @@
 <?import javafx.geometry.*?>
 
 <!--
-  VISITEUR EVENTS — Liste publique des événements
-  Navbar blanche, Entête dégradée, Grille d'événements dynamique
+  VISITEUR UNIVERSITY DETAILS
 -->
 <BorderPane xmlns:fx="http://javafx.com/fxml"
             fx:id="rootPane"
-            fx:controller="com.learnhub.controller.visiteur.EventsController"
+            fx:controller="com.learnhub.controller.visiteur.UniversiteDetailsController"
             stylesheets="@/css/styles.css"
             prefWidth="1280" prefHeight="800">
 
@@ -20,9 +19,7 @@
             <Region HBox.hgrow="ALWAYS"/>
             <Button text="Accueil"      styleClass="visiteur-nav-btn" onAction="#goHome"/>
             <Button text="Programmes"  styleClass="visiteur-nav-btn" onAction="#goPrograms"/>
-            <Button text="Actualités"  styleClass="visiteur-nav-btn"
-                    style="-fx-text-fill: #1E3A8A; -fx-border-color: transparent transparent #FFC107 transparent; -fx-border-width: 0 0 3 0;"
-                    onAction="#goEvents"/>
+            <Button text="Actualités"  styleClass="visiteur-nav-btn" onAction="#goEvents"/>
             <Button text="Partenaires" styleClass="visiteur-nav-btn" onAction="#goPartners"/>
             <Button text="🔐  Se connecter" styleClass="visiteur-nav-login" onAction="#goLogin"/>
         </HBox>
@@ -35,23 +32,29 @@
             <VBox spacing="0">
 
                 <!-- HEADER SECTION -->
-                <VBox styleClass="visiteur-hero" alignment="CENTER" spacing="15" minHeight="250">
+                <VBox fx:id="heroSection" alignment="CENTER" spacing="15" minHeight="250"
+                      style="-fx-background-color: linear-gradient(to bottom right, #0A1F44, #1E3A8A);">
                     <padding><Insets top="50" bottom="50" left="100" right="100"/></padding>
-                    <Label text="Événements et Actualités" styleClass="visiteur-hero-title" style="-fx-font-size: 42px;"/>
-                    <Label text="Restez informé des prochains séminaires, conférences et activités étudiantes."
+                    <Label fx:id="uniNameLabel" text="Nom Université" styleClass="visiteur-hero-title" style="-fx-font-size: 42px;"/>
+                    <Label fx:id="uniSubInfoLabel" text="Type • Ville"
                            styleClass="visiteur-hero-sub" wrapText="true" maxWidth="720" textAlignment="CENTER"/>
                 </VBox>
 
-                <!-- EVENTS GRID -->
-                <VBox alignment="CENTER" spacing="30" style="-fx-padding: 60 40; -fx-background-color: #f8fafc;">
-                    <HBox alignment="CENTER_LEFT" maxWidth="1000">
-                        <Label text="Tous nos événements" style="-fx-font-size: 24px; -fx-font-weight: 800; -fx-text-fill: #0f172a;"/>
+                <HBox alignment="CENTER_LEFT" style="-fx-padding: 30 100 0 100;">
+                    <Button text="&lt; Retour aux universités" onAction="#goHome"
+                            style="-fx-background-color: transparent; -fx-text-fill: #3B82F6; -fx-cursor: hand; -fx-font-weight: bold; -fx-font-size: 14px;"/>
+                </HBox>
+
+                <!-- FILIERES GRID -->
+                <VBox alignment="CENTER" spacing="30" style="-fx-padding: 30 100 60 100; -fx-background-color: #f8fafc;">
+                    <HBox alignment="CENTER_LEFT" maxWidth="1200">
+                        <Label text="Nos Formations" style="-fx-font-size: 24px; -fx-font-weight: 800; -fx-text-fill: #0f172a;"/>
                         <Region HBox.hgrow="ALWAYS" />
-                        <Label fx:id="eventsCountLabel" text="0 événement trouvé" style="-fx-text-fill: #64748b; -fx-font-size: 14px; -fx-font-weight: bold;"/>
+                        <Label fx:id="filieresCountLabel" text="0 formation trouvée" style="-fx-text-fill: #64748b; -fx-font-size: 14px; -fx-font-weight: bold;"/>
                     </HBox>
 
                     <!-- Container dynamique -->
-                    <FlowPane fx:id="eventsContainer" hgap="25" vgap="25" alignment="CENTER_LEFT" maxWidth="1000">
+                    <FlowPane fx:id="filieresContainer" hgap="25" vgap="25" alignment="CENTER_LEFT" maxWidth="1200">
                         <!-- Les cartes seront injectées ici par le contrôleur -->
                     </FlowPane>
                 </VBox>

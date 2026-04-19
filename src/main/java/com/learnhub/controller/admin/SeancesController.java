@@ -29,18 +29,28 @@ public class SeancesController {
     @FXML private TableColumn<Seance, Void> colActions;
 
     @FXML private TextField searchField;
+    @FXML private ComboBox<String> comboModule;
+    @FXML private ComboBox<String> comboSalle;
+    @FXML private ComboBox<String> comboType;
+
     @FXML private Label totalSeancesLabel;
-    @FXML private Label todaySeancesLabel;
+    @FXML private Label lblSallesOccupies;
+    @FXML private Label lblTauxOccupation;
 
     private final SeanceDAO seanceDAO = new SeanceDAO();
+    private final com.learnhub.dao.ModuleDAO moduleDAO = new com.learnhub.dao.ModuleDAO();
     private final ObservableList<Seance> seanceList = FXCollections.observableArrayList();
 
     @FXML
     public void initialize() {
         setupTable();
         loadData();
+        setupFilters();
         
         searchField.textProperty().addListener((obs, old, val) -> filterData());
+        comboModule.valueProperty().addListener((obs, old, val) -> filterData());
+        comboSalle.valueProperty().addListener((obs, old, val) -> filterData());
+        comboType.valueProperty().addListener((obs, old, val) -> filterData());
     }
 
     private void setupTable() {
@@ -48,15 +58,42 @@ public class SeancesController {
         colHeure.setCellValueFactory(new PropertyValueFactory<>("heureDebut"));
         colModule.setCellValueFactory(new PropertyValueFactory<>("moduleTitre"));
         colSalle.setCellValueFactory(new PropertyValueFactory<>("salle"));
+        
         colType.setCellValueFactory(new PropertyValueFactory<>("type"));
+        colType.setCellFactory(column -> new TableCell<>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setGraphic(null);
+                } else {
+                    Label badge = new Label(item.toUpperCase());
+                    badge.getStyleClass().add("badge");
+                    String styleClass = switch (item.toUpperCase().trim()) {
+                        case "CM", "COURS" -> "badge-info";
+                        case "TD" -> "badge-warning";
+                        case "TP" -> "badge-success";
+                        case "EXAM", "DS", "PROJET" -> "badge-purple";
+                        default -> "badge-secondary";
+                    };
+                    badge.getStyleClass().add(styleClass);
+                    setGraphic(badge);
+                }
+            }
+        });
 
         colActions.setCellFactory(param -> new TableCell<>() {
             private final Button editBtn = new Button("✏️");
             private final Button deleteBtn = new Button("🗑");
-            private final HBox pane = new HBox(8, editBtn, deleteBtn);
+            private final Button iaBtn = new Button("🧠");
+            private final HBox pane = new HBox(12, iaBtn, editBtn, deleteBtn);
             {
-                editBtn.setStyle("-fx-background-color:transparent;-fx-cursor:hand;");
-                deleteBtn.setStyle("-fx-background-color:transparent;-fx-text-fill:red;-fx-cursor:hand;");
+                pane.setAlignment(javafx.geometry.Pos.CENTER);
+                editBtn.getStyleClass().addAll("action-btn-edit");
+                deleteBtn.getStyleClass().addAll("action-btn-delete");
+                iaBtn.getStyleClass().addAll("action-btn-ia"); // Style à vérifier
+
+                iaBtn.setOnAction(e -> handleIA(getTableView().getItems().get(getIndex())));
                 editBtn.setOnAction(e -> handleEdit(getTableView().getItems().get(getIndex())));
                 deleteBtn.setOnAction(e -> handleDelete(getTableView().getItems().get(getIndex())));
             }
@@ -68,16 +105,43 @@ public class SeancesController {
         });
     }
 
+    private void setupFilters() {
+        try {
+            // Populate Modules
+            ObservableList<String> modules = FXCollections.observableArrayList("📚 Tous les modules");
+            moduleDAO.findAll().forEach(m -> modules.add(m.getIntitule()));
+            comboModule.setItems(modules);
+            comboModule.getSelectionModel().select(0);
+
+            // Populate Salles (unique from current list)
+            ObservableList<String> salles = FXCollections.observableArrayList("🏫 Toutes les salles");
+            seanceList.stream().map(Seance::getSalle).distinct().forEach(salles::add);
+            comboSalle.setItems(salles);
+            comboSalle.getSelectionModel().select(0);
+
+            // Populate Types
+            comboType.setItems(FXCollections.observableArrayList("📝 Tous les types", "CM", "TD", "TP", "EXAM", "PROJET"));
+            comboType.getSelectionModel().select(0);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void loadData() {
         try {
             seanceList.setAll(seanceDAO.findAll());
             table.setItems(seanceList);
-            totalSeancesLabel.setText(seanceList.size() + " séances");
             
-            long today = seanceList.stream()
-                .filter(s -> s.getDate().equals(java.time.LocalDate.now().toString()))
-                .count();
-            todaySeancesLabel.setText(String.valueOf(today));
+            // Update Stats
+            int total = seanceList.size();
+            totalSeancesLabel.setText(String.valueOf(total));
+            
+            long uniqueSalles = seanceList.stream().map(Seance::getSalle).distinct().count();
+            lblSallesOccupies.setText(String.valueOf(uniqueSalles));
+            
+            double taux = (uniqueSalles / 20.0) * 100; // Mock calculation
+            lblTauxOccupation.setText(String.format("%.1f%%", Math.min(taux, 100)));
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -89,17 +153,29 @@ public class SeancesController {
     }
 
     private void filterData() {
-        String filter = searchField.getText() == null ? "" : searchField.getText().toLowerCase().trim();
-        if (filter.isEmpty()) {
-            table.setItems(seanceList);
-        } else {
-            FilteredList<Seance> filtered = new FilteredList<>(seanceList, s -> {
-                String module = s.getModuleTitre() == null ? "" : s.getModuleTitre().toLowerCase();
-                String salle = s.getSalle() == null ? "" : s.getSalle().toLowerCase();
-                return module.contains(filter) || salle.contains(filter);
-            });
-            table.setItems(filtered);
-        }
+        String search = searchField.getText() == null ? "" : searchField.getText().toLowerCase().trim();
+        String modFilter = comboModule.getValue() == null || comboModule.getSelectionModel().getSelectedIndex() == 0 ? "" : comboModule.getValue().toLowerCase();
+        String salleFilter = comboSalle.getValue() == null || comboSalle.getSelectionModel().getSelectedIndex() == 0 ? "" : comboSalle.getValue().toLowerCase();
+        String typeFilter = comboType.getValue() == null || comboType.getSelectionModel().getSelectedIndex() == 0 ? "" : comboType.getValue().toLowerCase();
+
+        FilteredList<Seance> filtered = new FilteredList<>(seanceList, s -> {
+            boolean matchesSearch = search.isEmpty() || 
+                (s.getModuleTitre() != null && s.getModuleTitre().toLowerCase().contains(search)) ||
+                (s.getSalle() != null && s.getSalle().toLowerCase().contains(search));
+            
+            boolean matchesModule = modFilter.isEmpty() || 
+                (s.getModuleTitre() != null && s.getModuleTitre().toLowerCase().equals(modFilter));
+            
+            boolean matchesSalle = salleFilter.isEmpty() || 
+                (s.getSalle() != null && s.getSalle().toLowerCase().equals(salleFilter));
+            
+            boolean matchesType = typeFilter.isEmpty() || 
+                (s.getType() != null && s.getType().toLowerCase().equals(typeFilter));
+
+            return matchesSearch && matchesModule && matchesSalle && matchesType;
+        });
+        
+        table.setItems(filtered);
     }
 
 
@@ -139,6 +215,11 @@ public class SeancesController {
                 loadData();
             } catch (SQLException e) {
                 e.printStackTrace();
+                Alert err = new Alert(Alert.AlertType.ERROR);
+                err.setTitle("Erreur de suppression");
+                err.setHeaderText("Impossible de supprimer la séance");
+                err.setContentText("Cette séance contient fort probablement une liste de présences attachée. Veuillez supprimer ses dépendances avant.");
+                err.showAndWait();
             }
         }
     }
@@ -146,6 +227,30 @@ public class SeancesController {
     @FXML
     private void handleRefresh() {
         loadData();
+    }
+
+    private void handleIA(Seance seance) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/admin/ia_sessions_modal.fxml"));
+            Parent root = loader.load();
+            IASessionsController controller = loader.getController();
+            controller.setSeance(seance);
+
+            Stage stage = new Stage();
+            stage.setTitle("Assistant IA LearnHub");
+            stage.setScene(new javafx.scene.Scene(root));
+            stage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
+            stage.initOwner(table.getScene().getWindow());
+            stage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void goMetiers() {
+        NavigationUtil.navigateTo((Stage) table.getScene().getWindow(), "/fxml/admin/metiers_avances.fxml",
+                "Outils Avancés");
     }
 
     @FXML

@@ -9,58 +9,101 @@
     <top>
         <HBox styleClass="prof-topnav" alignment="CENTER_LEFT" spacing="10">
             <HBox spacing="10" alignment="CENTER_LEFT">
-                <Label text="🎓" style="-fx-font-size:28px;"/>
                 <VBox spacing="2">
-                    <Label text="🎓 LearnHub" style="-fx-text-fill:white;-fx-font-size:17px;-fx-font-weight:900;"/>
+                    <Label text="LearnHub" style="-fx-text-fill:white;-fx-font-size:17px;-fx-font-weight:900;"/>
                     <Label text="ESPACE PROFESSEUR" styleClass="prof-brand"/>
                 </VBox>
             </HBox>
             <Region HBox.hgrow="ALWAYS"/>
             <HBox spacing="4" alignment="CENTER">
-                <Button text="🏠 Tableau de bord" styleClass="prof-nav-btn" onAction="#goDashboard"/>
-                <Button text="📚 Mes Modules"     styleClass="prof-nav-btn" onAction="#goModules"/>
-                <Button text="🗓 Mes Séances"     styleClass="prof-nav-btn" onAction="#goSeances"/>
-                <Button text="📊 Gérer Notes"     styleClass="prof-nav-btn" onAction="#goNotes"/>
-                <Button text="✅ Présences"        styleClass="prof-nav-btn, prof-nav-btn-active" onAction="#goPresences"/>
+                <Button text="Tableau de bord" styleClass="prof-nav-btn" onAction="#goDashboard"/>
+                <Button text="Mes Modules"     styleClass="prof-nav-btn" onAction="#goModules"/>
+                <Button text="Mes Seances"     styleClass="prof-nav-btn" onAction="#goSeances"/>
+                <Button text="Gerer Notes"     styleClass="prof-nav-btn" onAction="#goNotes"/>
+                <Button text="Presences"       styleClass="prof-nav-btn, prof-nav-btn-active" onAction="#goPresences"/>
             </HBox>
             <Region HBox.hgrow="ALWAYS"/>
             <HBox spacing="8" alignment="CENTER_RIGHT">
                 <Label fx:id="welcomeLabel" text="Professeur" style="-fx-text-fill:white;-fx-font-weight:bold;-fx-font-size:13px;"/>
                 <Label text="PR" styleClass="prof-user-avatar"/>
-                <Button text="🚪 Déconnexion" styleClass="prof-logout" onAction="#handleLogout"/>
+                <Button text="Deconnexion" styleClass="prof-logout" onAction="#handleLogout"/>
             </HBox>
         </HBox>
     </top>
     <center>
-        <ScrollPane fitToWidth="true" style="-fx-background-color:#f5f7fa;-fx-border-color:transparent;">
-            <VBox styleClass="content-area" spacing="24">
-                <VBox styleClass="welcome-banner" spacing="10">
-                    <Label text="✅ Gestion des Présences" styleClass="welcome-name"/>
-                    <Label text="Sélectionnez une séance pour effectuer l'appel de vos étudiants" styleClass="welcome-sub"/>
-                </VBox>
+        <ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-background: transparent; -fx-border-color: transparent;">
+            <StackPane styleClass="root-container">
+                <VBox styleClass="content-area" spacing="35" style="-fx-padding: 40 80;">
 
-                <VBox styleClass="card" alignment="CENTER" spacing="30" style="-fx-padding: 60 40;">
-                    <VBox spacing="20" maxWidth="600" alignment="CENTER_LEFT">
-                        <Label text="📋 Paramètres de l'appel" styleClass="card-header-title" style="-fx-font-size: 18px;"/>
-                        
-                        <VBox spacing="8">
-                            <Label text="L'unité d'enseignement (Module)" styleClass="form-label"/>
-                            <ComboBox fx:id="moduleSelector" prefWidth="600" styleClass="filter-combo" promptText="Sélectionner le module..."/>
-                        </VBox>
+                    <!-- BANNER HEADER -->
+                    <VBox style="-fx-background-color: linear-gradient(to right, #0A1F44, #1e3a8a, #4f46e5); -fx-background-radius: 22; -fx-padding: 40 50; -fx-effect: dropshadow(gaussian, rgba(79,70,229,0.3), 30, 0, 0, 12);">
+                        <HBox alignment="CENTER_LEFT" spacing="25">
+                            <VBox HBox.hgrow="ALWAYS" spacing="10">
+                                <Label text="Gestion des Presences" style="-fx-font-size: 34px; -fx-font-weight: 900; -fx-text-fill: white;"/>
+                                <Label text="Selectionnez une seance pour effectuer l'appel de vos etudiants" style="-fx-font-size: 15px; -fx-text-fill: rgba(255,255,255,0.72);"/>
+                            </VBox>
 
-                        <VBox spacing="8">
-                            <Label text="La séance programmée" styleClass="form-label"/>
-                            <ComboBox fx:id="seanceSelector" prefWidth="600" styleClass="filter-combo" promptText="Sélectionner la séance..."/>
-                        </VBox>
-                        
-                        <Region prefHeight="10"/>
-                        
-                        <Button text="📝 Commencer l'appel des étudiants" styleClass="btn, btn-primary" 
-                                prefWidth="600" style="-fx-padding: 15; -fx-font-size: 15px; -fx-font-weight: bold;"
-                                onAction="#handleLoadPresences"/>
+                        </HBox>
                     </VBox>
+
+                    <!-- INFO CARDS REMOVED -->
+
+
+                    <!-- MAIN FORM CARD -->
+                    <VBox style="-fx-background-color: white; -fx-background-radius: 22; -fx-padding: 50 60; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.07), 30, 0, 0, 12);" spacing="35">
+
+                        <!-- Card title -->
+                        <HBox alignment="CENTER_LEFT" spacing="15">
+
+                            <VBox spacing="4">
+                                <Label text="Parametres de l'appel" style="-fx-font-size: 22px; -fx-font-weight: 900; -fx-text-fill: #0f172a;"/>
+                                <Label text="Remplissez les champs ci-dessous pour demarrer l'appel" style="-fx-font-size: 13px; -fx-text-fill: #94a3b8;"/>
+                            </VBox>
+                        </HBox>
+
+                        <Separator style="-fx-opacity: 0.3;"/>
+
+                        <!-- Form fields -->
+                        <VBox spacing="30">
+                            <!-- Module selector -->
+                            <VBox spacing="10">
+                                <HBox alignment="CENTER_LEFT" spacing="8">
+                                    <Label text="L'unite d'enseignement (Module)" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #374151;"/>
+                                    <Label text="*" style="-fx-text-fill: #ef4444; -fx-font-weight: bold;"/>
+                                </HBox>
+                                <ComboBox fx:id="moduleSelector" maxWidth="Infinity" prefHeight="52"
+                                          promptText="Selectionnez le module..."
+                                          style="-fx-background-color: #f8fafc; -fx-background-radius: 14; -fx-border-color: #e2e8f0; -fx-border-radius: 14; -fx-border-width: 1.5; -fx-font-size: 14px; -fx-padding: 0 15;"/>
+                                <Label text="Choisissez la matiere associee a la seance." style="-fx-font-size: 12px; -fx-text-fill: #94a3b8;"/>
+                            </VBox>
+
+                            <!-- Seance selector -->
+                            <VBox spacing="10">
+                                <HBox alignment="CENTER_LEFT" spacing="8">
+                                    <Label text="La seance programmee" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #374151;"/>
+                                    <Label text="*" style="-fx-text-fill: #ef4444; -fx-font-weight: bold;"/>
+                                </HBox>
+                                <ComboBox fx:id="seanceSelector" maxWidth="Infinity" prefHeight="52"
+                                          promptText="Selectionnez la seance..."
+                                          style="-fx-background-color: #f8fafc; -fx-background-radius: 14; -fx-border-color: #e2e8f0; -fx-border-radius: 14; -fx-border-width: 1.5; -fx-font-size: 14px; -fx-padding: 0 15;"/>
+                                <Label text="La liste des seances depend du module choisi." style="-fx-font-size: 12px; -fx-text-fill: #94a3b8;"/>
+                            </VBox>
+                        </VBox>
+
+                        <Separator style="-fx-opacity: 0.3;"/>
+
+                        <!-- CTA Button -->
+                        <HBox alignment="CENTER">
+                            <Button text="Commencer l'appel des etudiants"
+                                    onAction="#handleLoadPresences"
+                                    prefHeight="58" prefWidth="480"
+                                    style="-fx-background-color: linear-gradient(to right, #4f46e5, #7c3aed); -fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: 900; -fx-background-radius: 16; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(99,102,241,0.4), 20, 0, 0, 6);"/>
+                        </HBox>
+
+                    </VBox>
+
                 </VBox>
-            </VBox>
+            </StackPane>
         </ScrollPane>
     </center>
 </BorderPane>
