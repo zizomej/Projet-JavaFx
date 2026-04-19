@@ -26,6 +26,21 @@ public class PartenaireDAO {
         partenaire.setWebsite(rs.getString("website"));
         partenaire.setDescription(rs.getString("description"));
         partenaire.setImage(rs.getString("image"));
+
+        // ═══════════════════════════════════════════════════════════════
+        //  NOUVEAUX CHAMPS LATITUDE / LONGITUDE
+        // ═══════════════════════════════════════════════════════════════
+        try {
+            partenaire.setLatitude(rs.getString("latitude"));
+        } catch (SQLException e) {
+            // Colonne n'existe pas encore
+        }
+        try {
+            partenaire.setLongitude(rs.getString("longitude"));
+        } catch (SQLException e) {
+            // Colonne n'existe pas encore
+        }
+
         return partenaire;
     }
 
@@ -138,8 +153,8 @@ public class PartenaireDAO {
     public void insert(Partenaire partenaire) throws SQLException {
         String sql = """
             INSERT INTO partenaire (
-                nom, secteur, ville, email, telephone, statut, adresse, pays, website, description
-            ) VALUES (?,?,?,?,?,?,?,?,?,?)
+                nom, secteur, ville, email, telephone, statut, adresse, pays, website, description, latitude, longitude
+            ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)
             """;
         try (PreparedStatement ps = DatabaseConnection.getInstance().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, partenaire.getNom());
@@ -152,6 +167,8 @@ public class PartenaireDAO {
             ps.setString(8, partenaire.getPays());
             ps.setString(9, partenaire.getWebsite());
             ps.setString(10, partenaire.getDescription());
+            ps.setString(11, partenaire.getLatitude());
+            ps.setString(12, partenaire.getLongitude());
             ps.executeUpdate();
 
             ResultSet keys = ps.getGeneratedKeys();
@@ -173,7 +190,9 @@ public class PartenaireDAO {
                 adresse = ?,
                 pays = ?,
                 website = ?,
-                description = ?
+                description = ?,
+                latitude = ?,
+                longitude = ?
             WHERE id = ?
             """;
         try (PreparedStatement ps = DatabaseConnection.getInstance().prepareStatement(sql)) {
@@ -187,7 +206,9 @@ public class PartenaireDAO {
             ps.setString(8, partenaire.getPays());
             ps.setString(9, partenaire.getWebsite());
             ps.setString(10, partenaire.getDescription());
-            ps.setInt(11, partenaire.getId());
+            ps.setString(11, partenaire.getLatitude());
+            ps.setString(12, partenaire.getLongitude());
+            ps.setInt(13, partenaire.getId());
             ps.executeUpdate();
         }
     }

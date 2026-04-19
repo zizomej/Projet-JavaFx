@@ -1,126 +1,123 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx/17"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.learnhub.controller.student.StudentDashboardController"
-            stylesheets="@/css/styles.css"
-            prefWidth="1280" prefHeight="800">
+<BorderPane prefHeight="800" prefWidth="1280" stylesheets="@/css/styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.learnhub.controller.student.StudentDashboardController">
     <top>
-        <HBox styleClass="dash-nav" alignment="CENTER_LEFT" minHeight="64" spacing="4">
-            <padding><Insets top="0" right="24" bottom="0" left="28"/></padding>
-            <Label text="LearnHub" styleClass="dash-nav-brand"/>
-            <Label text="| ETUDIANT" style="-fx-text-fill:rgba(255,255,255,0.45); -fx-font-size:11px; -fx-padding:0 0 0 8;"/>
-            <Region HBox.hgrow="ALWAYS"/>
-            <Button text="Tableau de bord" styleClass="dash-nav-link dash-nav-link-active" onAction="#goDashboard"/>
-            <Button text="Modules" styleClass="dash-nav-link" onAction="#goModules"/>
-            <Button text="Notes" styleClass="dash-nav-link" onAction="#goNotes"/>
-            <Button text="Emploi du temps" styleClass="dash-nav-link" onAction="#goEmploi"/>
-            <Button text="Presences" styleClass="dash-nav-link" onAction="#goPresences"/>
-            <Button text="RDV medical" styleClass="dash-nav-link" onAction="#goRdv"/>
-            <Button text="Evenements" styleClass="dash-nav-link" onAction="#goEvenements"/>
-            <Button text="Offres de stage" styleClass="dash-nav-link" onAction="#goOffresStage"/>
-            <Button text="Mes demandes" styleClass="dash-nav-link" onAction="#goDemandesStage"/>
-            <Region HBox.hgrow="ALWAYS"/>
-            <Label text="Espace etudiant" styleClass="dash-nav-role" style="-fx-padding:0 12 0 0;"/>
-            <Button text="Deconnexion" styleClass="btn-logout" onAction="#handleLogout"/>
+        <HBox alignment="CENTER_LEFT" minHeight="64" spacing="4" styleClass="dash-nav">
+            <padding><Insets bottom="0" left="28" right="24" top="0" /></padding>
+            <Label styleClass="dash-nav-brand" text="LearnHub" />
+            <Label style="-fx-text-fill:rgba(255,255,255,0.45); -fx-font-size:11px; -fx-padding:0 0 0 8;" text="| ETUDIANT" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Button onAction="#goDashboard" styleClass="dash-nav-link dash-nav-link-active" text="Tableau de bord" />
+            <Button onAction="#goModules" styleClass="dash-nav-link" text="Modules" />
+            <Button onAction="#goNotes" styleClass="dash-nav-link" text="Notes" />
+            <Button onAction="#goEmploi" styleClass="dash-nav-link" text="Emploi du temps" />
+            <Button onAction="#goPresences" styleClass="dash-nav-link" text="Presences" />
+            <Button onAction="#goRdv" styleClass="dash-nav-link" text="RDV medical" />
+            <Button onAction="#goEvenements" styleClass="dash-nav-link" text="Evenements" />
+            <Button onAction="#goOffresStage" styleClass="dash-nav-link" text="Offres de stage" />
+            <Button onAction="#goDemandesStage" styleClass="dash-nav-link" text="Mes demandes" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Label style="-fx-padding:0 12 0 0;" styleClass="dash-nav-role" text="Espace etudiant" />
+            <Button onAction="#handleLogout" styleClass="btn-logout" text="Deconnexion" />
         </HBox>
     </top>
 
     <center>
         <ScrollPane fitToWidth="true" hbarPolicy="NEVER">
             <VBox spacing="26" style="-fx-background-color:#f8fafc; -fx-padding:32 40 40 40;">
-                <VBox styleClass="welcome-banner" spacing="8">
-                    <padding><Insets top="30" right="30" bottom="30" left="30"/></padding>
-                    <Label fx:id="welcomeLabel" text="Bienvenue" styleClass="welcome-title"/>
-                    <Label text="Retrouvez vos notes, vos presences, vos rendez-vous et vos stages dans une page plus propre et plus proche du rendu Symfony." styleClass="welcome-sub"/>
+                <VBox spacing="8" styleClass="welcome-banner">
+                    <padding><Insets bottom="30" left="30" right="30" top="30" /></padding>
+                    <Label fx:id="welcomeLabel" styleClass="welcome-title" text="Bienvenue" />
+                    <Label styleClass="welcome-sub" text="Retrouvez vos notes, vos presences, vos rendez-vous et vos stages dans une page plus propre et plus proche du rendu Symfony." />
                 </VBox>
 
                 <HBox spacing="18">
-                    <VBox styleClass="stat-card stat-card-blue" HBox.hgrow="ALWAYS" spacing="8">
-                        <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
-                        <Label text="Moyenne generale" styleClass="stat-label"/>
-                        <Label fx:id="moyenneLabel" text="--" styleClass="stat-value"/>
-                        <Label text="Mise a jour depuis la table des notes" styleClass="stat-card-label"/>
+                    <VBox spacing="8" styleClass="stat-card stat-card-blue" HBox.hgrow="ALWAYS">
+                        <padding><Insets bottom="20" left="20" right="20" top="20" /></padding>
+                        <Label styleClass="stat-label" text="Moyenne generale" />
+                        <Label fx:id="moyenneLabel" styleClass="stat-value" text="--" />
+                        <Label styleClass="stat-card-label" text="Mise a jour depuis la table des notes" />
                     </VBox>
-                    <VBox styleClass="stat-card stat-card-red" HBox.hgrow="ALWAYS" spacing="8">
-                        <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
-                        <Label text="Absences" styleClass="stat-label"/>
-                        <Label fx:id="absencesLabel" text="--" styleClass="stat-value"/>
-                        <Label text="Nombre total d'absences enregistrees" styleClass="stat-card-label"/>
+                    <VBox spacing="8" styleClass="stat-card stat-card-red" HBox.hgrow="ALWAYS">
+                        <padding><Insets bottom="20" left="20" right="20" top="20" /></padding>
+                        <Label styleClass="stat-label" text="Absences" />
+                        <Label fx:id="absencesLabel" styleClass="stat-value" text="--" />
+                        <Label styleClass="stat-card-label" text="Nombre total d'absences enregistrees" />
                     </VBox>
-                    <VBox styleClass="stat-card stat-card-teal" HBox.hgrow="ALWAYS" spacing="8">
-                        <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
-                        <Label text="RDV actifs" styleClass="stat-label"/>
-                        <Label fx:id="rdvLabel" text="--" styleClass="stat-value"/>
-                        <Label text="Demandes medicales en attente ou confirmees" styleClass="stat-card-label"/>
+                    <VBox spacing="8" styleClass="stat-card stat-card-teal" HBox.hgrow="ALWAYS">
+                        <padding><Insets bottom="20" left="20" right="20" top="20" /></padding>
+                        <Label styleClass="stat-label" text="RDV actifs" />
+                        <Label fx:id="rdvLabel" styleClass="stat-value" text="--" />
+                        <Label styleClass="stat-card-label" text="Demandes medicales en attente ou confirmees" />
                     </VBox>
                 </HBox>
 
                 <HBox spacing="18">
-                    <VBox HBox.hgrow="ALWAYS" styleClass="admin-note-box" spacing="8">
-                        <Label text="Vie universitaire" styleClass="admin-card-title"/>
-                        <Label text="Votre tableau de bord regroupe les indicateurs utiles, les dernieres notes et les prochains evenements sans surcharge visuelle." styleClass="admin-page-subtitle"/>
+                    <VBox spacing="8" styleClass="admin-note-box" HBox.hgrow="ALWAYS">
+                        <Label styleClass="admin-card-title" text="Vie universitaire" />
+                        <Label styleClass="admin-page-subtitle" text="Votre tableau de bord regroupe les indicateurs utiles, les dernieres notes et les prochains evenements sans surcharge visuelle." />
                     </VBox>
                     <HBox alignment="CENTER_LEFT" spacing="12" styleClass="card" HBox.hgrow="ALWAYS">
-                        <padding><Insets top="18" right="20" bottom="18" left="20"/></padding>
-                        <VBox HBox.hgrow="ALWAYS" spacing="4">
-                            <Label text="Espace stages" styleClass="admin-card-title"/>
-                            <Label text="Consultez les offres et suivez vos demandes de stage depuis un acces direct." styleClass="admin-page-subtitle"/>
+                        <padding><Insets bottom="18" left="20" right="20" top="18" /></padding>
+                        <VBox spacing="4" HBox.hgrow="ALWAYS">
+                            <Label styleClass="admin-card-title" text="Espace stages" />
+                            <Label styleClass="admin-page-subtitle" text="Consultez les offres et suivez vos demandes de stage depuis un acces direct." />
                         </VBox>
-                        <Button text="Voir les offres" styleClass="btn-primary" onAction="#goOffresStage"/>
-                        <Button text="Mes demandes" styleClass="btn-secondary" onAction="#goDemandesStage"/>
+                        <Button onAction="#goOffresStage" styleClass="btn-primary" text="Voir les offres" />
+                        <Button onAction="#goDemandesStage" styleClass="btn-secondary" text="Mes demandes" />
                     </HBox>
                 </HBox>
 
                 <HBox spacing="22">
-                    <VBox styleClass="card" HBox.hgrow="ALWAYS" spacing="0">
+                    <VBox spacing="0" styleClass="card" HBox.hgrow="ALWAYS">
                         <HBox alignment="CENTER_LEFT" spacing="12" style="-fx-padding:16 20; -fx-border-color:#e2e8f0; -fx-border-width:0 0 1 0;">
-                            <VBox HBox.hgrow="ALWAYS" spacing="2">
-                                <Label text="Dernieres notes" styleClass="admin-card-title"/>
-                                <Label text="Apercu rapide de vos evaluations recentes" styleClass="admin-card-subtitle"/>
+                            <VBox spacing="2" HBox.hgrow="ALWAYS">
+                                <Label styleClass="admin-card-title" text="Dernieres notes" />
+                                <Label styleClass="admin-card-subtitle" text="Apercu rapide de vos evaluations recentes" />
                             </VBox>
-                            <Button text="Voir tout" styleClass="btn-secondary" onAction="#goNotes"/>
+                            <Button onAction="#goNotes" styleClass="btn-secondary" text="Voir tout" />
                         </HBox>
                         <TableView fx:id="notesTable" prefHeight="250" style="-fx-border-color:transparent;">
                             <columns>
-                                <TableColumn fx:id="colModule" text="Module" prefWidth="230"/>
-                                <TableColumn fx:id="colNote" text="Note" prefWidth="90"/>
-                                <TableColumn fx:id="colMention" text="Mention" prefWidth="130"/>
+                                <TableColumn fx:id="colModule" prefWidth="230" text="Module" />
+                                <TableColumn fx:id="colNote" prefWidth="90" text="Note" />
+                                <TableColumn fx:id="colMention" prefWidth="130" text="Mention" />
                             </columns>
                             <placeholder>
-                                <Label text="Aucune note disponible" style="-fx-text-fill:#64748b;"/>
+                                <Label style="-fx-text-fill:#64748b;" text="Aucune note disponible" />
                             </placeholder>
                         </TableView>
                     </VBox>
 
-                    <VBox styleClass="card" HBox.hgrow="ALWAYS" spacing="0">
+                    <VBox spacing="0" styleClass="card" HBox.hgrow="ALWAYS">
                         <HBox alignment="CENTER_LEFT" spacing="12" style="-fx-padding:16 20; -fx-border-color:#e2e8f0; -fx-border-width:0 0 1 0;">
-                            <VBox HBox.hgrow="ALWAYS" spacing="2">
-                                <Label text="Prochains evenements" styleClass="admin-card-title"/>
-                                <Label text="Selection des rendez-vous et activites a venir" styleClass="admin-card-subtitle"/>
+                            <VBox spacing="2" HBox.hgrow="ALWAYS">
+                                <Label styleClass="admin-card-title" text="Prochains evenements" />
+                                <Label styleClass="admin-card-subtitle" text="Selection des rendez-vous et activites a venir" />
                             </VBox>
-                            <Button text="Voir tout" styleClass="btn-secondary" onAction="#goEvenements"/>
+                            <Button onAction="#goEvenements" styleClass="btn-secondary" text="Voir tout" />
                         </HBox>
                         <TableView fx:id="eventsTable" prefHeight="250" style="-fx-border-color:transparent;">
                             <columns>
-                                <TableColumn fx:id="colEvtTitre" text="Evenement" prefWidth="240"/>
-                                <TableColumn fx:id="colEvtDate" text="Date" prefWidth="130"/>
+                                <TableColumn fx:id="colEvtTitre" prefWidth="240" text="Evenement" />
+                                <TableColumn fx:id="colEvtDate" prefWidth="130" text="Date" />
                             </columns>
                             <placeholder>
-                                <Label text="Aucun evenement a venir" style="-fx-text-fill:#64748b;"/>
+                                <Label style="-fx-text-fill:#64748b;" text="Aucun evenement a venir" />
                             </placeholder>
                         </TableView>
                     </VBox>
                 </HBox>
 
                 <HBox spacing="12">
-                    <Button text="Mes notes" styleClass="btn-primary" onAction="#goNotes" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
-                    <Button text="Mes presences" styleClass="btn-success" onAction="#goPresences" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
-                    <Button text="Prendre RDV" styleClass="btn-warning" onAction="#goRdv" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
-                    <Button text="Offres de stage" styleClass="btn-secondary" onAction="#goOffresStage" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                    <Button maxWidth="Infinity" onAction="#goNotes" styleClass="btn-primary" text="Mes notes" HBox.hgrow="ALWAYS" />
+                    <Button maxWidth="Infinity" onAction="#goPresences" styleClass="btn-success" text="Mes presences" HBox.hgrow="ALWAYS" />
+                    <Button maxWidth="Infinity" onAction="#goRdv" styleClass="btn-warning" text="Prendre RDV" HBox.hgrow="ALWAYS" />
+                    <Button maxWidth="Infinity" onAction="#goOffresStage" styleClass="btn-secondary" text="Offres de stage" HBox.hgrow="ALWAYS" />
                 </HBox>
             </VBox>
         </ScrollPane>

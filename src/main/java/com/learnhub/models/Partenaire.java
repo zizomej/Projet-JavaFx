@@ -13,6 +13,8 @@ public class Partenaire {
     private String website;
     private String description;
     private String image;
+    private String latitude;   // ← NOUVEAU
+    private String longitude;  // ← NOUVEAU
 
     public Partenaire() {}
 
@@ -51,6 +53,15 @@ public class Partenaire {
 
     public String getImage() { return image; }
     public void setImage(String image) { this.image = image; }
+
+    // ═══════════════════════════════════════════════════════════════
+    //  NOUVEAUX GETTERS/SETTERS POUR LATITUDE ET LONGITUDE
+    // ═══════════════════════════════════════════════════════════════
+    public String getLatitude() { return latitude; }
+    public void setLatitude(String latitude) { this.latitude = latitude; }
+
+    public String getLongitude() { return longitude; }
+    public void setLongitude(String longitude) { this.longitude = longitude; }
 
     @Override
     public String toString() {

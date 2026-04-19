@@ -162,9 +162,10 @@ public class SeancesAdminController {
     @FXML private void goEvenements()     { nav("/fxml/admin/evenements.fxml", "Événements"); }
     @FXML private void goRdv()            { nav("/fxml/admin/rdv.fxml", "RDV Médicaux"); }
     @FXML private void goCreneaux()       { nav("/fxml/admin/creneaux.fxml", "Créneaux"); }
-    @FXML private void goPartenaires()    { nav("/fxml/admin/partenaires.fxml", "Partenaires"); }
-    @FXML private void goOffresStage()    { nav("/fxml/admin/offres_stage.fxml", "Offres de Stage"); }
-    @FXML private void goDemandesStage()  { nav("/fxml/admin/demandes_stage.fxml", "Demandes de Stage"); }
+    @FXML private void goPartenaires()    { nav("/fxml/admin/partenaires/partenaires.fxml", "Partenaires"); }
+    @FXML private void goOffresStage()    { nav("/fxml/admin/offrestage/offres_stage.fxml", "Offres de Stage"); }
+    @FXML private void goDemandesStage()  { nav("/fxml/admin/demandestage/demandes_stage.fxml", "Demandes de Stage"); }
+    @FXML private void goMailing()       { nav("/fxml/admin/partenaires/mailing_partenaires.fxml", "Mailing"); }
 
     private void nav(String fxml, String title) {
         NavigationUtil.navigateTo((Stage) table.getScene().getWindow(), fxml, title);

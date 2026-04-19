@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Circle?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.learnhub.controller.admin.demandestage.DemandeStageDetailsController"
+            stylesheets="@/css/styles.css"
+            prefWidth="1360" prefHeight="900">
+
+    <!-- ═══════════════════  SIDEBAR  ═══════════════════════════════════════════ -->
+    <left>
+        <VBox prefWidth="248" styleClass="sidebar" BorderPane.alignment="CENTER">
+            <VBox alignment="CENTER" prefHeight="90" style="-fx-padding: 18 10;">
+                <Label text="🎓 LearnHub" textFill="WHITE"
+                       style="-fx-font-size: 21px; -fx-font-weight: bold;"/>
+                <Label text="Espace Administrateur" textFill="#94a3b8"
+                       style="-fx-font-size: 11px;"/>
+            </VBox>
+            <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS"
+                        style="-fx-background-color: transparent; -fx-border-color: transparent;">
+                <VBox spacing="2" style="-fx-padding: 8 0;">
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="📊 Dashboard"      onAction="#goDashboard"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="👥 Utilisateurs"   onAction="#goUtilisateurs"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="📚 Modules"        onAction="#goModules"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="🗓 Séances"        onAction="#goSeances"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="📝 Notes"          onAction="#goNotes"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="✔ Présences"       onAction="#goPresences"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="🎓 Filières"       onAction="#goFilieres"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="🎉 Événements"     onAction="#goEvenements"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="🏥 RDV Médicaux"   onAction="#goRdv"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="🕐 Créneaux"       onAction="#goCreneaux"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="🤝 Partenaires"    onAction="#goPartenaires"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="💼 Offres Stage"   onAction="#goOffresStage"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn sidebar-btn-active"
+                            text="📋 Demandes Stage" onAction="#goDemandesStage"/>
+
+                </VBox>
+            </ScrollPane>
+            <VBox alignment="CENTER" prefHeight="95" spacing="8"
+                  style="-fx-background-color: #0f172a; -fx-padding: 10;">
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <StackPane>
+                        <Circle fill="#f59e0b" radius="17"/>
+                        <Label text="AD" textFill="WHITE" style="-fx-font-weight: bold;"/>
+                    </StackPane>
+                    <VBox alignment="CENTER_LEFT">
+                        <Label text="Admin Principal" textFill="WHITE"
+                               style="-fx-font-weight: bold; -fx-font-size: 13px;"/>
+                        <Label text="admin@learnhub.tn" textFill="#94a3b8"
+                               style="-fx-font-size: 11px;"/>
+                    </VBox>
+                </HBox>
+                <Button text="🚪 Déconnexion" maxWidth="Infinity" onAction="#handleLogout"
+                        style="-fx-background-color: transparent; -fx-border-color: #334155;
+                               -fx-border-radius: 6; -fx-text-fill: white;
+                               -fx-cursor: hand; -fx-padding: 6 10;"/>
+            </VBox>
+        </VBox>
+    </left>
+
+    <!-- ═══════════════════  MAIN CONTENT  ══════════════════════════════════════ -->
+    <center>
+        <ScrollPane fitToWidth="true" style="-fx-background-color: #f8fafc;" hbarPolicy="NEVER">
+            <VBox spacing="18" style="-fx-padding: 28;">
+
+                <!-- ── Header ── -->
+                <HBox alignment="CENTER_LEFT" spacing="14"
+                      style="-fx-background-color: white; -fx-background-radius: 14;
+                             -fx-padding: 18 22; -fx-effect: dropshadow(gaussian,rgba(0,0,0,0.06),12,0,0,3);">
+                    <VBox spacing="4" HBox.hgrow="ALWAYS">
+                        <Label fx:id="lblTitre" text="📋 Demande de Stage"
+                               style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #1e3a8a;"/>
+                        <Label fx:id="lblDate" text="—" textFill="#64748b" style="-fx-font-size: 13px;"/>
+                    </VBox>
+                    <!-- Quick decision buttons always visible -->
+                    <HBox spacing="10" alignment="CENTER_RIGHT">
+                        <Button text="✅ Accepter" onAction="#handleAccepter"
+                                style="-fx-background-color: #059669; -fx-text-fill: white;
+                                       -fx-font-weight: bold; -fx-padding: 8 18;
+                                       -fx-background-radius: 8; -fx-cursor: hand; -fx-font-size: 13px;"/>
+                        <Button text="❌ Refuser" onAction="#handleRefuser"
+                                style="-fx-background-color: #dc2626; -fx-text-fill: white;
+                                       -fx-font-weight: bold; -fx-padding: 8 18;
+                                       -fx-background-radius: 8; -fx-cursor: hand; -fx-font-size: 13px;"/>
+                        <Separator orientation="VERTICAL" style="-fx-padding: 0 4;"/>
+                        <Button text="🗑 Supprimer" onAction="#handleDelete"
+                                style="-fx-background-color: #f1f5f9; -fx-text-fill: #ef4444;
+                                       -fx-font-weight: bold; -fx-padding: 8 14;
+                                       -fx-background-radius: 8; -fx-cursor: hand;"/>
+                        <Button text="⬅ Retour" onAction="#handleBack"
+                                style="-fx-background-color: #475569; -fx-text-fill: white;
+                                       -fx-font-weight: bold; -fx-padding: 8 14;
+                                       -fx-background-radius: 8; -fx-cursor: hand;"/>
+                    </HBox>
+                </HBox>
+
+                <!-- ── Status + Update row ── -->
+                <HBox spacing="18">
+                    <VBox spacing="10" HBox.hgrow="ALWAYS"
+                          style="-fx-background-color: white; -fx-background-radius: 12;
+                                 -fx-padding: 18; -fx-effect: dropshadow(gaussian,rgba(0,0,0,0.04),8,0,0,2);">
+                        <Label text="📊 Statut actuel"
+                               style="-fx-font-weight: bold; -fx-text-fill: #374151;"/>
+                        <Label fx:id="lblStatutActuel" text="⏳ en_attente"
+                               style="-fx-background-color: #fef3c7; -fx-text-fill: #d97706;
+                                      -fx-font-weight: bold; -fx-padding: 8 16;
+                                      -fx-background-radius: 20; -fx-font-size: 14px;"/>
+                    </VBox>
+                    <VBox spacing="10" HBox.hgrow="ALWAYS" alignment="TOP_RIGHT"
+                          style="-fx-background-color: white; -fx-background-radius: 12;
+                                 -fx-padding: 18; -fx-effect: dropshadow(gaussian,rgba(0,0,0,0.04),8,0,0,2);">
+                        <Label text="⚡ Changer le statut"
+                               style="-fx-font-weight: bold; -fx-text-fill: #374151;"/>
+                        <HBox spacing="10" alignment="CENTER_RIGHT">
+                            <ComboBox fx:id="comboStatut" prefWidth="160"/>
+                            <Button text="Mettre à jour" onAction="#handleUpdateStatut"
+                                    style="-fx-background-color: #1e3a8a; -fx-text-fill: white;
+                                           -fx-font-weight: bold; -fx-background-radius: 6;
+                                           -fx-cursor: hand; -fx-padding: 8 14;"/>
+                        </HBox>
+                    </VBox>
+                </HBox>
+
+                <!-- ── Student + Offre row ── -->
+                <HBox spacing="18">
+                    <!-- Student card -->
+                    <VBox spacing="14" HBox.hgrow="ALWAYS"
+                          style="-fx-background-color: white; -fx-background-radius: 12;
+                                 -fx-padding: 18; -fx-effect: dropshadow(gaussian,rgba(0,0,0,0.04),8,0,0,2);">
+                        <Label text="👤 Profil de l'Étudiant"
+                               style="-fx-font-weight: bold; -fx-font-size: 15px; -fx-text-fill: #1e293b;"/>
+                        <HBox spacing="14" alignment="CENTER_LEFT">
+                            <Label text="ET"
+                                   style="-fx-background-color: #d97706; -fx-text-fill: white;
+                                          -fx-font-size: 18px; -fx-font-weight: bold;
+                                          -fx-padding: 12; -fx-background-radius: 50;"/>
+                            <Label fx:id="lblEtudiantNom" text="—"
+                                   style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #1e293b;"/>
+                        </HBox>
+                        <Separator/>
+                        <GridPane hgap="20" vgap="10">
+                            <Label text="ID" textFill="#64748b"
+                                   GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                            <Label fx:id="lblEtudiantId" text="#—" style="-fx-font-weight: bold;"
+                                   GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+                            <Label text="Email" textFill="#64748b"
+                                   GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                            <Label fx:id="lblEtudiantEmail" text="—" style="-fx-font-weight: bold;"
+                                   GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                        </GridPane>
+                    </VBox>
+
+                    <!-- Offre card -->
+                    <VBox spacing="14" HBox.hgrow="ALWAYS"
+                          style="-fx-background-color: white; -fx-background-radius: 12;
+                                 -fx-padding: 18; -fx-effect: dropshadow(gaussian,rgba(0,0,0,0.04),8,0,0,2);">
+                        <Label text="💼 Offre de Stage"
+                               style="-fx-font-weight: bold; -fx-font-size: 15px; -fx-text-fill: #1e293b;"/>
+                        <VBox spacing="6"
+                              style="-fx-background-color: #1e3a8a; -fx-background-radius: 10; -fx-padding: 16;">
+                            <Label fx:id="lblOffreTitre" text="—"
+                                   style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+                            <HBox spacing="6">
+                                <Label text="🏢" textFill="white"/>
+                                <Label fx:id="lblPartenaireNom" text="—" textFill="#cbd5e1"/>
+                            </HBox>
+                        </VBox>
+                    </VBox>
+                </HBox>
+
+                <!-- ── Motivation + PJ row ── -->
+                <HBox spacing="18">
+                    <VBox spacing="10" HBox.hgrow="ALWAYS"
+                          style="-fx-background-color: white; -fx-background-radius: 12;
+                                 -fx-padding: 18; -fx-effect: dropshadow(gaussian,rgba(0,0,0,0.04),8,0,0,2);">
+                        <Label text="💭 Lettre de Motivation"
+                               style="-fx-font-weight: bold; -fx-font-size: 15px; -fx-text-fill: #1e293b;"/>
+                        <TextArea fx:id="txtMotivation" prefRowCount="5" wrapText="true" editable="false"
+                                  style="-fx-background-color: #f8fafc; -fx-border-color: #e5e7eb;
+                                         -fx-border-radius: 8;"/>
+                    </VBox>
+
+                    <!-- CV + download -->
+                    <VBox spacing="10" prefWidth="270"
+                          style="-fx-background-color: white; -fx-background-radius: 12;
+                                 -fx-padding: 18; -fx-effect: dropshadow(gaussian,rgba(0,0,0,0.04),8,0,0,2);">
+                        <Label text="📎 Pièce Jointe"
+                               style="-fx-font-weight: bold; -fx-font-size: 15px; -fx-text-fill: #1e293b;"/>
+                        <HBox spacing="12" alignment="CENTER_LEFT"
+                              style="-fx-background-color: #f8fafc; -fx-padding: 12; -fx-background-radius: 8;">
+                            <Label text="📄"
+                                   style="-fx-font-size: 22px; -fx-background-color: #ef4444;
+                                          -fx-text-fill: white; -fx-padding: 8; -fx-background-radius: 8;"/>
+                            <Label fx:id="lblPieceJointe" text="Aucune pièce jointe"
+                                   textFill="#475569" style="-fx-font-size: 11px;" wrapText="true"/>
+                        </HBox>
+                        <Button text="⬇ Télécharger le CV" onAction="#handleDownloadCv"
+                                style="-fx-background-color: #1e3a8a; -fx-text-fill: white;
+                                       -fx-font-weight: bold; -fx-background-radius: 6;
+                                       -fx-padding: 8 14; -fx-cursor: hand;"/>
+                    </VBox>
+                </HBox>
+
+                <!-- STATISTIQUES RAPIDES DE L'ÉTUDIANT -->
+                <HBox spacing="16"
+                      style="-fx-background-color: white; -fx-background-radius: 14;
+                             -fx-padding: 20 24; -fx-effect: dropshadow(gaussian,rgba(0,0,0,0.05),10,0,0,2);">
+                    <!-- Presence -->
+                    <VBox HBox.hgrow="ALWAYS" alignment="CENTER" spacing="6"
+                          style="-fx-background-color: #eff6ff; -fx-background-radius: 10; -fx-padding: 16;">
+                        <Label text="📅 Taux de Présence"
+                               style="-fx-font-size: 11px; -fx-font-weight: bold;
+                                      -fx-text-fill: #3b82f6;"/>
+                        <Label fx:id="lblPresenceRate" text="—%"
+                               style="-fx-font-size: 24px; -fx-font-weight: 900; -fx-text-fill: #1e3a8a;"/>
+                        <Label text="Indicateur clé" style="-fx-font-size: 10px; -fx-text-fill: #94a3b8;"/>
+                    </VBox>
+                    <!-- Notes -->
+                    <VBox HBox.hgrow="ALWAYS" alignment="CENTER" spacing="6"
+                          style="-fx-background-color: #fefce8; -fx-background-radius: 10; -fx-padding: 16;">
+                        <Label text="📝 Moyenne Notes"
+                               style="-fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #d97706;"/>
+                        <Label fx:id="lblMoyenneNotes" text="—"
+                               style="-fx-font-size: 24px; -fx-font-weight: 900; -fx-text-fill: #92400e;"/>
+                        <Label text="Sur 20" style="-fx-font-size: 10px; -fx-text-fill: #94a3b8;"/>
+                    </VBox>
+                    <!-- Filière match -->
+                    <VBox HBox.hgrow="ALWAYS" alignment="CENTER" spacing="6"
+                          style="-fx-background-color: #f0fdf4; -fx-background-radius: 10; -fx-padding: 16;">
+                        <Label text="🎓 Filière"
+                               style="-fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #059669;"/>
+                        <Label fx:id="lblFiliereMatch" text="—"
+                               style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #1e293b;"
+                               wrapText="true" alignment="CENTER"/>
+                        <Label text="vs offre" style="-fx-font-size: 10px; -fx-text-fill: #94a3b8;"/>
+                    </VBox>
+                </HBox>
+
+                <!-- PANNEAU ANALYSE IA — SCORE DE MATCHING -->
+                <VBox spacing="16"
+                      style="-fx-background-color: white; -fx-background-radius: 14;
+                             -fx-padding: 22 24; -fx-effect: dropshadow(gaussian,rgba(0,0,0,0.06),12,0,0,3);
+                             -fx-border-color: #e0e7ff; -fx-border-radius: 14; -fx-border-width: 1;">
+
+                    <!-- Section title + analyze button -->
+                    <HBox alignment="CENTER_LEFT" spacing="14">
+                        <VBox HBox.hgrow="ALWAYS" spacing="2">
+                            <Label text="🤖 Analyse IA — Score de Matching Métier"
+                                   style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #1e293b;"/>
+                            <Label text="Analyse intelligente du CV combinée avec présence et correspondance de filière"
+                                   style="-fx-font-size: 11px; -fx-text-fill: #64748b;"/>
+                        </VBox>
+                        <Button text="🔍 Analyser le CV" onAction="#handleAnalyzeCV"
+                                style="-fx-background-color: #4f46e5; -fx-text-fill: white;
+                                       -fx-font-weight: bold; -fx-font-size: 13px;
+                                       -fx-background-radius: 8; -fx-padding: 10 20;
+                                       -fx-cursor: hand; -fx-border-width: 0;"/>
+                    </HBox>
+
+                    <!-- Status message -->
+                    <Label fx:id="lblAnalyseStatus"
+                           text="💡 Cliquez sur « Analyser le CV » pour calculer le score de matching (CV 40% · Présence 30% · Filière 30%)"
+                           wrapText="true"
+                           style="-fx-background-color: #f0f4ff; -fx-background-radius: 8;
+                                  -fx-padding: 10 14; -fx-text-fill: #4f46e5; -fx-font-size: 12px;"/>
+
+                    <!-- ── Score panel (hidden until analyzed) ── -->
+                    <VBox fx:id="scorePanel" visible="false" managed="false" spacing="18">
+                        <HBox spacing="20" alignment="TOP_LEFT">
+
+                            <!-- Score badge (left) -->
+                            <VBox alignment="CENTER" spacing="8"
+                                  style="-fx-background-color: #f0fdf4; -fx-background-radius: 14;
+                                         -fx-padding: 20 28; -fx-min-width: 160;"
+                                  minWidth="160">
+                                <Label fx:id="lblScoreValue" text="—%"
+                                       style="-fx-font-size: 40px; -fx-font-weight: 900;
+                                              -fx-text-fill: #059669;"/>
+                                <Label fx:id="lblScoreCategory" text="—"
+                                       style="-fx-font-size: 13px; -fx-font-weight: bold;
+                                              -fx-padding: 4 14; -fx-background-radius: 999;
+                                              -fx-background-color: #d1fae5; -fx-text-fill: #065f46;"/>
+                                <Label fx:id="lblRecommandation" text="—"
+                                       style="-fx-font-size: 11px; -fx-text-fill: #64748b;"
+                                       wrapText="true" alignment="CENTER"/>
+                            </VBox>
+
+                            <!-- Breakdown bars (right) -->
+                            <VBox HBox.hgrow="ALWAYS" spacing="16">
+
+                                <!-- CV Keywords bar -->
+                                <VBox spacing="6">
+                                    <HBox alignment="CENTER_LEFT" spacing="0">
+                                        <Label text="📄 Mots-clés CV"
+                                               style="-fx-font-weight: bold; -fx-text-fill: #374151;
+                                                      -fx-font-size: 12px;" minWidth="170"/>
+                                        <Label text="(poids 40%)"
+                                               style="-fx-text-fill: #94a3b8; -fx-font-size: 11px;"
+                                               HBox.hgrow="ALWAYS"/>
+                                        <Label fx:id="lblCvPct" text="—%"
+                                               style="-fx-font-weight: bold; -fx-text-fill: #1e3a8a;
+                                                      -fx-font-size: 13px;" minWidth="40"/>
+                                    </HBox>
+                                    <StackPane alignment="CENTER_LEFT"
+                                               style="-fx-background-color: #e2e8f0;
+                                                      -fx-background-radius: 6; -fx-min-height: 12;
+                                                      -fx-max-height: 12;">
+                                        <Region fx:id="barCv" prefHeight="12" prefWidth="0"
+                                                style="-fx-background-color: #1e3a8a;
+                                                       -fx-background-radius: 6;"
+                                                StackPane.alignment="CENTER_LEFT"/>
+                                    </StackPane>
+                                </VBox>
+
+                                <!-- Présence bar -->
+                                <VBox spacing="6">
+                                    <HBox alignment="CENTER_LEFT" spacing="0">
+                                        <Label text="📅 Taux de Présence"
+                                               style="-fx-font-weight: bold; -fx-text-fill: #374151;
+                                                      -fx-font-size: 12px;" minWidth="170"/>
+                                        <Label text="(poids 30%)"
+                                               style="-fx-text-fill: #94a3b8; -fx-font-size: 11px;"
+                                               HBox.hgrow="ALWAYS"/>
+                                        <Label fx:id="lblPresencePct" text="—%"
+                                               style="-fx-font-weight: bold; -fx-text-fill: #059669;
+                                                      -fx-font-size: 13px;" minWidth="40"/>
+                                    </HBox>
+                                    <StackPane alignment="CENTER_LEFT"
+                                               style="-fx-background-color: #e2e8f0;
+                                                      -fx-background-radius: 6; -fx-min-height: 12;
+                                                      -fx-max-height: 12;">
+                                        <Region fx:id="barPresence" prefHeight="12" prefWidth="0"
+                                                style="-fx-background-color: #059669;
+                                                       -fx-background-radius: 6;"
+                                                StackPane.alignment="CENTER_LEFT"/>
+                                    </StackPane>
+                                </VBox>
+
+                                <!-- Filière bar -->
+                                <VBox spacing="6">
+                                    <HBox alignment="CENTER_LEFT" spacing="0">
+                                        <Label text="🎓 Correspondance Filière"
+                                               style="-fx-font-weight: bold; -fx-text-fill: #374151;
+                                                      -fx-font-size: 12px;" minWidth="170"/>
+                                        <Label text="(poids 30%)"
+                                               style="-fx-text-fill: #94a3b8; -fx-font-size: 11px;"
+                                               HBox.hgrow="ALWAYS"/>
+                                        <Label fx:id="lblFilierePct" text="—%"
+                                               style="-fx-font-weight: bold; -fx-text-fill: #7c3aed;
+                                                      -fx-font-size: 13px;" minWidth="40"/>
+                                    </HBox>
+                                    <StackPane alignment="CENTER_LEFT"
+                                               style="-fx-background-color: #e2e8f0;
+                                                      -fx-background-radius: 6; -fx-min-height: 12;
+                                                      -fx-max-height: 12;">
+                                        <Region fx:id="barFiliere" prefHeight="12" prefWidth="0"
+                                                style="-fx-background-color: #7c3aed;
+                                                       -fx-background-radius: 6;"
+                                                StackPane.alignment="CENTER_LEFT"/>
+                                    </StackPane>
+                                </VBox>
+
+                            </VBox>
+                        </HBox>
+                    </VBox>
+
+                    <!-- ── Action buttons with score (revealed after analysis) ── -->
+                    <HBox fx:id="actionBtns" visible="false" managed="false"
+                          alignment="CENTER_LEFT" spacing="12"
+                          style="-fx-background-color: #f8fafc; -fx-background-radius: 10;
+                                 -fx-padding: 14 18; -fx-border-color: #e2e8f0;
+                                 -fx-border-radius: 10; -fx-border-width: 1;">
+                        <Label fx:id="lblRecommandationFinal" text="Décision suggérée : —"
+                               style="-fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #374151;"
+                               HBox.hgrow="ALWAYS"/>
+                        <Button text="✅ Accepter avec ce score" onAction="#handleAccepter"
+                                style="-fx-background-color: #059669; -fx-text-fill: white;
+                                       -fx-font-weight: bold; -fx-font-size: 13px;
+                                       -fx-background-radius: 8; -fx-padding: 10 22;
+                                       -fx-cursor: hand; -fx-border-width: 0;"/>
+                        <Button text="❌ Refuser" onAction="#handleRefuser"
+                                style="-fx-background-color: #dc2626; -fx-text-fill: white;
+                                       -fx-font-weight: bold; -fx-font-size: 13px;
+                                       -fx-background-radius: 8; -fx-padding: 10 18;
+                                       -fx-cursor: hand; -fx-border-width: 0;"/>
+                    </HBox>
+
+                </VBox>
+
+            </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>

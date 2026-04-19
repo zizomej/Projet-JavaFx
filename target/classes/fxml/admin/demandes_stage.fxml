@@ -30,6 +30,7 @@
                     <Button maxWidth="Infinity" styleClass="sidebar-btn" text="🤝 Partenaires" onAction="#goPartenaires"/>
                     <Button maxWidth="Infinity" styleClass="sidebar-btn" text="💼 Offres de Stage" onAction="#goOffresStage"/>
                     <Button maxWidth="Infinity" styleClass="sidebar-btn" style="-fx-background-color: #f59e0b; -fx-text-fill: white;" text="📋 Demandes Stage" onAction="#goDemandesStage"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" style="-fx-background-color: #7c3aed; -fx-text-fill: white;" text="✉ Mailing" onAction="#goMailing"/>
                 </VBox>
             </ScrollPane>
             <VBox alignment="CENTER" prefHeight="100.0" spacing="8.0" style="-fx-background-color: #0f172a; -fx-padding: 10;">

@@ -88,12 +88,8 @@ public class DemandeStageDAO {
                  )
                 """);
             String like = "%" + query.trim() + "%";
-            params.add(like);
-            params.add(like);
-            params.add(like);
-            params.add(like);
-            params.add(like);
-            params.add(like);
+            params.add(like); params.add(like); params.add(like);
+            params.add(like); params.add(like); params.add(like);
         }
 
         if (statut != null && !statut.isBlank()) {
@@ -120,9 +116,7 @@ public class DemandeStageDAO {
         try (PreparedStatement ps = DatabaseConnection.getInstance().prepareStatement(sql)) {
             ps.setString(1, statut);
             ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                return rs.getInt(1);
-            }
+            if (rs.next()) return rs.getInt(1);
         }
         return 0;
     }
@@ -141,11 +135,8 @@ public class DemandeStageDAO {
             ps.setInt(5, demande.getOffreStageId());
             ps.setInt(6, demande.getEtudiantId());
             ps.executeUpdate();
-
             ResultSet keys = ps.getGeneratedKeys();
-            if (keys.next()) {
-                demande.setId(keys.getInt(1));
-            }
+            if (keys.next()) demande.setId(keys.getInt(1));
         }
     }
 
@@ -166,17 +157,90 @@ public class DemandeStageDAO {
         }
     }
 
-    private String normalizePieceJointe(String pieceJointe) {
-        if (pieceJointe == null || pieceJointe.isBlank()) {
-            return "piece-non-fournie";
+    // ─── CASCADE DELETE ──────────────────────────────────────────────────────────
+
+    /** Supprime toutes les demandes liées à une offre de stage (appelé avant delete offre). */
+    public void deleteByOffre(int offreStageId) throws SQLException {
+        String sql = "DELETE FROM demande_stage WHERE offre_stage_id = ?";
+        try (PreparedStatement ps = DatabaseConnection.getInstance().prepareStatement(sql)) {
+            ps.setInt(1, offreStageId);
+            ps.executeUpdate();
         }
+    }
+
+    /** Supprime toutes les demandes d'un étudiant (appelé avant delete utilisateur). */
+    public void deleteByEtudiant(int etudiantId) throws SQLException {
+        String sql = "DELETE FROM demande_stage WHERE etudiant_id = ?";
+        try (PreparedStatement ps = DatabaseConnection.getInstance().prepareStatement(sql)) {
+            ps.setInt(1, etudiantId);
+            ps.executeUpdate();
+        }
+    }
+
+    // ─── MATCHING MÉTIER : données de l'étudiant ────────────────────────────────
+
+    /**
+     * Retourne le taux de présence d'un étudiant en pourcentage (0.0 – 100.0).
+     * Utilise la table `presence` : statut = 'present' comptabilisé comme présent.
+     */
+    public double getTauxPresence(int etudiantId) throws SQLException {
+        String sql = """
+            SELECT
+                COUNT(*) AS total,
+                SUM(CASE WHEN LOWER(statut) IN ('present','présent') THEN 1 ELSE 0 END) AS presents
+            FROM presence
+            WHERE etudiant_id = ?
+            """;
+        try (PreparedStatement ps = DatabaseConnection.getInstance().prepareStatement(sql)) {
+            ps.setInt(1, etudiantId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                int total    = rs.getInt("total");
+                int presents = rs.getInt("presents");
+                return total == 0 ? 0.0 : (presents * 100.0 / total);
+            }
+        }
+        return 0.0;
+    }
+
+    /**
+     * Retourne la filière_id de l'étudiant (0 si inconnue).
+     */
+    public int getFiliereIdEtudiant(int etudiantId) throws SQLException {
+        String sql = "SELECT filiere_id FROM utilisateur WHERE id = ?";
+        try (PreparedStatement ps = DatabaseConnection.getInstance().prepareStatement(sql)) {
+            ps.setInt(1, etudiantId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) return rs.getInt("filiere_id");
+        }
+        return 0;
+    }
+
+    /**
+     * Retourne la moyenne des notes de l'étudiant (0.0 si aucune note).
+     */
+    public double getMoyenneNotes(int etudiantId) throws SQLException {
+        String sql = "SELECT AVG(valeur) AS moyenne FROM note WHERE etudiant_id = ?";
+        try (PreparedStatement ps = DatabaseConnection.getInstance().prepareStatement(sql)) {
+            ps.setInt(1, etudiantId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                double m = rs.getDouble("moyenne");
+                return rs.wasNull() ? 0.0 : m;
+            }
+        }
+        return 0.0;
+    }
+
+    // ─── PRIVÉ ───────────────────────────────────────────────────────────────────
+
+    private String normalizePieceJointe(String pieceJointe) {
+        if (pieceJointe == null || pieceJointe.isBlank()) return "piece-non-fournie";
         return pieceJointe.trim();
     }
 
     private String normalizeMotivation(String motivation) {
-        if (motivation == null || motivation.isBlank()) {
-            return "Motivation non fournie.";
-        }
+        if (motivation == null || motivation.isBlank()) return "Motivation non fournie.";
         return motivation.trim();
     }
 }

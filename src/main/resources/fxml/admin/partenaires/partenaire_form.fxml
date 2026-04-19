@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.web.WebView?>
+
+<ScrollPane fitToWidth="true"
+            style="-fx-background-color: transparent;"
+            stylesheets="/css/styles.css"
+            xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.learnhub.controller.admin.partenaires.PartenaireFormController">
+
+    <VBox alignment="TOP_CENTER" spacing="20" style="-fx-padding: 20 20;">
+
+        <!-- Header -->
+        <VBox style="-fx-background-color: #1e3a8a; -fx-background-radius: 10;
+                     -fx-padding: 20 30; -fx-effect: dropshadow(gaussian, rgba(30,58,138,0.2), 10, 0, 0, 3);"
+              maxWidth="1000">
+            <Label text="➕ Nouveau Partenaire" textFill="WHITE"
+                   style="-fx-font-size: 20px; -fx-font-weight: 900;"/>
+            <HBox spacing="8" alignment="CENTER_LEFT" style="-fx-padding: 3 0 0 0;">
+                <Label text="🔍" textFill="#93c5fd"/>
+                <Label text="Recherchez une entreprise pour remplir automatiquement"
+                       textFill="#e2e8f0" style="-fx-font-size: 12px;"/>
+            </HBox>
+        </VBox>
+
+        <!-- Main Layout: Formulaire + Carte -->
+        <HBox spacing="20" maxWidth="1000">
+
+            <!-- ==================== FORMULAIRE GAUCHE ==================== -->
+            <VBox spacing="15" style="-fx-background-color: white; -fx-background-radius: 14;
+                                     -fx-padding: 25; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 15, 0, 0, 3);"
+                  prefWidth="450">
+
+                <!-- Recherche entreprise -->
+                <VBox spacing="6">
+                    <Label text="🔎 Rechercher une entreprise"
+                           style="-fx-font-size: 12px; -fx-font-weight: 900; -fx-text-fill: #1e293b;"/>
+                    <HBox alignment="CENTER_LEFT" spacing="0"
+                          style="-fx-border-color: #3b82f6; -fx-border-radius: 8; -fx-background-radius: 8;
+                                 -fx-background-color: white; -fx-border-width: 1.5;">
+                        <Label text="🔍" style="-fx-text-fill: #3b82f6; -fx-font-size: 14px; -fx-padding: 0 8;"/>
+                        <TextField fx:id="searchNominatimField"
+                                   promptText="Ex: Microsoft Tunis, Total..."
+                                   style="-fx-background-color: transparent; -fx-border-width: 0;
+                                          -fx-padding: 10 8; -fx-font-size: 13px;"
+                                   HBox.hgrow="ALWAYS"/>
+                    </HBox>
+                    <ListView fx:id="nominatimResultsList" prefHeight="150"
+                              visible="false" managed="false"
+                              style="-fx-background-color: white; -fx-border-color: #3b82f6;
+                                     -fx-border-radius: 6; -fx-border-width: 1; -fx-font-size: 11px;"/>
+                </VBox>
+
+                <Separator/>
+
+                <!-- Nom -->
+                <VBox spacing="4">
+                    <Label text="Nom de l'entreprise *"
+                           style="-fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #334155;"/>
+                    <TextField fx:id="nomField" promptText="Ex: Microsoft Tunisie"
+                               style="-fx-background-color: white; -fx-border-color: #cbd5e1;
+                                      -fx-border-radius: 6; -fx-padding: 8; -fx-font-size: 12px;"/>
+                    <Label fx:id="nomError" text="Le nom est obligatoire."
+                           style="-fx-text-fill: #ef4444; -fx-font-size: 10px;"
+                           visible="false" managed="false"/>
+                </VBox>
+
+                <!-- Secteur + Statut -->
+                <HBox spacing="12">
+                    <VBox spacing="4" HBox.hgrow="ALWAYS">
+                        <Label text="Secteur"
+                               style="-fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #334155;"/>
+                        <ComboBox fx:id="secteurBox" promptText="Sélectionner..."
+                                  maxWidth="Infinity"
+                                  style="-fx-background-color: white; -fx-border-color: #cbd5e1;
+                                         -fx-border-radius: 6; -fx-padding: 4 8; -fx-font-size: 12px;"/>
+                    </VBox>
+                    <VBox spacing="4" HBox.hgrow="ALWAYS">
+                        <Label text="Statut"
+                               style="-fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #334155;"/>
+                        <ComboBox fx:id="statutBox" promptText="Statut..."
+                                  maxWidth="Infinity"
+                                  style="-fx-background-color: white; -fx-border-color: #cbd5e1;
+                                         -fx-border-radius: 6; -fx-padding: 4 8; -fx-font-size: 12px;"/>
+                    </VBox>
+                </HBox>
+
+                <!-- Ville + Pays -->
+                <HBox spacing="12">
+                    <VBox spacing="4" HBox.hgrow="ALWAYS">
+                        <Label text="Ville"
+                               style="-fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #334155;"/>
+                        <TextField fx:id="villeField" promptText="Ex: Tunis"
+                                   style="-fx-background-color: white; -fx-border-color: #cbd5e1;
+                                          -fx-border-radius: 6; -fx-padding: 8; -fx-font-size: 12px;"/>
+                    </VBox>
+                    <VBox spacing="4" HBox.hgrow="ALWAYS">
+                        <Label text="Pays"
+                               style="-fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #334155;"/>
+                        <TextField fx:id="paysField" promptText="Ex: Tunisie"
+                                   style="-fx-background-color: white; -fx-border-color: #cbd5e1;
+                                          -fx-border-radius: 6; -fx-padding: 8; -fx-font-size: 12px;"/>
+                    </VBox>
+                </HBox>
+
+                <!-- Adresse -->
+                <VBox spacing="4">
+                    <Label text="Adresse"
+                           style="-fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #334155;"/>
+                    <TextField fx:id="adresseField" promptText="1 Rue de la Paix"
+                               style="-fx-background-color: white; -fx-border-color: #cbd5e1;
+                                      -fx-border-radius: 6; -fx-padding: 8; -fx-font-size: 12px;"/>
+                </VBox>
+
+                <!-- Email + Téléphone -->
+                <HBox spacing="12">
+                    <VBox spacing="4" HBox.hgrow="ALWAYS">
+                        <Label text="Email"
+                               style="-fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #334155;"/>
+                        <TextField fx:id="emailField" promptText="contact@entreprise.com"
+                                   style="-fx-background-color: white; -fx-border-color: #cbd5e1;
+                                          -fx-border-radius: 6; -fx-padding: 8; -fx-font-size: 12px;"/>
+                        <Label fx:id="emailError" text="Email invalide."
+                               style="-fx-text-fill: #ef4444; -fx-font-size: 10px;"
+                               visible="false" managed="false"/>
+                    </VBox>
+                    <VBox spacing="4" HBox.hgrow="ALWAYS">
+                        <Label text="Téléphone"
+                               style="-fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #334155;"/>
+                        <TextField fx:id="telephoneField" promptText="+216 XX XXX XXX"
+                                   style="-fx-background-color: white; -fx-border-color: #cbd5e1;
+                                          -fx-border-radius: 6; -fx-padding: 8; -fx-font-size: 12px;"/>
+                    </VBox>
+                </HBox>
+
+                <!-- Site Web -->
+                <VBox spacing="4">
+                    <Label text="Site Web"
+                           style="-fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #334155;"/>
+                    <TextField fx:id="websiteField" promptText="https://..."
+                               style="-fx-background-color: white; -fx-border-color: #cbd5e1;
+                                      -fx-border-radius: 6; -fx-padding: 8; -fx-font-size: 12px;"/>
+                </VBox>
+
+                <!-- Description -->
+                <VBox spacing="4">
+                    <Label text="Description"
+                           style="-fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #334155;"/>
+                    <TextArea fx:id="descriptionArea" promptText="Décrivez l'entreprise..."
+                              prefRowCount="3"
+                              style="-fx-background-color: white; -fx-border-color: #cbd5e1;
+                                     -fx-border-radius: 6; -fx-padding: 8; -fx-font-size: 12px;"
+                              wrapText="true"/>
+                </VBox>
+
+                <!-- Champs cachés pour coordonnées -->
+                <TextField fx:id="latitudeField" visible="false" managed="false"/>
+                <TextField fx:id="longitudeField" visible="false" managed="false"/>
+
+                <Separator/>
+
+                <!-- Boutons -->
+                <HBox alignment="CENTER_RIGHT" spacing="10">
+                    <Button text="Annuler" onAction="#handleCancel"
+                            style="-fx-background-color: #f1f5f9; -fx-text-fill: #475569;
+                                   -fx-font-weight: bold; -fx-font-size: 12px; -fx-padding: 6 18;
+                                   -fx-background-radius: 6; -fx-cursor: hand;"/>
+                    <Button text="Enregistrer" onAction="#handleCreate"
+                            style="-fx-background-color: #2563eb; -fx-text-fill: white;
+                                   -fx-font-weight: bold; -fx-font-size: 12px; -fx-padding: 6 18;
+                                   -fx-background-radius: 6; -fx-cursor: hand;"/>
+                </HBox>
+            </VBox>
+
+            <!-- ==================== CARTE INTERACTIVE (DROITE) ==================== -->
+            <VBox spacing="10"
+                  style="-fx-background-color: white; -fx-background-radius: 14;
+                         -fx-padding: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 15, 0, 0, 3);"
+                  prefWidth="500" VBox.vgrow="ALWAYS">
+
+                <Label text="🗺️ Carte interactive"
+                       style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #1e293b;"/>
+
+                <WebView fx:id="mapWebView" prefHeight="450"
+                         style="-fx-border-color: #cbd5e1; -fx-border-radius: 8;"
+                         VBox.vgrow="ALWAYS"/>
+
+                <Label fx:id="mapInfoLabel"
+                       text="📍 Cliquez sur la carte pour sélectionner une position"
+                       style="-fx-font-size: 10px; -fx-text-fill: #64748b;
+                              -fx-background-color: #f0f9ff; -fx-padding: 8; -fx-background-radius: 6;"/>
+            </VBox>
+
+        </HBox>
+    </VBox>
+</ScrollPane>

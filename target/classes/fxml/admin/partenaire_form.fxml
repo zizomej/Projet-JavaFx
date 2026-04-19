@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.web.WebView?>
 
 <ScrollPane fitToWidth="true" style="-fx-background-color: transparent;" stylesheets="/css/styles.css, /css/custom_admin.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.learnhub.controller.admin.PartenaireFormController">
     <VBox alignment="TOP_CENTER" spacing="25.0" style="-fx-padding: 30 20;">
@@ -19,15 +20,58 @@
         <!-- Main Form Card -->
         <VBox styleClass="form-card" maxWidth="850" spacing="20" style="-fx-background-color: white; -fx-background-radius: 16; -fx-padding: 40; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 20, 0, 0, 5);">
             
-            <!-- Recherche -->
-            <VBox spacing="12">
-                <Label text="🔎 Recherche" style="-fx-font-size: 16px; -fx-font-weight: 900; -fx-text-fill: #1e293b;"/>
-                <HBox alignment="CENTER_LEFT" spacing="10" style="-fx-border-color: #cbd5e1; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 0 15; -fx-background-color: white;">
-                    <TextField promptText="Tapez le nom d'une entreprise..." style="-fx-background-color: transparent; -fx-border-width: 0; -fx-padding: 12 0; -fx-font-size: 14px;" HBox.hgrow="ALWAYS"/>
-                    <Label text="🔍" style="-fx-text-fill: #94a3b8; -fx-font-size: 16px;" />
+            <!-- Recherche OpenStreetMap Nominatim -->
+            <VBox spacing="8">
+                <Label text="🔎 Recherche automatique (OpenStreetMap)"
+                       style="-fx-font-size: 14px; -fx-font-weight: 900; -fx-text-fill: #1e293b;"/>
+                <Label text="Tapez le nom de l'entreprise → cliquez sur un résultat pour remplir l'adresse automatiquement"
+                       style="-fx-font-size: 11px; -fx-text-fill: #64748b;"/>
+                <HBox alignment="CENTER_LEFT" spacing="0"
+                      style="-fx-border-color: #3b82f6; -fx-border-radius: 8; -fx-background-radius: 8;
+                             -fx-background-color: white; -fx-border-width: 1.5;">
+                    <Label text="🔍" style="-fx-text-fill: #3b82f6; -fx-font-size: 16px; -fx-padding: 0 10;"/>
+                    <TextField fx:id="searchNominatimField"
+                               promptText="Ex: Microsoft Tunis, Total Algérie..."
+                               style="-fx-background-color: transparent; -fx-border-width: 0; -fx-padding: 12 8;
+                                      -fx-font-size: 14px;" HBox.hgrow="ALWAYS"/>
                 </HBox>
-                <Label text="Veuillez remplir les informations de l'entreprise" style="-fx-font-size: 12px; -fx-text-fill: #64748b;"/>
-                <Separator style="-fx-padding: 10 0 0 0;" />
+                <!-- Résultats Nominatim (remplis dynamiquement) -->
+                <ListView fx:id="nominatimResultsList" prefHeight="160" visible="false" managed="false"
+                          style="-fx-background-color: white; -fx-border-color: #3b82f6; -fx-border-radius: 6;
+                                 -fx-border-width: 1; -fx-font-size: 12px;"/>
+                <Separator style="-fx-padding: 6 0 0 0;"/>
+            </VBox>
+
+            <!-- ══════════  CARTE OPENSTREETMAP  ══════════════════════════════════ -->
+            <VBox spacing="6">
+                <HBox alignment="CENTER_LEFT" spacing="12">
+                    <VBox HBox.hgrow="ALWAYS" spacing="1">
+                        <Label text="🗺 Localisation sur carte interactive"
+                               style="-fx-font-size: 13px; -fx-font-weight: 900; -fx-text-fill: #1e293b;"/>
+                        <Label text="Cliquez sur la carte → ville/pays/adresse remplis automatiquement"
+                               style="-fx-font-size: 10px; -fx-text-fill: #64748b;"/>
+                    </VBox>
+                    <Button text="🗺 Carte" onAction="#handleToggleMap"
+                            style="-fx-background-color: #1e3a8a; -fx-text-fill: white;
+                                   -fx-font-weight: bold; -fx-font-size: 11px; -fx-padding: 7 14;
+                                   -fx-background-radius: 8; -fx-cursor: hand; -fx-border-width: 0;"/>
+                    <Button text="🔄 Réinit." onAction="#handleResetMapFields"
+                            style="-fx-background-color: #e0e7ff; -fx-text-fill: #3730a3;
+                                   -fx-font-size: 11px; -fx-background-radius: 6; -fx-cursor: hand;
+                                   -fx-border-width: 0; -fx-padding: 7 12;"/>
+                </HBox>
+
+                <!-- Map container (initially hidden) — fixed height for compact display -->
+                <VBox fx:id="mapContainer" visible="false" managed="false" spacing="4">
+                    <WebView fx:id="mapView" prefHeight="260" maxWidth="1.7976931348623157E308"
+                             style="-fx-border-color: #cbd5e1; -fx-border-radius: 8;
+                                    -fx-effect: dropshadow(gaussian,rgba(0,0,0,0.08),8,0,0,2);"/>
+                    <Label text="💡 Cliquez sur la carte pour placer un marqueur — les champs sont remplis automatiquement."
+                           wrapText="true"
+                           style="-fx-font-size: 10px; -fx-text-fill: #64748b; -fx-font-style: italic;"/>
+                </VBox>
+
+                <Separator style="-fx-padding: 3 0;"/>
             </VBox>
 
             <!-- Row 1: Nom -->

@@ -55,9 +55,10 @@ public class AdminDashboardController {
     @FXML private void goRdv()          { navigate("/fxml/admin/rdv.fxml", "RDV Médicaux"); }
     @FXML private void goCreneaux()     { navigate("/fxml/admin/creneaux.fxml", "Créneaux"); }
     @FXML private void goFilieres()       { navigate("/fxml/admin/filieres.fxml", "Filières"); }
-    @FXML private void goPartenaires()    { navigate("/fxml/admin/partenaires.fxml", "Partenaires"); }
-    @FXML private void goOffresStage()    { navigate("/fxml/admin/offres_stage.fxml", "Offres de Stage"); }
-    @FXML private void goDemandesStage()  { navigate("/fxml/admin/demandes_stage.fxml", "Demandes de Stage"); }
+    @FXML private void goPartenaires()    { navigate("/fxml/admin/partenaires/partenaires.fxml", "Partenaires"); }
+    @FXML private void goOffresStage()    { navigate("/fxml/admin/offrestage/offres_stage.fxml", "Offres de Stage"); }
+    @FXML private void goDemandesStage()  { navigate("/fxml/admin/demandestage/demandes_stage.fxml", "Demandes de Stage"); }
+    @FXML private void goMailing()        { navigate("/fxml/admin/partenaires/mailing_partenaires.fxml", "Mailing"); }
     @FXML private void goDashboard()      { navigate("/fxml/admin/dashboard.fxml", "Tableau de bord"); }
 
     @FXML

@@ -65,9 +65,37 @@ public class OffreStageDAO {
         return list;
     }
 
-    public List<OffreStage> findByStatut(String statut) throws SQLException {
-        return findAll();
+    public List<OffreStage> findByPartenaire(int partenaireId) throws SQLException {
+        List<OffreStage> list = new ArrayList<>();
+        String sql = BASE_SELECT + " WHERE o.partenaire_id = ? " + BASE_GROUP_BY;
+        try (PreparedStatement ps = DatabaseConnection.getInstance().prepareStatement(sql)) {
+            ps.setInt(1, partenaireId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(mapRow(rs));
+            }
+        }
+        return list;
     }
+
+    // ==================== MÉTHODE MANQUANTE ====================
+    /**
+     * Retourne l'ID de la filière associée à une offre de stage
+     * @param offreId L'ID de l'offre de stage
+     * @return L'ID de la filière, ou 0 si non trouvé
+     */
+    public int getFiliereId(int offreId) throws SQLException {
+        String sql = "SELECT filiere_id FROM offre_stage WHERE id = ?";
+        try (PreparedStatement ps = DatabaseConnection.getInstance().prepareStatement(sql)) {
+            ps.setInt(1, offreId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("filiere_id");
+            }
+        }
+        return 0;
+    }
+    // ==================== FIN MÉTHODE MANQUANTE ====================
 
     public List<OffreStage> search(String query, String type, String statut) throws SQLException {
         List<OffreStage> list = new ArrayList<>();
@@ -156,7 +184,6 @@ public class OffreStageDAO {
                 ps.setNull(7, Types.INTEGER);
             }
             ps.executeUpdate();
-
             ResultSet keys = ps.getGeneratedKeys();
             if (keys.next()) {
                 offre.setId(keys.getInt(1));
@@ -167,13 +194,8 @@ public class OffreStageDAO {
     public void update(OffreStage offre) throws SQLException {
         String sql = """
             UPDATE offre_stage
-            SET titre = ?,
-                description = ?,
-                type_stage = ?,
-                duree_mois = ?,
-                date_publication = ?,
-                partenaire_id = ?,
-                filiere_id = ?
+            SET titre = ?, description = ?, type_stage = ?, duree_mois = ?,
+                date_publication = ?, partenaire_id = ?, filiere_id = ?
             WHERE id = ?
             """;
         try (PreparedStatement ps = DatabaseConnection.getInstance().prepareStatement(sql)) {
@@ -199,5 +221,32 @@ public class OffreStageDAO {
             ps.setInt(1, id);
             ps.executeUpdate();
         }
+    }
+
+    public void deleteByPartenaire(int partenaireId) throws SQLException {
+        String sql = "DELETE FROM offre_stage WHERE partenaire_id = ?";
+        try (PreparedStatement ps = DatabaseConnection.getInstance().prepareStatement(sql)) {
+            ps.setInt(1, partenaireId);
+            ps.executeUpdate();
+        }
+    }
+
+
+
+    public List<String[]> countGroupByType() throws SQLException {
+        List<String[]> result = new ArrayList<>();
+        String sql = """
+            SELECT COALESCE(type_stage, 'Non défini') AS type_stage, COUNT(*) AS cnt
+            FROM offre_stage
+            GROUP BY type_stage
+            ORDER BY cnt DESC
+            """;
+        try (Statement st = DatabaseConnection.getInstance().createStatement();
+             ResultSet rs = st.executeQuery(sql)) {
+            while (rs.next()) {
+                result.add(new String[]{rs.getString("type_stage"), String.valueOf(rs.getInt("cnt"))});
+            }
+        }
+        return result;
     }
 }

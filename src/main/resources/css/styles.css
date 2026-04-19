@@ -2036,9 +2036,15 @@
 }
 
 .sidebar-btn-active {
-    -fx-background-color: #ff7c30;
-    -fx-text-fill: white;
+    -fx-background-color: rgba(245, 158, 11, 0.20);
+    -fx-text-fill: #f59e0b;
     -fx-font-weight: bold;
+    -fx-border-color: transparent transparent transparent #f59e0b;
+    -fx-border-width: 0 0 0 4;
+}
+.sidebar-btn-active:hover {
+    -fx-background-color: rgba(245, 158, 11, 0.30);
+    -fx-text-fill: #fbbf24;
 }
 
 .purple-banner {
@@ -2578,4 +2584,71 @@
     -fx-border-color: #d1d5db;
     -fx-border-width: 1;
     -fx-padding: 4 8;
+}
+/* Sidebar buttons */
+.sidebar-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #cbd5e1;
+    -fx-font-size: 13px;
+    -fx-padding: 10 16;
+    -fx-alignment: CENTER_LEFT;
+    -fx-cursor: hand;
+    -fx-background-radius: 0;
+}
+
+.sidebar-btn:hover {
+    -fx-background-color: rgba(255,255,255,0.1);
+    -fx-text-fill: white;
+}
+
+/* Top navbar */
+.top-navbar {
+    -fx-padding: 15 25;
+    -fx-background-color: white;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 5, 0, 0, 2);
+}
+
+/* KPI Cards */
+.kpi-card {
+    -fx-background-color: white;
+    -fx-background-radius: 12;
+    -fx-padding: 16;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.04), 8, 0, 0, 2);
+}
+
+.kpi-number {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1e293b;
+}
+
+.kpi-label {
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #64748b;
+    -fx-letter-spacing: 1px;
+}
+
+.kpi-border-blue {
+    -fx-border-color: #3b82f6;
+    -fx-border-width: 0 0 0 3;
+    -fx-border-radius: 12;
+}
+
+.kpi-border-green {
+    -fx-border-color: #10b981;
+    -fx-border-width: 0 0 0 3;
+    -fx-border-radius: 12;
+}
+
+.kpi-border-yellow {
+    -fx-border-color: #f59e0b;
+    -fx-border-width: 0 0 0 3;
+    -fx-border-radius: 12;
+}
+
+.kpi-border-red {
+    -fx-border-color: #ef4444;
+    -fx-border-width: 0 0 0 3;
+    -fx-border-radius: 12;
 }

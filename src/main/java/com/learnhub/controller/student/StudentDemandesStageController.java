@@ -47,6 +47,7 @@ public class StudentDemandesStageController {
     @FXML private ComboBox<OffreStage> offreCombo;
     @FXML private TextArea motivationArea;
     @FXML private Button cvUploadBtn;
+    @FXML private Button generateLetterBtn;
     @FXML private Label cvFileLabel;
     @FXML private Label formErrorLabel;
 
@@ -211,6 +212,66 @@ public class StudentDemandesStageController {
         formErrorLabel.setText(message);
         formErrorLabel.setVisible(true);
         formErrorLabel.setManaged(true);
+    }
+
+    // ---------------------------------------------------------------
+    // Generate motivation letter
+    // ---------------------------------------------------------------
+
+    @FXML
+    private void handleGenerateLetter() {
+        Utilisateur user = SessionManager.getInstance().getCurrentUser();
+        if (user == null) return;
+
+        OffreStage selectedOffre = offreCombo.getSelectionModel().getSelectedItem();
+        String offreTitre    = selectedOffre != null ? selectedOffre.getTitre()        : "cette offre de stage";
+        String partenaireNom = selectedOffre != null ? selectedOffre.getPartenaireNom() : "votre entreprise";
+        String typeStage     = selectedOffre != null ? selectedOffre.getTypeStage()     : "stage";
+        String duree         = selectedOffre != null ? selectedOffre.getDureeMois() + " mois" : "";
+
+        String prenom = user.getPrenom() != null ? user.getPrenom() : "";
+        String nom    = user.getNom()    != null ? user.getNom()    : "";
+        String email  = user.getEmail()  != null ? user.getEmail()  : "";
+
+        // Récupérer la moyenne depuis NoteDAO si disponible
+        String filiere = "";
+        try {
+            com.learnhub.dao.NoteDAO noteDAO = new com.learnhub.dao.NoteDAO();
+            java.util.List<com.learnhub.models.Note> notes = noteDAO.findByEtudiant(user.getId());
+            if (!notes.isEmpty()) {
+                double moy = notes.stream()
+                    .mapToDouble(n -> n.getValeur())
+                    .average().orElse(0);
+                filiere = String.format("(moyenne générale : %.1f/20)", moy);
+            }
+        } catch (Exception ignored) {}
+
+        String today = java.time.LocalDate.now()
+                .format(java.time.format.DateTimeFormatter.ofPattern("dd MMMM yyyy", java.util.Locale.FRENCH));
+
+        String letter = prenom + " " + nom + "\n"
+            + (email.isBlank() ? "" : email + "\n")
+            + today + "\n\n"
+            + "Objet : Candidature pour un " + typeStage
+            + (duree.isBlank() ? "" : " de " + duree)
+            + " — " + offreTitre + "\n\n"
+            + "Madame, Monsieur,\n\n"
+            + "Actuellement étudiant(e) à l'Institut LearnHub" + (filiere.isBlank() ? "" : " " + filiere)
+            + ", je me permets de vous adresser ma candidature pour le poste de stagiaire au sein de "
+            + partenaireNom + ".\n\n"
+            + "Votre offre « " + offreTitre + " » a retenu toute mon attention car elle correspond "
+            + "parfaitement à mes aspirations professionnelles et aux compétences que j'ai développées "
+            + "tout au long de ma formation.\n\n"
+            + "Rigoureux(se), motivé(e) et doté(e) d'un réel esprit d'équipe, je suis convaincu(e) "
+            + "que ce stage me permettra d'apporter une contribution significative à vos équipes, "
+            + "tout en enrichissant mes connaissances dans un environnement professionnel stimulant.\n\n"
+            + "Je reste disponible pour tout entretien à votre convenance et vous prie d'agréer, "
+            + "Madame, Monsieur, l'expression de mes salutations distinguées.\n\n"
+            + prenom + " " + nom;
+
+        if (motivationArea != null) {
+            motivationArea.setText(letter);
+        }
     }
 
     // ---------------------------------------------------------------

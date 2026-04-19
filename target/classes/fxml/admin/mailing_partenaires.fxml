@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Circle?>
+
+<BorderPane prefHeight="880.0" prefWidth="1320.0"
+            stylesheets="/css/styles.css"
+            xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.learnhub.controller.admin.MailingPartenairesController">
+
+    <!-- ═══════════════════════════  SIDEBAR  ════════════════════════════════ -->
+    <left>
+        <VBox prefWidth="240.0" styleClass="sidebar" BorderPane.alignment="CENTER">
+            <VBox alignment="CENTER" prefHeight="90" style="-fx-padding: 18 10;">
+                <HBox alignment="CENTER" spacing="10">
+                    <Label text="🎓" style="-fx-font-size: 24px;"/>
+                    <Label text="LearnHub" textFill="WHITE"
+                           style="-fx-font-size: 22px; -fx-font-weight: bold;"/>
+                </HBox>
+                <Label text="Espace Administrateur" textFill="#94a3b8" style="-fx-font-size: 11px;"/>
+            </VBox>
+            <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS"
+                        style="-fx-background-color: transparent; -fx-border-color: transparent;">
+                <VBox spacing="2.0" style="-fx-padding: 8 0;">
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="📊 Dashboard"      onAction="#goDashboard"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="👥 Utilisateurs"   onAction="#goUtilisateurs"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="📚 Modules"        onAction="#goModules"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="🗓 Séances"        onAction="#goSeances"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="📝 Notes"          onAction="#goNotes"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="✔ Présences"       onAction="#goPresences"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="🎓 Filières"       onAction="#goFilieres"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="🎉 Événements"     onAction="#goEvenements"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="🏥 RDV Médicaux"   onAction="#goRdv"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="🕐 Créneaux"       onAction="#goCreneaux"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="🤝 Partenaires"    onAction="#goPartenaires"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="💼 Offres Stage"   onAction="#goOffresStage"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn" text="📋 Demandes Stage" onAction="#goDemandesStage"/>
+                    <Button maxWidth="Infinity" styleClass="sidebar-btn"
+                            style="-fx-background-color: #7c3aed; -fx-text-fill: white;"
+                            text="✉ Mailing" onAction="#goMailing"/>
+                </VBox>
+            </ScrollPane>
+            <VBox alignment="CENTER" prefHeight="95" spacing="8"
+                  style="-fx-background-color: #0f172a; -fx-padding: 10;">
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <StackPane>
+                        <Circle fill="#7c3aed" radius="16.0"/>
+                        <Label text="AD" textFill="WHITE" style="-fx-font-weight: bold;"/>
+                    </StackPane>
+                    <VBox alignment="CENTER_LEFT">
+                        <Label text="Admin Principal" textFill="WHITE"
+                               style="-fx-font-weight: bold; -fx-font-size: 13px;"/>
+                        <Label fx:id="lblSidebarEmail" text="admin@learnhub.tn" textFill="#94a3b8"
+                               style="-fx-font-size: 11px;"/>
+                    </VBox>
+                </HBox>
+                <Button text="🚪 Déconnexion" maxWidth="Infinity" onAction="#handleLogout"
+                        style="-fx-background-color: transparent; -fx-border-color: #334155;
+                               -fx-border-radius: 6; -fx-text-fill: white;
+                               -fx-cursor: hand; -fx-padding: 6 10;"/>
+            </VBox>
+        </VBox>
+    </left>
+
+    <!-- ═══════════════════════════  CONTENU  ════════════════════════════════ -->
+    <center>
+        <VBox style="-fx-background-color: #f8fafc;">
+
+            <!-- ── Navbar ── -->
+            <HBox alignment="CENTER_LEFT" spacing="14"
+                  style="-fx-padding: 14 24; -fx-background-color: white;
+                         -fx-effect: dropshadow(gaussian,rgba(0,0,0,0.05),6,0,0,2);">
+                <StackPane style="-fx-background-color: #7c3aed; -fx-background-radius: 12;
+                                  -fx-padding: 10;">
+                    <Label text="✉" style="-fx-font-size: 22px; -fx-text-fill: white;"/>
+                </StackPane>
+                <VBox HBox.hgrow="ALWAYS" spacing="2">
+                    <Label text="Mailing Partenaires"
+                           style="-fx-font-size: 20px; -fx-font-weight: 900; -fx-text-fill: #1e293b;"/>
+                    <Label text="Boîte de réception · Composer &amp; envoyer"
+                           style="-fx-text-fill: #64748b; -fx-font-size: 12px;"/>
+                </VBox>
+                <!-- Status pill -->
+                <Label fx:id="lblStatus" text=""
+                       style="-fx-font-size: 12px; -fx-font-weight: bold;
+                              -fx-background-color: #f0fdf4; -fx-text-fill: #059669;
+                              -fx-background-radius: 999; -fx-padding: 4 14;"/>
+            </HBox>
+
+            <!-- ── Main layout ── -->
+            <HBox VBox.vgrow="ALWAYS" spacing="16" style="-fx-padding: 20;">
+
+                <!-- ════  LEFT — Partenaires list  ════ -->
+                <VBox prefWidth="280" maxWidth="280" spacing="12"
+                      style="-fx-background-color: white; -fx-background-radius: 14;
+                             -fx-effect: dropshadow(gaussian,rgba(0,0,0,0.06),12,0,0,3);
+                             -fx-padding: 18;">
+
+                    <!-- Header -->
+                    <HBox alignment="CENTER_LEFT" spacing="8">
+                        <Label text="🤝" style="-fx-font-size: 18px;"/>
+                        <VBox HBox.hgrow="ALWAYS">
+                            <Label text="Partenaires"
+                                   style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #1e293b;"/>
+                            <Label fx:id="lblPartenaireCount" text="chargement…"
+                                   style="-fx-font-size: 11px; -fx-text-fill: #94a3b8;"/>
+                        </VBox>
+                    </HBox>
+
+                    <!-- Search -->
+                    <HBox alignment="CENTER_LEFT" spacing="0"
+                          style="-fx-background-color: #f8fafc; -fx-border-color: #e2e8f0;
+                                 -fx-border-radius: 8; -fx-background-radius: 8;">
+                        <Label text="🔍" style="-fx-padding: 0 8; -fx-text-fill: #94a3b8;"/>
+                        <TextField fx:id="partenaireSearchField" HBox.hgrow="ALWAYS"
+                                   promptText="Rechercher…"
+                                   style="-fx-background-color: transparent; -fx-border-width: 0;
+                                          -fx-padding: 8 6; -fx-font-size: 12px;"/>
+                    </HBox>
+
+                    <!-- List -->
+                    <ListView fx:id="partenaireListView" VBox.vgrow="ALWAYS"
+                              style="-fx-background-color: #f8fafc; -fx-border-color: #e2e8f0;
+                                     -fx-border-radius: 10; -fx-font-size: 12px;"
+                              prefHeight="440"/>
+
+                    <!-- Hint -->
+                    <Label text="💡 Cliquez sur un partenaire → email pré-rempli dans le champ À."
+                           wrapText="true"
+                           style="-fx-font-size: 10px; -fx-text-fill: #94a3b8; -fx-font-style: italic;"/>
+                </VBox>
+
+                <!-- ════  RIGHT — Emails + Compose  ════ -->
+                <VBox HBox.hgrow="ALWAYS" spacing="14">
+
+                    <!-- ── Inbox / Sent tabs ── -->
+                    <VBox spacing="0"
+                          style="-fx-background-color: white; -fx-background-radius: 14;
+                                 -fx-effect: dropshadow(gaussian,rgba(0,0,0,0.06),12,0,0,3);">
+
+                        <TabPane fx:id="mailTabPane" tabClosingPolicy="UNAVAILABLE"
+                                 prefHeight="300"
+                                 style="-fx-background-color: transparent;">
+
+                            <!-- Inbox tab — text attribute used for header (Scene Builder compatible) -->
+                            <Tab text="📥  Boîte de réception">
+                                <content>
+                                    <VBox spacing="10" style="-fx-padding: 14 16;">
+                                        <HBox alignment="CENTER_LEFT" spacing="10">
+                                            <Label text="Emails reçus des partenaires"
+                                                   style="-fx-font-size: 11px; -fx-text-fill: #64748b;"
+                                                   HBox.hgrow="ALWAYS"/>
+                                            <Button text="🔄 Actualiser" onAction="#handleRefreshInbox"
+                                                    style="-fx-background-color: #f1f5f9; -fx-text-fill: #475569;
+                                                           -fx-font-size: 11px; -fx-background-radius: 8;
+                                                           -fx-cursor: hand; -fx-padding: 5 12; -fx-border-width: 0;"/>
+                                        </HBox>
+                                        <TableView fx:id="inboxTable" prefHeight="210"
+                                                   style="-fx-background-color: #f8fafc;
+                                                          -fx-border-color: #e2e8f0; -fx-border-radius: 8;"/>
+                                    </VBox>
+                                </content>
+                            </Tab>
+
+                            <!-- Sent tab -->
+                            <Tab text="📤  Envoyés">
+                                <content>
+                                    <VBox spacing="10" style="-fx-padding: 14 16;">
+                                        <Label text="Emails envoyés dans cette session"
+                                               style="-fx-font-size: 11px; -fx-text-fill: #64748b;"/>
+                                        <TableView fx:id="sentTable" prefHeight="220"
+                                                   style="-fx-background-color: #f8fafc;
+                                                          -fx-border-color: #e2e8f0; -fx-border-radius: 8;"/>
+                                    </VBox>
+                                </content>
+                            </Tab>
+                        </TabPane>
+                    </VBox>
+
+                    <!-- ── Compose card ── -->
+                    <VBox spacing="14" VBox.vgrow="ALWAYS"
+                          style="-fx-background-color: white; -fx-background-radius: 14;
+                                 -fx-effect: dropshadow(gaussian,rgba(0,0,0,0.06),12,0,0,3);
+                                 -fx-padding: 20;">
+
+                        <!-- Compose header -->
+                        <HBox alignment="CENTER_LEFT" spacing="10">
+                            <Label text="✏ Nouveau message"
+                                   style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #1e293b;"
+                                   HBox.hgrow="ALWAYS"/>
+                            <Button text="🗑 Effacer" onAction="#handleClearCompose"
+                                    style="-fx-background-color: #f1f5f9; -fx-text-fill: #64748b;
+                                           -fx-font-size: 11px; -fx-background-radius: 8;
+                                           -fx-cursor: hand; -fx-padding: 6 12; -fx-border-width: 0;"/>
+                        </HBox>
+
+                        <Separator/>
+
+                        <!-- From (session user — readonly) -->
+                        <HBox alignment="CENTER_LEFT" spacing="0"
+                              style="-fx-background-color: #eff6ff; -fx-background-radius: 8;
+                                     -fx-border-color: #bfdbfe; -fx-border-radius: 8; -fx-border-width: 1;
+                                     -fx-padding: 0 0 0 14;">
+                            <Label text="De :" minWidth="52"
+                                   style="-fx-font-weight: bold; -fx-text-fill: #1e40af; -fx-font-size: 12px;"/>
+                            <Label fx:id="lblFromEmail" text="—" HBox.hgrow="ALWAYS"
+                                   style="-fx-font-size: 12px; -fx-text-fill: #1e40af; -fx-font-weight: bold;
+                                          -fx-padding: 10 0;"/>
+                            <!-- Hidden field used for SMTP auth — filled from session -->
+                            <TextField fx:id="smtpEmailField" prefWidth="0" maxWidth="0" visible="false" managed="false"/>
+                        </HBox>
+
+                        <!-- To -->
+                        <HBox alignment="CENTER_LEFT" spacing="0"
+                              style="-fx-background-color: white; -fx-border-color: #e2e8f0;
+                                     -fx-border-radius: 8; -fx-border-width: 1;">
+                            <Label text="À :" minWidth="52"
+                                   style="-fx-font-weight: bold; -fx-text-fill: #374151;
+                                          -fx-font-size: 12px; -fx-padding: 0 0 0 14;"/>
+                            <TextField fx:id="toField" HBox.hgrow="ALWAYS"
+                                       promptText="email@partenaire.tn"
+                                       style="-fx-background-color: transparent; -fx-border-width: 0;
+                                              -fx-padding: 10 12; -fx-font-size: 13px;"/>
+                        </HBox>
+
+                        <!-- Subject -->
+                        <HBox alignment="CENTER_LEFT" spacing="0"
+                              style="-fx-background-color: white; -fx-border-color: #e2e8f0;
+                                     -fx-border-radius: 8; -fx-border-width: 1;">
+                            <Label text="Objet :" minWidth="52"
+                                   style="-fx-font-weight: bold; -fx-text-fill: #374151;
+                                          -fx-font-size: 12px; -fx-padding: 0 0 0 14;"/>
+                            <TextField fx:id="subjectField" HBox.hgrow="ALWAYS"
+                                       promptText="Objet de l'email…"
+                                       style="-fx-background-color: transparent; -fx-border-width: 0;
+                                              -fx-padding: 10 12; -fx-font-size: 13px;"/>
+                        </HBox>
+
+                        <!-- Body -->
+                        <TextArea fx:id="bodyArea" prefRowCount="5" wrapText="true" VBox.vgrow="ALWAYS"
+                                  promptText="Rédigez votre message ici…"
+                                  style="-fx-background-color: #f8fafc; -fx-border-color: #e2e8f0;
+                                         -fx-border-radius: 8; -fx-font-size: 13px; -fx-padding: 12;"/>
+
+                        <!-- Send options -->
+                        <HBox alignment="CENTER_LEFT" spacing="10">
+                            <!-- Gmail compose button (recommended) -->
+                            <Button text="🌐 Ouvrir dans Gmail" onAction="#handleOpenGmail"
+                                    style="-fx-background-color: #1e3a8a; -fx-text-fill: white;
+                                           -fx-font-weight: bold; -fx-font-size: 13px;
+                                           -fx-background-radius: 10; -fx-padding: 11 22;
+                                           -fx-cursor: hand; -fx-border-width: 0;"
+                                    HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                            <!-- SMTP settings toggle -->
+                            <Button text="⚙ SMTP" onAction="#handleToggleSmtp"
+                                    style="-fx-background-color: #f1f5f9; -fx-text-fill: #475569;
+                                           -fx-font-size: 12px; -fx-background-radius: 8;
+                                           -fx-cursor: hand; -fx-padding: 11 14; -fx-border-width: 0;"/>
+                        </HBox>
+
+                        <!-- SMTP section (collapsed by default) -->
+                        <VBox fx:id="smtpConfigPane" visible="false" managed="false" spacing="10"
+                              style="-fx-background-color: #faf5ff; -fx-background-radius: 10;
+                                     -fx-border-color: #e9d5ff; -fx-border-radius: 10; -fx-border-width: 1;
+                                     -fx-padding: 14 16;">
+                            <Label text="🔐 Envoi SMTP direct"
+                                   style="-fx-font-weight: bold; -fx-text-fill: #7c3aed; -fx-font-size: 13px;"/>
+                            <HBox alignment="CENTER_LEFT" spacing="10">
+                                <Label text="Mot de passe :" minWidth="120"
+                                       style="-fx-font-size: 12px; -fx-text-fill: #374151;"/>
+                                <PasswordField fx:id="smtpPasswordField" HBox.hgrow="ALWAYS"
+                                               promptText="Mot de passe d'application Gmail"
+                                               style="-fx-background-color: white; -fx-border-color: #d8b4fe;
+                                                      -fx-border-radius: 6; -fx-padding: 7 10; -fx-font-size: 12px;"/>
+                            </HBox>
+                            <GridPane hgap="12" vgap="6">
+                                <Label text="Serveur SMTP :" GridPane.columnIndex="0" GridPane.rowIndex="0"
+                                       style="-fx-font-size: 12px; -fx-text-fill: #374151;"/>
+                                <TextField fx:id="smtpHostField" text="smtp.gmail.com" prefWidth="200"
+                                           style="-fx-font-size: 12px; -fx-padding: 6 10;"
+                                           GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+                                <Label text="Port :" GridPane.columnIndex="0" GridPane.rowIndex="1"
+                                       style="-fx-font-size: 12px; -fx-text-fill: #374151;"/>
+                                <TextField fx:id="smtpPortField" text="587" prefWidth="80"
+                                           style="-fx-font-size: 12px; -fx-padding: 6 10;"
+                                           GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                            </GridPane>
+                            <Label text="💡 Gmail : Compte Google → Sécurité → Mots de passe d'application"
+                                   wrapText="true"
+                                   style="-fx-font-size: 10px; -fx-text-fill: #9333ea;"/>
+                            <Button text="📤 Envoyer via SMTP" onAction="#handleSendEmail"
+                                    style="-fx-background-color: #7c3aed; -fx-text-fill: white;
+                                           -fx-font-weight: bold; -fx-font-size: 13px;
+                                           -fx-background-radius: 8; -fx-padding: 10 24;
+                                           -fx-cursor: hand; -fx-border-width: 0;"/>
+                        </VBox>
+
+                    </VBox>
+                </VBox>
+            </HBox>
+        </VBox>
+    </center>
+
+</BorderPane>

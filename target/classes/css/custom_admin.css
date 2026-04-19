@@ -310,3 +310,29 @@
     -fx-padding: 6 12;
     -fx-background-radius: 6;
 }
+
+/* TabPane Professional Overrides */
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-background-color: transparent;
+}
+.tab-pane .tab {
+    -fx-background-color: #f1f5f9;
+    -fx-background-radius: 8 8 0 0;
+    -fx-padding: 8 20;
+    -fx-cursor: hand;
+}
+.tab-pane .tab:selected {
+    -fx-background-color: white;
+    -fx-border-color: #3b82f6 transparent transparent transparent;
+    -fx-border-width: 3 0 0 0;
+}
+.tab-pane .tab .tab-label {
+    -fx-text-fill: #64748b;
+    -fx-font-weight: bold;
+}
+.tab-pane .tab:selected .tab-label {
+    -fx-text-fill: #1e3a8a;
+}
+.tab-pane:focused .tab-header-area .headers-region .tab:selected .focus-indicator {
+    -fx-border-width: 0;
+}
