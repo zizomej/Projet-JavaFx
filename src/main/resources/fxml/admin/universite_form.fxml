@@ -28,45 +28,72 @@
     </left>
     <center>
         <ScrollPane fitToWidth="true" style="-fx-background-color:#f5f7fa;-fx-border-color:transparent;">
-            <VBox styleClass="content-area" spacing="24">
-                <HBox alignment="CENTER_LEFT" spacing="16">
-                    <VBox HBox.hgrow="ALWAYS">
-                        <Label fx:id="titleLabel" text="Ajouter une université" styleClass="page-title"/>
-                        <Label text="Gérer les informations de l'établissement sélectionné" styleClass="page-subtitle"/>
-                    </VBox>
-                    <Region HBox.hgrow="ALWAYS"/>
-                    <Button text="← Retour à la liste" styleClass="btn, btn-secondary, btn-sm" onAction="#goBack"/>
-                </HBox>
-                <VBox styleClass="card" spacing="20" style="-fx-padding:30;">
-                    <VBox spacing="8">
-                        <Label text="Nom de l'université" style="-fx-font-weight:bold;"/>
-                        <TextField fx:id="nomField" promptText="Ex: Université Virtuelle de Tunis" styleClass="search-field" prefHeight="40"/>
-                    </VBox>
-                    <VBox spacing="8">
-                        <Label text="Type d'établissement" style="-fx-font-weight:bold;"/>
-                        <ComboBox fx:id="secteurCombo" promptText="Sélectionnez le type" prefWidth="Infinity" prefHeight="40" styleClass="search-field"/>
-                    </VBox>
-                    <VBox spacing="8">
-                        <Label text="Ville" style="-fx-font-weight:bold;"/>
-                        <TextField fx:id="villeField" promptText="Ex: Tunis" styleClass="search-field" prefHeight="40"/>
-                    </VBox>
-                    <VBox spacing="8">
-                        <Label text="Téléphone" style="-fx-font-weight:bold;"/>
-                        <TextField fx:id="telephoneField" promptText="Ex: +216 71 123 456" styleClass="search-field" prefHeight="40"/>
-                    </VBox>
-                    <VBox spacing="8">
-                        <Label text="Adresse complète" style="-fx-font-weight:bold;"/>
-                        <TextField fx:id="adresseField" promptText="Ex: Avenue Ibn Sina, Tunis" styleClass="search-field" prefHeight="40"/>
-                    </VBox>
-                    <VBox spacing="8">
-                        <Label text="Email de contact" style="-fx-font-weight:bold;"/>
-                        <TextField fx:id="emailField" promptText="Ex: contact@universite.tn" styleClass="search-field" prefHeight="40"/>
-                    </VBox>
-                    <HBox alignment="CENTER_RIGHT" spacing="15" style="-fx-padding: 20 0 0 0; -fx-border-color: #e5e7eb; -fx-border-width: 1 0 0 0;">
-                        <Button text="Annuler" styleClass="btn, btn-secondary" prefWidth="120" prefHeight="40" onAction="#goBack"/>
-                        <Button text="Enregistrer" styleClass="btn, btn-primary" style="-fx-background-color: #059669; -fx-text-fill: white;" prefWidth="120" prefHeight="40" onAction="#handleSave"/>
+            <VBox styleClass="content-area" spacing="30" style="-fx-padding: 35 50;">
+                
+                <!-- BANNER HEADER -->
+                <VBox spacing="10" style="-fx-background-color: linear-gradient(to right, #0A1F44, #1e3a8a, #4f46e5); -fx-background-radius: 20; -fx-padding: 35 45; -fx-effect: dropshadow(gaussian, rgba(30,58,138,0.3), 25, 0, 0, 10);">
+                    <HBox alignment="CENTER_LEFT" spacing="20">
+                        <VBox HBox.hgrow="ALWAYS" spacing="6">
+                            <Label fx:id="titleLabel" text="Ajouter une université" style="-fx-font-size: 32px; -fx-font-weight: 900; -fx-text-fill: white;"/>
+                            <Label text="Partenariats académiques et établissements d'enseignement" style="-fx-font-size: 15px; -fx-text-fill: rgba(255,255,255,0.75);"/>
+                        </VBox>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Button text="← Retour à la liste" onAction="#goBack"
+                                styleClass="btn-cancel-pink" style="-fx-background-color: rgba(255,255,255,0.15); -fx-text-fill: white; -fx-border-color: rgba(255,255,255,0.3);"/>
                     </HBox>
                 </VBox>
+
+                <!-- FORM CARD -->
+                <VBox styleClass="card" maxWidth="900" alignment="CENTER" style="-fx-padding: 40; -fx-background-radius: 20; -fx-background-color: white; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 30, 0, 0, 10);">
+                    <GridPane vgap="25" hgap="30">
+                        <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="300" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="300" />
+                        </columnConstraints>
+                        
+                        <VBox spacing="8" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                            <Label text="Nom de l'université *" styleClass="form-label"/>
+                            <TextField fx:id="nomField" promptText="Ex: Esprit, UVT..." styleClass="form-control"/>
+                            <Label fx:id="nomErrorLabel" styleClass="error-label" visible="false" managed="false"/>
+                        </VBox>
+                        
+                        <VBox spacing="8" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                            <Label text="Type d'établissement *" styleClass="form-label"/>
+                            <ComboBox fx:id="secteurCombo" promptText="Sélectionnez le type" prefWidth="Infinity" styleClass="form-control"/>
+                            <Label fx:id="secteurErrorLabel" styleClass="error-label" visible="false" managed="false"/>
+                        </VBox>
+                        
+                        <VBox spacing="8" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                            <Label text="Ville *" styleClass="form-label"/>
+                            <TextField fx:id="villeField" promptText="Ex: Tunis, Ariana..." styleClass="form-control"/>
+                            <Label fx:id="villeErrorLabel" styleClass="error-label" visible="false" managed="false"/>
+                        </VBox>
+                        
+                        <VBox spacing="8" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                            <Label text="Téléphone *" styleClass="form-label"/>
+                            <TextField fx:id="telephoneField" promptText="Ex: +216 71 856 935" styleClass="form-control"/>
+                            <Label fx:id="telephoneErrorLabel" styleClass="error-label" visible="false" managed="false"/>
+                        </VBox>
+                        
+                        <VBox spacing="8" GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.columnSpan="2">
+                            <Label text="Adresse complète *" styleClass="form-label"/>
+                            <TextField fx:id="adresseField" promptText="Ex: Pôle Technologique El Ghazala..." styleClass="form-control"/>
+                            <Label fx:id="adresseErrorLabel" styleClass="error-label" visible="false" managed="false"/>
+                        </VBox>
+                        
+                        <VBox spacing="8" GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.columnSpan="2">
+                            <Label text="Email de contact *" styleClass="form-label"/>
+                            <TextField fx:id="emailField" promptText="Ex: contact@universite.tn" styleClass="form-control"/>
+                            <Label fx:id="emailErrorLabel" styleClass="error-label" visible="false" managed="false"/>
+                        </VBox>
+                    </GridPane>
+
+                    <HBox spacing="20" alignment="CENTER" style="-fx-padding: 40 0 0 0;">
+                        <Button text="Annuler" onAction="#goBack" styleClass="btn-cancel-pink" prefWidth="180" prefHeight="45"/>
+                        <Button text="Enregistrer l'université" onAction="#handleSave" styleClass="btn-save-premium" prefWidth="220" prefHeight="45"/>
+                    </HBox>
+                </VBox>
+
             </VBox>
         </ScrollPane>
     </center>

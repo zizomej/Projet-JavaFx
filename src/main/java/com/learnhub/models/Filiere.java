@@ -12,8 +12,9 @@ public class Filiere {
     private int responsableId;
     private int capaciteMax;
     private int universiteId;
+    private String videoUrl;
 
-    // Constructeurs
+
     public Filiere() {}
 
     public Filiere(int id, String code, String nom, String niveau, int dureeAnnees, int capaciteMax, int universiteId, int responsableId) {
@@ -27,7 +28,7 @@ public class Filiere {
         this.responsableId = responsableId;
     }
 
-    // Getters et Setters
+
     public int getId() {
         return id;
     }
@@ -115,6 +116,14 @@ public class Filiere {
 
     public void setUniversiteId(int universiteId) {
         this.universiteId = universiteId;
+    }
+
+    public String getVideoUrl() {
+        return videoUrl;
+    }
+
+    public void setVideoUrl(String videoUrl) {
+        this.videoUrl = videoUrl;
     }
 
     @Override

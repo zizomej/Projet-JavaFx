@@ -30,7 +30,6 @@ public class SeancesController {
 
     @FXML private TextField searchField;
     @FXML private Label totalSeancesLabel;
-    @FXML private Label todaySeancesLabel;
 
     private final SeanceDAO seanceDAO = new SeanceDAO();
     private final ObservableList<Seance> seanceList = FXCollections.observableArrayList();
@@ -55,6 +54,7 @@ public class SeancesController {
             private final Button deleteBtn = new Button("🗑");
             private final HBox pane = new HBox(8, editBtn, deleteBtn);
             {
+                pane.setAlignment(javafx.geometry.Pos.CENTER);
                 editBtn.setStyle("-fx-background-color:transparent;-fx-cursor:hand;");
                 deleteBtn.setStyle("-fx-background-color:transparent;-fx-text-fill:red;-fx-cursor:hand;");
                 editBtn.setOnAction(e -> handleEdit(getTableView().getItems().get(getIndex())));
@@ -73,11 +73,6 @@ public class SeancesController {
             seanceList.setAll(seanceDAO.findAll());
             table.setItems(seanceList);
             totalSeancesLabel.setText(seanceList.size() + " séances");
-            
-            long today = seanceList.stream()
-                .filter(s -> s.getDate().equals(java.time.LocalDate.now().toString()))
-                .count();
-            todaySeancesLabel.setText(String.valueOf(today));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -139,6 +134,11 @@ public class SeancesController {
                 loadData();
             } catch (SQLException e) {
                 e.printStackTrace();
+                Alert err = new Alert(Alert.AlertType.ERROR);
+                err.setTitle("Erreur de suppression");
+                err.setHeaderText("Impossible de supprimer la séance");
+                err.setContentText("Cette séance contient fort probablement une liste de présences attachée. Veuillez supprimer ses dépendances avant.");
+                err.showAndWait();
             }
         }
     }

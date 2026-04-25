@@ -25,68 +25,81 @@
         </VBox>
     </left>
     <center>
-        <ScrollPane fitToWidth="true" style="-fx-background-color:#f5f7fa;-fx-border-color:transparent;">
-            <VBox styleClass="content-area" spacing="24">
-                
-                <!-- TOP HEADER -->
-                <HBox alignment="CENTER_LEFT" spacing="16">
-                    <VBox HBox.hgrow="ALWAYS">
-                        <HBox alignment="CENTER_LEFT" spacing="10">
-                            <Label text="📅" style="-fx-font-size:24px;"/>
-                            <Label text="Gestion des Séances" styleClass="page-title"/>
-                        </HBox>
-                        <Label text="Organisation de l'emploi du temps et des salles" styleClass="page-subtitle"/>
-                    </VBox>
-                    <Region HBox.hgrow="ALWAYS"/>
-                    <TextField promptText="Rechercher..." style="-fx-background-radius:20;-fx-pref-width:200;" />
-                </HBox>
-
-                <!-- STATS CARDS -->
-                <HBox spacing="20">
-                    <VBox styleClass="card" HBox.hgrow="ALWAYS" spacing="10" style="-fx-padding:20; -fx-background-color: linear-gradient(to bottom right, #ffffff, #f0f7ff);">
-                        <Label text="📅 Séances Totales" style="-fx-text-fill:#6b7280; -fx-font-weight:bold;"/>
-                        <Label fx:id="totalSeancesLabel" text="0 séances" style="-fx-font-size:24px; -fx-font-weight:bold; -fx-text-fill:#0A1F44;"/>
-                    </VBox>
-                    <VBox styleClass="card" HBox.hgrow="ALWAYS" spacing="10" style="-fx-padding:20; -fx-background-color: linear-gradient(to bottom right, #ffffff, #f0fdf4);">
-                        <Label text="🚀 Aujourd'hui" style="-fx-text-fill:#059669; -fx-font-weight:bold;"/>
-                        <Label fx:id="todaySeancesLabel" text="0" style="-fx-font-size:24px; -fx-font-weight:bold; -fx-text-fill:#059669;"/>
-                    </VBox>
-                </HBox>
-
-                <!-- SEARCH & FILTER -->
-                <HBox spacing="15" alignment="CENTER_LEFT" styleClass="card" style="-fx-padding:15;">
-                    <TextField fx:id="searchField" promptText="Rechercher par module ou salle..." HBox.hgrow="ALWAYS" styleClass="search-field" prefHeight="40"/>
-                    <Button text="🔍 Filtrer" styleClass="btn, btn-primary" style="-fx-background-color:#0A1F44;" prefHeight="40" prefWidth="120"
-                            onAction="#handleFilter"/>
-                </HBox>
-
-                <!-- TABLE CARD -->
-                <VBox styleClass="card" VBox.vgrow="ALWAYS">
-                    <HBox styleClass="card-header" spacing="12" alignment="CENTER_LEFT">
-                        <Label text="📋 Liste des séances" styleClass="card-header-title"/>
-                        <Region HBox.hgrow="ALWAYS"/>
-                        <Button text="➕ Nouvelle Séance" styleClass="btn, btn-primary, btn-sm" onAction="#handleAdd"/>
-                        <Button text="↻" styleClass="btn, btn-secondary, btn-sm" onAction="#handleRefresh"/>
-                    </HBox>
+        <ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-background: transparent; -fx-border-color: transparent;">
+            <StackPane styleClass="root-container">
+                <VBox styleClass="content-area" spacing="35" alignment="TOP_CENTER" maxWidth="1100" style="-fx-padding: 40 60;">
                     
-                    <VBox styleClass="card-body" VBox.vgrow="ALWAYS" style="-fx-padding:0;">
-                        <TableView fx:id="table" VBox.vgrow="ALWAYS" style="-fx-border-color:transparent;">
-                            <columns>
-                                <TableColumn fx:id="colDate" text="Date" prefWidth="120"/>
-                                <TableColumn fx:id="colHeure" text="Heure" prefWidth="120"/>
-                                <TableColumn fx:id="colModule" text="Module" prefWidth="250"/>
-                                <TableColumn fx:id="colSalle" text="Salle" prefWidth="150"/>
-                                <TableColumn fx:id="colType" text="Type" prefWidth="100"/>
-                                <TableColumn fx:id="colActions" text="Actions" prefWidth="120"/>
-                            </columns>
-                            <placeholder>
-                                <Label text="📭 Aucune séance planifiée" style="-fx-text-fill:#9ca3af;"/>
-                            </placeholder>
-                        </TableView>
+                    <!-- TOP HEADER -->
+                    <HBox alignment="CENTER_LEFT" spacing="25">
+                        <VBox HBox.hgrow="ALWAYS">
+                            <HBox alignment="CENTER_LEFT" spacing="12">
+                                <Label text="📅" style="-fx-font-size:32px;"/>
+                                <Label text="Gestion des Séances" styleClass="page-title" style="-fx-font-size: 30px; -fx-font-weight: 900; -fx-text-fill: #1e3a8a;"/>
+                            </HBox>
+                            <Label text="Organisation de l'emploi du temps et optimisation des salles" styleClass="page-subtitle" style="-fx-font-size: 15px; -fx-text-fill: #64748b;"/>
+                        </VBox>
+                    </HBox>
+
+                    <!-- STATS CARDS -->
+                    <HBox spacing="30">
+                        <VBox styleClass="stat-card-indigo" HBox.hgrow="ALWAYS" spacing="15">
+                            <HBox alignment="CENTER_LEFT" spacing="10">
+                                <Label text="📊" style="-fx-font-size: 18px;"/>
+                                <Label text="Séances Totales" styleClass="stat-label"/>
+                            </HBox>
+                            <Label fx:id="totalSeancesLabel" text="17 séances" styleClass="stat-value"/>
+                        </VBox>
+                    </HBox>
+
+                    <!-- SEARCH & FILTER -->
+                    <HBox spacing="20" alignment="CENTER_LEFT" styleClass="card" style="-fx-padding:25; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 15, 0, 0, 5);">
+                        <VBox spacing="8" HBox.hgrow="ALWAYS">
+                            <Label text="Rechercher par module ou salle" styleClass="form-label"/>
+                            <TextField fx:id="searchField" promptText="Ex: Intelligence Artificielle, Salle 109..." styleClass="form-control" prefHeight="50"/>
+                        </VBox>
+                        <VBox alignment="BOTTOM_CENTER">
+                            <Button text="🔍  Filtrer les résultats" styleClass="btn-save-premium" style="-fx-padding: 14 30;"
+                                    onAction="#handleFilter"/>
+                        </VBox>
+                    </HBox>
+
+                    <!-- TABLE CARD -->
+                    <VBox styleClass="card, card-accent" VBox.vgrow="ALWAYS" spacing="0" style="-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 30, 0, 0, 15);">
+                        <HBox styleClass="card-header" spacing="20" alignment="CENTER_LEFT" style="-fx-padding: 25 35; -fx-background-color: white; -fx-background-radius: 20 20 0 0;">
+                            <HBox alignment="CENTER_LEFT" spacing="12">
+                                <Label text="📋" style="-fx-font-size: 20px;"/>
+                                <Label text="Liste des séances planifiées" style="-fx-font-size: 18px; -fx-font-weight: 800; -fx-text-fill: #0f172a;"/>
+                            </HBox>
+                            <Region HBox.hgrow="ALWAYS"/>
+                            <HBox spacing="15">
+                                <Button text="↻" onAction="#handleRefresh" 
+                                        style="-fx-background-color: #f1f5f9; -fx-text-fill: #475569; -fx-font-size: 18px; -fx-padding: 8 15; -fx-background-radius: 10; -fx-cursor: hand;"/>
+                                <Button text="+ Nouvelle Séance" styleClass="btn-add-premium" onAction="#handleAdd" prefHeight="45"/>
+                            </HBox>
+                        </HBox>
+                        
+                        <VBox styleClass="card-body" VBox.vgrow="ALWAYS" style="-fx-padding:20; -fx-background-color: white; -fx-background-radius: 0 0 20 20;">
+                            <TableView fx:id="table" VBox.vgrow="ALWAYS"  fixedCellSize="55">
+                                <columns>
+                                    <TableColumn fx:id="colDate" text="DATE" prefWidth="140" styleClass="table-center-col"/>
+                                    <TableColumn fx:id="colHeure" text="HEURE" prefWidth="140" styleClass="table-center-col"/>
+                                    <TableColumn fx:id="colModule" text="MODULE" prefWidth="280" styleClass="table-center-col"/>
+                                    <TableColumn fx:id="colSalle" text="SALLE" prefWidth="180" styleClass="table-center-col"/>
+                                    <TableColumn fx:id="colType" text="TYPE" prefWidth="120" styleClass="table-center-col"/>
+                                    <TableColumn fx:id="colActions" text="ACTIONS" prefWidth="140" styleClass="table-center-col"/>
+                                </columns>
+                                <placeholder>
+                                    <VBox alignment="CENTER" spacing="15">
+                                        <Label text="📭" style="-fx-font-size: 40px;"/>
+                                        <Label text="Aucune séance planifiée pour le moment." style="-fx-text-fill:#94a3b8; -fx-font-size: 16px;"/>
+                                    </VBox>
+                                </placeholder>
+                            </TableView>
+                        </VBox>
                     </VBox>
+                    
                 </VBox>
-                
-            </VBox>
+            </StackPane>
         </ScrollPane>
     </center>
 </BorderPane>

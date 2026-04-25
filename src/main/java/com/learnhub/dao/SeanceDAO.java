@@ -97,8 +97,14 @@ public class SeanceDAO {
     }
 
     public void delete(int id) throws SQLException {
-        String sql = "DELETE FROM seance WHERE id=?";
-        try (PreparedStatement ps = DatabaseConnection.getInstance().prepareStatement(sql)) {
+        String sql1 = "DELETE FROM presence WHERE seance_id=?";
+        try (PreparedStatement ps = DatabaseConnection.getInstance().prepareStatement(sql1)) {
+            ps.setInt(1, id);
+            ps.executeUpdate();
+        }
+
+        String sql2 = "DELETE FROM seance WHERE id=?";
+        try (PreparedStatement ps = DatabaseConnection.getInstance().prepareStatement(sql2)) {
             ps.setInt(1, id);
             ps.executeUpdate();
         }

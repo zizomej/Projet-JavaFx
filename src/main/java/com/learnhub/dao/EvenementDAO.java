@@ -34,7 +34,7 @@ public class EvenementDAO {
         e.setStatut(rs.getString("statut"));
         e.setLieuId(rs.getInt("lieu_id"));
 
-        // Récupérer le nom du lieu si jointure
+
         try {
             e.setLieuNom(rs.getString("lieu_nom"));
         } catch (SQLException ex) {
@@ -58,7 +58,7 @@ public class EvenementDAO {
 
     public List<Evenement> findUpcoming() throws SQLException {
         List<Evenement> list = new ArrayList<>();
-        // CORRECTION: utiliser 'date_debut' au lieu de 'date'
+
         String sql = "SELECT e.*, l.nom as lieu_nom FROM evenement e " +
                 "LEFT JOIN lieu l ON e.lieu_id = l.id " +
                 "WHERE e.date_debut >= CURDATE() AND e.statut = 'En cours' " +

@@ -26,45 +26,79 @@
     </left>
     <center>
         <ScrollPane fitToWidth="true" style="-fx-background-color:#f5f7fa;-fx-border-color:transparent;">
-            <VBox styleClass="content-area" spacing="24">
-                <HBox alignment="CENTER_LEFT" spacing="16">
-                    <VBox HBox.hgrow="ALWAYS">
-                        <Label fx:id="titleLabel" text="Ajouter une filière" styleClass="page-title"/>
-                        <Label text="Définition du parcours académique" styleClass="page-subtitle"/>
-                    </VBox>
-                    <Region HBox.hgrow="ALWAYS"/>
-                    <Button text="← Retour à la liste" styleClass="btn, btn-secondary, btn-sm" onAction="#goBack"/>
-                </HBox>
-                <VBox styleClass="card" spacing="20" style="-fx-padding:30;">
-                    <VBox spacing="8">
-                        <Label text="Code de la filière" style="-fx-font-weight:bold;"/>
-                        <TextField fx:id="codeField" promptText="Ex: INFO-L3" styleClass="search-field" prefHeight="40"/>
-                    </VBox>
-                    <VBox spacing="8">
-                        <Label text="Nom de la filière" style="-fx-font-weight:bold;"/>
-                        <TextField fx:id="nomField" promptText="Ex: Licence en Informatique" styleClass="search-field" prefHeight="40"/>
-                    </VBox>
-                    <VBox spacing="8">
-                        <Label text="Niveau d'études" style="-fx-font-weight:bold;"/>
-                        <ComboBox fx:id="niveauCombo" promptText="Sélectionnez le niveau" prefWidth="Infinity" prefHeight="40" styleClass="search-field"/>
-                    </VBox>
-                    <VBox spacing="8">
-                        <Label text="Durée (en années)" style="-fx-font-weight:bold;"/>
-                        <TextField fx:id="dureeField" promptText="Ex: 3" styleClass="search-field" prefHeight="40"/>
-                    </VBox>
-                    <VBox spacing="8">
-                        <Label text="Capacité maximale" style="-fx-font-weight:bold;"/>
-                        <TextField fx:id="capaciteField" promptText="Ex: 100" styleClass="search-field" prefHeight="40"/>
-                    </VBox>
-                    <VBox spacing="8">
-                        <Label text="Université d'appartenance" style="-fx-font-weight:bold;"/>
-                        <ComboBox fx:id="universiteCombo" promptText="Sélectionnez l'université" prefWidth="Infinity" prefHeight="40" styleClass="search-field"/>
-                    </VBox>
-                    <HBox alignment="CENTER_RIGHT" spacing="15" style="-fx-padding: 20 0 0 0; -fx-border-color: #e5e7eb; -fx-border-width: 1 0 0 0;">
-                        <Button text="Annuler" styleClass="btn, btn-secondary" prefWidth="120" prefHeight="40" onAction="#goBack"/>
-                        <Button text="Enregistrer" styleClass="btn, btn-primary" style="-fx-background-color: #0A1F44; -fx-text-fill: white;" prefWidth="120" prefHeight="40" onAction="#handleSave"/>
+            <VBox styleClass="content-area" spacing="30" style="-fx-padding: 35 50;">
+                
+                <!-- BANNER HEADER -->
+                <VBox spacing="10" style="-fx-background-color: linear-gradient(to right, #0A1F44, #1e3a8a, #4f46e5); -fx-background-radius: 20; -fx-padding: 35 45; -fx-effect: dropshadow(gaussian, rgba(30,58,138,0.3), 25, 0, 0, 10);">
+                    <HBox alignment="CENTER_LEFT" spacing="20">
+                        <VBox HBox.hgrow="ALWAYS" spacing="6">
+                            <Label fx:id="titleLabel" text="Ajouter une filière" style="-fx-font-size: 32px; -fx-font-weight: 900; -fx-text-fill: white;"/>
+                            <Label text="Définition du parcours académique et des capacités" style="-fx-font-size: 15px; -fx-text-fill: rgba(255,255,255,0.75);"/>
+                        </VBox>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Button text="← Retour à la liste" onAction="#goBack"
+                                style="-fx-background-color: rgba(255,255,255,0.15); -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20; -fx-background-radius: 12; -fx-border-color: rgba(255,255,255,0.3); -fx-border-width: 1; -fx-border-radius: 12; -fx-cursor: hand;"/>
                     </HBox>
                 </VBox>
+
+                <!-- FORM CARD -->
+                <VBox maxWidth="900" style="-fx-background-color: white; -fx-background-radius: 22; -fx-padding: 50 60; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.07), 30, 0, 0, 12); -fx-alignment: CENTER;" spacing="35" VBox.vgrow="ALWAYS">
+                    
+                    <VBox spacing="30" maxWidth="700">
+                        <!-- Two Column Layout for Code and Name -->
+                        <HBox spacing="25">
+                            <VBox spacing="10" HBox.hgrow="ALWAYS">
+                                <Label text="Code de la filière *" styleClass="form-label"/>
+                                <TextField fx:id="codeField" promptText="Ex: INFO-L3" styleClass="form-control" prefHeight="50"/>
+                                <Label fx:id="codeErrorLabel" styleClass="error-label" visible="false" managed="false"/>
+                            </VBox>
+                            <VBox spacing="10" HBox.hgrow="ALWAYS">
+                                <Label text="Nom de la filière *" styleClass="form-label"/>
+                                <TextField fx:id="nomField" promptText="Ex: Licence en Informatique" styleClass="form-control" prefHeight="50"/>
+                                <Label fx:id="nomErrorLabel" styleClass="error-label" visible="false" managed="false"/>
+                            </VBox>
+                        </HBox>
+ 
+                        <!-- Level and University -->
+                        <HBox spacing="25">
+                            <VBox spacing="10" HBox.hgrow="ALWAYS">
+                                <Label text="Niveau d'études *" styleClass="form-label"/>
+                                <ComboBox fx:id="niveauCombo" promptText="Sélectionnez le niveau" maxWidth="Infinity" styleClass="form-control" prefHeight="50"/>
+                                <Label fx:id="niveauErrorLabel" styleClass="error-label" visible="false" managed="false"/>
+                            </VBox>
+                            <VBox spacing="10" HBox.hgrow="ALWAYS">
+                                <Label text="Université d'appartenance *" styleClass="form-label"/>
+                                <ComboBox fx:id="universiteCombo" promptText="Sélectionnez l'université" maxWidth="Infinity" styleClass="form-control" prefHeight="50"/>
+                                <Label fx:id="universiteErrorLabel" styleClass="error-label" visible="false" managed="false"/>
+                            </VBox>
+                        </HBox>
+ 
+                        <!-- Duration and Capacity -->
+                        <HBox spacing="25">
+                            <VBox spacing="10" HBox.hgrow="ALWAYS">
+                                <Label text="Durée (en années) *" styleClass="form-label"/>
+                                <TextField fx:id="dureeField" promptText="Ex: 3" styleClass="form-control" prefHeight="50"/>
+                                <Label fx:id="dureeErrorLabel" styleClass="error-label" visible="false" managed="false"/>
+                            </VBox>
+                            <VBox spacing="10" HBox.hgrow="ALWAYS">
+                                <Label text="Capacité maximale *" styleClass="form-label"/>
+                                <TextField fx:id="capaciteField" promptText="Ex: 100" styleClass="form-control" prefHeight="50"/>
+                                <Label fx:id="capaciteErrorLabel" styleClass="error-label" visible="false" managed="false"/>
+                            </VBox>
+                        </HBox>
+                    </VBox>
+
+                    <Separator style="-fx-opacity: 0.3;"/>
+
+                    <!-- Action Buttons -->
+                    <HBox alignment="CENTER_RIGHT" spacing="15" maxWidth="700">
+                        <Button text="Annuler" onAction="#goBack"
+                                styleClass="btn-cancel-pink" prefWidth="140" prefHeight="48"/>
+                        <Button text="Enregistrer la filière" onAction="#handleSave"
+                                styleClass="btn-save-premium" prefWidth="250" prefHeight="48"/>
+                    </HBox>
+                </VBox>
+
             </VBox>
         </ScrollPane>
     </center>

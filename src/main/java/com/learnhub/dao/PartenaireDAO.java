@@ -31,7 +31,7 @@ public class PartenaireDAO {
 
     public List<Partenaire> findAll() throws SQLException {
         List<Partenaire> list = new ArrayList<>();
-        String sql = "SELECT * FROM partenaire ORDER BY nom";
+        String sql = "SELECT * FROM partenaire WHERE statut IS NULL OR statut != 'inactif' ORDER BY nom";
         try (Statement st = DatabaseConnection.getInstance().createStatement();
              ResultSet rs = st.executeQuery(sql)) {
             while (rs.next()) list.add(mapRow(rs));
@@ -106,7 +106,8 @@ public class PartenaireDAO {
     }
 
     public void delete(int id) throws SQLException {
-        String sql = "DELETE FROM partenaire WHERE id=?";
+        // Soft delete to avoid foreign key constraints
+        String sql = "UPDATE partenaire SET statut='inactif' WHERE id=?";
         try (PreparedStatement ps = DatabaseConnection.getInstance().prepareStatement(sql)) {
             ps.setInt(1, id);
             ps.executeUpdate();

@@ -8,7 +8,7 @@ public class Seance {
     private String heureDebut;
     private String heureFin;
     private String salle;
-    private String type; // CM, TD, TP
+    private String type;
     private String description;
 
     private int enseignantId;

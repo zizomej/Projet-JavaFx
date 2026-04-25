@@ -50,7 +50,7 @@ public class SeanceFormController {
             salleField.setText(seance.getSalle());
             typeCombo.setValue(seance.getType());
             
-            // Match module
+
             for(Module m : moduleCombo.getItems()) {
                 if(m.getId() == seance.getModuleId()) {
                     moduleCombo.setValue(m);
@@ -91,7 +91,6 @@ public class SeanceFormController {
         boolean isValid = true;
         StringBuilder errorMsg = new StringBuilder();
 
-        // Reset styles
         moduleCombo.setStyle("");
         datePicker.setStyle("");
         heureDebutField.setStyle("");
@@ -135,7 +134,7 @@ public class SeanceFormController {
             return false;
         }
 
-        // Time format check HH:mm
+
         String timeRegex = "^([01]?[0-9]|2[0-3]):[0-5][0-9]$";
         if (!heureDebutField.getText().matches(timeRegex)) {
             heureDebutField.setStyle("-fx-border-color: red;");
@@ -148,7 +147,7 @@ public class SeanceFormController {
             return false;
         }
 
-        // Logical check: End time must be after start time
+
         try {
             java.time.LocalTime start = java.time.LocalTime.parse(heureDebutField.getText());
             java.time.LocalTime end = java.time.LocalTime.parse(heureFinField.getText());
@@ -158,7 +157,7 @@ public class SeanceFormController {
                 return false;
             }
         } catch (Exception e) {
-            // Should not happen due to regex check
+
         }
 
         return true;

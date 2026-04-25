@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:id="rootPane"
+            fx:controller="com.learnhub.controller.visiteur.FiliereDetailsController"
+            stylesheets="@/css/styles.css"
+            prefWidth="1280" prefHeight="800">
+
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="10" styleClass="visiteur-nav">
+            <Label text="🎓 LearnHub" styleClass="visiteur-nav-title"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button text="Accueil" styleClass="visiteur-nav-btn" onAction="#goHome"/>
+            <Button text="Programmes" styleClass="visiteur-nav-btn" onAction="#goHome"/>
+            <Button text="🔐 Se connecter" styleClass="visiteur-nav-login" onAction="#goLogin"/>
+        </HBox>
+    </top>
+
+    <center>
+        <ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-background: #f8fafc;">
+            <VBox spacing="0">
+                <!-- HERO -->
+                <VBox alignment="CENTER" spacing="15" minHeight="280" 
+                      style="-fx-background-color: linear-gradient(to bottom right, #1E3A8A, #0A1F44);">
+                    <padding><Insets top="60" bottom="60" left="100" right="100"/></padding>
+                    <Label fx:id="fNameLabel" text="Nom de la Filière" styleClass="visiteur-hero-title" style="-fx-font-size: 48px;"/>
+                    <Label fx:id="fCodeLabel" text="CODE-123" styleClass="visiteur-hero-sub" style="-fx-text-fill: #93C5FD; -fx-font-weight: bold;"/>
+                </VBox>
+
+                <HBox spacing="40" alignment="TOP_CENTER" style="-fx-padding: 40 100 80 100;">
+                    <!-- Left Column: Details -->
+                    <VBox spacing="30" HBox.hgrow="ALWAYS">
+                        <!-- BACK BUTTON MOVED HERE -->
+                        <Button text="&lt; Retour aux filières" onAction="#handleBack"
+                                style="-fx-background-color: transparent; -fx-text-fill: #3B82F6; -fx-cursor: hand; -fx-font-weight: bold; -fx-font-size: 14px; -fx-padding: 0 0 10 0;"/>
+
+                        <VBox spacing="15" style="-fx-background-color: white; -fx-padding: 40; -fx-background-radius: 24; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 20, 0, 0, 10);">
+                            <Label text="Description du programme" style="-fx-font-size: 24px; -fx-font-weight: 900; -fx-text-fill: #0f172a;"/>
+                            <Separator/>
+                            <Label fx:id="fDescriptionLabel" wrapText="true" style="-fx-font-size: 16px; -fx-text-fill: #475569; -fx-line-spacing: 1.5;"/>
+                        </VBox>
+
+                        <HBox spacing="20">
+                            <VBox HBox.hgrow="ALWAYS" alignment="CENTER" spacing="10" style="-fx-background-color: #DBEAFE; -fx-padding: 30; -fx-background-radius: 20;">
+                                <Label text="⏳ DURÉE" style="-fx-font-size: 12px; -fx-font-weight: 900; -fx-text-fill: #1E40AF;"/>
+                                <Label fx:id="fDurationLabel" text="3 ans" style="-fx-font-size: 24px; -fx-font-weight: 900; -fx-text-fill: #1E3A8A;"/>
+                            </VBox>
+                            <VBox HBox.hgrow="ALWAYS" alignment="CENTER" spacing="10" style="-fx-background-color: #FEF3C7; -fx-padding: 30; -fx-background-radius: 20;">
+                                <Label text="🎓 NIVEAU" style="-fx-font-size: 12px; -fx-font-weight: 900; -fx-text-fill: #92400E;"/>
+                                <Label fx:id="fLevelLabel" text="Licence" style="-fx-font-size: 24px; -fx-font-weight: 900; -fx-text-fill: #78350F;"/>
+                            </VBox>
+                        </HBox>
+                    </VBox>
+
+                    <!-- Right Column: Actions -->
+                    <VBox spacing="20" prefWidth="350">
+                        <VBox spacing="25" style="-fx-background-color: white; -fx-padding: 35; -fx-background-radius: 24; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 30, 0, 0, 10);">
+                            <Label text="Actions disponibles" style="-fx-font-size: 20px; -fx-font-weight: 900; -fx-text-fill: #0f172a;"/>
+                            
+                            <Button fx:id="videoBtn" text="🎬 Voir la vidéo" onAction="#handlePlayVideo" 
+                                    style="-fx-background-color: #EF4444; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 15px; -fx-padding: 15; -fx-background-radius: 12; -fx-cursor: hand; -fx-pref-width: 300;"/>
+                            
+                            <Button text="🚀 Postuler en ligne" onAction="#handleApply"
+                                    style="-fx-background-color: #10B981; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 15px; -fx-padding: 15; -fx-background-radius: 12; -fx-cursor: hand; -fx-pref-width: 300;"/>
+                            
+                            <Button text="⤓ Télécharger PDF" onAction="#handleDownloadPDF"
+                                    style="-fx-background-color: #F8FAFC; -fx-text-fill: #334155; -fx-font-weight: bold; -fx-font-size: 15px; -fx-border-color: #E2E8F0; -fx-padding: 15; -fx-background-radius: 12; -fx-border-radius: 12; -fx-cursor: hand; -fx-pref-width: 300;"/>
+                            
+                            <Separator/>
+                            <Label text="Besoin d'aide ? Contactez l'administration de l'université." wrapText="true" style="-fx-font-size: 12px; -fx-text-fill: #64748b;"/>
+                        </VBox>
+                    </VBox>
+                </HBox>
+            </VBox>
+        </ScrollPane>
+    </center>
+
+</BorderPane>

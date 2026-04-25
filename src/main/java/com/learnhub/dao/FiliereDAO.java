@@ -22,12 +22,18 @@ public class FiliereDAO {
         f.setDescription("");
         f.setResponsable("");
         f.setDuree(rs.getInt("duree_annees"));
+        try {
+            f.setVideoUrl(rs.getString("video_url"));
+        } catch (SQLException e) {
+            // Column might be missing, ignore
+            f.setVideoUrl(null);
+        }
         return f;
     }
 
     public List<Filiere> findAll() throws SQLException {
         List<Filiere> list = new ArrayList<>();
-        String sql = "SELECT * FROM filiere ORDER BY nom";
+        String sql = "SELECT id, code, nom, niveau, duree_annees, capacite_max, universite_id, responsable_id, video_url FROM filiere ORDER BY nom";
         try (Statement st = DatabaseConnection.getInstance().createStatement();
              ResultSet rs = st.executeQuery(sql)) {
             while (rs.next()) {
@@ -38,7 +44,7 @@ public class FiliereDAO {
     }
 
     public Filiere findById(int id) throws SQLException {
-        String sql = "SELECT * FROM filiere WHERE id = ?";
+        String sql = "SELECT id, code, nom, niveau, duree_annees, capacite_max, universite_id, responsable_id, video_url FROM filiere WHERE id = ?";
         try (PreparedStatement ps = DatabaseConnection.getInstance().prepareStatement(sql)) {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
@@ -51,7 +57,7 @@ public class FiliereDAO {
 
     public List<Filiere> findByUniversite(int universiteId) throws SQLException {
         List<Filiere> list = new ArrayList<>();
-        String sql = "SELECT * FROM filiere WHERE universite_id = ? ORDER BY nom";
+        String sql = "SELECT id, code, nom, niveau, duree_annees, capacite_max, universite_id, responsable_id, video_url FROM filiere WHERE universite_id = ? ORDER BY nom";
         try (PreparedStatement ps = DatabaseConnection.getInstance().prepareStatement(sql)) {
             ps.setInt(1, universiteId);
             ResultSet rs = ps.executeQuery();
@@ -64,7 +70,7 @@ public class FiliereDAO {
 
     public List<Filiere> findByNiveau(String niveau) throws SQLException {
         List<Filiere> list = new ArrayList<>();
-        String sql = "SELECT * FROM filiere WHERE niveau = ? ORDER BY nom";
+        String sql = "SELECT id, code, nom, niveau, duree_annees, capacite_max, universite_id, responsable_id, video_url FROM filiere WHERE niveau = ? ORDER BY nom";
         try (PreparedStatement ps = DatabaseConnection.getInstance().prepareStatement(sql)) {
             ps.setString(1, niveau);
             ResultSet rs = ps.executeQuery();
@@ -76,7 +82,7 @@ public class FiliereDAO {
     }
 
     public void insert(Filiere f) throws SQLException {
-        String sql = "INSERT INTO filiere (code, nom, niveau, duree_annees, capacite_max, universite_id, responsable_id) VALUES (?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO filiere (code, nom, niveau, duree_annees, capacite_max, universite_id, responsable_id, video_url) VALUES (?,?,?,?,?,?,?,?)";
         try (PreparedStatement ps = DatabaseConnection.getInstance().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, f.getCode());
             ps.setString(2, f.getNom());
@@ -85,6 +91,7 @@ public class FiliereDAO {
             ps.setInt(5, f.getCapaciteMax());
             ps.setInt(6, f.getUniversiteId());
             ps.setInt(7, f.getResponsableId());
+            ps.setString(8, f.getVideoUrl());
             ps.executeUpdate();
 
             ResultSet keys = ps.getGeneratedKeys();
@@ -95,7 +102,7 @@ public class FiliereDAO {
     }
 
     public void update(Filiere f) throws SQLException {
-        String sql = "UPDATE filiere SET code=?, nom=?, niveau=?, duree_annees=?, capacite_max=?, universite_id=?, responsable_id=? WHERE id=?";
+        String sql = "UPDATE filiere SET code=?, nom=?, niveau=?, duree_annees=?, capacite_max=?, universite_id=?, responsable_id=?, video_url=? WHERE id=?";
         try (PreparedStatement ps = DatabaseConnection.getInstance().prepareStatement(sql)) {
             ps.setString(1, f.getCode());
             ps.setString(2, f.getNom());
@@ -104,7 +111,8 @@ public class FiliereDAO {
             ps.setInt(5, f.getCapaciteMax());
             ps.setInt(6, f.getUniversiteId());
             ps.setInt(7, f.getResponsableId());
-            ps.setInt(8, f.getId());
+            ps.setString(8, f.getVideoUrl());
+            ps.setInt(9, f.getId());
             ps.executeUpdate();
         }
     }

@@ -3,15 +3,22 @@
 <?import javafx.scene.control.*?>
 <?import javafx.geometry.*?>
 
+<!--
+  VISITEUR EVENTS — Liste publique des événements
+  Navbar blanche, Entête dégradée, Grille d'événements dynamique
+-->
 <BorderPane xmlns:fx="http://javafx.com/fxml"
             fx:id="rootPane"
             fx:controller="com.learnhub.controller.visiteur.EventsController"
-            stylesheets="@/css/styles.css" prefWidth="1280" prefHeight="800">
+            stylesheets="@/css/styles.css"
+            prefWidth="1280" prefHeight="800">
+
+    <!-- TOP NAVBAR BLANCHE -->
     <top>
         <HBox alignment="CENTER_LEFT" spacing="10" styleClass="visiteur-nav">
             <Label text="🎓 LearnHub" styleClass="visiteur-nav-title"/>
             <Region HBox.hgrow="ALWAYS"/>
-            <Button text="Accueil"     styleClass="visiteur-nav-btn" onAction="#goHome"/>
+            <Button text="Accueil"      styleClass="visiteur-nav-btn" onAction="#goHome"/>
             <Button text="Programmes"  styleClass="visiteur-nav-btn" onAction="#goPrograms"/>
             <Button text="Actualités"  styleClass="visiteur-nav-btn"
                     style="-fx-text-fill: #1E3A8A; -fx-border-color: transparent transparent #FFC107 transparent; -fx-border-width: 0 0 3 0;"
@@ -20,55 +27,40 @@
             <Button text="🔐  Se connecter" styleClass="visiteur-nav-login" onAction="#goLogin"/>
         </HBox>
     </top>
+
+    <!-- CONTENT -->
     <center>
-        <ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-border-color: transparent;">
+        <ScrollPane fitToWidth="true"
+                    style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-background: #f8fafc;">
             <VBox spacing="0">
-                <!-- Page Hero -->
-                <VBox styleClass="page-hero" alignment="CENTER_LEFT" spacing="14" minHeight="210">
-                    <padding><Insets top="60" bottom="60" left="90" right="90"/></padding>
-                    <Label text="🎉 Événements &amp; Actualités" styleClass="page-hero-title"/>
-                    <Label text="Restez informé des dernières actualités et événements de l'établissement"
-                           styleClass="page-hero-sub" wrapText="true" maxWidth="620"/>
-                    <HBox spacing="8" alignment="CENTER_LEFT">
-                        <padding><Insets top="8"/></padding>
-                        <Label text="🏠 Accueil" style="-fx-text-fill: rgba(255,255,255,0.55); -fx-font-size: 13px;"/>
-                        <Label text="›" style="-fx-text-fill: rgba(255,255,255,0.45);"/>
-                        <Label text="Événements" style="-fx-text-fill: #FFC107; -fx-font-size: 13px; -fx-font-weight: bold;"/>
-                    </HBox>
+
+                <!-- HEADER SECTION -->
+                <VBox styleClass="visiteur-hero" alignment="CENTER" spacing="15" minHeight="250">
+                    <padding><Insets top="50" bottom="50" left="100" right="100"/></padding>
+                    <Label text="Événements et Actualités" styleClass="visiteur-hero-title" style="-fx-font-size: 42px;"/>
+                    <Label text="Restez informé des prochains séminaires, conférences et activités étudiantes."
+                           styleClass="visiteur-hero-sub" wrapText="true" maxWidth="720" textAlignment="CENTER"/>
                 </VBox>
 
-                <!-- Content -->
-                <VBox style="-fx-background-color: #f5f7fa; -fx-padding: 40 80 60 80;" spacing="28">
-                    <!-- Filtres -->
-                    <HBox spacing="12" alignment="CENTER_LEFT">
-                        <ComboBox fx:id="typeFilter" promptText="📂 Type d'événement" prefWidth="200" styleClass="filter-combo"/>
-                        <TextField fx:id="searchField" promptText="🔍 Rechercher un événement..." HBox.hgrow="ALWAYS" styleClass="search-field"/>
-                        <Button text="🔍 Rechercher" styleClass="btn, btn-primary" onAction="#handleSearch"/>
+                <!-- EVENTS GRID -->
+                <VBox alignment="CENTER" spacing="30" style="-fx-padding: 60 40; -fx-background-color: #f8fafc;">
+                    <HBox alignment="CENTER_LEFT" maxWidth="1000">
+                        <Label text="Tous nos événements" style="-fx-font-size: 24px; -fx-font-weight: 800; -fx-text-fill: #0f172a;"/>
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Label fx:id="eventsCountLabel" text="0 événement trouvé" style="-fx-text-fill: #64748b; -fx-font-size: 14px; -fx-font-weight: bold;"/>
                     </HBox>
 
-                    <!-- Liste événements -->
-                    <VBox styleClass="card" VBox.vgrow="ALWAYS">
-                        <HBox styleClass="card-header" alignment="CENTER_LEFT">
-                            <Label text="🎉 Tous les Événements" styleClass="card-header-title"/>
-                            <Region HBox.hgrow="ALWAYS"/>
-                            <Label fx:id="countLabel" text="" style="-fx-text-fill: #6b7280; -fx-font-size: 13px;"/>
-                        </HBox>
-                        <VBox styleClass="card-body" VBox.vgrow="ALWAYS">
-                            <TableView fx:id="table" VBox.vgrow="ALWAYS" style="-fx-border-color: transparent;">
-                                <columns>
-                                    <TableColumn fx:id="colTitre"     text="Titre"       prefWidth="260"/>
-                                    <TableColumn fx:id="colType"      text="Type"        prefWidth="130"/>
-                                    <TableColumn fx:id="colDate"      text="Date"        prefWidth="130"/>
-                                    <TableColumn fx:id="colLieu"      text="Lieu"        prefWidth="180"/>
-                                    <TableColumn fx:id="colStatut"    text="Statut"      prefWidth="110"/>
-                                </columns>
-                                <placeholder>
-                                    <Label text="Aucun événement trouvé" style="-fx-text-fill: #9ca3af;"/>
-                                </placeholder>
-                            </TableView>
-                        </VBox>
-                    </VBox>
+                    <!-- Container dynamique -->
+                    <FlowPane fx:id="eventsContainer" hgap="25" vgap="25" alignment="CENTER_LEFT" maxWidth="1000">
+                        <!-- Les cartes seront injectées ici par le contrôleur -->
+                    </FlowPane>
                 </VBox>
+                
+                <!-- FOOTER -->
+                <VBox alignment="CENTER" spacing="15" style="-fx-background-color: white; -fx-padding: 50 20; -fx-border-color: #e2e8f0; -fx-border-width: 1 0 0 0;">
+                    <Label text="© 2026 LearnHub. Tous droits réservés." style="-fx-text-fill: #64748b; -fx-font-size: 14px;"/>
+                </VBox>
+
             </VBox>
         </ScrollPane>
     </center>

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<!--
+  VISITEUR UNIVERSITY DETAILS
+-->
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:id="rootPane"
+            fx:controller="com.learnhub.controller.visiteur.UniversiteDetailsController"
+            stylesheets="@/css/styles.css"
+            prefWidth="1280" prefHeight="800">
+
+    <!-- TOP NAVBAR BLANCHE -->
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="10" styleClass="visiteur-nav">
+            <Label text="🎓 LearnHub" styleClass="visiteur-nav-title"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button text="Accueil"      styleClass="visiteur-nav-btn" onAction="#goHome"/>
+            <Button text="Programmes"  styleClass="visiteur-nav-btn" onAction="#goPrograms"/>
+            <Button text="Actualités"  styleClass="visiteur-nav-btn" onAction="#goEvents"/>
+            <Button text="Partenaires" styleClass="visiteur-nav-btn" onAction="#goPartners"/>
+            <Button text="🔐  Se connecter" styleClass="visiteur-nav-login" onAction="#goLogin"/>
+        </HBox>
+    </top>
+
+    <!-- CONTENT -->
+    <center>
+        <ScrollPane fitToWidth="true"
+                    style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-background: #f8fafc;">
+            <VBox spacing="0">
+
+                <!-- HEADER SECTION -->
+                <VBox fx:id="heroSection" alignment="CENTER" spacing="15" minHeight="250"
+                      style="-fx-background-color: linear-gradient(to bottom right, #0A1F44, #1E3A8A);">
+                    <padding><Insets top="50" bottom="50" left="100" right="100"/></padding>
+                    <Label fx:id="uniNameLabel" text="Nom Université" styleClass="visiteur-hero-title" style="-fx-font-size: 42px;"/>
+                    <Label fx:id="uniSubInfoLabel" text="Type • Ville"
+                           styleClass="visiteur-hero-sub" wrapText="true" maxWidth="720" textAlignment="CENTER"/>
+                </VBox>
+
+                <HBox alignment="CENTER_LEFT" style="-fx-padding: 30 100 0 100;">
+                    <Button text="&lt; Retour aux universités" onAction="#goHome"
+                            style="-fx-background-color: transparent; -fx-text-fill: #3B82F6; -fx-cursor: hand; -fx-font-weight: bold; -fx-font-size: 14px;"/>
+                </HBox>
+
+                <!-- CONTENT SECTIONS -->
+                <HBox spacing="30" alignment="TOP_CENTER" style="-fx-padding: 30 100 60 100; -fx-background-color: #f8fafc;">
+                    <!-- LEFT: FILIERES GRID -->
+                    <VBox spacing="30" HBox.hgrow="ALWAYS" maxWidth="850">
+                        <HBox alignment="CENTER_LEFT">
+                            <Label text="Nos Formations" style="-fx-font-size: 26px; -fx-font-weight: 800; -fx-text-fill: #0f172a;"/>
+                            <Region HBox.hgrow="ALWAYS" />
+                            <Label fx:id="filieresCountLabel" text="0 formation trouvée" style="-fx-text-fill: #64748b; -fx-font-size: 14px; -fx-font-weight: bold;"/>
+                        </HBox>
+
+                        <FlowPane fx:id="filieresContainer" hgap="20" vgap="20" alignment="CENTER_LEFT">
+                            <!-- Les cartes seront injectées ici -->
+                        </FlowPane>
+                    </VBox>
+
+                    <!-- RIGHT: SIDEBAR INFO -->
+                    <VBox spacing="30" prefWidth="400" minWidth="400"
+                          style="-fx-background-color: white; -fx-padding: 40; -fx-background-radius: 28; 
+                                 -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 30, 0, 0, 10); -fx-border-color: #f1f5f9; -fx-border-radius: 28;">
+                        
+                        <!-- Sidebar Header -->
+                        <VBox spacing="15" alignment="CENTER">
+                            <Label text="🏛️" style="-fx-font-size: 50px; -fx-text-fill: #1e3a8a; -fx-background-color: #f0f9ff; -fx-padding: 20; -fx-background-radius: 20;"/>
+                            <VBox spacing="5" alignment="CENTER">
+                                <Label text="Informations" style="-fx-font-size: 22px; -fx-font-weight: 900; -fx-text-fill: #0f172a;"/>
+                                <Label text="Contact &amp; Localisation" style="-fx-font-size: 14px; -fx-text-fill: #64748b;"/>
+                            </VBox>
+                        </VBox>
+
+                        <Separator style="-fx-opacity: 0.5;"/>
+
+                        <!-- Info Rows -->
+                        <VBox spacing="15">
+                            <!-- Adresse row -->
+                            <VBox spacing="8" style="-fx-background-color: #f8fafc; -fx-padding: 15; -fx-background-radius: 12; -fx-border-color: #f1f5f9; -fx-border-radius: 12;">
+                                <HBox spacing="10" alignment="CENTER_LEFT">
+                                    <Label text="📍" style="-fx-font-size: 18px;"/>
+                                    <Label text="ADRESSE" style="-fx-font-size: 11px; -fx-font-weight: 800; -fx-text-fill: #94a3b8; -fx-letter-spacing: 1px;"/>
+                                </HBox>
+                                <Label fx:id="uniAddressLabel" text="-" wrapText="true" style="-fx-font-size: 15px; -fx-text-fill: #334155; -fx-font-weight: 600; -fx-padding: 0 0 0 28;"/>
+                            </VBox>
+
+                            <!-- Ville row -->
+                            <VBox spacing="8" style="-fx-background-color: #f8fafc; -fx-padding: 15; -fx-background-radius: 12; -fx-border-color: #f1f5f9; -fx-border-radius: 12;">
+                                <HBox spacing="10" alignment="CENTER_LEFT">
+                                    <Label text="🏙️" style="-fx-font-size: 18px;"/>
+                                    <Label text="VILLE" style="-fx-font-size: 11px; -fx-font-weight: 800; -fx-text-fill: #94a3b8; -fx-letter-spacing: 1px;"/>
+                                </HBox>
+                                <Label fx:id="uniCityLabel" text="-" style="-fx-font-size: 15px; -fx-text-fill: #334155; -fx-font-weight: 600; -fx-padding: 0 0 0 28;"/>
+                            </VBox>
+
+                            <!-- Téléphone row -->
+                            <VBox spacing="8" style="-fx-background-color: #f8fafc; -fx-padding: 15; -fx-background-radius: 12; -fx-border-color: #f1f5f9; -fx-border-radius: 12;">
+                                <HBox spacing="10" alignment="CENTER_LEFT">
+                                    <Label text="📞" style="-fx-font-size: 18px;"/>
+                                    <Label text="TÉLÉPHONE" style="-fx-font-size: 11px; -fx-font-weight: 800; -fx-text-fill: #94a3b8; -fx-letter-spacing: 1px;"/>
+                                </HBox>
+                                <Label fx:id="uniPhoneLabel" text="-" style="-fx-font-size: 15px; -fx-text-fill: #334155; -fx-font-weight: 600; -fx-padding: 0 0 0 28;"/>
+                            </VBox>
+
+                            <!-- Email row -->
+                            <VBox spacing="8" style="-fx-background-color: #f8fafc; -fx-padding: 15; -fx-background-radius: 12; -fx-border-color: #f1f5f9; -fx-border-radius: 12;">
+                                <HBox spacing="10" alignment="CENTER_LEFT">
+                                    <Label text="📧" style="-fx-font-size: 18px;"/>
+                                    <Label text="EMAIL" style="-fx-font-size: 11px; -fx-font-weight: 800; -fx-text-fill: #94a3b8; -fx-letter-spacing: 1px;"/>
+                                </HBox>
+                                <Label fx:id="uniEmailLabel" text="-" style="-fx-font-size: 15px; -fx-text-fill: #334155; -fx-font-weight: 600; -fx-padding: 0 0 0 28;"/>
+                            </VBox>
+                        </VBox>
+
+                        <VBox spacing="15" alignment="CENTER" style="-fx-padding: 10 0 0 0;">
+                            <Button text="🌎 Afficher la localisation" onAction="#handleShowLocation"
+                                    style="-fx-background-color: #1e3a8a; -fx-text-fill: white; -fx-font-weight: 900; -fx-font-size: 15px; 
+                                           -fx-background-radius: 16; -fx-padding: 16 30; -fx-cursor: hand; -fx-pref-width: 320; 
+                                           -fx-effect: dropshadow(gaussian, rgba(30,58,138,0.3), 15, 0, 0, 5);"/>
+                            
+                            <Label text="Ouvre la carte en plein écran" style="-fx-font-size: 12px; -fx-text-fill: #94a3b8;"/>
+                        </VBox>
+                    </VBox>
+                </HBox>
+                
+                <!-- FOOTER -->
+                <VBox alignment="CENTER" spacing="15" style="-fx-background-color: white; -fx-padding: 50 20; -fx-border-color: #e2e8f0; -fx-border-width: 1 0 0 0;">
+                    <Label text="© 2026 LearnHub. Tous droits réservés." style="-fx-text-fill: #64748b; -fx-font-size: 14px;"/>
+                </VBox>
+
+            </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>

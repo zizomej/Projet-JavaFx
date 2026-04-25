@@ -21,7 +21,7 @@ public class Evenement {
     private int capacite;
     private String image;
 
-    // Constructeurs
+
     public Evenement() {}
 
     public Evenement(int id, String titre, String description, String typeEvenement,
@@ -39,7 +39,7 @@ public class Evenement {
         this.lieuId = lieuId;
     }
 
-    // Getters et Setters
+
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
@@ -88,7 +88,7 @@ public class Evenement {
     public String getImage() { return image; }
     public void setImage(String image) { this.image = image; }
 
-    // Méthodes compatibilité avec l'ancien code
+
     public String getDate() { return dateDebut != null ? dateDebut.toString() : ""; }
     public void setDate(String date) { this.dateDebut = LocalDate.parse(date); }
 

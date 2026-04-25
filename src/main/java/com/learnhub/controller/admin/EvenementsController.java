@@ -21,17 +21,33 @@ import java.util.Optional;
 
 public class EvenementsController {
 
-    @FXML private TableView<Evenement> table;
-    @FXML private TableColumn<Evenement, String> colTitre;
-    @FXML private TableColumn<Evenement, String> colType;
-    @FXML private TableColumn<Evenement, String> colDate;
-    @FXML private TableColumn<Evenement, String> colLieu;
-    @FXML private TableColumn<Evenement, String> colStatut;
-    @FXML private TableColumn<Evenement, Void> colActions;
+    @FXML
+    private TableView<Evenement> table;
+    @FXML
+    private TableColumn<Evenement, String> colTitre;
+    @FXML
+    private TableColumn<Evenement, String> colType;
+    @FXML
+    private TableColumn<Evenement, String> colDate;
+    @FXML
+    private TableColumn<Evenement, String> colLieu;
+    @FXML
+    private TableColumn<Evenement, String> colStatut;
+    @FXML
+    private TableColumn<Evenement, Void> colActions;
 
-    @FXML private TextField searchField;
-    @FXML private Label totalEventsLabel;
-    @FXML private Label upcomingEventsLabel;
+    @FXML
+    private Label totalEventsLabel;
+    @FXML
+    private Label confirmedEventsLabel;
+    @FXML
+    private Label pendingEventsLabel;
+    @FXML
+    private Label participantsLabel;
+    @FXML
+    private Label tableHeaderLabel;
+    @FXML
+    private TextField navbarSearchField;
 
     private final EvenementDAO evenementDAO = new EvenementDAO();
     private final ObservableList<Evenement> eventList = FXCollections.observableArrayList();
@@ -40,26 +56,61 @@ public class EvenementsController {
     public void initialize() {
         setupTable();
         loadData();
-        searchField.textProperty().addListener((obs, old, val) -> filterData());
+
+
+        if (navbarSearchField != null) {
+            navbarSearchField.textProperty().addListener((obs, old, val) -> filterData(val));
+        }
     }
 
     private void setupTable() {
         colTitre.setCellValueFactory(new PropertyValueFactory<>("titre"));
         colType.setCellValueFactory(new PropertyValueFactory<>("typeEvenement"));
-        colDate.setCellValueFactory(new PropertyValueFactory<>("date")); // Employs the getDate helper in model
+        colDate.setCellValueFactory(new PropertyValueFactory<>("date"));
         colLieu.setCellValueFactory(new PropertyValueFactory<>("lieuNom"));
+
+
         colStatut.setCellValueFactory(new PropertyValueFactory<>("statut"));
+        colStatut.setCellFactory(column -> new TableCell<>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setGraphic(null);
+                } else {
+                    Label badge = new Label(item);
+                    badge.getStyleClass().add("badge");
+
+
+                    String status = item.toLowerCase();
+                    if (status.contains("cours") || status.contains("confirmé")) {
+                        badge.getStyleClass().add("badge-success");
+                    } else if (status.contains("planifié") || status.contains("attente")) {
+                        badge.getStyleClass().add("badge-warning");
+                    } else if (status.contains("annulé")) {
+                        badge.getStyleClass().add("badge-danger");
+                    } else {
+                        badge.getStyleClass().add("badge-info");
+                    }
+                    setGraphic(badge);
+                }
+            }
+        });
+
 
         colActions.setCellFactory(param -> new TableCell<>() {
             private final Button editBtn = new Button("✏️");
             private final Button deleteBtn = new Button("🗑");
-            private final HBox pane = new HBox(8, editBtn, deleteBtn);
+            private final HBox pane = new HBox(12, editBtn, deleteBtn);
             {
-                editBtn.setStyle("-fx-background-color:transparent;-fx-cursor:hand;");
-                deleteBtn.setStyle("-fx-background-color:transparent;-fx-text-fill:red;-fx-cursor:hand;");
+                pane.setAlignment(javafx.geometry.Pos.CENTER);
+                editBtn.getStyleClass().add("action-btn-edit");
+                deleteBtn.getStyleClass().add("action-btn-delete");
+
                 editBtn.setOnAction(e -> handleEdit(getTableView().getItems().get(getIndex())));
                 deleteBtn.setOnAction(e -> handleDelete(getTableView().getItems().get(getIndex())));
             }
+
             @Override
             protected void updateItem(Void item, boolean empty) {
                 super.updateItem(item, empty);
@@ -72,27 +123,43 @@ public class EvenementsController {
         try {
             eventList.setAll(evenementDAO.findAll());
             table.setItems(eventList);
-            totalEventsLabel.setText(eventList.size() + " événements");
-            
-            long upcoming = eventList.stream()
-                .filter(e -> e.getDateDebut() != null && !e.getDateDebut().isBefore(LocalDate.now()))
-                .count();
-            upcomingEventsLabel.setText(String.valueOf(upcoming));
+
+
+            int total = eventList.size();
+            totalEventsLabel.setText(String.valueOf(total));
+
+            long confirmed = eventList.stream()
+                    .filter(e -> e.getStatut() != null && (e.getStatut().toLowerCase().contains("cours")
+                            || e.getStatut().toLowerCase().contains("confirmé")))
+                    .count();
+            confirmedEventsLabel.setText(String.valueOf(confirmed));
+
+            long pending = eventList.stream()
+                    .filter(e -> e.getStatut() != null && (e.getStatut().toLowerCase().contains("planifié")
+                            || e.getStatut().toLowerCase().contains("attente")))
+                    .count();
+            pendingEventsLabel.setText(String.valueOf(pending));
+
+
+            int totalParticipants = eventList.stream().mapToInt(Evenement::getCapacite).sum() / 4; // Mock logic
+            participantsLabel.setText(String.valueOf(totalParticipants));
+
+            tableHeaderLabel.setText("📋 Liste des événements (" + total + ")");
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    private void filterData() {
-        String filter = searchField.getText().toLowerCase();
-        if (filter.isEmpty()) {
+    private void filterData(String filter) {
+        if (filter == null || filter.isEmpty()) {
             table.setItems(eventList);
         } else {
-            FilteredList<Evenement> filtered = new FilteredList<>(eventList, e -> 
-                e.getTitre().toLowerCase().contains(filter) || 
-                e.getTypeEvenement().toLowerCase().contains(filter) ||
-                (e.getLieuNom() != null && e.getLieuNom().toLowerCase().contains(filter))
-            );
+            String lowerFilter = filter.toLowerCase();
+            FilteredList<Evenement> filtered = new FilteredList<>(eventList,
+                    e -> e.getTitre().toLowerCase().contains(lowerFilter) ||
+                            e.getTypeEvenement().toLowerCase().contains(lowerFilter) ||
+                            (e.getLieuNom() != null && e.getLieuNom().toLowerCase().contains(lowerFilter)));
             table.setItems(filtered);
         }
     }
@@ -125,7 +192,7 @@ public class EvenementsController {
         alert.setTitle("Suppression");
         alert.setHeaderText("Supprimer l'événement ?");
         alert.setContentText("Cette action supprimera également les inscriptions associées.");
-        
+
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
             try {
@@ -144,6 +211,7 @@ public class EvenementsController {
 
     @FXML
     private void goBack() {
-        NavigationUtil.navigateTo((Stage) table.getScene().getWindow(), "/fxml/admin/dashboard.fxml", "Tableau de Bord");
+        NavigationUtil.navigateTo((Stage) table.getScene().getWindow(), "/fxml/admin/dashboard.fxml",
+                "Tableau de Bord");
     }
 }
