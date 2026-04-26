@@ -16,8 +16,10 @@
             <Label text="Détails du Rendez-vous" style="-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #1E293B;" />
             <Label text="Informations complètes" style="-fx-text-fill: #94A3B8; -fx-font-size: 11;" />
         </VBox>
-        <HBox spacing="10.0">
+        <HBox spacing="10.0" alignment="CENTER_RIGHT">
+            <Button onAction="#handleDownloadPDF" styleClass="btn-header-action" text="💾 PDF" />
             <Button onAction="#handleBack" styleClass="btn-header-action" text="⬅ Retour" />
+            <Button fx:id="btnCancel" onAction="#handleCancel" styleClass="btn-orange" text="🚫 Annuler le RDV" />
             <Button fx:id="btnEdit" onAction="#handleEdit" styleClass="btn-yellow" text="📝 Modifier" />
             <Button fx:id="btnDelete" onAction="#handleDelete" styleClass="btn-orange" text="🗑 Supprimer" />
         </HBox>
@@ -42,7 +44,7 @@
                 </HBox>
 
                 <HBox style="-fx-padding: 15; -fx-border-color: #F1F5F9; -fx-border-width: 0 0 1 0;">
-                    <Label text="Date de demande" prefWidth="150.0" style="-fx-text-fill: #64748B; -fx-font-weight: bold;" />
+                    <Label text="Date de Séance" prefWidth="150.0" style="-fx-text-fill: #64748B; -fx-font-weight: bold;" />
                     <Label fx:id="lblDate" text="11/04/2026" style="-fx-text-fill: #1E293B; -fx-font-weight: bold;" />
                 </HBox>
 

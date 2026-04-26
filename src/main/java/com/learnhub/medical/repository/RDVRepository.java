@@ -159,6 +159,115 @@ public class RDVRepository {
         return stats;
     }
 
+    public RDV findById(int id) throws SQLException {
+        String sql = "SELECT * FROM rdv WHERE id=?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) return map(rs);
+        }
+        return null;
+    }
+
+    /**
+     * Libération ATOMIQUE du rendez-vous et du créneau.
+     * Utilise connection.setAutoCommit(false) pour garantir la cohérence des données.
+     */
+    public void processAtomicCancellation(int rdvId, int creneauId, String newStatus) throws SQLException {
+        Connection conn = null;
+        try {
+            conn = DatabaseConnection.getConnection();
+            conn.setAutoCommit(false); // DEBUT TRANSACTION
+
+            // 1. Mise à jour du RDV
+            String sqlRdv = "UPDATE rdv SET statut=? WHERE id=?";
+            try (PreparedStatement psRdv = conn.prepareStatement(sqlRdv)) {
+                psRdv.setString(1, newStatus);
+                psRdv.setInt(2, rdvId);
+                psRdv.executeUpdate();
+            }
+
+            // 2. Libération du créneau (dispo = 1)
+            String sqlCreneau = "UPDATE creneau SET disponibilite=1 WHERE id=?";
+            try (PreparedStatement psCr = conn.prepareStatement(sqlCreneau)) {
+                psCr.setInt(1, creneauId);
+                psCr.executeUpdate();
+            }
+
+            conn.commit(); // VALIDATION TRANSACTION
+        } catch (SQLException e) {
+            if (conn != null) conn.rollback(); // ANNULATION EN CAS D'ERREUR
+            throw e;
+        } finally {
+            if (conn != null) conn.setAutoCommit(true);
+            if (conn != null) conn.close();
+        }
+    }
+
+    /**
+     * Echange ATOMIQUE de créneaux.
+     * Libère l'ancien créneau, réserve le nouveau, et met à jour le RDV.
+     */
+    public void processAtomicReschedule(int rdvId, int oldCreneauId, int newCreneauId) throws SQLException {
+        Connection conn = null;
+        try {
+            conn = DatabaseConnection.getConnection();
+            conn.setAutoCommit(false); // DEBUT TRANSACTION
+
+            // 1. Libérer l'ancien créneau
+            String sqlOld = "UPDATE creneau SET disponibilite=1 WHERE id=?";
+            try (PreparedStatement psOld = conn.prepareStatement(sqlOld)) {
+                psOld.setInt(1, oldCreneauId);
+                psOld.executeUpdate();
+            }
+
+            // 2. Réserver le nouveau créneau
+            String sqlNew = "UPDATE creneau SET disponibilite=0 WHERE id=?";
+            try (PreparedStatement psNew = conn.prepareStatement(sqlNew)) {
+                psNew.setInt(1, newCreneauId);
+                psNew.executeUpdate();
+            }
+
+            // 3. Mettre à jour le RDV
+            String sqlRdv = "UPDATE rdv SET creneau_id=?, statut='Confirmé' WHERE id=?";
+            try (PreparedStatement psRdv = conn.prepareStatement(sqlRdv)) {
+                psRdv.setInt(1, newCreneauId);
+                psRdv.setInt(2, rdvId);
+                psRdv.executeUpdate();
+            }
+
+            conn.commit(); // VALIDATION
+        } catch (SQLException e) {
+            if (conn != null) conn.rollback();
+            throw e;
+        } finally {
+            if (conn != null) conn.setAutoCommit(true);
+            if (conn != null) conn.close();
+        }
+    }
+
+    /**
+     * Récupère les annulations récentes pour l'interface Médecin.
+     */
+    public List<RDV> findRecentCancellations() throws SQLException {
+        List<RDV> list = new ArrayList<>();
+        String sql = "SELECT r.*, u.nom, u.prenom FROM rdv r " +
+                     "JOIN utilisateur u ON r.etudiant_id = u.id " +
+                     "WHERE r.statut LIKE 'CANCELLED%' " +
+                     "ORDER BY r.id DESC LIMIT 10";
+        try (Connection conn = DatabaseConnection.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            while (rs.next()) {
+                RDV rdv = map(rs);
+                rdv.setStudentName(rs.getString("prenom") + " " + rs.getString("nom"));
+                list.add(rdv);
+            }
+        }
+        return list;
+    }
+
     private RDV map(ResultSet rs) throws SQLException {
         java.sql.Date d = rs.getDate("date_demande");
         return new RDV(

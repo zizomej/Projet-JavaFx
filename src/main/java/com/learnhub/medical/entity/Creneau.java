@@ -9,6 +9,7 @@ public class Creneau {
     private LocalTime heure;
     private String recurrence;
     private boolean disponibilite;
+    private String medecinName; // Pour affichage (Dr. Khalil par défaut)
 
     public Creneau() {}
 
@@ -34,6 +35,9 @@ public class Creneau {
 
     public boolean isDisponibilite() { return disponibilite; }
     public void setDisponibilite(boolean disponibilite) { this.disponibilite = disponibilite; }
+
+    public String getMedecinName() { return medecinName; }
+    public void setMedecinName(String medecinName) { this.medecinName = medecinName; }
 
     @Override
     public String toString() {

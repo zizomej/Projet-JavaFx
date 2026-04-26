@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" prefWidth="480.0" prefHeight="400.0" spacing="25.0" style="-fx-background-color: white; -fx-background-radius: 25; -fx-border-color: #E2E8F0; -fx-border-radius: 25; -fx-border-width: 1; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 20, 0, 0, 10);" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.learnhub.medical.controller.SuccessController">
+    <padding>
+        <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
+    </padding>
+
+    <!-- Cercle de validation stylisé -->
+    <StackPane>
+        <Circle fill="#10B981" radius="45.0" />
+        <Label text="L" rotate="35" style="-fx-font-size: 45; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 0 0 10 10;" />
+    </StackPane>
+
+    <VBox alignment="CENTER" spacing="12">
+        <Label style="-fx-font-size: 26; -fx-font-weight: bold; -fx-text-fill: #1E293B;" text="Paiement Confirmé !" />
+        <Label style="-fx-text-fill: #64748B; -fx-font-size: 15; -fx-text-alignment: center;" text="Félicitations, votre séance a été réservée et payée avec succès." wrapText="true" />
+    </VBox>
+
+    <VBox alignment="CENTER" spacing="8" style="-fx-background-color: #F0FDF4; -fx-padding: 15; -fx-background-radius: 12; -fx-border-color: #DCFCE7; -fx-border-radius: 12;">
+        <Label style="-fx-text-fill: #15803D; -fx-font-weight: bold; -fx-font-size: 13;" text="⚡ Notifications prioritaires" />
+        <Label style="-fx-text-fill: #166534; -fx-font-size: 12;" text="E-mail : araartasnim7@gmail.com" />
+        <Label style="-fx-text-fill: #166534; -fx-font-size: 12;" text="WhatsApp : +216 28 796 935" />
+    </VBox>
+
+    <Button onAction="#handleClose" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: #059669; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 16; -fx-background-radius: 12; -fx-cursor: hand;" text="Voir mon reçu" />
+</VBox>

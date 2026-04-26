@@ -38,6 +38,7 @@ public class MedecinDashboardController {
 
     private final RDVRepository    rdvRepo    = new RDVRepository();
     private final CreneauRepository creneauRepo = new CreneauRepository();
+    private final com.learnhub.medical.util.PenaltyService penaltyService = new com.learnhub.medical.util.PenaltyService();
     private final ObservableList<RDV> masterList = FXCollections.observableArrayList();
     private FilteredList<RDV> filteredList;
     private SortedList<RDV> sortedList;
@@ -133,19 +134,23 @@ public class MedecinDashboardController {
 
     private void addActionsColumn() {
         colActions.setCellFactory(col -> new TableCell<>() {
+            private final Button btnVoir   = new Button("👁 Voir");
             private final Button btnAccept = new Button("✔ Accepter");
             private final Button btnRefuse = new Button("✘ Refuser");
-            private final HBox   pane      = new HBox(8, btnAccept, btnRefuse);
+            private final HBox   pane      = new HBox(8, btnVoir, btnAccept, btnRefuse);
 
             {
+                btnVoir.setStyle("-fx-background-color: #3B82F6; -fx-text-fill: white; " +
+                    "-fx-font-weight: bold; -fx-background-radius: 5; -fx-cursor: hand;");
                 btnAccept.setStyle("-fx-background-color: #10B981; -fx-text-fill: white; " +
                     "-fx-font-weight: bold; -fx-background-radius: 5; -fx-cursor: hand;");
                 btnRefuse.setStyle("-fx-background-color: #EF4444; -fx-text-fill: white; " +
                     "-fx-font-weight: bold; -fx-background-radius: 5; -fx-cursor: hand;");
                 pane.setAlignment(javafx.geometry.Pos.CENTER);
 
+                btnVoir.setOnAction(e -> handleView(getIndex()));
                 btnAccept.setOnAction(e -> handleAction(getIndex(), "Confirmé"));
-                btnRefuse.setOnAction(e -> handleAction(getIndex(), "Annulé"));
+                btnRefuse.setOnAction(e -> handleCancel(getIndex()));
             }
 
             @Override
@@ -156,18 +161,62 @@ public class MedecinDashboardController {
         });
     }
 
+    private void handleView(int index) {
+        if (index < 0 || index >= tableRDV.getItems().size()) return;
+        RDV rdv = tableRDV.getItems().get(index);
+        try {
+            javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(getClass().getResource("/com/learnhub/medical/view/RDVDetails.fxml"));
+            javafx.scene.Parent root = loader.load();
+            RDVDetailsController ctrl = loader.getController();
+            ctrl.setRDV(rdv);
+            ctrl.setViewOnlyMode(true); // Médecin peut voir mais modification via dashboard principal si besoin
+            
+            javafx.stage.Stage stage = new javafx.stage.Stage();
+            stage.setTitle("Détails du Rendez-vous");
+            stage.setScene(new javafx.scene.Scene(root));
+            stage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
+            stage.show();
+        } catch (java.io.IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void handleCancel(int index) {
+        if (index < 0 || index >= tableRDV.getItems().size()) return;
+        RDV rdv = tableRDV.getItems().get(index);
+        
+        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION, "Voulez-vous vraiment refuser/annuler ce rendez-vous ?", ButtonType.YES, ButtonType.NO);
+        confirm.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.YES) {
+                try {
+                    String msg = penaltyService.processCancellation(rdv.getId());
+                    showInfo("Succès", msg);
+                    refreshData();
+                } catch (Exception e) {
+                    showAlert("Règle de Gestion", e.getMessage());
+                }
+            }
+        });
+    }
+
     private void handleAction(int index, String status) {
         if (index < 0 || index >= tableRDV.getItems().size()) return;
         RDV rdv = tableRDV.getItems().get(index);
         try {
             rdvRepo.updateStatus(rdv.getId(), status);
-            if ("Annulé".equals(status))
-                creneauRepo.updateAvailability(rdv.getCreneauId(), true);
             refreshData();
         } catch (SQLException e) {
             e.printStackTrace();
             showAlert("Erreur", "Impossible de mettre à jour le statut");
         }
+    }
+
+    private void showInfo(String title, String msg) {
+        Alert a = new Alert(Alert.AlertType.INFORMATION);
+        a.setTitle(title);
+        a.setHeaderText(null);
+        a.setContentText(msg);
+        a.showAndWait();
     }
 
     private void showAlert(String title, String msg) {

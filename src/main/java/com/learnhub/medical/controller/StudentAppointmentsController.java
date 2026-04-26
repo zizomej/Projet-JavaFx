@@ -105,17 +105,64 @@ public class StudentAppointmentsController {
         Label lblCompteRendu  = (Label) card.lookup("#lblCompteRendu");
         VBox  boxCompteRendu  = (VBox)  card.lookup("#boxCompteRendu");
         Button btnDetails     = (Button) card.lookup("#btnDetails");
+        Button btnRecu        = (Button) card.lookup("#btnRecu");
+
+        // Affichage du bouton REÇU uniquement si c'est payé
+        boolean isPaye = "Payé".equalsIgnoreCase(rdv.getStatut());
+        btnRecu.setVisible(isPaye);
+        btnRecu.setManaged(isPaye);
+
+        if (isPaye) {
+            btnRecu.setOnAction(e -> {
+                try {
+                    FXMLLoader recuLoader = new FXMLLoader(getClass().getResource("/com/learnhub/medical/view/RecuView.fxml"));
+                    Parent recuRoot = recuLoader.load();
+                    RecuController recuCtrl = recuLoader.getController();
+                    recuCtrl.setData(rdv);
+                    
+                    Stage recuStage = new Stage();
+                    recuStage.setTitle("Récupération de mon Reçu");
+                    recuStage.initModality(Modality.APPLICATION_MODAL);
+                    recuStage.setScene(new Scene(recuRoot));
+                    recuStage.show();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            });
+        }
 
         // Find linked Creneau for exact time
         Creneau linked = allCreneaux.stream()
             .filter(c -> c.getId() == rdv.getCreneauId())
             .findFirst().orElse(null);
+            
+        // Si non trouvé dans la liste globale, on tente un chargement direct (Sécurité)
+        if (linked == null) {
+            try {
+                linked = creneauRepo.findById(rdv.getCreneauId());
+            } catch (SQLException e) { /* ignore */ }
+        }
 
-        // Populate card with "Correct Info"
-        if (rdv.getDateDemande() != null) {
-            lblDate.setText(rdv.getDateDemande().getDayOfMonth() + " " + 
-                            getMonthName(rdv.getDateDemande().getMonthValue()) + " " + 
-                            rdv.getDateDemande().getYear());
+        // Force displayDate from Creneau if possible
+        LocalDate consultationDate = null;
+        if (linked != null) {
+            String jourStr = linked.getJour();
+            if (jourStr != null) {
+                if (jourStr.matches("\\d{4}-\\d{2}-\\d{2}")) {
+                    consultationDate = LocalDate.parse(jourStr);
+                } else {
+                    // C'est un nom de jour (Lundi, etc.), on calcule sa date pour la semaine actuelle
+                    consultationDate = getDateFromDayName(jourStr);
+                }
+            }
+        }
+        
+        LocalDate finalDate = (consultationDate != null) ? consultationDate : rdv.getDateDemande();
+
+        if (finalDate != null) {
+            lblDate.setText(finalDate.getDayOfMonth() + " " + 
+                            getMonthName(finalDate.getMonthValue()) + " " + 
+                            finalDate.getYear());
         } else {
             lblDate.setText("Date non définie");
         }
@@ -168,7 +215,8 @@ public class StudentAppointmentsController {
                 stage.setTitle("Détails de mon Rendez-vous");
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.setScene(new Scene(root));
-                stage.show();
+                stage.showAndWait(); // Attendre la fermeture (ex: après annulation)
+                loadData(); // Rafraîchir la liste
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
@@ -180,5 +228,16 @@ public class StudentAppointmentsController {
     private String getMonthName(int month) {
         String[] months = {"Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"};
         return (month >= 1 && month <= 12) ? months[month - 1] : "";
+    }
+
+    private LocalDate getDateFromDayName(String dayName) {
+        String[] days = {"Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"};
+        LocalDate monday = LocalDate.now().with(java.time.DayOfWeek.MONDAY);
+        for (int i = 0; i < 7; i++) {
+            if (days[i].equalsIgnoreCase(dayName)) {
+                return monday.plusDays(i);
+            }
+        }
+        return null;
     }
 }

@@ -5,65 +5,135 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.shape.Circle?>
 
-<VBox prefHeight="700.0" prefWidth="1050.0" spacing="25.0" style="-fx-background-color: linear-gradient(to bottom right, #F8FAFC, #E2E8F0);" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.learnhub.medical.controller.StudentPlanningController" stylesheets="@../css/style.css">
+<StackPane prefHeight="700.0" prefWidth="1050.0" style="-fx-background-color: linear-gradient(to bottom right, #F8FAFC, #E2E8F0);" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.learnhub.medical.controller.StudentPlanningController" stylesheets="@../css/style.css">
+    
+    <!-- MAIN CALENDAR VIEW -->
+    <VBox spacing="25.0">
+        <padding><Insets bottom="30.0" left="30.0" right="30.0" top="30.0"/></padding>
 
-    <padding><Insets bottom="30.0" left="30.0" right="30.0" top="30.0"/></padding>
+        <!-- Premium Calendar Header -->
+        <HBox alignment="CENTER_LEFT" spacing="20.0" style="-fx-background-color: white; -fx-padding: 25; -fx-background-radius: 15; -fx-effect: dropshadow(three-pass-box, rgba(30,58,138,0.1), 15, 0, 0, 5);">
+            <HBox alignment="CENTER_LEFT" spacing="15.0">
+                <StackPane>
+                    <Circle radius="26" fill="#EFF6FF" />
+                    <Label text="🗓️" style="-fx-font-size: 26;" />
+                </StackPane>
+                <VBox spacing="3.0">
+                    <Label fx:id="lblWeekRange" style="-fx-font-size: 22; -fx-font-weight: bold; -fx-text-fill: #1E3A8A;" text="Semaine du --/-- au --/--" />
+                    <HBox spacing="5.0" alignment="CENTER_LEFT">
+                        <Label text="●" style="-fx-text-fill: #10B981; -fx-font-size: 8;" />
+                        <Label text="Sélectionnez un créneau pour réserver votre rendez-vous médicale" style="-fx-text-fill: #64748B; -fx-font-size: 13;" />
+                    </HBox>
+                </VBox>
+            </HBox>
+            <Region HBox.hgrow="ALWAYS" />
+            <HBox spacing="12.0" alignment="CENTER_RIGHT">
+                <Button onAction="#handlePrevWeek" styleClass="btn-header-action" style="-fx-background-color: #F8FAFC; -fx-border-color: #E2E8F0; -fx-text-fill: #1E3A8A;" text="← Semaine précédente" />
+                <VBox alignment="CENTER" style="-fx-min-width: 140;">
+                    <Label fx:id="lblMonthYear" style="-fx-font-weight: bold; -fx-font-size: 14; -fx-text-fill: #1E3A8A; -fx-text-alignment: center;" text="AVRIL 2026" />
+                    <Separator prefWidth="50" style="-fx-opacity: 0.3;" />
+                </VBox>
+                <Button onAction="#handleNextWeek" styleClass="btn-header-action" style="-fx-background-color: #F8FAFC; -fx-border-color: #E2E8F0; -fx-text-fill: #1E3A8A;" text="Semaine suivante →" />
+            </HBox>
+        </HBox>
 
-    <!-- Premium Calendar Header -->
-    <HBox alignment="CENTER_LEFT" spacing="20.0" style="-fx-background-color: white; -fx-padding: 25; -fx-background-radius: 15; -fx-effect: dropshadow(three-pass-box, rgba(30,58,138,0.1), 15, 0, 0, 5);">
-        <HBox alignment="CENTER_LEFT" spacing="15.0">
+        <!-- Weekly Grid -->
+        <ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-background: transparent;" VBox.vgrow="ALWAYS">
+            <GridPane fx:id="gridPlanning" hgap="15.0" vgap="15.0">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="ALWAYS" minWidth="90" percentWidth="14.28" />
+                    <ColumnConstraints hgrow="ALWAYS" minWidth="90" percentWidth="14.28" />
+                    <ColumnConstraints hgrow="ALWAYS" minWidth="90" percentWidth="14.28" />
+                    <ColumnConstraints hgrow="ALWAYS" minWidth="90" percentWidth="14.28" />
+                    <ColumnConstraints hgrow="ALWAYS" minWidth="90" percentWidth="14.28" />
+                    <ColumnConstraints hgrow="ALWAYS" minWidth="90" percentWidth="14.28" />
+                    <ColumnConstraints hgrow="ALWAYS" minWidth="90" percentWidth="14.28" />
+                </columnConstraints>
+            </GridPane>
+        </ScrollPane>
+
+        <!-- Interactive Legend -->
+        <HBox spacing="40.0" alignment="CENTER" style="-fx-padding: 15; -fx-background-color: white; -fx-background-radius: 15; -fx-border-color: #E2E8F0; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.02), 10, 0, 0, 5);">
+            <HBox spacing="10.0" alignment="CENTER">
+                <Pane prefHeight="16.0" prefWidth="16.0" style="-fx-background-color: #F0FDF4; -fx-border-color: #22C55E; -fx-border-style: solid; -fx-border-width: 2; -fx-border-radius: 4;" />
+                <Label text="DISPONIBLE" style="-fx-font-weight: 900; -fx-text-fill: #166534; -fx-font-size: 11;" />
+            </HBox>
+            <HBox spacing="10.0" alignment="CENTER">
+                <Pane prefHeight="16.0" prefWidth="16.0" style="-fx-background-color: #FEF2F2; -fx-border-color: #EF4444; -fx-border-style: solid; -fx-border-width: 2; -fx-border-radius: 4;" />
+                <Label text="RÉSERVÉ" style="-fx-font-weight: 900; -fx-text-fill: #991B1B; -fx-font-size: 11;" />
+            </HBox>
+            <HBox spacing="10.0" alignment="CENTER">
+                <Pane prefHeight="16.0" prefWidth="16.0" style="-fx-background-color: #F8FAFC; -fx-border-color: #94A3B8; -fx-border-style: solid; -fx-border-width: 2; -fx-border-radius: 4;" />
+                <Label text="FERMÉ" style="-fx-font-weight: 900; -fx-text-fill: #475569; -fx-font-size: 11;" />
+            </HBox>
+        </HBox>
+    </VBox>
+
+    <!-- FLOATING CHATBOT WIDGET -->
+    <VBox fx:id="chatbotPanel" maxWidth="380.0" maxHeight="550.0" visible="false" StackPane.alignment="BOTTOM_RIGHT"
+          style="-fx-background-color: #F3F4F6; -fx-background-radius: 15; -fx-border-radius: 15; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 15, 0, 0, 10); -fx-border-color: #E5E7EB; -fx-border-width: 1;">
+        <StackPane.margin><Insets bottom="90.0" right="30.0" /></StackPane.margin>
+        
+        <!-- Chat Header -->
+        <HBox alignment="CENTER_LEFT" spacing="15.0" style="-fx-background-color: #0F9D58; -fx-padding: 15 20; -fx-background-radius: 14 14 0 0;">
             <StackPane>
-                <Circle radius="26" fill="#EFF6FF" />
-                <Label text="🗓️" style="-fx-font-size: 26;" />
+                <Circle radius="18" fill="#E8F5E9" />
+                <Label text="🤖" style="-fx-font-size: 20;" />
             </StackPane>
-            <VBox spacing="3.0">
-                <Label fx:id="lblWeekRange" style="-fx-font-size: 22; -fx-font-weight: bold; -fx-text-fill: #1E3A8A;" text="Semaine du --/-- au --/--" />
-                <HBox spacing="5.0" alignment="CENTER_LEFT">
-                    <Label text="●" style="-fx-text-fill: #10B981; -fx-font-size: 8;" />
-                    <Label text="Sélectionnez un créneau pour réserver votre rendez-vous médicale" style="-fx-text-fill: #64748B; -fx-font-size: 13;" />
+            <VBox>
+                <Label text="Assistant Médical IA" style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: white;" />
+                <HBox alignment="CENTER_LEFT" spacing="5.0">
+                    <Circle radius="3" fill="#69F0AE" />
+                    <Label text="En ligne • Réponse instantanée" style="-fx-font-size: 10; -fx-text-fill: #E8F5E9;" />
                 </HBox>
             </VBox>
+            <Region HBox.hgrow="ALWAYS" />
+            <Button onAction="#toggleChat" text="✕" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 16; -fx-font-weight: bold; -fx-cursor: hand;" />
         </HBox>
-        <Region HBox.hgrow="ALWAYS" />
-        <HBox spacing="12.0" alignment="CENTER_RIGHT">
-            <Button onAction="#handlePrevWeek" styleClass="btn-header-action" style="-fx-background-color: #F8FAFC; -fx-border-color: #E2E8F0; -fx-text-fill: #1E3A8A;" text="← Semaine précédente" />
-            <VBox alignment="CENTER" style="-fx-min-width: 140;">
-                <Label fx:id="lblMonthYear" style="-fx-font-weight: bold; -fx-font-size: 14; -fx-text-fill: #1E3A8A; -fx-text-alignment: center;" text="AVRIL 2026" />
-                <Separator prefWidth="50" style="-fx-opacity: 0.3;" />
+
+        <!-- Chat History -->
+        <ScrollPane fx:id="chatScrollPane" fitToWidth="true" style="-fx-background: #F3F4F6; -fx-background-color: transparent; -fx-border-width: 0;" VBox.vgrow="ALWAYS">
+            <VBox fx:id="chatContainer" spacing="15.0" style="-fx-padding: 20;">
+                <!-- Le chat commence proprement, vide -->
             </VBox>
-            <Button onAction="#handleNextWeek" styleClass="btn-header-action" style="-fx-background-color: #F8FAFC; -fx-border-color: #E2E8F0; -fx-text-fill: #1E3A8A;" text="Semaine suivante →" />
-        </HBox>
-    </HBox>
+        </ScrollPane>
 
-    <!-- Weekly Grid -->
-    <ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-background: transparent;" VBox.vgrow="ALWAYS">
-        <GridPane fx:id="gridPlanning" hgap="15.0" vgap="15.0">
-            <columnConstraints>
-                <ColumnConstraints hgrow="ALWAYS" minWidth="130" percentWidth="14.28" />
-                <ColumnConstraints hgrow="ALWAYS" minWidth="130" percentWidth="14.28" />
-                <ColumnConstraints hgrow="ALWAYS" minWidth="130" percentWidth="14.28" />
-                <ColumnConstraints hgrow="ALWAYS" minWidth="130" percentWidth="14.28" />
-                <ColumnConstraints hgrow="ALWAYS" minWidth="130" percentWidth="14.28" />
-                <ColumnConstraints hgrow="ALWAYS" minWidth="130" percentWidth="14.28" />
-                <ColumnConstraints hgrow="ALWAYS" minWidth="130" percentWidth="14.28" />
-            </columnConstraints>
-        </GridPane>
-    </ScrollPane>
+        <!-- Quick Actions (Pill Buttons - Pas de rectangles) -->
+        <HBox spacing="8.0" alignment="CENTER_LEFT" style="-fx-background-color: white; -fx-padding: 10 15 8 15; -fx-border-color: #F0F0F0; -fx-border-width: 1 0 0 0;">
+            <Button text="Prochain RDV" onAction="#handleQuickAction" userData="prochain rdv"
+                    style="-fx-background-color: #F0FDF4; -fx-border-color: #22C55E; -fx-border-width: 1.5; -fx-text-fill: #15803D; -fx-background-radius: 50; -fx-border-radius: 50; -fx-font-size: 11; -fx-font-weight: bold; -fx-cursor: hand; -fx-padding: 5 12;" />
+            <Button text="Creneaux dispos" onAction="#handleQuickAction" userData="dispos"
+                    style="-fx-background-color: #EFF6FF; -fx-border-color: #3B82F6; -fx-border-width: 1.5; -fx-text-fill: #1D4ED8; -fx-background-radius: 50; -fx-border-radius: 50; -fx-font-size: 11; -fx-font-weight: bold; -fx-cursor: hand; -fx-padding: 5 12;" />
+            <Button text="Recommandation" onAction="#handleQuickAction" userData="recommandation"
+                    style="-fx-background-color: #FEF9C3; -fx-border-color: #EAB308; -fx-border-width: 1.5; -fx-text-fill: #A16207; -fx-background-radius: 50; -fx-border-radius: 50; -fx-font-size: 11; -fx-font-weight: bold; -fx-cursor: hand; -fx-padding: 5 12;" />
+        </HBox>
 
-    <!-- Interactive Legend -->
-    <HBox spacing="50.0" alignment="CENTER" style="-fx-padding: 18; -fx-background-color: white; -fx-background-radius: 15; -fx-border-color: #E2E8F0; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.02), 10, 0, 0, 5);">
-        <HBox spacing="10.0" alignment="CENTER">
-            <Pane prefHeight="16.0" prefWidth="16.0" style="-fx-background-color: #F0FDF4; -fx-border-color: #22C55E; -fx-border-style: solid; -fx-border-width: 2; -fx-border-radius: 4;" />
-            <Label text="DISPONIBLE" style="-fx-font-weight: 900; -fx-text-fill: #166534; -fx-font-size: 11; -fx-letter-spacing: 1px;" />
+        <!-- Chat Input -->
+        <HBox spacing="10.0" alignment="CENTER" style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 0 0 14 14;">
+            <TextField fx:id="txtQuestion" onAction="#handleAskIA" promptText="Tapez votre question ici..." HBox.hgrow="ALWAYS" style="-fx-background-color: #F3F4F6; -fx-border-color: #E5E7EB; -fx-border-radius: 20; -fx-background-radius: 20; -fx-padding: 10 15;" />
+            <Button fx:id="btnMicIA" onAction="#handleMicIA" style="-fx-background-color: #F3F4F6; -fx-background-radius: 20; -fx-min-width: 40; -fx-min-height: 40; -fx-cursor: hand;">
+                <graphic>
+                    <Label text="🎤" style="-fx-font-size: 16;" />
+                </graphic>
+            </Button>
+            <StackPane>
+                <Button fx:id="btnAskIA" onAction="#handleAskIA" style="-fx-background-color: #0F9D58; -fx-background-radius: 20; -fx-min-width: 40; -fx-min-height: 40; -fx-cursor: hand;">
+                    <graphic>
+                        <Label text="➤" style="-fx-text-fill: white; -fx-font-size: 16;" />
+                    </graphic>
+                </Button>
+                <ProgressIndicator fx:id="aiProgress" visible="false" prefWidth="20" prefHeight="20" style="-fx-progress-color: white;" />
+            </StackPane>
         </HBox>
-        <HBox spacing="10.0" alignment="CENTER">
-            <Pane prefHeight="16.0" prefWidth="16.0" style="-fx-background-color: #FEF2F2; -fx-border-color: #EF4444; -fx-border-style: solid; -fx-border-width: 2; -fx-border-radius: 4;" />
-            <Label text="RÉSERVÉ" style="-fx-font-weight: 900; -fx-text-fill: #991B1B; -fx-font-size: 11; -fx-letter-spacing: 1px;" />
-        </HBox>
-        <HBox spacing="10.0" alignment="CENTER">
-            <Pane prefHeight="16.0" prefWidth="16.0" style="-fx-background-color: #F8FAFC; -fx-border-color: #94A3B8; -fx-border-style: solid; -fx-border-width: 2; -fx-border-radius: 4;" />
-            <Label text="FERMÉ" style="-fx-font-weight: 900; -fx-text-fill: #475569; -fx-font-size: 11; -fx-letter-spacing: 1px;" />
-        </HBox>
-    </HBox>
+    </VBox>
 
-</VBox>
+    <!-- FLOATING CHAT TOGGLE BUTTON -->
+    <Button fx:id="btnToggleChat" onAction="#toggleChat" StackPane.alignment="BOTTOM_RIGHT"
+            style="-fx-background-color: #0F9D58; -fx-background-radius: 35; -fx-min-width: 70; -fx-min-height: 70; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 5); -fx-cursor: hand;">
+        <StackPane.margin><Insets bottom="30.0" right="30.0" /></StackPane.margin>
+        <graphic>
+            <Label text="🤖" style="-fx-font-size: 35; -fx-text-fill: white;" />
+        </graphic>
+    </Button>
+
+</StackPane>

@@ -126,8 +126,18 @@ public class MainController {
     private void showMedecinDashboard()   { loadPage("MedecinDashboard"); }
     private void showStudentDashboard()   { loadPage("StudentDashboard"); }
     private void showUsers()              { loadPage("UserManagement"); }
-    private void showCreneaux()           { loadPage("CreneauManagement"); }
-    private void showRDV()                { loadPage("RDVManagement"); }
+    private void showCreneaux() {
+        String role = RoleSelectionController.selectedRole;
+        if ("ADMIN".equals(role)) {
+            loadPage("AdminCreneauManagement");
+        } else {
+            loadPage("CreneauManagement");
+        }
+    }
+
+    private void showRDV() {
+        loadPage("RDVManagement");
+    }
     private void showStudentPlanning()    { loadPage("StudentPlanning"); }
     private void showStudentAppointments(){ loadPage("StudentAppointments"); }
 

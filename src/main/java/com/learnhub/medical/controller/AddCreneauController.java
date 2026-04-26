@@ -23,7 +23,7 @@ public class AddCreneauController {
     @FXML private Button          btnDelete;
     @FXML private Button          btnRetour;
 
-    private CreneauManagementController parentController;
+    private ICreneauRefreshing parentController;
     private Creneau editingCreneau = null;
 
     @FXML
@@ -57,7 +57,7 @@ public class AddCreneauController {
         if (btnDelete != null) btnDelete.setVisible(false);
     }
 
-    public void setParentController(CreneauManagementController ctrl) {
+    public void setParentController(ICreneauRefreshing ctrl) {
         this.parentController = ctrl;
     }
 

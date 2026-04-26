@@ -40,5 +40,5 @@
             <!-- Les cartes de RDV seront injectées ici dynamiquement -->
         </VBox>
     </ScrollPane>
-    
+
 </VBox>
