@@ -36,9 +36,8 @@ import java.util.concurrent.CountDownLatch;
 
 public class AiAnalysisDialogController {
 
-    // IMPORTANT: Remplacer par votre clé API Groq
-    private static final String GROQ_API_KEY = "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";
-    private static final String GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions";
+    private static final String GEMINI_API_KEY = "AIzaSyD2Uy7MqFheLHUprL-xe2H5Q7bcKX8Bzh0";
+    private static final String GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" + GEMINI_API_KEY;
 
     // Désactiver les avertissements verbeux de PDFBox
     static {
@@ -145,34 +144,25 @@ public class AiAnalysisDialogController {
     }
 
     private String fetchAIResponse(String documentContent) throws Exception {
-        if ("VOTRE_CLE_API_GROQ_ICI".equals(GROQ_API_KEY)) {
-            throw new Exception("CLÉ API MANQUANTE ! Veuillez définir GROQ_API_KEY dans le code.");
-        }
-
         HttpClient client = HttpClient.newHttpClient();
 
-        JSONObject systemMessage = new JSONObject();
-        systemMessage.put("role", "system");
-        systemMessage.put("content", "Tu es un assistant IA pédagogique doté d'un duo de présentateurs (Alice et Bob). Ton but est d'analyser le cours fourni. Renvoie UNIQUEMENT un objet JSON valide (aucun bloc Markdown) avec cette structure exacte : { \"resume\": \"Résumé organisé avec des puces.\", \"motCleVideo\": \"Mots clés pertinents Youtube (ex: Tutoriel Java Spring)\", \"podcast\": [ { \"speaker\": \"Alice\", \"text\": \"Salut Bob !\" }, { \"speaker\": \"Bob\", \"text\": \"Bonjour !\" } ] }");
-
-        JSONObject userMessage = new JSONObject();
-        userMessage.put("role", "user");
-        userMessage.put("content", "Voici le texte du cours :\n" + documentContent);
-
-        JSONArray messages = new JSONArray();
-        messages.put(systemMessage);
-        messages.put(userMessage);
+        String systemPrompt = "Tu es un assistant IA pédagogique doté d'un duo de présentateurs (Alice et Bob). Ton but est d'analyser le cours fourni. Renvoie UNIQUEMENT un objet JSON valide (aucun bloc Markdown) avec cette structure exacte : { \"resume\": \"Résumé organisé avec des puces.\", \"motCleVideo\": \"Mots clés pertinents Youtube (ex: Tutoriel Java Spring)\", \"podcast\": [ { \"speaker\": \"Alice\", \"text\": \"Salut Bob !\" }, { \"speaker\": \"Bob\", \"text\": \"Bonjour !\" } ] }";
 
         JSONObject requestBody = new JSONObject();
-        // Utilisation d'un modèle Llama récent pris en charge par Groq
-        requestBody.put("model", "llama-3.1-8b-instant"); 
-        requestBody.put("messages", messages);
-        requestBody.put("temperature", 0.5);
+
+        // System Instruction
+        JSONObject systemText = new JSONObject().put("text", systemPrompt);
+        JSONObject systemInstruction = new JSONObject().put("parts", new JSONArray().put(systemText));
+        requestBody.put("system_instruction", systemInstruction);
+
+        // User Content
+        JSONObject userText = new JSONObject().put("text", "Voici le texte du cours :\n" + documentContent);
+        JSONObject userContent = new JSONObject().put("role", "user").put("parts", new JSONArray().put(userText));
+        requestBody.put("contents", new JSONArray().put(userContent));
 
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(GROQ_API_URL))
+                .uri(URI.create(GEMINI_API_URL))
                 .header("Content-Type", "application/json")
-                .header("Authorization", "Bearer " + GROQ_API_KEY)
                 .POST(HttpRequest.BodyPublishers.ofString(requestBody.toString()))
                 .build();
 
@@ -180,10 +170,12 @@ public class AiAnalysisDialogController {
 
         if (response.statusCode() == 200) {
             JSONObject jsonResponse = new JSONObject(response.body());
-            String aiAnswer = jsonResponse.getJSONArray("choices")
+            String aiAnswer = jsonResponse.getJSONArray("candidates")
                     .getJSONObject(0)
-                    .getJSONObject("message")
-                    .getString("content");
+                    .getJSONObject("content")
+                    .getJSONArray("parts")
+                    .getJSONObject(0)
+                    .getString("text");
             return aiAnswer;
         } else {
             System.err.println(response.body());

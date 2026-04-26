@@ -30,7 +30,7 @@ public class ChatbotController {
     @FXML private ScrollPane scrollPane;
 
     // TODO: Remplacez cette clé par votre propre clé API Google Gemini
-    private static final String API_KEY = "AIzaSyD2z4aNMbMXKBAy2e5GNczWzoxJIXSKw4g";
+    private static final String API_KEY = "AIzaSyD2Uy7MqFheLHUprL-xe2H5Q7bcKX8Bzh0";
     private static final String API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" + API_KEY;
 
     private JSONArray chatHistory = new JSONArray();
@@ -100,11 +100,16 @@ public class ChatbotController {
             });
         }).exceptionally(e -> {
             Platform.runLater(() -> {
-                addBotMessage("Désolé, une erreur technique est survenue. Veuillez réessayer !");
+                String causeMsg = e.getCause() != null ? e.getCause().getMessage() : "";
+                if (causeMsg.contains("503") || (e.getMessage() != null && e.getMessage().contains("503"))) {
+                    addBotMessage("Le serveur IA est actuellement surchargé (Erreur 503). Veuillez réessayer dans un instant !");
+                } else {
+                    addBotMessage("Désolé, une erreur technique est survenue. Veuillez réessayer !");
+                }
                 inputField.setDisable(false);
                 btnSend.setDisable(false);
             });
-            e.printStackTrace();
+            System.err.println("Erreur Chatbot: " + (e.getCause() != null ? e.getCause().getMessage() : e.getMessage()));
             return null;
         });
     }
@@ -177,12 +182,14 @@ public class ChatbotController {
                             .getJSONObject(0)
                             .getString("text");
                 } else {
-                    System.err.println("Gemini API Error: " + response.body());
+                    System.err.println("Gemini API Error (" + response.statusCode() + "): " + response.body());
                     throw new RuntimeException("API request failed with status: " + response.statusCode());
                 }
 
+            } catch (RuntimeException re) {
+                throw re;
             } catch (Exception e) {
-                throw new RuntimeException(e);
+                throw new RuntimeException("Erreur inattendue: " + e.getMessage(), e);
             }
         });
     }
