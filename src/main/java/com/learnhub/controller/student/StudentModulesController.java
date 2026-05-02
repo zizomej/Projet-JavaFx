@@ -24,8 +24,11 @@ public class StudentModulesController {
     @FXML private Label lblTotalRessources;
     @FXML private Accordion modulesAccordion;
 
+    @FXML private javafx.scene.shape.Circle notifBadge;
+
     private final ModuleDAO moduleDAO = new ModuleDAO();
     private final RessourceDAO ressourceDAO = new RessourceDAO();
+    private final com.learnhub.dao.NotificationDAO notificationDAO = new com.learnhub.dao.NotificationDAO();
 
     @FXML
     public void initialize() {
@@ -33,6 +36,45 @@ public class StudentModulesController {
         if (currentUser != null) {
             topUserName.setText(currentUser.getPrenom() + " " + currentUser.getNom());
             loadModules();
+            checkNotifications(currentUser.getId());
+        }
+    }
+
+    private void checkNotifications(int userId) {
+        try {
+            int unread = notificationDAO.countUnread(userId);
+            notifBadge.setVisible(unread > 0);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void handleNotifications() {
+        try {
+            javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(getClass().getResource("/fxml/student/notifications_popup.fxml"));
+            javafx.scene.Parent root = loader.load();
+            
+            NotificationsPopupController controller = loader.getController();
+            controller.setOnRefresh(() -> checkNotifications(SessionManager.getInstance().getCurrentUser().getId()));
+            
+            Stage popupStage = new Stage();
+            popupStage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
+            popupStage.initStyle(javafx.stage.StageStyle.TRANSPARENT);
+            
+            javafx.scene.Scene scene = new javafx.scene.Scene(root);
+            scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
+            popupStage.setScene(scene);
+            
+            Stage mainStage = (Stage) notifBadge.getScene().getWindow();
+            popupStage.setX(mainStage.getX() + mainStage.getWidth() / 2 - 225);
+            popupStage.setY(mainStage.getY() + mainStage.getHeight() / 2 - 275);
+            
+            popupStage.showAndWait();
+            checkNotifications(SessionManager.getInstance().getCurrentUser().getId());
+
+        } catch (java.io.IOException e) {
+            e.printStackTrace();
         }
     }
 

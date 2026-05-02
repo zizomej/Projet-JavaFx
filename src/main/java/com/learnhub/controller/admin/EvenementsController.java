@@ -140,7 +140,7 @@ public class EvenementsController {
                 pane.setAlignment(javafx.geometry.Pos.CENTER);
                 editBtn.getStyleClass().add("action-btn-edit");
                 deleteBtn.getStyleClass().add("action-btn-delete");
-                promoBtn.getStyleClass().add("action-btn-promo"); // Style à vérifier/ajouter
+                promoBtn.getStyleClass().add("action-btn-promo");
 
                 promoBtn.setOnAction(e -> handlePromotion(getTableView().getItems().get(getIndex())));
                 editBtn.setOnAction(e -> handleEdit(getTableView().getItems().get(getIndex())));

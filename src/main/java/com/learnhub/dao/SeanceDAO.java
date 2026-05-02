@@ -20,7 +20,23 @@ public class SeanceDAO {
         s.setHeureFin(rs.getString("heure_fin"));
         s.setSalle(rs.getString("salle"));
         s.setType(rs.getString("type"));
+        s.setTranscription(rs.getString("transcription"));
+        s.setResume(rs.getString("resume"));
+        s.setQuiz(rs.getString("quiz"));
+        s.setAudioUrl(rs.getString("audio_url"));
         return s;
+    }
+
+    public void updateAIFields(Seance s) throws SQLException {
+        String sql = "UPDATE seance SET transcription=?, resume=?, quiz=?, audio_url=? WHERE id=?";
+        try (PreparedStatement ps = DatabaseConnection.getInstance().prepareStatement(sql)) {
+            ps.setString(1, s.getTranscription());
+            ps.setString(2, s.getResume());
+            ps.setString(3, s.getQuiz());
+            ps.setString(4, s.getAudioUrl());
+            ps.setInt(5, s.getId());
+            ps.executeUpdate();
+        }
     }
 
     public List<Seance> findAll() throws SQLException {
@@ -66,7 +82,12 @@ public class SeanceDAO {
     }
 
     public void insert(Seance s) throws SQLException {
-        String sql = "INSERT INTO seance (module_id, enseignant_id, date_seance, heure_debut, heure_fin, salle, type) VALUES (?,?,?,?,?,?,?)";
+        // We will set a temporary placeholder, and update it after we get the ID
+        if (s.getAudioUrl() == null || s.getAudioUrl().isEmpty()) {
+            s.setAudioUrl("PENDING");
+        }
+
+        String sql = "INSERT INTO seance (module_id, enseignant_id, date_seance, heure_debut, heure_fin, salle, type, audio_url) VALUES (?,?,?,?,?,?,?,?)";
         try (PreparedStatement ps = DatabaseConnection.getInstance().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             ps.setInt(1, s.getModuleId());
             ps.setInt(2, s.getEnseignantId());
@@ -75,14 +96,23 @@ public class SeanceDAO {
             ps.setString(5, s.getHeureFin());
             ps.setString(6, s.getSalle());
             ps.setString(7, s.getType());
+            ps.setString(8, s.getAudioUrl());
             ps.executeUpdate();
             ResultSet keys = ps.getGeneratedKeys();
-            if (keys.next()) s.setId(keys.getInt(1));
+            if (keys.next()) {
+                int newId = keys.getInt(1);
+                s.setId(newId);
+                // If it was pending, update with real direct link
+                if ("PENDING".equals(s.getAudioUrl())) {
+                    s.setAudioUrl("https://learnhub.edu/recordings/audio_seance_" + newId + ".mp3");
+                    update(s);
+                }
+            }
         }
     }
 
     public void update(Seance s) throws SQLException {
-        String sql = "UPDATE seance SET module_id=?, enseignant_id=?, date_seance=?, heure_debut=?, heure_fin=?, salle=?, type=? WHERE id=?";
+        String sql = "UPDATE seance SET module_id=?, enseignant_id=?, date_seance=?, heure_debut=?, heure_fin=?, salle=?, type=?, audio_url=? WHERE id=?";
         try (PreparedStatement ps = DatabaseConnection.getInstance().prepareStatement(sql)) {
             ps.setInt(1, s.getModuleId());
             ps.setInt(2, s.getEnseignantId());
@@ -91,7 +121,8 @@ public class SeanceDAO {
             ps.setString(5, s.getHeureFin());
             ps.setString(6, s.getSalle());
             ps.setString(7, s.getType());
-            ps.setInt(8, s.getId());
+            ps.setString(8, s.getAudioUrl());
+            ps.setInt(9, s.getId());
             ps.executeUpdate();
         }
     }

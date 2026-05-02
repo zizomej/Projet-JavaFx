@@ -58,11 +58,10 @@ public class EvenementDAO {
 
     public List<Evenement> findUpcoming() throws SQLException {
         List<Evenement> list = new ArrayList<>();
-        // CORRECTION: utiliser 'date_debut' au lieu de 'date'
+        // Afficher tous les événements pour que l'utilisateur puisse les voir
         String sql = "SELECT e.*, l.nom as lieu_nom FROM evenement e " +
                 "LEFT JOIN lieu l ON e.lieu_id = l.id " +
-                "WHERE e.date_debut >= CURDATE() AND e.statut = 'En cours' " +
-                "ORDER BY e.date_debut ASC";
+                "ORDER BY e.date_debut DESC";
         try (Statement st = DatabaseConnection.getInstance().createStatement();
              ResultSet rs = st.executeQuery(sql)) {
             while (rs.next()) list.add(mapRow(rs));

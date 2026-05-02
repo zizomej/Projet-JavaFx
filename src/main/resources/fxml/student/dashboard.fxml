@@ -33,7 +33,10 @@
 
             <!-- User Profile & Logout -->
             <HBox alignment="CENTER" spacing="15">
-                <Button text="🔔" style="-fx-background-color: transparent; -fx-font-size: 16px;"/>
+                <StackPane>
+                    <Button text="🔔" style="-fx-background-color: transparent; -fx-font-size: 18px; -fx-cursor: hand;" onAction="#handleNotifications"/>
+                    <javafx.scene.shape.Circle fx:id="notifBadge" radius="4" fill="#ef4444" StackPane.alignment="TOP_RIGHT" visible="false" style="-fx-translate-x: -5; -fx-translate-y: 5;"/>
+                </StackPane>
                 <HBox alignment="CENTER" spacing="10">
                     <Label text="AZ" styleClass="prof-user-avatar" style="-fx-background-color: #fbbf24; -fx-text-fill: white;"/>
                     <VBox alignment="CENTER_LEFT">
@@ -50,6 +53,9 @@
     <center>
         <ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-border-color: transparent;">
             <VBox spacing="20" style="-fx-padding: 30;">
+                
+                <!-- Warnings Area (Dynamic) -->
+                <VBox fx:id="warningContainer" spacing="10"/>
 
                 <!-- Banner -->
                 <VBox style="-fx-background-color: linear-gradient(to right, #1e3a8a, #0f172a); -fx-background-radius: 12; -fx-padding: 30;" spacing="10">

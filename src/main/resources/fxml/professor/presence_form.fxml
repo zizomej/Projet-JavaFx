@@ -35,7 +35,7 @@
                 <VBox styleClass="card-body" VBox.vgrow="ALWAYS">
                     <TableView fx:id="presencesTable" VBox.vgrow="ALWAYS" style="-fx-border-color: transparent;">
                         <columns>
-                            <TableColumn fx:id="colNom" text="Nom et Prénom de l'étudiant" prefWidth="500" style="-fx-alignment: CENTER-LEFT; -fx-padding: 0 0 0 20;"/>
+                            <TableColumn fx:id="colNom" text="Nom et Prénom de l'étudiant" prefWidth="600" style="-fx-alignment: CENTER-LEFT; -fx-padding: 0 0 0 20;"/>
                             <TableColumn fx:id="colStatut" text="Statut de présence" prefWidth="350" styleClass="table-center-col"/>
                         </columns>
                         <placeholder>

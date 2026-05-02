@@ -128,10 +128,33 @@ public class EventsController {
         Region spacer2 = new Region();
         HBox.setHgrow(spacer2, javafx.scene.layout.Priority.ALWAYS);
 
-        footer.getChildren().addAll(infoBox, spacer2);
+        Button participateBtn = new Button("Participer");
+        participateBtn.setStyle("-fx-background-color: #1E3A8A; -fx-text-fill: white; -fx-font-weight: 800; -fx-padding: 10 25; -fx-background-radius: 10; -fx-cursor: hand;");
+        participateBtn.setOnAction(event -> handleParticipate(e));
+
+        footer.getChildren().addAll(infoBox, spacer2, participateBtn);
 
         card.getChildren().addAll(header, titleLabel, descText, footer);
         return card;
+    }
+
+    private void handleParticipate(Evenement e) {
+        try {
+            javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(getClass().getResource("/fxml/visiteur/participation_form.fxml"));
+            javafx.scene.Parent root = loader.load();
+            
+            ParticipationFormController controller = loader.getController();
+            controller.setEvenement(e);
+
+            Stage stage = new Stage();
+            stage.setTitle("Participation - " + e.getTitre());
+            stage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
+            stage.initOwner(rootPane.getScene().getWindow());
+            stage.setScene(new javafx.scene.Scene(root));
+            stage.showAndWait();
+        } catch (java.io.IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
     // Navigation Methods

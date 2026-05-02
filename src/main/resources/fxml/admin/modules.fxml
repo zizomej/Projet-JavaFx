@@ -17,79 +17,60 @@
             <VBox spacing="2" style="-fx-padding: 10 0;">
                 <Label text="NAVIGATION" styleClass="nav-section-title"/>
                 <Button text="🏠  Dashboard" styleClass="nav-btn" onAction="#goDashboard" maxWidth="Infinity"/>
-                <Button text="👥  Utilisateurs" styleClass="nav-btn" maxWidth="Infinity"/>
-                <Button text="🏛  Universités" styleClass="nav-btn" maxWidth="Infinity"/>
-                <Button text="📁  Filières" styleClass="nav-btn" maxWidth="Infinity"/>
-                <Button text="📚  Modules" styleClass="nav-btn, prof-nav-btn-active" maxWidth="Infinity"/>
-                <Button text="📅  Séances" styleClass="nav-btn" maxWidth="Infinity"/>
-                <Button text="📊  Notes" styleClass="nav-btn" onAction="#goNotes" maxWidth="Infinity"/>
+                <Button text="📚  Modules" styleClass="nav-btn, nav-btn-active" maxWidth="Infinity"/>
             </VBox>
             <Region VBox.vgrow="ALWAYS"/>
             <VBox styleClass="admin-section" spacing="10">
-                <HBox alignment="CENTER_LEFT" spacing="10">
-                    <Label text="AD" styleClass="prof-user-avatar" style="-fx-min-width: 36; -fx-min-height: 36;"/>
-                    <VBox>
-                        <Label text="Admin Principal" styleClass="admin-name-label"/>
-                        <Label text="admin@learnhub.tn" styleClass="admin-role-label"/>
-                    </VBox>
-                </HBox>
                 <Button text="🚪 Déconnexion" styleClass="nav-logout" onAction="#handleLogout" maxWidth="Infinity"/>
             </VBox>
         </VBox>
     </left>
 
-    <!-- TOPBAR -->
-    <top>
-        <HBox styleClass="topbar" alignment="CENTER_LEFT" spacing="20">
-            <VBox>
-                <Label text="Dashboard" styleClass="topbar-title"/>
-                <Label text="Bienvenue sur votre tableau de bord" styleClass="topbar-user"/>
-            </VBox>
-            <Region HBox.hgrow="ALWAYS"/>
-            <TextField promptText="Rechercher..." styleClass="search-field" prefWidth="250"/>
-            <Button text="🔔" style="-fx-background-color: transparent; -fx-font-size: 16px;"/>
-            <Button text="⚙" style="-fx-background-color: transparent; -fx-font-size: 16px;"/>
-        </HBox>
-    </top>
-
-    <!-- CONTENT -->
     <center>
-        <VBox styleClass="content-area" spacing="20">
-            
-            <!-- Banner -->
-            <HBox styleClass="card" style="-fx-padding: 24; -fx-border-width: 0;" alignment="CENTER_LEFT" spacing="15">
-                <Label text="📚" style="-fx-font-size: 32px;"/>
-                <VBox spacing="4">
-                    <Label text="Gestion Modules &amp; Ressources" styleClass="page-title" style="-fx-text-fill: #0A1F44;"/>
-                    <Label text="Administration - Suppression uniquement" styleClass="page-subtitle"/>
-                </VBox>
-            </HBox>
+        <ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-background: transparent; -fx-border-color: transparent;">
+            <VBox styleClass="content-area" spacing="30" style="-fx-padding: 40 60;">
+                
+                <!-- Banner -->
+                <HBox style="-fx-background-color: linear-gradient(to right, #1E3A8A, #6366f1); -fx-background-radius: 15; -fx-padding: 30; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 15, 0, 0, 5);" alignment="CENTER_LEFT" spacing="20">
+                    <StackPane style="-fx-background-color: rgba(255,255,255,0.2); -fx-background-radius: 12; -fx-padding: 15;">
+                        <Label text="📚" style="-fx-font-size: 30px;"/>
+                    </StackPane>
+                    <VBox spacing="5">
+                        <Label text="Catalogue des Modules" style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: 900;"/>
+                        <Label text="Consultez et gérez les ressources pédagogiques par module." style="-fx-text-fill: #e0e7ff; -fx-font-size: 14px;"/>
+                    </VBox>
+                </HBox>
 
-            <!-- Filters -->
-            <HBox spacing="15" alignment="CENTER_LEFT">
-                <TextField fx:id="searchField" promptText="🔍 Rechercher un module..." styleClass="search-field" prefWidth="300" HBox.hgrow="ALWAYS"/>
-                <ComboBox fx:id="comboSemestre" promptText="Tous les semestres" styleClass="filter-combo" prefWidth="180"/>
-                <ComboBox fx:id="comboTrier" promptText="Trier par: Semestre" styleClass="filter-combo" prefWidth="180"/>
-                <Button text="↑ ASC" styleClass="btn, btn-secondary, btn-sm" style="-fx-padding: 8 16;"/>
-            </HBox>
+                <!-- Search and Filters -->
+                <HBox spacing="15" alignment="CENTER_LEFT" style="-fx-padding: 20; -fx-background-color: white; -fx-background-radius: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 10, 0, 0, 4);">
+                    <TextField fx:id="searchField" promptText="🔍 Rechercher un module ou une ressource..." HBox.hgrow="ALWAYS" style="-fx-background-color: #f8fafc; -fx-padding: 12; -fx-background-radius: 10; -fx-border-color: #e2e8f0;"/>
+                    <ComboBox fx:id="comboSemestre" promptText="Semestre" prefWidth="180" style="-fx-background-color: #f8fafc; -fx-background-radius: 10;"/>
+                </HBox>
 
-            <!-- Split Layout -->
-            <HBox spacing="20" VBox.vgrow="ALWAYS">
-                <!-- Left: Modules List -->
-                <VBox spacing="15" prefWidth="350" minWidth="300" VBox.vgrow="ALWAYS">
-                    <ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-border-color: transparent;" VBox.vgrow="ALWAYS" translateY="-5">
-                        <VBox fx:id="modulesContainer" spacing="16" style="-fx-padding: 5;"/>
-                    </ScrollPane>
-                </VBox>
+                <!-- Split Content -->
+                <HBox spacing="25" VBox.vgrow="ALWAYS">
+                    <!-- Modules Column -->
+                    <VBox spacing="15" prefWidth="400" minWidth="350">
+                        <Label text="Modules Disponibles" style="-fx-font-size: 16px; -fx-font-weight: 800; -fx-text-fill: #1e293b;"/>
+                        <ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-border-color: transparent;" VBox.vgrow="ALWAYS">
+                            <VBox fx:id="modulesContainer" spacing="12"/>
+                        </ScrollPane>
+                    </VBox>
 
-                <!-- Right: Resources List -->
-                <VBox spacing="15" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS" styleClass="card" style="-fx-padding: 24;">
-                    <Label text="📂 Toutes les Ressources" styleClass="section-title" style="-fx-font-size: 16px; -fx-text-fill: #0A1F44; -fx-font-weight: 900;"/>
-                    <ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-border-color: transparent;" VBox.vgrow="ALWAYS">
-                        <VBox fx:id="resourcesContainer" spacing="20"/>
-                    </ScrollPane>
-                </VBox>
-            </HBox>
-        </VBox>
+                    <!-- Resources Column -->
+                    <VBox spacing="20" HBox.hgrow="ALWAYS" style="-fx-background-color: white; -fx-background-radius: 20; -fx-padding: 25; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 10, 0, 0, 4);">
+                        <HBox alignment="CENTER_LEFT" spacing="10">
+                            <Label text="📂" style="-fx-font-size: 20px;"/>
+                            <Label text="Ressources Pédagogiques" style="-fx-font-size: 18px; -fx-font-weight: 900; -fx-text-fill: #1e293b;"/>
+                        </HBox>
+                        <Separator/>
+                        <ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-border-color: transparent;" VBox.vgrow="ALWAYS">
+                            <VBox fx:id="resourcesContainer" spacing="15"/>
+                        </ScrollPane>
+                    </VBox>
+                </HBox>
+
+            </VBox>
+        </ScrollPane>
     </center>
 </BorderPane>

@@ -10,6 +10,10 @@ public class Seance {
     private String salle;
     private String type; // CM, TD, TP
     private String description;
+    private String transcription;
+    private String resume;
+    private String quiz; // Store JSON as String
+    private String audioUrl;
 
     private int enseignantId;
 
@@ -34,6 +38,14 @@ public class Seance {
     public void setType(String type) { this.type = type; }
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
+    public String getTranscription() { return transcription; }
+    public void setTranscription(String transcription) { this.transcription = transcription; }
+    public String getResume() { return resume; }
+    public void setResume(String resume) { this.resume = resume; }
+    public String getQuiz() { return quiz; }
+    public void setQuiz(String quiz) { this.quiz = quiz; }
+    public String getAudioUrl() { return audioUrl; }
+    public void setAudioUrl(String audioUrl) { this.audioUrl = audioUrl; }
     @Override public String toString() { return moduleTitre + " - " + date + " " + heureDebut; }
 }
 

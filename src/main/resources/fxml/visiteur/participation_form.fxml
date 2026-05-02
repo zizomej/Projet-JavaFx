@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<StackPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.learnhub.controller.visiteur.ParticipationFormController"
+           style="-fx-background-color: transparent;" prefWidth="550" prefHeight="450">
+
+    <VBox spacing="20" alignment="TOP_CENTER"
+          style="-fx-padding: 40; -fx-background-color: white; -fx-background-radius: 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 30, 0, 0, 15);">
+        
+        <Label fx:id="titleLabel" text="Participer à l'événement" style="-fx-font-size: 26px; -fx-text-fill: #1E3A8A; -fx-font-weight: 900;"/>
+        <Label fx:id="subtitleLabel" text="Événement : --" style="-fx-text-fill: #64748B; -fx-font-size: 15px; -fx-font-weight: bold;"/>
+
+        <VBox spacing="25" alignment="CENTER" style="-fx-padding: 20 0;">
+            <VBox spacing="8">
+                <Label text="Nom complet" style="-fx-text-fill: #475569; -fx-font-weight: bold; -fx-font-size: 13px;"/>
+                <TextField fx:id="nomField" promptText="Ex: Jean Dupont" 
+                           style="-fx-background-radius: 10; -fx-padding: 12; -fx-background-color: #F8FAFC; -fx-border-color: #E2E8F0; -fx-border-radius: 10;"/>
+            </VBox>
+
+            <VBox spacing="8">
+                <Label text="Adresse Email" style="-fx-text-fill: #475569; -fx-font-weight: bold; -fx-font-size: 13px;"/>
+                <TextField fx:id="emailField" promptText="Ex: jean.dupont@email.com" 
+                           style="-fx-background-radius: 10; -fx-padding: 12; -fx-background-color: #F8FAFC; -fx-border-color: #E2E8F0; -fx-border-radius: 10;"/>
+            </VBox>
+
+            <VBox spacing="8">
+                <Label text="Numéro de Téléphone" style="-fx-text-fill: #475569; -fx-font-weight: bold; -fx-font-size: 13px;"/>
+                <TextField fx:id="telephoneField" promptText="Ex: +216 71 234 567" 
+                           style="-fx-background-radius: 10; -fx-padding: 12; -fx-background-color: #F8FAFC; -fx-border-color: #E2E8F0; -fx-border-radius: 10;"/>
+            </VBox>
+        </VBox>
+
+        <Region VBox.vgrow="ALWAYS" />
+
+        <HBox spacing="15" alignment="CENTER_RIGHT">
+            <Button text="Annuler" onAction="#handleCancel" 
+                    style="-fx-background-color: #F1F5F9; -fx-text-fill: #475569; -fx-font-weight: bold; -fx-padding: 12 25; -fx-background-radius: 10; -fx-cursor: hand;"/>
+            <Button text="Confirmer la participation" onAction="#handleSubmit" 
+                    style="-fx-background-color: #1E3A8A; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 12 30; -fx-background-radius: 10; -fx-cursor: hand;"/>
+        </HBox>
+    </VBox>
+</StackPane>

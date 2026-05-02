@@ -2,46 +2,76 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.shape.Circle?>
 
 <VBox xmlns:fx="http://javafx.com/fxml" 
       fx:controller="com.learnhub.controller.admin.PromotionController"
-      spacing="25" style="-fx-background-color: white; -fx-padding: 35; -fx-background-radius: 18; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 30, 0, 0, 15);"
-      prefWidth="850">
+      spacing="0" style="-fx-background-color: white; -fx-background-radius: 24; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 40, 0, 0, 20);"
+      prefWidth="900" prefHeight="650">
 
-    <HBox alignment="CENTER_LEFT" spacing="15">
-        <Label text="✨" style="-fx-font-size: 28px;"/>
-        <Label fx:id="mainTitle" text="Promotion de l'événement" style="-fx-font-size: 24px; -fx-font-weight: 800; -fx-text-fill: #1E3A8A;"/>
-        <Region HBox.hgrow="ALWAYS"/>
-        <Button text="✕" onAction="#handleClose" style="-fx-background-color: transparent; -fx-text-fill: #94a3b8; -fx-font-size: 20px; -fx-cursor: hand;"/>
-    </HBox>
+    <!-- HEADER PREMIUM -->
+    <VBox style="-fx-background-color: linear-gradient(to right, #EEF2FF, #FFFFFF); -fx-background-radius: 24 24 0 0; -fx-padding: 30 40; -fx-border-color: #E2E8F0; -fx-border-width: 0 0 1 0;">
+        <HBox alignment="CENTER_LEFT" spacing="20">
+            <StackPane style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 10, 0, 0, 2);">
+                <Label text="🚀" style="-fx-font-size: 24px;"/>
+            </StackPane>
+            <VBox spacing="4">
+                <Label fx:id="mainTitle" text="Outil de Promotion IA" style="-fx-font-size: 22px; -fx-font-weight: 900; -fx-text-fill: #1E3A8A;"/>
+                <Label text="Générez instantanément du contenu marketing pour votre événement." style="-fx-font-size: 13px; -fx-text-fill: #64748B;"/>
+            </VBox>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button onAction="#handleClose" style="-fx-background-color: #F1F5F9; -fx-background-radius: 50; -fx-min-width: 40; -fx-min-height: 40; -fx-cursor: hand;">
+                <graphic>
+                    <Label text="✕" style="-fx-text-fill: #64748B; -fx-font-size: 16px; -fx-font-weight: bold;"/>
+                </graphic>
+            </Button>
+        </HBox>
+    </VBox>
 
-    <HBox spacing="30" VBox.vgrow="ALWAYS">
+    <!-- CONTENT AREA -->
+    <HBox spacing="35" VBox.vgrow="ALWAYS" style="-fx-padding: 35 40;">
+        
         <!-- EMAIL SECTION -->
-        <VBox spacing="15" HBox.hgrow="ALWAYS">
-            <HBox alignment="CENTER_LEFT" spacing="10">
-                <Label text="📧" style="-fx-font-size: 18px;"/>
-                <Label text="Email d'invitation" style="-fx-font-weight: bold; -fx-text-fill: #334155; -fx-font-size: 15px;"/>
+        <VBox spacing="18" HBox.hgrow="ALWAYS">
+            <HBox alignment="CENTER_LEFT" spacing="12">
+                <Label text="✉️" style="-fx-font-size: 18px; -fx-text-fill: #3B82F6;"/>
+                <Label text="Email d'invitation" style="-fx-font-weight: 800; -fx-text-fill: #334155; -fx-font-size: 15px;"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Label text="Prêt à envoyer" style="-fx-text-fill: #10B981; -fx-font-size: 11px; -fx-font-weight: bold; -fx-background-color: #ECFDF5; -fx-padding: 4 10; -fx-background-radius: 20;"/>
             </HBox>
-            <TextArea fx:id="emailArea" wrapText="true" VBox.vgrow="ALWAYS" prefHeight="350"
-                      style="-fx-background-radius: 12; -fx-border-radius: 12; -fx-border-color: #e2e8f0; -fx-font-family: 'Segoe UI'; -fx-font-size: 13px; -fx-padding: 10;"/>
-            <Button text="Copier l'email" onAction="#copyEmail" maxWidth="Infinity"
-                    style="-fx-background-color: #f1f5f9; -fx-text-fill: #475569; -fx-font-weight: bold; -fx-padding: 12; -fx-background-radius: 10; -fx-cursor: hand;"/>
+            
+            <VBox style="-fx-background-color: #F8FAFC; -fx-background-radius: 16; -fx-border-color: #E2E8F0; -fx-border-radius: 16; -fx-padding: 15;" VBox.vgrow="ALWAYS">
+                <TextArea fx:id="emailArea" wrapText="true" VBox.vgrow="ALWAYS"
+                          style="-fx-background-color: transparent; -fx-control-inner-background: transparent; -fx-background-insets: 0; -fx-padding: 0; -fx-font-family: 'Segoe UI', system-ui; -fx-font-size: 13px; -fx-text-fill: #475569; -fx-line-spacing: 4;"/>
+            </VBox>
+            
+            <Button text="Copier l'Email" onAction="#copyEmail" maxWidth="Infinity"
+                    style="-fx-background-color: #3B82F6; -fx-text-fill: white; -fx-font-weight: 800; -fx-padding: 14; -fx-background-radius: 12; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(59, 130, 246, 0.3), 10, 0, 0, 5);"/>
         </VBox>
 
         <!-- SOCIAL MEDIA SECTION -->
-        <VBox spacing="15" HBox.hgrow="ALWAYS">
-            <HBox alignment="CENTER_LEFT" spacing="10">
-                <Label text="📱" style="-fx-font-size: 18px;"/>
-                <Label text="Réseaux Sociaux" style="-fx-font-weight: bold; -fx-text-fill: #334155; -fx-font-size: 15px;"/>
+        <VBox spacing="18" HBox.hgrow="ALWAYS">
+            <HBox alignment="CENTER_LEFT" spacing="12">
+                <Label text="📸" style="-fx-font-size: 18px; -fx-text-fill: #8B5CF6;"/>
+                <Label text="Réseaux Sociaux" style="-fx-font-weight: 800; -fx-text-fill: #334155; -fx-font-size: 15px;"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Label text="Optimisé IA" style="-fx-text-fill: #8B5CF6; -fx-font-size: 11px; -fx-font-weight: bold; -fx-background-color: #F5F3FF; -fx-padding: 4 10; -fx-background-radius: 20;"/>
             </HBox>
-            <TextArea fx:id="socialArea" wrapText="true" VBox.vgrow="ALWAYS" prefHeight="350"
-                      style="-fx-background-radius: 12; -fx-border-radius: 12; -fx-border-color: #e2e8f0; -fx-font-family: 'Segoe UI'; -fx-font-size: 13px; -fx-padding: 10;"/>
-            <Button text="Copier les posts" onAction="#copySocial" maxWidth="Infinity"
-                    style="-fx-background-color: #f1f5f9; -fx-text-fill: #475569; -fx-font-weight: bold; -fx-padding: 12; -fx-background-radius: 10; -fx-cursor: hand;"/>
+            
+            <VBox style="-fx-background-color: #F8FAFC; -fx-background-radius: 16; -fx-border-color: #E2E8F0; -fx-border-radius: 16; -fx-padding: 15;" VBox.vgrow="ALWAYS">
+                <TextArea fx:id="socialArea" wrapText="true" VBox.vgrow="ALWAYS"
+                          style="-fx-background-color: transparent; -fx-control-inner-background: transparent; -fx-background-insets: 0; -fx-padding: 0; -fx-font-family: 'Segoe UI', system-ui; -fx-font-size: 13px; -fx-text-fill: #475569; -fx-line-spacing: 4;"/>
+            </VBox>
+            
+            <Button text="Copier les Posts" onAction="#copySocial" maxWidth="Infinity"
+                    style="-fx-background-color: #8B5CF6; -fx-text-fill: white; -fx-font-weight: 800; -fx-padding: 14; -fx-background-radius: 12; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(139, 92, 246, 0.3), 10, 0, 0, 5);"/>
         </VBox>
     </HBox>
 
-    <Label text="Astuce : Le contenu est généré automatiquement en utilisant l'intelligence artificielle pour maximiser l'engagement." 
-           style="-fx-text-fill: #94a3b8; -fx-font-size: 11px; -fx-font-style: italic;"/>
+    <!-- FOOTER -->
+    <HBox alignment="CENTER" style="-fx-background-color: #F8FAFC; -fx-background-radius: 0 0 24 24; -fx-padding: 20; -fx-border-color: #E2E8F0; -fx-border-width: 1 0 0 0;">
+        <Label text="✨ Le contenu est optimisé pour maximiser l'engagement et la visibilité de votre événement." 
+               style="-fx-text-fill: #64748B; -fx-font-size: 11px; -fx-font-weight: 600;"/>
+    </HBox>
 
 </VBox>

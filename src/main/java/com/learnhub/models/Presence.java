@@ -8,6 +8,7 @@ public class Presence {
     private String dateSeance;
     private String moduleNom;
     private String etudiantNom;
+    private int totalAbsences;
 
     public Presence() {}
 
@@ -31,4 +32,7 @@ public class Presence {
 
     public String getEtudiantNom() { return etudiantNom; }
     public void setEtudiantNom(String etudiantNom) { this.etudiantNom = etudiantNom; }
+
+    public int getTotalAbsences() { return totalAbsences; }
+    public void setTotalAbsences(int totalAbsences) { this.totalAbsences = totalAbsences; }
 }

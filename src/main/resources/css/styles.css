@@ -979,21 +979,25 @@ Label {
 }
 
 /* ─── NOTES ACCORDION ─────────────────────────────────────────────────── */
-.notes-accordion > .titled-pane > .title {
+.notes-accordion .titled-pane .title {
     -fx-background-color: #0A1F44;
-    -fx-padding: 12 20;
+    -fx-padding: 15 20;
     -fx-background-radius: 8 8 0 0;
     -fx-border-width: 0;
+    -fx-cursor: hand;
 }
-.notes-accordion > .titled-pane > .title > .text {
+.notes-accordion .titled-pane:hover .title {
+    -fx-background-color: #1E3A8A;
+}
+.notes-accordion .titled-pane .title .text {
     -fx-fill: white;
-    -fx-font-weight: bold;
+    -fx-font-weight: 900;
     -fx-font-size: 15px;
 }
-.notes-accordion > .titled-pane > .title > .arrow-button > .arrow {
+.notes-accordion .titled-pane .title .arrow-button .arrow {
     -fx-background-color: white;
 }
-.notes-accordion > .titled-pane > .content {
+.notes-accordion .titled-pane .content {
     -fx-background-color: white;
     -fx-border-color: #e5e7eb;
     -fx-border-width: 0 1 1 1;
@@ -1055,6 +1059,109 @@ Label {
 
 .premium-table .column-header {
     -fx-background-color: transparent;
+    -fx-size: 50;
+    -fx-padding: 0 10;
+}
+
+.premium-table .column-header .label {
+    -fx-text-fill: white;
+    -fx-font-weight: 800;
+    -fx-font-size: 13px;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.premium-table .table-row-cell {
+    -fx-background-color: white;
+    -fx-border-color: #f1f5f9;
+    -fx-border-width: 0 0 1 0;
+    -fx-padding: 8;
+}
+
+.premium-table .table-row-cell:odd {
+    -fx-background-color: #fafafa;
+}
+
+.premium-table .table-row-cell:hover {
+    -fx-background-color: #f8fafc;
+}
+
+.premium-table .table-cell {
+    -fx-padding: 12 10;
+    -fx-text-fill: #334155;
+    -fx-font-size: 13px;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.premium-table .placeholder .label {
+    -fx-text-fill: #94a3b8;
+    -fx-font-style: italic;
+}
+
+/* --- Premium Action Buttons (Table) --- */
+.action-btn-edit {
+    -fx-background-color: #eff6ff;
+    -fx-text-fill: #3b82f6;
+    -fx-background-radius: 50;
+    -fx-min-width: 36px;
+    -fx-min-height: 36px;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(59, 130, 246, 0.1), 5, 0, 0, 2);
+}
+.action-btn-edit:hover {
+    -fx-background-color: #3b82f6;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(59, 130, 246, 0.3), 10, 0, 0, 4);
+}
+
+.action-btn-ia {
+    -fx-background-color: #f5f3ff;
+    -fx-text-fill: #8b5cf6;
+    -fx-background-radius: 50;
+    -fx-min-width: 36px;
+    -fx-min-height: 36px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(139, 92, 246, 0.1), 5, 0, 0, 2);
+}
+.action-btn-ia:hover {
+    -fx-background-color: #8b5cf6;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(139, 92, 246, 0.3), 10, 0, 0, 4);
+}
+
+.action-btn-audio {
+    -fx-background-color: #f0fdf4;
+    -fx-text-fill: #10b981;
+    -fx-background-radius: 50;
+    -fx-min-width: 36px;
+    -fx-min-height: 36px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(16, 185, 129, 0.1), 5, 0, 0, 2);
+}
+.action-btn-audio:hover {
+    -fx-background-color: #10b981;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(16, 185, 129, 0.3), 10, 0, 0, 4);
+}
+
+.action-btn-delete {
+    -fx-background-color: #fef2f2;
+    -fx-text-fill: #ef4444;
+    -fx-background-radius: 50;
+    -fx-min-width: 36px;
+    -fx-min-height: 36px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(239, 68, 68, 0.1), 5, 0, 0, 2);
+}
+.action-btn-delete:hover {
+    -fx-background-color: #ef4444;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(239, 68, 68, 0.3), 10, 0, 0, 4);
+}
+
+.premium-table .column-header {
+    -fx-background-color: transparent;
     -fx-size: 45px;
 }
 
@@ -1107,53 +1214,54 @@ Label {
     -fx-cursor: hand;
 }
 
+/* --- Model-specific Action Buttons --- */
 .action-btn-promo {
-    -fx-background-color: #3b82f633;
-    -fx-text-fill: #3b82f6;
-    -fx-font-size: 14px;
+    -fx-background-color: #f5f3ff; /* Lavender */
+    -fx-text-fill: #8b5cf6; /* Purple */
     -fx-background-radius: 8;
+    -fx-min-width: 32px;
+    -fx-min-height: 32px;
+    -fx-max-width: 32px;
+    -fx-max-height: 32px;
+    -fx-font-size: 14px;
     -fx-cursor: hand;
+    -fx-padding: 0;
 }
-
 .action-btn-promo:hover {
-    -fx-background-color: #3b82f6;
-    -fx-text-fill: white;
+    -fx-background-color: #ede9fe;
 }
 
 .action-btn-edit {
-    -fx-background-color: #eff6ff;
-    -fx-text-fill: #3b82f6;
+    -fx-background-color: #eff6ff; /* Light Blue */
+    -fx-text-fill: #3b82f6; /* Blue */
     -fx-background-radius: 50;
     -fx-min-width: 32px;
     -fx-min-height: 32px;
-    -fx-cursor: hand;
-}
-
-.action-btn-ia {
-    -fx-background-color: #8b5cf61a;
-    -fx-text-fill: #8b5cf6;
+    -fx-max-width: 32px;
+    -fx-max-height: 32px;
     -fx-font-size: 14px;
-    -fx-background-radius: 8;
     -fx-cursor: hand;
+    -fx-padding: 0;
 }
-
-.action-btn-ia:hover {
-    -fx-background-color: #8b5cf6;
-    -fx-text-fill: white;
+.action-btn-edit:hover {
+    -fx-background-color: #dbeafe;
 }
 
 .action-btn-delete {
-    -fx-background-color: #fef2f2;
-    -fx-text-fill: #ef4444;
+    -fx-background-color: #fef2f2; /* Light Red */
+    -fx-text-fill: #ef4444; /* Red */
     -fx-background-radius: 50;
     -fx-min-width: 32px;
     -fx-min-height: 32px;
+    -fx-max-width: 32px;
+    -fx-max-height: 32px;
+    -fx-font-size: 14px;
     -fx-cursor: hand;
+    -fx-padding: 0;
 }
-
-.action-btn-view:hover { -fx-background-color: #d1fae5; }
-.action-btn-edit:hover { -fx-background-color: #dbeafe; }
-.action-btn-delete:hover { -fx-background-color: #fee2e2; }
+.action-btn-delete:hover {
+    -fx-background-color: #fee2e2;
+}
 
 /* --- FORMULAIRES PREMIUM ENHANCED --- */
 .root-container {

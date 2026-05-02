@@ -14,25 +14,36 @@ import java.time.format.DateTimeParseException;
 
 public class EvenementFormController {
 
-    @FXML private Label titleLabel;
-    @FXML private TextField titreField;
-    @FXML private ComboBox<String> typeCombo;
-    @FXML private TextField lieuField;
-    @FXML private DatePicker dateDebutPicker;
-    @FXML private DatePicker dateFinPicker;
-    @FXML private TextField heureDebutField;
-    @FXML private TextField heureFinField;
-    @FXML private TextField capaciteField;
-    @FXML private ComboBox<String> statutCombo;
-    @FXML private TextArea descriptionArea;
+    @FXML
+    private Label titleLabel;
+    @FXML
+    private TextField titreField;
+    @FXML
+    private ComboBox<String> typeCombo;
+    @FXML
+    private TextField lieuField;
+    @FXML
+    private DatePicker dateDebutPicker;
+    @FXML
+    private DatePicker dateFinPicker;
+    @FXML
+    private TextField heureDebutField;
+    @FXML
+    private TextField heureFinField;
+    @FXML
+    private TextField capaciteField;
+    @FXML
+    private ComboBox<String> statutCombo;
+    @FXML
+    private TextArea descriptionArea;
 
     private final EvenementDAO evenementDAO = new EvenementDAO();
     private final com.learnhub.dao.LieuDAO lieuDAO = new com.learnhub.dao.LieuDAO();
     private Evenement currentEvent;
 
     // ─── Style constants ─────────────────────────────────────────────
-    private static final String STYLE_ERROR   = "-fx-border-color: #ef4444; -fx-border-width: 2; -fx-border-radius: 8; -fx-background-radius: 8;";
-    private static final String STYLE_OK      = "-fx-border-color: #10b981; -fx-border-width: 2; -fx-border-radius: 8; -fx-background-radius: 8;";
+    private static final String STYLE_ERROR = "-fx-border-color: #ef4444; -fx-border-width: 2; -fx-border-radius: 8; -fx-background-radius: 8;";
+    private static final String STYLE_OK = "-fx-border-color: #10b981; -fx-border-width: 2; -fx-border-radius: 8; -fx-background-radius: 8;";
     private static final String STYLE_DEFAULT = "";
 
     @FXML
@@ -53,15 +64,18 @@ public class EvenementFormController {
 
         // Enforce digits-only for capaciteField
         capaciteField.textProperty().addListener((obs, ov, nv) -> {
-            if (!nv.matches("\\d*")) capaciteField.setText(nv.replaceAll("[^\\d]", ""));
+            if (!nv.matches("\\d*"))
+                capaciteField.setText(nv.replaceAll("[^\\d]", ""));
         });
 
         // Format validation on focus lost for time fields
         heureDebutField.focusedProperty().addListener((o, ov, focused) -> {
-            if (!focused && !heureDebutField.getText().isEmpty()) validateTimeField(heureDebutField);
+            if (!focused && !heureDebutField.getText().isEmpty())
+                validateTimeField(heureDebutField);
         });
         heureFinField.focusedProperty().addListener((o, ov, focused) -> {
-            if (!focused && !heureFinField.getText().isEmpty()) validateTimeField(heureFinField);
+            if (!focused && !heureFinField.getText().isEmpty())
+                validateTimeField(heureFinField);
         });
     }
 
@@ -84,9 +98,11 @@ public class EvenementFormController {
 
     @FXML
     private void handleSave() {
-        if (!validateInput()) return;
+        if (!validateInput())
+            return;
 
-        if (currentEvent == null) currentEvent = new Evenement();
+        if (currentEvent == null)
+            currentEvent = new Evenement();
 
         currentEvent.setTitre(titreField.getText().trim());
         currentEvent.setTypeEvenement(typeCombo.getValue());
@@ -178,7 +194,8 @@ public class EvenementFormController {
             markError(heureDebutField, "L'heure de début est obligatoire.");
             valid = false;
         } else {
-            if (!validateTimeField(heureDebutField)) valid = false;
+            if (!validateTimeField(heureDebutField))
+                valid = false;
         }
 
         // Heure fin
@@ -186,7 +203,8 @@ public class EvenementFormController {
             markError(heureFinField, "L'heure de fin est obligatoire.");
             valid = false;
         } else {
-            if (!validateTimeField(heureFinField)) valid = false;
+            if (!validateTimeField(heureFinField))
+                valid = false;
         }
 
         // Capacité
@@ -216,12 +234,13 @@ public class EvenementFormController {
             } else if (dateFinPicker.getValue().isEqual(dateDebutPicker.getValue())) {
                 try {
                     LocalTime start = LocalTime.parse(heureDebutField.getText().trim());
-                    LocalTime end   = LocalTime.parse(heureFinField.getText().trim());
+                    LocalTime end = LocalTime.parse(heureFinField.getText().trim());
                     if (!end.isAfter(start)) {
                         markError(heureFinField, "L'heure de fin doit être après l'heure de début.");
                         valid = false;
                     }
-                } catch (DateTimeParseException ignored) {}
+                } catch (DateTimeParseException ignored) {
+                }
             }
         }
 

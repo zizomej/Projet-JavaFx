@@ -90,7 +90,7 @@
                                     <TableColumn fx:id="colModule" text="🏫 MODULE" prefWidth="320"/>
                                     <TableColumn fx:id="colSalle" text="📍 SALLE" prefWidth="130"/>
                                     <TableColumn fx:id="colType" text="📝 TYPE" prefWidth="110"/>
-                                    <TableColumn fx:id="colActions" text="⚙ ACTIONS" prefWidth="140"/>
+                                    <TableColumn fx:id="colActions" text="⚙ ACTIONS" prefWidth="180"/>
                                 </columns>
                                 <placeholder>
                                     <VBox alignment="CENTER" spacing="15">

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.learnhub.controller.student.NotificationsPopupController"
+      spacing="0" prefWidth="450" prefHeight="550"
+      style="-fx-background-color: white; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #e2e8f0; -fx-border-width: 1;">
+    
+    <!-- Header -->
+    <HBox alignment="CENTER_LEFT" spacing="15" style="-fx-background-color: #1e3a8a; -fx-padding: 20; -fx-background-radius: 15 15 0 0;">
+        <Label text="🔔" style="-fx-font-size: 24px;"/>
+        <VBox>
+            <Label text="Centre de Notifications" style="-fx-text-fill: white; -fx-font-weight: 900; -fx-font-size: 16px;"/>
+            <Label text="Vos dernières alertes et actualités" style="-fx-text-fill: #93c5fd; -fx-font-size: 11px;"/>
+        </VBox>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button text="✕" onAction="#close" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 18px; -fx-cursor: hand;"/>
+    </HBox>
+
+    <!-- List -->
+    <ListView fx:id="notificationsList" VBox.vgrow="ALWAYS" 
+              style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-padding: 10;">
+        <placeholder>
+            <VBox alignment="CENTER" spacing="10">
+                <Label text="✨" style="-fx-font-size: 40px;"/>
+                <Label text="Aucune notification pour le moment" style="-fx-text-fill: #94a3b8; -fx-font-size: 14px;"/>
+            </VBox>
+        </placeholder>
+    </ListView>
+
+    <!-- Footer -->
+    <HBox alignment="CENTER" style="-fx-padding: 15; -fx-border-color: #f1f5f9; -fx-border-width: 1 0 0 0;">
+        <Button text="Tout marquer comme lu" onAction="#markAllRead" 
+                style="-fx-background-color: #f8fafc; -fx-text-fill: #64748b; -fx-font-size: 12px; -fx-padding: 8 20; -fx-background-radius: 20; -fx-border-color: #e2e8f0; -fx-border-radius: 20; -fx-cursor: hand;"/>
+    </HBox>
+</VBox>

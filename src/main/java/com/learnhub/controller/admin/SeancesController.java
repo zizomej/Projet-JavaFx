@@ -10,6 +10,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
@@ -83,17 +86,25 @@ public class SeancesController {
         });
 
         colActions.setCellFactory(param -> new TableCell<>() {
-            private final Button editBtn = new Button("✏️");
-            private final Button deleteBtn = new Button("🗑");
-            private final Button iaBtn = new Button("🧠");
-            private final HBox pane = new HBox(12, iaBtn, editBtn, deleteBtn);
+            private final Button editBtn = new Button("✎");
+            private final Button iaBtn = new Button("AI");
+            private final Button audioBtn = new Button("🔊");
+            private final Button deleteBtn = new Button("✘");
+            private final HBox pane = new HBox(6, editBtn, iaBtn, audioBtn, deleteBtn);
             {
                 pane.setAlignment(javafx.geometry.Pos.CENTER);
                 editBtn.getStyleClass().addAll("action-btn-edit");
+                iaBtn.getStyleClass().addAll("action-btn-ia");
+                audioBtn.getStyleClass().addAll("action-btn-audio");
                 deleteBtn.getStyleClass().addAll("action-btn-delete");
-                iaBtn.getStyleClass().addAll("action-btn-ia"); // Style à vérifier
+
+                iaBtn.setTooltip(new Tooltip("Assistant IA (Transcription & Quiz)"));
+                audioBtn.setTooltip(new Tooltip("Écouter l'enregistrement"));
+                editBtn.setTooltip(new Tooltip("Modifier la séance"));
+                deleteBtn.setTooltip(new Tooltip("Supprimer la séance"));
 
                 iaBtn.setOnAction(e -> handleIA(getTableView().getItems().get(getIndex())));
+                audioBtn.setOnAction(e -> handleAudio(getTableView().getItems().get(getIndex())));
                 editBtn.setOnAction(e -> handleEdit(getTableView().getItems().get(getIndex())));
                 deleteBtn.setOnAction(e -> handleDelete(getTableView().getItems().get(getIndex())));
             }
@@ -245,6 +256,30 @@ public class SeancesController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void handleAudio(Seance seance) {
+        if (seance.getAudioUrl() == null || seance.getAudioUrl().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Enregistrement Audio");
+            alert.setHeaderText("Aucun enregistrement disponible");
+            alert.setContentText("Aucune URL d'enregistrement n'a été configurée pour cette séance.");
+            alert.showAndWait();
+            return;
+        }
+
+        // Create a nice dialog to show and allow copying the URL
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Lien de l'Enregistrement");
+        alert.setHeaderText("Enregistrement de la séance : " + seance.getModuleTitre());
+        
+        TextField urlField = new TextField(seance.getAudioUrl());
+        urlField.setEditable(false);
+        urlField.setStyle("-fx-background-color: #f1f5f9; -fx-padding: 10; -fx-background-radius: 8;");
+        
+        VBox content = new VBox(10, new Label("Copiez ce lien pour l'utiliser dans l'Assistant IA :"), urlField);
+        alert.getDialogPane().setContent(content);
+        alert.showAndWait();
     }
 
     @FXML

@@ -36,6 +36,7 @@ public class PresenceFormController {
 
     private void setupTable() {
         colNom.setCellValueFactory(new PropertyValueFactory<>("etudiantNom"));
+        
         colStatut.setCellFactory(param -> new TableCell<>() {
             private final ToggleButton btnPresent = new ToggleButton("Présent");
             private final ToggleButton btnAbsent = new ToggleButton("Absent");
@@ -97,12 +98,24 @@ public class PresenceFormController {
 
     private void loadStudents() {
         try {
-            // Load existing presences
+            // Load ALL students for the module
+            List<Utilisateur> allStudents = presenceDAO.findStudentsByModule(currentSeance.getModuleId());
+            
+            // Load existing presences for this specific session
             List<Presence> existing = presenceDAO.findBySeance(currentSeance.getId());
-            if (existing.isEmpty()) {
-                // Initialize for the first time
-                List<Utilisateur> students = presenceDAO.findStudentsByModule(currentSeance.getModuleId());
-                for (Utilisateur s : students) {
+            
+            // Create a map of studentId -> Presence for easy lookup
+            java.util.Map<Integer, Presence> existingMap = existing.stream()
+                    .collect(java.util.stream.Collectors.toMap(Presence::getEtudiantId, p -> p));
+            
+            attendanceList.clear();
+            
+            for (Utilisateur s : allStudents) {
+                if (existingMap.containsKey(s.getId())) {
+                    // Use existing record
+                    attendanceList.add(existingMap.get(s.getId()));
+                } else {
+                    // Create new default record for this student
                     Presence p = new Presence();
                     p.setSeanceId(currentSeance.getId());
                     p.setEtudiantId(s.getId());
@@ -110,8 +123,6 @@ public class PresenceFormController {
                     p.setStatut("present"); // Default
                     attendanceList.add(p);
                 }
-            } else {
-                attendanceList.setAll(existing);
             }
             presencesTable.setItems(attendanceList);
         } catch (SQLException e) {
@@ -120,13 +131,40 @@ public class PresenceFormController {
         }
     }
 
+    private final com.learnhub.dao.NotificationDAO notificationDAO = new com.learnhub.dao.NotificationDAO();
+
     @FXML
     private void handleSave() {
         try {
+            com.learnhub.dao.UtilisateurDAO userDAO = new com.learnhub.dao.UtilisateurDAO();
+            
             for (Presence p : attendanceList) {
                 presenceDAO.save(p);
+                
+                // If student is absent, check for alerts
+                if ("absent".equalsIgnoreCase(p.getStatut())) {
+                    int absenceCount = presenceDAO.getAbsenceCountByModule(p.getEtudiantId(), currentSeance.getModuleId());
+                    
+                    // Trigger alert for significant thresholds (3 or 4)
+                    if (absenceCount == 3 || absenceCount == 4) {
+                        Utilisateur student = userDAO.findById(p.getEtudiantId());
+                        if (student != null) {
+                            // 1. Send Email (Simulation)
+                            com.learnhub.util.EmailService.sendEliminationAlert(student, currentSeance.getModuleTitre(), absenceCount);
+                            
+                            // 2. Create In-App Notification
+                            com.learnhub.models.Notification note = new com.learnhub.models.Notification();
+                            note.setUtilisateurId(student.getId());
+                            note.setType(absenceCount >= 4 ? "ELIMINATION" : "WARNING");
+                            note.setMessage(absenceCount >= 4 
+                                ? "🚫 Vous avez été ÉLIMINÉ du module " + currentSeance.getModuleTitre() + " (" + absenceCount + " absences)."
+                                : "⚠️ Attention ! Vous avez 3 absences dans le module " + currentSeance.getModuleTitre() + ". Dernière chance !");
+                            notificationDAO.insert(note);
+                        }
+                    }
+                }
             }
-            showAlert("Succès", "Les présences ont été enregistrées avec succès.");
+            showAlert("Succès", "Les présences ont été enregistrées. Les notifications (E-mail et In-App) ont été envoyées.");
             goBack();
         } catch (SQLException e) {
             showAlert("Erreur", "Erreur lors de l'enregistrement : " + e.getMessage());

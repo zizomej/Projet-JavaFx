@@ -95,6 +95,19 @@ public class PresenceDAO {
         }
     }
 
+    public int getAbsenceCountByModule(int etudiantId, int moduleId) throws SQLException {
+        String sql = "SELECT COUNT(*) FROM presence p " +
+                "JOIN seance s ON p.seance_id = s.id " +
+                "WHERE p.etudiant_id = ? AND s.module_id = ? AND p.statut = 'absent'";
+        try (PreparedStatement ps = DatabaseConnection.getInstance().prepareStatement(sql)) {
+            ps.setInt(1, etudiantId);
+            ps.setInt(2, moduleId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) return rs.getInt(1);
+        }
+        return 0;
+    }
+
     public List<Utilisateur> findStudentsByModule(int moduleId) throws SQLException {
         List<Utilisateur> list = new ArrayList<>();
         // Note: On récupère les étudiants actifs. 

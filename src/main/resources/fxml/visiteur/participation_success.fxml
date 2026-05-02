@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.geometry.Insets?>
+
+<StackPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.learnhub.controller.visiteur.ParticipationSuccessController"
+           style="-fx-background-color: transparent;" prefWidth="600" prefHeight="650">
+
+    <VBox spacing="25" alignment="TOP_CENTER"
+          style="-fx-padding: 40; -fx-background-color: white; -fx-background-radius: 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 30, 0, 0, 15);">
+        
+        <VBox alignment="CENTER" spacing="10">
+            <Label text="✅" style="-fx-font-size: 60px;"/>
+            <Label text="Participation Confirmée !" style="-fx-font-size: 28px; -fx-text-fill: #1E3A8A; -fx-font-weight: 900;"/>
+        </VBox>
+
+        <VBox alignment="CENTER" spacing="15" style="-fx-background-color: #F8FAFC; -fx-padding: 20; -fx-background-radius: 15; -fx-border-color: #E2E8F0; -fx-border-radius: 15;">
+            <Label fx:id="eventTitleLabel" text="Événement : --" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #1E3A8A;"/>
+            <Label fx:id="userNameLabel" text="Participant : --" style="-fx-font-size: 15px; -fx-text-fill: #475569;"/>
+            <Label text="Votre ticket numérique a été généré avec succès." style="-fx-font-size: 13px; -fx-text-fill: #64748B; -fx-font-style: italic;"/>
+        </VBox>
+
+        <VBox alignment="CENTER" spacing="10">
+            <Label text="Scannez votre QR Code" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #475569;"/>
+            <ImageView fx:id="qrCodeImage" fitWidth="200" fitHeight="200" preserveRatio="true" />
+            <Label fx:id="ticketIdLabel" text="Ticket ID: #TK-2026-X" style="-fx-font-size: 12px; -fx-text-fill: #94A3B8;"/>
+        </VBox>
+
+        <Region VBox.vgrow="ALWAYS" />
+
+        <HBox spacing="15" alignment="CENTER">
+            <Button text="Fermer" onAction="#handleClose" 
+                    style="-fx-background-color: #F1F5F9; -fx-text-fill: #475569; -fx-font-weight: bold; -fx-padding: 12 40; -fx-background-radius: 10; -fx-cursor: hand;"/>
+        </HBox>
+    </VBox>
+</StackPane>
