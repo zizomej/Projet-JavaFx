@@ -30,7 +30,7 @@ public class ChatbotController {
     @FXML private ScrollPane scrollPane;
 
     // TODO: Remplacez cette clé par votre propre clé API Google Gemini
-    private static final String API_KEY = "AIzaSyD2Uy7MqFheLHUprL-xe2H5Q7bcKX8Bzh0";
+    private static final String API_KEY = "AIzaSyBkkKmmKQ6ecWjGVSQOxO2wPjDKvwPhUYY";
     private static final String API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" + API_KEY;
 
     private JSONArray chatHistory = new JSONArray();
@@ -103,6 +103,8 @@ public class ChatbotController {
                 String causeMsg = e.getCause() != null ? e.getCause().getMessage() : "";
                 if (causeMsg.contains("503") || (e.getMessage() != null && e.getMessage().contains("503"))) {
                     addBotMessage("Le serveur IA est actuellement surchargé (Erreur 503). Veuillez réessayer dans un instant !");
+                } else if (causeMsg.contains("403") || (e.getMessage() != null && e.getMessage().contains("403"))) {
+                    addBotMessage("⚠️ La clé API configurée est invalide ou a été révoquée. Veuillez contacter l'administrateur pour la mettre à jour.");
                 } else {
                     addBotMessage("Désolé, une erreur technique est survenue. Veuillez réessayer !");
                 }

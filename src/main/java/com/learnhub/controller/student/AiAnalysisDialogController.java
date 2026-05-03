@@ -36,7 +36,7 @@ import java.util.concurrent.CountDownLatch;
 
 public class AiAnalysisDialogController {
 
-    private static final String GEMINI_API_KEY = "AIzaSyD2Uy7MqFheLHUprL-xe2H5Q7bcKX8Bzh0";
+    private static final String GEMINI_API_KEY = "AIzaSyBkkKmmKQ6ecWjGVSQOxO2wPjDKvwPhUYY";
     private static final String GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" + GEMINI_API_KEY;
 
     // Désactiver les avertissements verbeux de PDFBox
@@ -177,6 +177,9 @@ public class AiAnalysisDialogController {
                     .getJSONObject(0)
                     .getString("text");
             return aiAnswer;
+        } else if (response.statusCode() == 403) {
+            System.err.println(response.body());
+            throw new Exception("La clé API configurée est invalide ou a été révoquée (403). Veuillez la mettre à jour.");
         } else {
             System.err.println(response.body());
             throw new Exception("Erreur de l'API (" + response.statusCode() + ")");
