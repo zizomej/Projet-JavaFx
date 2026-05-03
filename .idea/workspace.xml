@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="c344da90-c1a9-477c-82b0-68f635416fec" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learnhub/controller/PartnersPageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learnhub/controller/PartnersPageController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learnhub/controller/admin/AdminDashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learnhub/controller/admin/AdminDashboardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learnhub/controller/admin/ModulesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learnhub/controller/admin/ModulesController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learnhub/controller/admin/NotesAdminController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learnhub/controller/admin/UtilisateursController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learnhub/controller/admin/UtilisateursController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learnhub/controller/admin/demandestage/DemandeStageDetailsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learnhub/controller/admin/demandestage/DemandeStageDetailsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learnhub/controller/admin/demandestage/DemandesStageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learnhub/controller/admin/demandestage/DemandesStageController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learnhub/controller/admin/demandestage/StatutDemandePopupController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learnhub/controller/admin/demandestage/StatutDemandePopupController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learnhub/controller/admin/offrestage/OffresStageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learnhub/controller/admin/offrestage/OffresStageController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learnhub/controller/admin/partenaires/MailingPartenairesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learnhub/controller/admin/partenaires/MailingPartenairesController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learnhub/controller/admin/partenaires/PartenaireFormController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learnhub/controller/admin/partenaires/PartenaireFormController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learnhub/controller/admin/partenaires/PartenairesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learnhub/controller/admin/partenaires/PartenairesController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learnhub/controller/auth/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learnhub/controller/auth/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learnhub/controller/auth/RegisterController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learnhub/controller/auth/RegisterController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learnhub/controller/parent/ParentDashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learnhub/controller/parent/ParentDashboardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learnhub/controller/professor/ModuleFormController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learnhub/controller/professor/ModuleFormController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learnhub/controller/professor/ProfessorDashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learnhub/controller/professor/ProfessorDashboardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learnhub/controller/professor/ProfessorModulesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learnhub/controller/professor/ProfessorModulesController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learnhub/controller/professor/ProfessorNotesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learnhub/controller/professor/ProfessorNotesController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learnhub/controller/professor/RessourceFormController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learnhub/controller/professor/RessourceFormController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learnhub/controller/student/StudentDashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learnhub/controller/student/StudentDashboardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learnhub/controller/student/StudentDemandesStageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learnhub/controller/student/StudentDemandesStageController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learnhub/controller/student/StudentEmploiController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learnhub/controller/student/StudentEvenementsController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learnhub/controller/student/StudentModulesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learnhub/controller/student/StudentModulesController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learnhub/controller/student/StudentNotesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learnhub/controller/student/StudentNotesController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learnhub/controller/student/StudentOffresStageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learnhub/controller/student/StudentOffresStageController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learnhub/dao/CoursDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learnhub/dao/CoursDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learnhub/dao/DemandeStageDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learnhub/dao/DemandeStageDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learnhub/dao/ModuleDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learnhub/dao/ModuleDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learnhub/dao/NoteDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learnhub/dao/NoteDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learnhub/dao/OffreStageDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learnhub/dao/OffreStageDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learnhub/dao/PartenaireDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learnhub/dao/PartenaireDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learnhub/dao/PresenceDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learnhub/dao/PresenceDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learnhub/dao/RessourceDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learnhub/dao/RessourceDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learnhub/dao/UtilisateurDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learnhub/dao/UtilisateurDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learnhub/models/Cours.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learnhub/models/Cours.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learnhub/models/Module.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learnhub/models/Module.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learnhub/models/Note.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learnhub/models/Note.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learnhub/models/Ressource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learnhub/models/Ressource.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learnhub/util/GmailApiClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learnhub/util/GmailApiClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learnhub/util/GmailOAuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learnhub/util/GmailOAuthService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learnhub/util/GmailService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learnhub/util/GmailService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/css/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/admin/dashboard.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/admin/dashboard.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/admin/demandestage/demande_stage_details.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/admin/demandestage/demande_stage_details.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/admin/demandestage/demandes_stage.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/admin/demandestage/demandes_stage.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/admin/demandestage/statut_demande_popup.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/admin/demandestage/statut_demande_popup.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/admin/modules.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/admin/modules.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/admin/notes.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/admin/notes.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/admin/offrestage/offres_stage.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/admin/offrestage/offres_stage.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/admin/partenaires/partenaire_form.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/admin/partenaires/partenaire_form.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/admin/partenaires/partenaires.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/admin/partenaires/partenaires.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/admin/utilisateurs.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/admin/utilisateurs.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/auth/login.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/auth/login.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/auth/register.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/auth/register.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/parent/dashboard.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/parent/dashboard.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/professor/dashboard.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/professor/dashboard.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/professor/evenements.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/professor/evenements.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/professor/module_form.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/professor/module_form.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/professor/modules.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/professor/modules.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/professor/notes.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/professor/notes.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/professor/presences.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/professor/presences.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/professor/ressource_form.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/professor/ressource_form.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/professor/seances.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/professor/seances.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/student/dashboard.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/student/dashboard.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/student/demandes_stage.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/student/demandes_stage.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/student/evenements.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/student/modules.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/student/modules.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/student/notes.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/student/notes.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/student/offres_stage.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/student/offres_stage.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/visiteur/home.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/visiteur/home.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/images/auth-bg.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/images/background.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/learnhub/controller/PartnersPageController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/learnhub/controller/PartnersPageController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/learnhub/controller/admin/AdminDashboardController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/learnhub/controller/admin/AdminDashboardController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/learnhub/controller/admin/ModulesController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/learnhub/controller/admin/ModulesController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/learnhub/controller/admin/NotesAdminController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/learnhub/controller/admin/UtilisateursController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/learnhub/controller/admin/UtilisateursController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/learnhub/controller/admin/demandestage/DemandeStageDetailsController$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/learnhub/controller/admin/demandestage/DemandeStageDetailsController$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/learnhub/controller/admin/demandestage/DemandeStageDetailsController$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/learnhub/controller/admin/demandestage/DemandeStageDetailsController$4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/learnhub/controller/admin/demandestage/DemandeStageDetailsController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/learnhub/controller/admin/demandestage/DemandeStageDetailsController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/learnhub/controller/admin/demandestage/DemandesStageController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/learnhub/controller/admin/demandestage/DemandesStageController$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/learnhub/controller/admin/demandestage/DemandesStageController$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/learnhub/controller/admin/demandestage/DemandesStageController$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/learnhub/controller/admin/demandestage/DemandesStageController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/learnhub/controller/admin/demandestage/DemandesStageController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/learnhub/controller/admin/demandestage/StatutDemandePopupController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/learnhub/controller/admin/demandestage/StatutDemandePopupController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/learnhub/controller/admin/offrestage/OffresStageController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/learnhub/controller/admin/offrestage/OffresStageController$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/learnhub/controller/admin/offrestage/OffresStageController$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/learnhub/controller/admin/offrestage/OffresStageController$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/learnhub/controller/admin/offrestage/OffresStageController$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/learnhub/controller/admin/offrestage/OffresStageController$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/learnhub/controller/admin/offrestage/OffresStageController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/learnhub/controller/admin/offrestage/OffresStageController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/learnhub/controller/admin/partenaires/MailingPartenairesController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/learnhub/controller/admin/partenaires/MailingPartenairesController$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/learnhub/controller/admin/partenaires/MailingPartenairesController$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/learnhub/controller/admin/partenaires/MailingPartenairesController$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/learnhub/controller/admin/partenaires/MailingPartenairesController$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/learnhub/controller/admin/partenaires/MailingPartenairesController$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/learnhub/controller/admin/partenaires/MailingPartenairesController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/learnhub/controller/admin/partenaires/MailingPartenairesController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/learnhub/controller/admin/partenaires/PartenaireFormController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/learnhub/controller/admin/partenaires/PartenaireFormController$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/learnhub/controller/admin/partenaires/PartenaireFormController$MapBridge.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/learnhub/controller/admin/partenaires/PartenaireFormController$MapBridge.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/learnhub/controller/admin/partenaires/PartenaireFormController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/learnhub/controller/admin/partenaires/PartenaireFormController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/learnhub/controller/admin/partenaires/PartenairesController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/learnhub/controller/admin/partenaires/PartenairesController$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/learnhub/controller/admin/partenaires/PartenairesController$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/learnhub/controller/admin/partenaires/PartenairesController$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/learnhub/controller/admin/partenaires/PartenairesController$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/learnhub/controller/admin/partenaires/PartenairesController$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/learnhub/controller/admin/partenaires/PartenairesController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/learnhub/controller/admin/partenaires/PartenairesController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/learnhub/controller/auth/LoginController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/learnhub/controller/auth/LoginController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/learnhub/controller/auth/RegisterController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/learnhub/controller/auth/RegisterController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/learnhub/controller/parent/ParentDashboardController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/learnhub/controller/parent/ParentDashboardController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/learnhub/controller/professor/ModuleFormController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/learnhub/controller/professor/ModuleFormController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/learnhub/controller/professor/ProfessorDashboardController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/learnhub/controller/professor/ProfessorDashboardController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/learnhub/controller/professor/ProfessorModulesController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/learnhub/controller/professor/ProfessorModulesController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/learnhub/controller/professor/ProfessorNotesController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/learnhub/controller/professor/ProfessorNotesController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/learnhub/controller/professor/RessourceFormController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/learnhub/controller/professor/RessourceFormController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/learnhub/controller/student/StudentDashboardController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/learnhub/controller/student/StudentDashboardController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/learnhub/controller/student/StudentDemandesStageController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/learnhub/controller/student/StudentDemandesStageController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/learnhub/controller/student/StudentEmploiController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/learnhub/controller/student/StudentEvenementsController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/learnhub/controller/student/StudentModulesController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/learnhub/controller/student/StudentModulesController$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/learnhub/controller/student/StudentModulesController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/learnhub/controller/student/StudentModulesController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/learnhub/controller/student/StudentNotesController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/learnhub/controller/student/StudentNotesController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/learnhub/controller/student/StudentOffresStageController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/learnhub/controller/student/StudentOffresStageController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/learnhub/dao/CoursDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/learnhub/dao/CoursDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/learnhub/dao/DemandeStageDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/learnhub/dao/DemandeStageDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/learnhub/dao/ModuleDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/learnhub/dao/ModuleDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/learnhub/dao/NoteDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/learnhub/dao/NoteDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/learnhub/dao/OffreStageDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/learnhub/dao/OffreStageDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/learnhub/dao/PartenaireDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/learnhub/dao/PartenaireDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/learnhub/dao/PresenceDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/learnhub/dao/PresenceDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/learnhub/dao/RessourceDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/learnhub/dao/RessourceDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/learnhub/dao/UtilisateurDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/learnhub/dao/UtilisateurDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/learnhub/models/Cours.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/learnhub/models/Cours.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/learnhub/models/Module.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/learnhub/models/Module.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/learnhub/models/Note.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/learnhub/models/Note.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/learnhub/models/Ressource.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/learnhub/models/Ressource.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/learnhub/util/GmailApiClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/learnhub/util/GmailApiClient.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/learnhub/util/GmailService$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/learnhub/util/GmailService$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/learnhub/util/GmailService$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/learnhub/util/GmailService$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/learnhub/util/GmailService$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/learnhub/util/GmailService$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/learnhub/util/GmailService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/learnhub/util/GmailService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/css/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/fxml/admin/dashboard.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fxml/admin/dashboard.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/fxml/admin/demandestage/demande_stage_details.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fxml/admin/demandestage/demande_stage_details.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/fxml/admin/demandestage/demandes_stage.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fxml/admin/demandestage/demandes_stage.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/fxml/admin/demandestage/statut_demande_popup.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fxml/admin/demandestage/statut_demande_popup.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/fxml/admin/modules.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fxml/admin/modules.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/fxml/admin/notes.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fxml/admin/notes.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/fxml/admin/offrestage/offres_stage.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fxml/admin/offrestage/offres_stage.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/fxml/admin/partenaires/partenaire_form.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fxml/admin/partenaires/partenaire_form.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/fxml/admin/partenaires/partenaires.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fxml/admin/partenaires/partenaires.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/fxml/admin/utilisateurs.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fxml/admin/utilisateurs.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/fxml/auth/login.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fxml/auth/login.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/fxml/auth/register.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fxml/auth/register.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/fxml/parent/dashboard.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fxml/parent/dashboard.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/fxml/professor/dashboard.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fxml/professor/dashboard.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/fxml/professor/evenements.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fxml/professor/evenements.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/fxml/professor/modules.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fxml/professor/modules.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/fxml/professor/notes.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fxml/professor/notes.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/fxml/professor/presences.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fxml/professor/presences.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/fxml/professor/seances.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fxml/professor/seances.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/fxml/student/dashboard.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fxml/student/dashboard.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/fxml/student/demandes_stage.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fxml/student/demandes_stage.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/fxml/student/modules.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fxml/student/modules.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/fxml/student/notes.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fxml/student/notes.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/fxml/student/offres_stage.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fxml/student/offres_stage.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/fxml/visiteur/home.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fxml/visiteur/home.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="3CIMSLnniG2Rx4rUMISLldZWOv7" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Maven.learnhub-javafx [org.openjfx:javafx-maven-plugin:0.0.8:run].executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "gestion-stage-partenaire",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/Admin/Downloads/integrationEyaAmineAziz-javafx/learnhub-javafx",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.25557.131" />
+        <option value="bundled-js-predefined-d6986cc7102b-b598e85cdad2-JavaScript-IU-252.25557.131" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c344da90-c1a9-477c-82b0-68f635416fec" name="Changes" comment="" />
+      <created>1776068629428</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1776068629428</updated>
+      <workItem from="1776068630851" duration="6421000" />
+      <workItem from="1776279851623" duration="6022000" />
+      <workItem from="1776369425999" duration="24361000" />
+      <workItem from="1777161163216" duration="13857000" />
+      <workItem from="1777280140402" duration="190000" />
+      <workItem from="1777281828010" duration="1463000" />
+      <workItem from="1777585947685" duration="13497000" />
+      <workItem from="1777656903836" duration="10919000" />
+      <workItem from="1777813093267" duration="711000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
