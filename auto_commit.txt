@@ -14,3 +14,4 @@ optimize queries - 2026-05-10 12:22:36
 refactor services - 2026-05-12 06:17:50
 improve stage management - 2026-05-18 15:34:01
 update javafx ui - 2026-05-08 06:40:02
+fix css styling - 2026-05-09 16:05:34
