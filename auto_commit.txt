@@ -19,3 +19,4 @@ improve stage management - 2026-05-09 16:53:24
 improve stage management - 2026-05-10 13:09:41
 update javafx ui - 2026-05-19 03:18:41
 fix css styling - 2026-05-16 18:38:06
+fix form issue - 2026-05-13 12:33:55
